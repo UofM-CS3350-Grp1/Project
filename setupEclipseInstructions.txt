@@ -1,0 +1,9 @@
+installing windowbuilder:
+
+1. go to: https://www.eclipse.org/windowbuilder/download.php
+
+2. select your version of eclipse (I'm using kepler, if you're using another version there is a possibility that they are not compatible)
+
+3. follow the instructions (I installed windowbuilder and SWT designer)
+
+4. If you want to learn more about using windowbuilder, read the documentation
