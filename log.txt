@@ -14,6 +14,13 @@ Description:
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 
+Task: Stub DB
+Date: 05/27, 5:20pm
+Assigned to: Adrian
+Status: In Progress
+Duration:
+Description: Created test DB and prototype controller, added empty Storable interface.
+
 Task: Service Models
 Date: 05/27, 3:39pm
 Assigned to: Adrian
