@@ -19,17 +19,11 @@ public class HomeScreen {
 	 */
 	public static void main(String[] args) 
 	{	
-		try
-		{
-			DBController test = new DBController("Test");
-			System.out.println(test);
-			test.connect();
-			test.disconnect();
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
+
+		DBController test = new DBController("Test");
+		System.out.println(test);
+		test.connect();
+		test.disconnect();
 			
 		try {
 			HomeScreen window = new HomeScreen();
