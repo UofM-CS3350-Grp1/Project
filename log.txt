@@ -14,6 +14,12 @@ Description:
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 
+Task: Service Models
+Date: 05/27, 3:39pm
+Assigned to: Adrian
+Status: Completed
+Duration:
+Description: Created abstract parent class and prototype TestService.
 
 Task: Client class
 Date: 5/27, 2:29pm
