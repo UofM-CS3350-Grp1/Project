@@ -6,7 +6,7 @@ package objects;
 //	Def: Abstract base class for services.
 //----------------------------------------------------------------------------
 
-public abstract class Service 
+public abstract class Service implements Storable
 {
 
 	//-------------

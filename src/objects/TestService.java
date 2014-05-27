@@ -6,7 +6,7 @@ package objects;
 //	Def: Proxy service class.
 //----------------------------------------------------------------------------
 
-public class TestService extends Service
+public class TestService extends Service implements Storable
 {
 	
 	private String title;			// Name of Service
