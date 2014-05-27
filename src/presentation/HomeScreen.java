@@ -1,5 +1,6 @@
 package presentation;
 
+import objects.TestService;
 import persistence.DBController;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -18,10 +19,18 @@ public class HomeScreen {
 	 */
 	public static void main(String[] args) 
 	{	
-		DBController test = new DBController("Test");
-		System.out.println(test);
-		test.connect();
-		test.disconnect();
+		try
+		{
+			DBController test = new DBController("Test");
+			System.out.println(test);
+			test.connect();
+			test.disconnect();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+			
 		try {
 			HomeScreen window = new HomeScreen();
 			window.open();
