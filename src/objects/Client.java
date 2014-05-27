@@ -1,3 +1,4 @@
+package objects;
 /*
  * based on "I want to be able to add, delete, edit, view *active or potential clients*
  */
