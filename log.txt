@@ -15,6 +15,12 @@ Description:
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 
 
+Task: Client class
+Date: 5/27, 2:29pm
+Assigned to: Dell
+Status: created
+Duration:
+Description: Created a basic client class.
 
 Task: Stub UI
 Date: 05/26, 7:39pm
