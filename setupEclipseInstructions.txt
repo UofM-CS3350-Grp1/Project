@@ -6,4 +6,6 @@ installing windowbuilder:
 
 3. follow the instructions (I installed windowbuilder and SWT designer)
 
-4. If you want to learn more about using windowbuilder, read the documentation
+4. to open the window editor, right click on the java file you wish to edit, and open with > windowbuilder editor
+
+5. If you want to learn more about using windowbuilder, read the documentation
