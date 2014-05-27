@@ -133,4 +133,21 @@ public class TestService extends Service
 	{
 		System.out.println("Currently not comitting service changes to the database.");
 	}
+	
+	//----------------------------------------------------------------------------
+	//	TOSTRING()
+	//
+	//	PARAMS: NONE
+	//
+	//	NOTES: 	Standard toString() method.
+	//----------------------------------------------------------------------------
+	
+	public String toString()
+	{
+		return "Title: " + this.title + 
+				", Description: " + this.description + 
+				", Rate: " + Float.toString(rate) + 
+				", Id: " + Integer.toBinaryString(id);
+	}
+
 }

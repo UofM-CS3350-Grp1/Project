@@ -1,4 +1,6 @@
 package presentation;
+
+import objects.TestService;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.layout.GridLayout;
@@ -14,7 +16,8 @@ public class HomeScreen {
 	 * Launch the application.
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{	
 		try {
 			HomeScreen window = new HomeScreen();
 			window.open();
