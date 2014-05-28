@@ -15,7 +15,7 @@ package objects;
 //       by all means feel free to change this.
 //----------------------------------------------------------------------------
 
-public abstract class Service implements Storable
+public abstract class Service
 {	
 	//-------------
 	//	GETTERS
