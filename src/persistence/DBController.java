@@ -97,8 +97,17 @@ public class DBController
 	//	NOTES: 	####VERY EARLY#### Will be re-implemented just throwing out ideas. 
 	//			Will drop insert element into table.
 	//----------------------------------------------------------------------------
-	
-	public void insert(String Table, Storable element)
+	/**
+	 * INSERT()															</br></br>
+	 * 
+	 * NOTES:	####VERY EARLY#### Will be re-implemented just throwing out ideas.
+	 * 			Will drop insert element into table.
+	 * 
+	 * @param Table		-	Table to drop from
+	 * @param element	-	Storable element							</br></br>
+	 * 
+	 */
+	public void insert(String table, Storable element)
 	{
 		if(element instanceof Service)
 		{
@@ -128,8 +137,17 @@ public class DBController
 	//	NOTES: 	####VERY EARLY#### Will be re-implemented just throwing out ideas. 
 	//			Will update specified element on table.
 	//----------------------------------------------------------------------------
-	
-	public void update(String tiable, Storable element)
+	/**
+	 * UPDATE()															</br></br>
+	 * 
+	 * NOTES:	####VERY EARLY#### Will be re-implemented just throwing out ideas.
+	 * 			Will update specified element on table.
+	 * 
+	 * @param table		-	Table to update *
+	 * @param element	-	Storable element							</br></br>
+	 * 
+	 */
+	public void update(String table, Storable element)
 	{
 		if(element instanceof Service)
 		{
@@ -159,7 +177,16 @@ public class DBController
 	//	NOTES: 	####VERY EARLY#### Will be re-implemented just throwing out ideas. 
 	//			Will drop specified element from table.
 	//----------------------------------------------------------------------------
-	
+	/**
+	 * DROP()															</br></br>
+	 * 
+	 * NOTES:	####VERY EARLY#### Will be re-implemented just throwing out ideas.
+	 * 			Will drop specified element from table.
+	 * 
+	 * @param table		- 	Table to drop from
+	 * @param element	-	Storable element							</br></br>
+	 * 
+	 */
 	public void drop(String table, Storable element)
 	{
 		if(element instanceof Service)
@@ -190,7 +217,19 @@ public class DBController
 	//	NOTES: 	####VERY EARLY#### Will be re-implemented just throwing out ideas.
 	//			Selects services with conditionals. 
 	//----------------------------------------------------------------------------
-	
+	/**
+	 * QUERYSERVICES()													</br></br>
+	 * 
+	 * NOTES:	####VERY EARLY#### Will be re-implemented just throwing out ideas.
+	 * 			Selects services with conditionals.
+	 * 
+	 * @param unqique	-	?
+	 * @param selects	-	SELECT selects.get(1)... etc.
+	 * @param clauses	-	WHERE clauses.get(1)... etc.				</br></br>
+	 * 
+	 * @return	-	?													</br></br>
+	 * 
+	 */
 	public Service queryServices(boolean unqique, ArrayList<String> selects, ArrayList<String> clauses)
 	{
 		//Not making assumptions about
@@ -206,7 +245,19 @@ public class DBController
 	//	NOTES: 	####VERY EARLY#### Will be re-implemented just throwing out ideas. 
 	//			Selects clients with conditionals. 
 	//----------------------------------------------------------------------------
-	
+	/**
+	 * QUERYCLIENT()													</br></br>
+	 * 
+	 * NOTES:	####VERY EARLY#### Will be re-implemented just throwing out ideas.
+	 * 			Selects clients with conditionals.
+	 * 
+	 * @param unqique	-	?
+	 * @param selects	-	SELECT selects.get(1)... etc.
+	 * @param clauses	-	WHERE clauses.get(1)... etc.				</br></br>
+	 * 
+	 * @return	-	?													</br></br>
+	 * 
+	 */
 	public Client queryClient(boolean unqique, ArrayList<String> selects, ArrayList<String> clauses)
 	{
 		return null;

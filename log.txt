@@ -14,6 +14,23 @@ Description:
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 
+Task: Document Code
+Date: 05/28, 1:01 PM
+Assigned to: Dell
+Status: In Progress
+Duration:
+Description: 	Client		 	- Added some clarification to the exception thrown by the constructor.
+				Service 		- Added a question
+				DBController	- Added javadoc for easy lookup; just hover over the method name; remove if unwanted
+
+Task: Create a testing suite for Client
+Date: 05/28, 1:05
+Assigned to: Dell
+Status: In Progress
+Duration:
+Description: created the tests package and the TestClient class for testing valid Client states
+
+
 Task: Stub DB
 Date: 05/27, 5:20pm
 Assigned to: Adrian

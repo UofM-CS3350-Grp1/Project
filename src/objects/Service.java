@@ -4,11 +4,12 @@ package objects;
 //	Class: Service
 //
 //	Def: Abstract base class for services.
+//  - Q: just wondering, why is it abstract?
+//	- A: < please answer here >
 //----------------------------------------------------------------------------
 
 public abstract class Service implements Storable
-{
-
+{	
 	//-------------
 	//	GETTERS
 	//-------------

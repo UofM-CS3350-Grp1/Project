@@ -3,7 +3,7 @@ package objects;
  * based on "I want to be able to add, delete, edit, view *active or potential clients*
  */
 
-public class Client implements Storable{
+public class Client implements Storable {
 	/*
 	 * add this if you want:  private int clientID;
 	 */
@@ -15,6 +15,11 @@ public class Client implements Storable{
 	private boolean active;
 	private boolean potential;
 	
+	/*
+	 * constructs the client; Name probably shouldn't be null;
+	 * throws exception since we shouldn't let broken objects
+	 * live to cause mayhem at some other point in time;
+	 */
 	public Client( 
 			String name, 
 			String phoneNumber,
@@ -38,4 +43,6 @@ public class Client implements Storable{
 		this.active = active;
 		this.potential = potential;
 	}
+
+
 }
