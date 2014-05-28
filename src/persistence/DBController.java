@@ -95,7 +95,7 @@ public class DBController
 	//			Object element	-	Storable element
 	//
 	//	NOTES: 	####VERY EARLY#### Will be re-implemented just throwing out ideas. 
-	//			Will drop insert element into table.
+	//			Will insert element into table.
 	//----------------------------------------------------------------------------
 	/**
 	 * INSERT()															</br></br>
@@ -223,14 +223,13 @@ public class DBController
 	 * NOTES:	####VERY EARLY#### Will be re-implemented just throwing out ideas.
 	 * 			Selects services with conditionals.
 	 * 
-	 * @param unqique	-	?
 	 * @param selects	-	SELECT selects.get(1)... etc.
 	 * @param clauses	-	WHERE clauses.get(1)... etc.				</br></br>
 	 * 
 	 * @return	-	?													</br></br>
 	 * 
 	 */
-	public Service queryServices(boolean unqique, ArrayList<String> selects, ArrayList<String> clauses)
+	public Service queryServices(ArrayList<String> selects, ArrayList<String> clauses)
 	{
 		//Not making assumptions about
 		return null;
@@ -251,14 +250,13 @@ public class DBController
 	 * NOTES:	####VERY EARLY#### Will be re-implemented just throwing out ideas.
 	 * 			Selects clients with conditionals.
 	 * 
-	 * @param unqique	-	?
 	 * @param selects	-	SELECT selects.get(1)... etc.
 	 * @param clauses	-	WHERE clauses.get(1)... etc.				</br></br>
 	 * 
 	 * @return	-	?													</br></br>
 	 * 
 	 */
-	public Client queryClient(boolean unqique, ArrayList<String> selects, ArrayList<String> clauses)
+	public Client queryClient(ArrayList<String> selects, ArrayList<String> clauses)
 	{
 		return null;
 	}
@@ -324,7 +322,7 @@ public class DBController
 	
 	public String toString()
 	{
-		return "Currently connected to: " + dbName;
+		return "Using database: " + dbName;
 	}
 	
 }
