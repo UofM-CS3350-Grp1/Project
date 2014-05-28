@@ -5,7 +5,14 @@ package objects;
 //
 //	Def: Abstract base class for services.
 //  - Q: just wondering, why is it abstract?
-//	- A: < please answer here >
+//	- A: 
+//       Mostly for convenience at this point, since our model is still being  
+//		 defined any changes to this if it were an Interface would need to be 
+//       added to all classes implementing it before testing. It was also my
+//       assumption that the majority of services would have some unique
+//       functionality so we would never be instantiating a top level Service 
+//       object directly, if for implementation purposes you need to do so
+//       by all means feel free to change this.
 //----------------------------------------------------------------------------
 
 public abstract class Service implements Storable
