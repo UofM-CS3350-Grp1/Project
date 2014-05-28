@@ -7,11 +7,15 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 
 public class HomeScreen {
 
 	protected Shell shell;
+	protected ClientScreen clientScreen;
 
 	/**
 	 * Launch the application.
@@ -63,6 +67,22 @@ public class HomeScreen {
 		
 		Label lblEveryoneShouldBe = new Label(shell, SWT.NONE);
 		lblEveryoneShouldBe.setText("Everyone should be able to start placing their code into the src folder.");
+		new Label(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
+		
+		Button btnManageClients = new Button(shell, SWT.NONE);
+		btnManageClients.addSelectionListener(new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected(SelectionEvent event) 
+			{
+				clientScreen = new ClientScreen(Display.getDefault());
+				clientScreen.open();
+			}
+		});
+		btnManageClients.setText("Manage Clients");
 
 	}
 

@@ -14,6 +14,28 @@ Description:
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 
+Task: Stub UI Client Screen
+Date: 5/28, 8:58pm
+Assigned to: Tim
+Status: In progress
+Duration: 
+Description: Created a basic interface to add, edit and delete client information.
+
+Task: Client
+Date: 5/28, 8:24pm
+Assigned to: Tim
+Status: In progress
+Duration:
+Description: Added accessors and mutators for the client.
+			 Added some basic validation to client mutators. 
+
+Task: Created a basic Contract class
+Date: 5/28, 1:10pm
+Assigned to: Tim
+Status: Completed
+Duration: 
+Description: Created a basic Contract class
+
 Task: Document Code
 Date: 05/28, 1:01 PM
 Assigned to: Dell
