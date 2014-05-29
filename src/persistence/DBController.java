@@ -375,13 +375,13 @@ public class DBController
 		
 		if(clauses != null) //Checks for clauses
 		{
-			//////////////////////////////////////////////////////////////////////////////////////////////////////
-			//IMORTANT: Currently only accepts 3 array elements, this may change as clauses become more complex.//
-			//////////////////////////////////////////////////////////////////////////////////////////////////////
-			
 			for(int i = 0; i < clauses.size()-1; i++) //Loops through clauses, spitting out clause arguments.
 			{
-				query = query + clauses.get(i).get(0) + " " + clauses.get(i).get(1) + " " + clauses.get(i).get(2) + " AND";
+				for(int j = 0; j < clauses.get(i).size() -1; j++) //Loops through clause parameters appending them to query.
+				{
+					query = query + clauses.get(i).get(j) + " ";
+				}
+				query = query + clauses.get(i).get(clauses.get(i).size()-1) + " AND";
 			}
 			query = query + clauses.get(clauses.size()-1).get(0) + " " + clauses.get(clauses.size()-1).get(1) + " " + clauses.get(clauses.size()-1).get(2);
 		}
