@@ -14,6 +14,19 @@ Description:
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 
+Task: Stub DB
+Date: 05/29, 5:01pm
+Assigned to: Adrian
+Status: In Progress
+Duration:
+Description: 	Created generic functions for building query statements in DBCOntroller.
+				Created interface layer for DB controller.
+				Removed abstract type from Service and TestService from models.
+				Implemented search functionality for services by Title and ID.
+				Added SERVICE_TYPE field to DBMS implementation of SERVICES
+				
+				##NOTE: Only mildly tested/debugged, behavior may be inconsistent/easy to break.## 
+
 Task: Stub UI Client Screen
 Date: 5/28, 8:58pm
 Assigned to: Tim

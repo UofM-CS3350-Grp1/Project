@@ -1,7 +1,9 @@
 package presentation;
 
-import objects.TestService;
-import persistence.DBController;
+import objects.Service;
+import persistence.DBInterface;
+import java.util.ArrayList;
+
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.layout.GridLayout;
@@ -24,10 +26,10 @@ public class HomeScreen {
 	public static void main(String[] args) 
 	{	
 
-		DBController test = new DBController("Test");
-		System.out.println(test);
-		test.connect();
-		test.disconnect();
+		DBInterface test = new DBInterface("Test");
+
+		System.out.println(test.getServiceByID(1));
+		System.out.println(test.getServiceByTitle("SERVICE_2"));
 			
 		try {
 			HomeScreen window = new HomeScreen();
