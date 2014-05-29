@@ -69,8 +69,7 @@ public class ClientScreen extends Shell
 	{
 		super(display, SWT.SHELL_TRIM);
 				
-		initializeClientInfoFields();		
-		initializePhoneNumberFields();
+		initializeClientInfoFields();
 		initializeClientListFields();
 		
 		createContents();
@@ -121,6 +120,9 @@ public class ClientScreen extends Shell
 		
 		txtEmail = new Text(this, SWT.BORDER);
 		txtEmail.setBounds(301, 156, 172, 21);
+		
+		//Phone number fields
+		initializePhoneNumberFields();
 		
 		//Client status
 		Label lblClientStatus = new Label(this, SWT.NONE);
