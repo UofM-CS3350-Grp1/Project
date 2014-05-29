@@ -4,7 +4,7 @@ update this with with a  briefsummary of what you intend to be working on in the
 Directory:
 		/src
 			-/business 		-> Business Logic/Controllers.
-			-/objects		-> Objects/Models.
+			-/objects 		-> Objects/Models.
 			-/persistence 	-> DBMS Persistence.
 			-/presentation	-> Widgets/GUIs
 		/lib
