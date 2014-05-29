@@ -1,5 +1,4 @@
-This is the Buzzin' Digital Marketing software development project. Since tis is already on the front page if you have moment to 
-update this with with a  briefsummary of what you intend to be working on in the short term it would be greatly appreciated.  
+This is the Buzzin' Digital Marketing software development project. Since tis is already on the front page if you have moment to update this with with a  briefsummary of what you intend to be working on in the short term it would be greatly appreciated.  
 
 Directory:
 		/src
