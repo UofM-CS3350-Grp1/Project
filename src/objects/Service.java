@@ -11,7 +11,7 @@ public class Service implements Storable
 	private String title;			// Name of Service
 	private String description;		// Description of service.
 	private String type;			// General type of service, could be used for reinstantiating a subclass.
-	private float rate;				// Rate at which this service is charged.
+	private double rate;				// Rate at which this service is charged.
 	private int id;					// Unique Row ID of service.
 	
 	//-------------
@@ -27,7 +27,7 @@ public class Service implements Storable
 					int id,
 					String title,
 					String description,
-					float rate,
+					double rate,
 					String type
 					) throws IllegalArgumentException
 	{
@@ -51,7 +51,7 @@ public class Service implements Storable
 	public Service(
 					String title,
 					String description,
-					float rate,
+					double rate,
 					String type
 					) throws IllegalArgumentException
 	{
@@ -96,7 +96,7 @@ public class Service implements Storable
 		return description;
 	}
 	
-	public float getRate()
+	public double getRate()
 	{
 		return rate;
 	}
@@ -125,7 +125,7 @@ public class Service implements Storable
 		this.description = description;
 	}
 	
-	public void setRate(float rate)
+	public void setRate(double rate)
 	{
 		this.rate = rate;
 	}
@@ -159,10 +159,10 @@ public class Service implements Storable
 	
 	public String toString()
 	{
-		return "Title: " + this.title + 
+		return "(Title: " + this.title + 
 				", Description: " + this.description + 
-				", Rate: " + Float.toString(rate) + 
-				", Id: " + Integer.toBinaryString(id) +
-				", Type: " + this.type;
+				", Rate: " + this.rate + 
+				", Id: " + this.id +
+				", Type: " + this.type +")";
 	}
 }

@@ -15,6 +15,15 @@ Description:
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 
 Task: Stub DB
+Date: 05/30, 12:08pm
+Assigned to: Adrian
+Status: In Progress
+Duration:
+Description: 	Implemented search functionality for Clients/Contracts against DB in controller
+				Loaded Client/Contract tables into test DB
+				Added interface methods for Clients/Contracts
+
+Task: Stub DB
 Date: 05/29, 5:01pm
 Assigned to: Adrian
 Status: In Progress

@@ -19,9 +19,7 @@ public class Client implements Storable {
 	public static final String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";	//Email verification regular expression
 	public static final int PHONE_NUMBER_LENGTH = 10;		//Number of digits in a phone number
 	
-	/*
-	 * add this if you want:  private int clientID;
-	 */
+	private int clientID;
 	private String name;
 	private String phoneNumber;
 	private String email;
@@ -47,12 +45,50 @@ public class Client implements Storable {
 		this.name = name;
 		
 		// check for null?
+		this.clientID = 0; //Could be -1 as well if anyone has a preference
 		this.phoneNumber = phoneNumber;
 		this.email = email;
 		this.address = address;
 		this.businessName = businessName;
 		
 		this.status = status;
+	}
+	
+	/*
+	 * Database Constructor:
+	 * Exact copy of previous constructor 
+	 * 
+	 * <Q>:	Right now I'm looking at storing ClientStatus as a 0/1 variable on the DBMS
+	 * 		and doing the type check in the constructor.Do you have an alternate 
+	 * 		implementation you'd prefer?
+	 * 
+	 * <A>:	?
+	 */
+	
+	public Client(
+			int id,
+			String name, 
+			String phoneNumber,
+			String email,
+			String address,
+			String businessName,
+			int status
+			) throws IllegalArgumentException {
+		// nameless clients are likely useless for the user, thus, exception
+		if ( name == null )	throw new IllegalArgumentException();
+		this.name = name;
+		
+		// check for null?
+		this.clientID = id;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
+		this.address = address;
+		this.businessName = businessName;
+		
+		if(status == 1)
+			this.status = ClientStatus.Active;
+		else
+			this.status = ClientStatus.Potential;
 	}
 		
 	/*********************************************************
@@ -163,5 +199,16 @@ public class Client implements Storable {
 	public void setStatus(ClientStatus status)
 	{
 		this.status = status;
+	}
+	
+	public String toString()
+	{
+		return "(Name: " + this.name +
+				", ID: " + this.clientID +
+				", Phone No.: " + this.phoneNumber +
+				", E-Mail: " + this.email +
+				", Address: " + this.address +
+				", Business Name: " + this.businessName +
+				", Client Status: " + (this.status == ClientStatus.Active ? "Active" : "Potential")+  ")";
 	}
 }

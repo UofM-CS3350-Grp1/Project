@@ -1,7 +1,9 @@
 package presentation;
 
+import objects.Client.ClientStatus;
 import objects.Service;
 import persistence.DBInterface;
+
 import java.util.ArrayList;
 
 import org.eclipse.swt.widgets.Display;
@@ -25,11 +27,30 @@ public class HomeScreen {
 	 */
 	public static void main(String[] args) 
 	{	
-
+		int dbDebug = 0;
 		DBInterface test = new DBInterface("Test");
 
-		System.out.println(test.getServiceByID(1));
-		System.out.println(test.getServiceByTitle("SERVICE_2"));
+		if(dbDebug == 1)
+		{
+			System.out.println(test.getServiceByID(1));
+			System.out.println(test.getServiceByID(2));
+			System.out.println(test.getServiceByID(3));
+			System.out.println(test.getServiceByID(4));
+			System.out.println(test.getServiceByID(7)); //Inexistant ID
+			System.out.println(test.getServicesByTitle("SERVICE_4"));
+			
+			System.out.println(test.getClientByID(1));
+			System.out.println(test.getClientByID(2));
+			System.out.println(test.getClientByID(3));
+			System.out.println(test.getClientByID(7)); //Inexistant ID
+			System.out.println(test.getClientsByStatus(ClientStatus.Active));
+			
+			System.out.println(test.getContractByID(1));
+			System.out.println(test.getContractByID(2));
+			System.out.println(test.getContractByID(3));
+			System.out.println(test.getContractByID(7)); //Inexistant ID
+			System.out.println(test.getContractsByBusiness("Business 1"));
+		}
 			
 		try {
 			HomeScreen window = new HomeScreen();

@@ -20,6 +20,7 @@ public class Contract implements Storable
 	 * @param details			The details of the contract
 	 * @param value				The amount the contract is worth
 	 * @param period			The period of the contract
+	 * 
 	 */
 	public Contract(int contractNumber, String businessName, String details, double value, Date period)
 	{
@@ -121,5 +122,14 @@ public class Contract implements Storable
 		assert (period != null);
 		if(period != null)
 			this.period = period;
+	}
+	
+	public String toString()
+	{
+		return "(Contract ID: "+this.contractNumber+
+				", Business Name: " +this.businessName +
+				", Details: " + this.details +
+				", Value: " + String.format("%.2f", this.value) +
+				", End Date: " + this.period.toString() +")";
 	}
 }

@@ -8,6 +8,9 @@ import java.sql.DriverManager;
 import java.sql.SQLWarning;
 import java.sql.DatabaseMetaData;
 import java.util.ArrayList;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 //----------------------------------------------------------------------------
 //Class: DBController
@@ -205,7 +208,7 @@ public class DBController
 		if(validator)
 		{
 			query = queryBuilder("SERVICES", null, null, clauses);	//Returns full objects so No Joins/All Values
-			fields = fieldBuilder("SERVICES"); //Retrieves columns frm SERVICES table
+			fields = fieldBuilder("SERVICES"); //Retrieves columns from SERVICES table
 			
 			try
 			{
@@ -216,11 +219,11 @@ public class DBController
 				{
 					//Appends services to output based on query results.
 					output.add(new Service(
-								Integer.parseInt(rs3.getString(fields.get(0))),
-								rs3.getString(fields.get(1)),
-								rs3.getString(fields.get(2)),
-								Float.parseFloat(rs3.getString(fields.get(3))),
-								rs3.getString(fields.get(4))
+								Integer.parseInt(rs3.getString(fields.get(0))), //ID
+								rs3.getString(fields.get(1)),//Title
+								rs3.getString(fields.get(2)),//Description
+								Double.parseDouble(rs3.getString(fields.get(3))), //Rate
+								rs3.getString(fields.get(4)) //Type
 								));
 				}
 			}
@@ -231,7 +234,7 @@ public class DBController
 		}
 		else
 		{
-			
+			System.out.println("Invaid Services query.");
 		}
 		
 		return output;
@@ -248,9 +251,48 @@ public class DBController
 	 * 
 	 */
 	
-	public ArrayList<Client> queryClient(ArrayList<String[]> clauses)
+	public ArrayList<Client> queryClients(ArrayList<ArrayList<String>> clauses)
 	{
-		return null;
+		ArrayList<Client> output = new ArrayList<Client>();
+		boolean validator = queryValidator(null, null, clauses);
+		String query = "";
+		ArrayList<String> fields = new ArrayList<String>();
+
+		if(validator)
+		{
+			query = queryBuilder("CLIENTS", null, null, clauses);	//Returns full objects so No Joins/All Values
+			fields = fieldBuilder("CLIENTS"); //Retrieves columns from CLIENTS table
+			
+			try
+			{
+				cmdString = query;
+				rs3 = st1.executeQuery(cmdString);
+				
+				while(rs3.next())
+				{
+					//Appends services to output based on query results.
+					output.add(new Client(
+								Integer.parseInt(rs3.getString(fields.get(0))), //ID
+								rs3.getString(fields.get(1)),//Name
+								rs3.getString(fields.get(2)),//Phone Number
+								rs3.getString(fields.get(3)),//Email
+								rs3.getString(fields.get(4)),//Address
+								rs3.getString(fields.get(5)),//Business Name
+								Integer.parseInt(rs3.getString(fields.get(6)))//Status
+								));
+				}
+			}
+			catch(Exception e)
+			{
+				errorOutput(e);
+			}
+		}
+		else
+		{
+			System.out.println("Invaid Clients query.");
+		}
+		
+		return output;
 	}
 	
 	/**
@@ -264,10 +306,47 @@ public class DBController
 	 * 
 	 */
 	
-	/*public ArrayList<Contract> queryContract(ArrayList<String[]> clauses)
+	public ArrayList<Contract> queryContracts(ArrayList<ArrayList<String>> clauses)
 	{
-		return null;
-	}*/
+		ArrayList<Contract> output = new ArrayList<Contract>();
+		boolean validator = queryValidator(null, null, clauses);
+		String query = "";
+		ArrayList<String> fields = new ArrayList<String>();
+
+		if(validator)
+		{
+			query = queryBuilder("CONTRACTS", null, null, clauses);	//Returns full objects so No Joins/All Values
+			fields = fieldBuilder("CONTRACTS"); //Retrieves columns from CONTRACTS table
+			
+			try
+			{
+				cmdString = query;
+				rs3 = st1.executeQuery(cmdString);
+				
+				while(rs3.next())
+				{
+					//Appends services to output based on query results.
+					output.add(new Contract(
+								Integer.parseInt(rs3.getString(fields.get(0))), //ID
+								rs3.getString(fields.get(1)), //Business Name
+								rs3.getString(fields.get(2)), //Details
+								Double.parseDouble(rs3.getString(fields.get(3))), //Value
+								new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(rs3.getString(fields.get(4))) //End Date
+								));
+				}
+			}
+			catch(Exception e)
+			{
+				errorOutput(e);
+			}
+		}
+		else
+		{
+			System.out.println("Invaid Contract query.");
+		}
+		
+		return output;
+	}
 	
 	/**
 	 * COMPLEXQUERY()													</br></br>
