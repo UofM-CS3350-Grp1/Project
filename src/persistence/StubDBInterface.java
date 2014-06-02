@@ -11,7 +11,6 @@ import objects.Client.ClientStatus;
 
 public class StubDBInterface 
 {
-	private DBController mainDB;
 	private String dbName;
 	private ArrayList<Client> clients;
 	private ArrayList<Contract> contracts;
