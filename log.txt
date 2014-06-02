@@ -14,6 +14,15 @@ Description:
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 
+Task StubDB
+Date: 06/02
+Assigned to: Adrian
+Status: Stub Completed, DBMS in Progress
+Duration:
+Description:	Added stub DBMS Interface for objects (QUERY/INSERT/UPDATE/DROP) (No DBMS access).
+				Changed DBMS Controller methods.
+				Minor changes to models. (Added getID methods where they didn't exist)
+
 Task: Stub DB
 Date: 05/30, 12:08pm
 Assigned to: Adrian

@@ -31,6 +31,24 @@ public class Contract implements Storable
 		this.period = period;
 	}
 	
+	/**
+	 * Creates a new contract without a preset number. Used for adding new contracts to DBMS.
+	 * @param contractNumber 	The number of the contract
+	 * @param businessName 	 	The name of the business
+	 * @param details			The details of the contract
+	 * @param value				The amount the contract is worth
+	 * @param period			The period of the contract
+	 * 
+	 */
+	public Contract(String businessName, String details, double value, Date period)
+	{
+		this.contractNumber = 0;
+		this.businessName = businessName;
+		this.details = details;
+		this.value = value;
+		this.period = period;
+	}
+	
 	/*********************************************************
 	 * 				Accessors and Mutators
 	 ********************************************************/

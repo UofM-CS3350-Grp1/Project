@@ -114,6 +114,16 @@ public class Client implements Storable {
 	}
 
 	/**
+	 * 
+	 * @return The client's unique ID.
+	 */
+	
+	public int getID()
+	{
+		return this.clientID;
+	}
+	
+	/**
 	 * @return The client's phone number
 	 */
 	public String getPhoneNumber() 

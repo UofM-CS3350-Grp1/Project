@@ -93,65 +93,98 @@ public class DBController
 	
 
 	/**
-	 * INSERT()															</br></br>
+	 * INSERTCLIENT()															</br></br>
 	 * 
 	 * NOTES:	####VERY EARLY#### Will be re-implemented just throwing out ideas.
 	 * 			Will drop insert element into table.
 	 * 
-	 * @param Table		-	Table to drop from
-	 * @param element	-	Storable element							</br></br>
+	 * @param Table		-	Table to insert into 
+	 * @param element	-	Client to insert							</br></br>
 	 * 
 	 */
 	
-	public void insert(String table, Storable element)
+	public void insertClient(Client element)
 	{
-		if(element instanceof Service)
-		{
-		
-		}
-		else if(element instanceof Client)
-		{
-			
-		}
-	/*	else if(element instanceof Contract)
-		{
-			
-		} */
-		else
-		{
-			System.out.println("Invalid Object: " + element.getClass().getName());
-		}
-		
+
 	}
 	
 	/**
-	 * UPDATE()															</br></br>
+	 * INSERTSERVICE()															</br></br>
+	 * 
+	 * NOTES:	####VERY EARLY#### Will be re-implemented just throwing out ideas.
+	 * 			Will drop insert element into table.
+	 * 
+	 * @param Table		-	Table to insert into 
+	 * @param element	-	Service to insert							</br></br>
+	 * 
+	 */
+	
+	public void insertService(Service element)
+	{
+
+	}
+	
+	/**
+	 * INSERTCONTRACT()															</br></br>
+	 * 
+	 * NOTES:	####VERY EARLY#### Will be re-implemented just throwing out ideas.
+	 * 			Will drop insert element into table.
+	 * 
+	 * @param Table		-	Table to insert into 
+	 * @param element	-	Contrct to insert							</br></br>
+	 * 
+	 */
+	
+	public void insertContract(Contract element)
+	{
+
+	}
+	
+	/**
+	 * UPDATECLIENT()															</br></br>
 	 * 
 	 * NOTES:	####VERY EARLY#### Will be re-implemented just throwing out ideas.
 	 * 			Will update specified element on table.
 	 * 
 	 * @param table		-	Table to update *
-	 * @param element	-	Storable element							</br></br>
+	 * @param element	-	Client to update							</br></br>
 	 * 
 	 */
 	
-	public void update(String table, Storable element)
+	public void updateClient(Client element)
 	{
-		if(element instanceof Service)
-		{
 		
-		}
-		else if(element instanceof Client)
-		{
-		}
-	/*	else if(element instanceof Contract)
-		{
-			
-		} */
-		else
-		{
-			System.out.println("Invalid Object: " + element.getClass().getName());
-		}
+	}
+	
+	/**
+	 * UPDATESERVICE()															</br></br>
+	 * 
+	 * NOTES:	####VERY EARLY#### Will be re-implemented just throwing out ideas.
+	 * 			Will update specified element on table.
+	 * 
+	 * @param table		-	Table to update *
+	 * @param element	-	Service to update							</br></br>
+	 * 
+	 */
+	
+	public void updateService(Service element)
+	{
+		
+	}
+	
+	/**
+	 * UPDATECONTRACT()															</br></br>
+	 * 
+	 * NOTES:	####VERY EARLY#### Will be re-implemented just throwing out ideas.
+	 * 			Will update specified element on table.
+	 * 
+	 * @param table		-	Table to update *
+	 * @param element	-	Contract to update							</br></br>
+	 * 
+	 */
+	
+	public void updateContract(Contract element)
+	{
 		
 	}
 	
@@ -163,27 +196,12 @@ public class DBController
 	 * 			Will drop specified element from table.
 	 * 
 	 * @param table		- 	Table to drop from
-	 * @param element	-	Storable element							</br></br>
+	 * @param id		-	ID to drop 							</br></br>
 	 * 
 	 */
-	public void drop(String table, Storable element)
+	public void drop(String table, int id)
 	{
-		if(element instanceof Service)
-		{
-		
-		}
-		else if(element instanceof Client)
-		{
-			
-		}
-	/*	else if(element instanceof Contract)
-		{
-			
-		} */
-		else
-		{
-			System.out.println("Invalid Object: " + element.getClass().getName());
-		}
+
 		
 	}
 	

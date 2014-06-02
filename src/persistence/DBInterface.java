@@ -53,7 +53,7 @@ public class DBInterface
 	}
 	
 	/**
-	 * 	GETSERVICEBYID()
+	 * 	GETSERVICEBYTITLE()
 	 * 
 	 *  @param	int id	-	ID to search for
 	 *  
@@ -153,7 +153,7 @@ public class DBInterface
 	}
 	
 	/**
-	 * 	GETSERVICEBYID()
+	 * 	GETCONTRACTBYID()
 	 * 
 	 *  @param	int id	-	ID to search for
 	 *  
@@ -216,13 +216,92 @@ public class DBInterface
 		}
 	}
 	
-	//----------------------------------------------------------------------------
-	//	TOSTRING()
-	//
-	//	PARAMS: NONE
-	//
-	//	NOTES: 	Standard toString() method.
-	//----------------------------------------------------------------------------
+	/**
+	 * INSERT()
+	 * 
+	 * @param element Storable to insert
+	 */
+	
+	public void insert(Storable element)
+	{
+		if(element instanceof Client)
+		{
+			this.mainDB.insertClient((Client)element);
+		}
+		else if(element instanceof Service)
+		{
+			this.mainDB.insertService((Service)element);
+		}
+		else if(element instanceof Contract)
+		{
+			this.mainDB.insertContract((Contract)element);
+		}
+		else
+		{
+			System.out.println("Invalid input for INSERT statement.");
+		}
+	}
+	
+	/**
+	 * UPDATE()
+	 * 
+	 * @param element Storable to update
+	 */
+	
+	public void update(Storable element)
+	{
+		if(element instanceof Client)
+		{
+			this.mainDB.updateClient((Client)element);
+		}
+		else if(element instanceof Service)
+		{
+			this.mainDB.updateService((Service)element);
+		}
+		else if(element instanceof Contract)
+		{
+			this.mainDB.updateContract((Contract)element);
+		}
+		else
+		{
+			System.out.println("Invalid input for UPDATE statement.");
+		}
+	}
+	
+	/**
+	 * DROP()
+	 * 
+	 * @param element Storable to drop
+	 */
+	
+	public void drop(Storable element)
+	{
+		if(element instanceof Client)
+		{
+			Client toDrop = (Client)element;
+			this.mainDB.drop("CLIENT", toDrop.getID());
+		}
+		else if(element instanceof Service)
+		{
+			Service toDrop = (Service)element;
+			this.mainDB.drop("SERVICE", toDrop.getID());
+		}
+		else if(element instanceof Contract)
+		{
+			Contract toDrop = (Contract)element;
+			this.mainDB.drop("CONTRACT", toDrop.getContractNumber());
+		}
+		else
+		{
+			System.out.println("Invalid input for DROP statement.");
+		}
+	}
+	
+	/**
+	 * TOSTRING()
+	 * 
+	 * @return String output indicating which database is in use.
+	 */
 	
 	public String toString()
 	{

@@ -106,6 +106,11 @@ public class Service implements Storable
 		return this.type;
 	}
 	
+	public int getID()
+	{
+		return this.id;
+	}
+	
 	//-------------
 	//	SETTERS
 	//-------------
