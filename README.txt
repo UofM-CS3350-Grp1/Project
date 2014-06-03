@@ -26,6 +26,10 @@ TODO(Karl):
 		- Refactor Stub UI into single window application
 
 TODO(Jason):
+		- Final data collection for services / clients / contracts
+		- Familiarize myself with GIT and SourceTree (having difficutly uploading/committing files)
+		- Implementation of exporting contracts to docx/pdf format
+		- Implementation of the logging in feature
 			
 TODO(Adrian):
 		- Testing.
