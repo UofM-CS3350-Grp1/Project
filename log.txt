@@ -14,6 +14,13 @@ Description:
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 
+Task: Stub UI
+Date: 06/02, 7:30pm
+Assigned to: Tim
+Status: In Progress
+Duration:
+Description:	Modified interface to edit client information via clicking list object instead of a button
+
 Task StubDB
 Date: 06/02
 Assigned to: Adrian
