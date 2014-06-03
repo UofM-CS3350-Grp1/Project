@@ -14,6 +14,14 @@ Description:
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 Task: Stub UI
+Date: 06/03, 11:35am
+Assigned to: Tim
+Status: In Progress
+Duration:
+Description:	Cleaned up client window.
+
+
+Task: Stub UI
 Date: 06/02, 7:30pm
 Assigned to: Tim
 Status: In Progress

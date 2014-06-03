@@ -5,8 +5,6 @@ import java.util.Arrays;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
@@ -34,11 +32,14 @@ import org.eclipse.swt.widgets.List;
 /**
  * Draws the Client information screen
  */
-public class ClientScreen extends Shell 
-{
+public class ClientScreen
+{	
 	private static final int AREA_CODE_LENGTH = 3;			//Area code in the phone number
 	private static final int PREFIX_CODE_LENGTH = 3;		//Prefix code in the phone number
 	private static final int LINE_NUMBER_CODE = 4;			//Line number code in the phone number
+	
+	private Shell shell;
+	private Display display;
 	
 	private Text txtClientName;
 	private Text txtBusinessName;
@@ -54,7 +55,7 @@ public class ClientScreen extends Shell
 	private Button btnUpdate;
 	
 	private List listClients;
-	private Client editingClient;
+	private Client currentClient;
 		
 	//Temporary client data
 	private ArrayList<Client> clients = new ArrayList<Client>(Arrays.asList(
@@ -65,23 +66,27 @@ public class ClientScreen extends Shell
 	 * Create the shell.
 	 * @param display
 	 */
-	public ClientScreen(Display display) 
+	public ClientScreen() 
 	{
-		super(display, SWT.SHELL_TRIM);
-				
+		display = Display.getDefault();
+		currentClient = null;
+		
+		createWindow();
+	}
+	
+	/**
+	 * Creates a new Client window
+	 */
+	private void createWindow()
+	{
+		shell = new Shell(display);
+		shell.setText("Client");
+		shell.setSize(640, 480);
+		
 		initializeClientInfoFields();
 		initializeClientListFields();
 		
-		createContents();
-		
-		this.addListener(SWT.Close,  new Listener()
-		{
-			@Override
-			public void handleEvent(Event event)
-			{
-				dispose();
-			}
-		});
+		shell.open();
 	}
 	
 	/**
@@ -90,47 +95,47 @@ public class ClientScreen extends Shell
 	private void initializeClientInfoFields()
 	{
 		//Name
-		Label lblName = new Label(this, SWT.NONE);
+		Label lblName = new Label(shell, SWT.NONE);
 		lblName.setBounds(204, 34, 55, 15);
 		lblName.setText("Name");
 		
-		txtClientName = new Text(this, SWT.BORDER);
+		txtClientName = new Text(shell, SWT.BORDER);
 		txtClientName.setBounds(301, 31, 172, 21);
 		
 		//Business name
-		Label lblBusinessName = new Label(this, SWT.NONE);
+		Label lblBusinessName = new Label(shell, SWT.NONE);
 		lblBusinessName.setBounds(204, 74, 92, 15);
 		lblBusinessName.setText("Business Name");
 		
-		txtBusinessName = new Text(this, SWT.BORDER);
+		txtBusinessName = new Text(shell, SWT.BORDER);
 		txtBusinessName.setBounds(301, 71, 172, 21);
 		
 		//Address
-		Label lblAddress = new Label(this, SWT.NONE);
+		Label lblAddress = new Label(shell, SWT.NONE);
 		lblAddress.setText("Address");
 		lblAddress.setBounds(204, 116, 92, 15);
 		
-		txtAddress = new Text(this, SWT.BORDER);
+		txtAddress = new Text(shell, SWT.BORDER);
 		txtAddress.setBounds(301, 113, 172, 21);
 		
 		//Email
-		Label lblEmail = new Label(this, SWT.NONE);
+		Label lblEmail = new Label(shell, SWT.NONE);
 		lblEmail.setText("Email");
 		lblEmail.setBounds(204, 159, 92, 15);
 		
-		txtEmail = new Text(this, SWT.BORDER);
+		txtEmail = new Text(shell, SWT.BORDER);
 		txtEmail.setBounds(301, 156, 172, 21);
 		
 		//Phone number fields
 		initializePhoneNumberFields();
 		
 		//Client status
-		Label lblClientStatus = new Label(this, SWT.NONE);
+		Label lblClientStatus = new Label(shell, SWT.NONE);
 		lblClientStatus.setBounds(204, 239, 74, 15);
 		lblClientStatus.setText("Client Status");
 		
 		//Status grouping
-		Group group = new Group(this, SWT.NONE);
+		Group group = new Group(shell, SWT.NONE);
 		group.setBounds(301, 227, 96, 75);
 		
 		//Active radio button
@@ -145,7 +150,7 @@ public class ClientScreen extends Shell
 		btnPotential.setText("Potential");
 		
 		//Add button
-		btnAdd = new Button(this, SWT.NONE);
+		btnAdd = new Button(shell, SWT.NONE);
 		btnAdd.addSelectionListener(new SelectionAdapter() 
 		{
 			@Override
@@ -158,7 +163,7 @@ public class ClientScreen extends Shell
 		btnAdd.setText("Add");
 		
 		//Update button
-		btnUpdate = new Button(this, SWT.NONE);
+		btnUpdate = new Button(shell, SWT.NONE);
 		btnUpdate.addSelectionListener(new SelectionAdapter() 
 		{
 			@Override
@@ -172,7 +177,7 @@ public class ClientScreen extends Shell
 		btnUpdate.setVisible(false);
 		
 		//Clear button
-		Button btnClear = new Button(this, SWT.NONE);
+		Button btnClear = new Button(shell, SWT.NONE);
 		btnClear.addSelectionListener(new SelectionAdapter()
 		{
 			@Override
@@ -192,17 +197,17 @@ public class ClientScreen extends Shell
 	private void initializePhoneNumberFields()
 	{	
 		//Label
-		Label lblPhoneNumber = new Label(this, SWT.NONE);
+		Label lblPhoneNumber = new Label(shell, SWT.NONE);
 		lblPhoneNumber.setText("Phone Number");
 		lblPhoneNumber.setBounds(204, 197, 92, 15);
 		
 		//Open Parenthesis
-		Label lblOpenBracket = new Label(this, SWT.NONE);
+		Label lblOpenBracket = new Label(shell, SWT.NONE);
 		lblOpenBracket.setBounds(301, 197, 5, 15);
 		lblOpenBracket.setText("(");
 		
 		//Area Code
-		txtPhoneNumberA = new Text(this, SWT.BORDER | SWT.CENTER);
+		txtPhoneNumberA = new Text(shell, SWT.BORDER | SWT.CENTER);
 		txtPhoneNumberA.addVerifyListener(new VerifyListener() 
 		{
 			public void verifyText(VerifyEvent event)
@@ -225,17 +230,17 @@ public class ClientScreen extends Shell
 		txtPhoneNumberA.setBounds(310, 194, 35, 21);
 		
 		//Close parenthesis
-		Label lblCloseBracket = new Label(this, SWT.NONE);
+		Label lblCloseBracket = new Label(shell, SWT.NONE);
 		lblCloseBracket.setBounds(351, 197, 5, 15);
 		lblCloseBracket.setText(")");
 		
 		//Area separator
-		Label lblPhoneSep1 = new Label(this, SWT.NONE);
+		Label lblPhoneSep1 = new Label(shell, SWT.NONE);
 		lblPhoneSep1.setBounds(357, 197, 5, 15);
 		lblPhoneSep1.setText("-");
 		
 		//Prefix section
-		txtPhoneNumberB = new Text(this, SWT.BORDER | SWT.CENTER);
+		txtPhoneNumberB = new Text(shell, SWT.BORDER | SWT.CENTER);
 		txtPhoneNumberB.addVerifyListener(new VerifyListener() 
 		{
 			public void verifyText(VerifyEvent event)
@@ -258,12 +263,12 @@ public class ClientScreen extends Shell
 		txtPhoneNumberB.setBounds(368, 194, 35, 21);
 		
 		//Prefix separator
-		Label lblPhoneSep2 = new Label(this, SWT.NONE);
+		Label lblPhoneSep2 = new Label(shell, SWT.NONE);
 		lblPhoneSep2.setText("-");
 		lblPhoneSep2.setBounds(409, 197, 5, 15);
 		
 		//Line number section
-		txtPhoneNumberC = new Text(this, SWT.BORDER | SWT.CENTER);
+		txtPhoneNumberC = new Text(shell, SWT.BORDER | SWT.CENTER);
 		txtPhoneNumberC.addVerifyListener(new VerifyListener() 
 		{
 			public void verifyText(VerifyEvent event)
@@ -292,11 +297,11 @@ public class ClientScreen extends Shell
 	private void initializeClientListFields()
 	{
 		//Client List
-		Label lblClients = new Label(this, SWT.NONE);
+		Label lblClients = new Label(shell, SWT.NONE);
 		lblClients.setBounds(10, 10, 55, 15);
 		lblClients.setText("Client List");
 		
-		listClients = new List(this, SWT.BORDER);
+		listClients = new List(shell, SWT.BORDER);
 		listClients.addSelectionListener(new SelectionAdapter()
         {
             @Override
@@ -312,7 +317,7 @@ public class ClientScreen extends Shell
 			listClients.add(clients.get(i).getName() + " - " + clients.get(i).getBusinessName());
 		
 		//New client button
-		Button btnNew = new Button(this, SWT.NONE);
+		Button btnNew = new Button(shell, SWT.NONE);
 		btnNew.addSelectionListener(new SelectionAdapter()
 		{
 			@Override
@@ -325,7 +330,7 @@ public class ClientScreen extends Shell
 		btnNew.setText("New");
 		
 		//Delete client button
-		Button btnDelete = new Button(this, SWT.NONE);
+		Button btnDelete = new Button(shell, SWT.NONE);
 		btnDelete.addSelectionListener(new SelectionAdapter() 
 		{
 			@Override
@@ -340,8 +345,8 @@ public class ClientScreen extends Shell
 				{
 					//Delete the client
 					//TODO Delete from database
-					if(clients.get(selectedIndex) == editingClient)
-						editingClient = null;
+					if(clients.get(selectedIndex) == currentClient)
+						currentClient = null;
 					
 					clients.remove(selectedIndex);
 					listClients.remove(selectedIndex);
@@ -371,21 +376,6 @@ public class ClientScreen extends Shell
 		btnDelete.setBounds(101, 407, 86, 25);
 		btnDelete.setText("Delete");
 	}
-
-	/**
-	 * Create contents of the shell.
-	 */
-	protected void createContents()
-	{
-		setText("Client");
-		setSize(640, 480);
-	}
-
-	@Override
-	protected void checkSubclass() 
-	{
-		// Disable the check that prevents subclassing of SWT components
-	}
 	
 	/**
     * Processes the new button and sets up the window for a new client
@@ -397,7 +387,7 @@ public class ClientScreen extends Shell
         //Swap the Add/ Update buttons
         btnUpdate.setVisible(false);
         btnAdd.setVisible(true);
-        editingClient = null;
+        currentClient = null;
         
         //Remove the selection from the client list
         listClients.setSelection(-1);
@@ -420,7 +410,7 @@ public class ClientScreen extends Shell
         if(selectedIndex != -1 && selectedIndex < clients.size())
         {
             client = clients.get(selectedIndex);
-            editingClient = client;
+            currentClient = client;
             
             //Swap the Add/ Update buttons
             btnUpdate.setVisible(true);
@@ -539,6 +529,9 @@ public class ClientScreen extends Shell
 				{
 					index = clients.indexOf(client);
 					listClients.add(client.getName() + " - " + client.getBusinessName(), index); //Temporary list name
+				
+					//Clear the fields
+					clearFields();
 				}
 				
 			}

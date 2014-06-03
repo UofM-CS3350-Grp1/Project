@@ -6,7 +6,6 @@ import objects.Contract;
 import objects.Service;
 import persistence.StubDBInterface;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import org.eclipse.swt.widgets.Display;
@@ -22,7 +21,6 @@ import org.eclipse.swt.events.SelectionEvent;
 public class HomeScreen {
 
 	protected Shell shell;
-	protected ClientScreen clientScreen;
 
 	/**
 	 * Launch the application.
@@ -132,8 +130,7 @@ public class HomeScreen {
 			@Override
 			public void widgetSelected(SelectionEvent event) 
 			{
-				clientScreen = new ClientScreen(Display.getDefault());
-				clientScreen.open();
+				new ClientScreen();
 			}
 		});
 		btnManageClients.setText("Manage Clients");
