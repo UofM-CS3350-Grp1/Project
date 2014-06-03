@@ -14,6 +14,30 @@ Description:
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 
+Task: Update/create detailed user stories for iteration 2
+Date: 06/02, 7:20pm
+Assigned to: All
+Status: 
+Duration:
+Description: Update big user stories based on what has been completed and what the following iterations will look like. Also create detailed user stories for iteration 2.
+
+
+Task: Create scripts to build program
+Date: 06/02, 7:20pm
+Assigned to: 
+Status: 
+Duration:
+Description: Create the set of files described in the iteration 1 document on how to build and run the program and tests
+
+
+Task: Sketch program structure
+Date: 06/02, 7:20pm
+Assigned to: 
+Status: 
+Duration:
+Description: Sketch a basic outline of the program flow
+
+
 Task StubDB
 Date: 06/02
 Assigned to: Adrian
@@ -22,6 +46,17 @@ Duration:
 Description:	Added stub DBMS Interface for objects (QUERY/INSERT/UPDATE/DROP) (No DBMS access).
 				Changed DBMS Controller methods.
 				Minor changes to models. (Added getID methods where they didn't exist)
+				
+				
+--------------
+Meeting Summary
+Date: 05/30
+Discussed current state of development. Decided to focus on client and service management, and leave contract management for later if we have time for it this iteration.
+Contract file types were also discussed. Input from within and outside the program were considered. Discussed .txt, .pdf, .docx, and image formats for input and output of
+	the base contract, contract stubs, and the signed copy of the contracts. More information about what the client would like is needed before we can proceed with the contracts
+--------------
+
+
 
 Task: Stub DB
 Date: 05/30, 12:08pm

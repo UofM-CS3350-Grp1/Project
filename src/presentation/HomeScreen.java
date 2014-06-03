@@ -113,7 +113,7 @@ public class HomeScreen {
 	protected void createContents() {
 		shell = new Shell();
 		shell.setSize(450, 300);
-		shell.setText("SWT Application");
+		shell.setText("Buzzin' Digital Marketing");
 		shell.setLayout(new GridLayout(1, false));
 		
 		Label lblHelloGroup = new Label(shell, SWT.NONE);
