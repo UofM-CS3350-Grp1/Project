@@ -297,6 +297,14 @@ public class ClientScreen extends Shell
 		lblClients.setText("Client List");
 		
 		listClients = new List(this, SWT.BORDER);
+		listClients.addSelectionListener(new SelectionAdapter()
+        {
+            @Override
+            public void widgetSelected(SelectionEvent event)
+            {
+                editSelectedClient();
+            }
+        });
 		listClients.setBounds(10, 31, 177, 370);
 		
 		//Add our clients to the list
@@ -310,49 +318,11 @@ public class ClientScreen extends Shell
 			@Override
 			public void widgetSelected(SelectionEvent event) 
 			{
-				//Create a new client	
-				
-				//Swap the Add/ Update buttons
-				btnUpdate.setVisible(false);
-				btnAdd.setVisible(true);
-				editingClient = null;
-				
-				//Clear all of the fields
-				clearFields();
+				processNewButton();
 			}
 		});
-		btnNew.setBounds(10, 407, 55, 25);
+		btnNew.setBounds(10, 407, 86, 25);
 		btnNew.setText("New");
-		
-		//Edit client button
-		Button btnEdit = new Button(this, SWT.NONE);
-		btnEdit.addSelectionListener(new SelectionAdapter() 
-		{
-			@Override
-			public void widgetSelected(SelectionEvent event) 
-			{
-				Client client;
-				int selectedIndex;
-				
-				//Find the selected client in our list, if
-				//one is selected
-				selectedIndex = listClients.getSelectionIndex();
-				if(selectedIndex != -1 && selectedIndex < clients.size())
-				{
-					client = clients.get(selectedIndex);
-					editingClient = client;
-					
-					//Swap the Add/ Update buttons
-					btnUpdate.setVisible(true);
-					btnAdd.setVisible(false);
-					
-					//Populate the client fields with our client data
-					populateFields(client);
-				}
-			}
-		});
-		btnEdit.setBounds(71, 407, 55, 25);
-		btnEdit.setText("Edit");
 		
 		//Delete client button
 		Button btnDelete = new Button(this, SWT.NONE);
@@ -375,10 +345,30 @@ public class ClientScreen extends Shell
 					
 					clients.remove(selectedIndex);
 					listClients.remove(selectedIndex);
+					
+					//After we have deleted select the entry above where we
+                    //just deleted
+                    selectedIndex--;
+                    
+                    if(selectedIndex < 0 && listClients.getItemCount() > 0)
+                        selectedIndex = 0;
+                    
+                    listClients.setSelection(selectedIndex);
+                    
+                    if(selectedIndex >= 0)
+                    {
+                        //Show the client record
+                        editSelectedClient();
+                    }
+                    else
+                    {
+                        //There are no entries in the list
+                        processNewButton();
+                    }
 				}
 			}
 		});
-		btnDelete.setBounds(132, 407, 55, 25);
+		btnDelete.setBounds(101, 407, 86, 25);
 		btnDelete.setText("Delete");
 	}
 
@@ -396,6 +386,50 @@ public class ClientScreen extends Shell
 	{
 		// Disable the check that prevents subclassing of SWT components
 	}
+	
+	/**
+    * Processes the new button and sets up the window for a new client
+    */
+    private void processNewButton()
+    {
+        //Create a new client   
+        
+        //Swap the Add/ Update buttons
+        btnUpdate.setVisible(false);
+        btnAdd.setVisible(true);
+        editingClient = null;
+        
+        //Remove the selection from the client list
+        listClients.setSelection(-1);
+        
+        //Clear all of the fields
+        clearFields();
+    }
+    
+    /**
+    * Opens the currently selected client for editing
+    */
+    private void editSelectedClient()
+    {
+        Client client;
+        int selectedIndex;
+        
+        //Find the selected client in our list, if
+        //one is selected
+        selectedIndex = listClients.getSelectionIndex();
+        if(selectedIndex != -1 && selectedIndex < clients.size())
+        {
+            client = clients.get(selectedIndex);
+            editingClient = client;
+            
+            //Swap the Add/ Update buttons
+            btnUpdate.setVisible(true);
+            btnAdd.setVisible(false);
+            
+            //Populate the client fields with our client data
+            populateFields(client);
+        }
+    }
 	
 	/**
 	 * Clears all of the fields on the window
