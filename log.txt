@@ -13,6 +13,14 @@ Description:
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Testing 
+Date: 06/03, 2:30pm
+Assigned to: Tim
+Status: In Progress
+Duration:
+Description:	Created test foundation.
+
+
 Task: Stub UI
 Date: 06/03, 11:35am
 Assigned to: Tim
