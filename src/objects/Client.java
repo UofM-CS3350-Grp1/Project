@@ -84,6 +84,7 @@ public class Client implements Storable {
 		this.email = email;
 		this.address = address;
 		this.businessName = businessName;
+
 		
 		if(status == 1)
 			this.status = ClientStatus.Active;

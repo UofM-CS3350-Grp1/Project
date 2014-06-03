@@ -15,9 +15,12 @@ public class DBInterface
 	
 	public DBInterface(String dbName)
 	{
-		this.dbName = dbName;
-		this.mainDB = new DBController(dbName);
-		this.mainDB.connect();
+		if(dbName != null)
+		{
+			this.dbName = dbName;
+			this.mainDB = new DBController(dbName);
+			this.mainDB.connect();
+		}
 	}
 	
 	/**
@@ -305,6 +308,17 @@ public class DBInterface
 	
 	public String toString()
 	{
-		return "Using database: " + dbName;
+		String output;
+		
+		if(dbName != null)
+		{
+			output = "Using database: " + dbName;
+		}
+		else
+		{
+			output = "No DB loaded.";
+		}
+		
+		return output;
 	}
 }

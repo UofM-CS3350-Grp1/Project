@@ -9,7 +9,7 @@ import objects.Storable;
 import objects.Contract;
 import objects.Client.ClientStatus;
 
-public class StubDBInterface 
+public class StubDBInterface extends DBInterface
 {
 	private String dbName;
 	private ArrayList<Client> clients;
@@ -18,6 +18,7 @@ public class StubDBInterface
 	
 	public StubDBInterface(String dbName)
 	{
+		super(null);
 		this.dbName = dbName;
 		
 		clients = new ArrayList<Client>();
@@ -279,6 +280,17 @@ public class StubDBInterface
 	
 	public String toString()
 	{
-		return "Using database: " + dbName;
+		String output;
+		
+		if(dbName != null)
+		{
+			output = "Using database: " + dbName;
+		}
+		else
+		{
+			output = "No DB loaded.";
+		}
+		
+		return output;
 	}
 }
