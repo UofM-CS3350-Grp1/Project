@@ -13,6 +13,15 @@ Description:
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Service tests
+Date: 06/04, 1:30pm
+Assigned to: Tim
+Status: In progress
+Duration:
+Description: 	Added some tests for the service class.
+				Modified the service class to throw InvalidArgumentExceptions from the constructor and performed some error checking on the mutators 
+
+
 Task: Export files to docx/pdf
 Date: 06/04, time
 Assigned to: Jason
