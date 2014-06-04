@@ -13,6 +13,8 @@ import objects.Client.ClientStatus;
  */
 public class ClientTest
 {
+	/** Creating Client Tests */
+	
 	@Test
 	public void testClient1()
 	{
@@ -98,4 +100,140 @@ public class ClientTest
 	{
 		new Client("Bill", "2045551326", "bill@test.com", "San Dimas", null, ClientStatus.Active);
 	}
+
+	/** Client Mutator Tests */
+	public void testMutator1()
+	{
+		Client client = new Client("Bill", "2045551326", "bill@test.com", "San Dimas", "Wyld Stallyns", ClientStatus.Active);
+		assertNotNull("Null client", client != null);
+		
+		client.setName(null);
+		assertTrue("Null name", client.getName() != null);
+		assertTrue("Name changed", client.getName().equals("Bill"));
+	}
+	
+	public void testMutator2()
+	{
+		Client client = new Client("Bill", "2045551326", "bill@test.com", "San Dimas", "Wyld Stallyns", ClientStatus.Active);
+		assertNotNull("Null client", client != null);
+		
+		client.setName("");
+		assertTrue("Null name", client.getName() != null);
+		assertTrue("Name changed", client.getName().equals("Bill"));
+	}
+	
+	public void testMutator3()
+	{
+		Client client = new Client("Bill", "2045551326", "bill@test.com", "San Dimas", "Wyld Stallyns", ClientStatus.Active);
+		assertNotNull("Null client", client != null);
+		
+		client.setName("Ted");
+		assertTrue("Null name", client.getName() != null);
+		assertTrue("Name changed", client.getName().equals("Ted"));
+	}
+	
+	public void testMutator4()
+	{
+		Client client = new Client("Bill", "2045551326", "bill@test.com", "San Dimas", "Wyld Stallyns", ClientStatus.Active);
+		assertNotNull("Null client", client != null);
+		
+		client.setPhoneNumber(null);
+		assertTrue("Null phone number", client.getPhoneNumber() != null);
+		assertTrue("Invalid phone number length", client.getPhoneNumber().length() == Client.PHONE_NUMBER_LENGTH);
+		assertTrue("Phone number changed", client.getPhoneNumber().equals("2045551326"));		
+	}
+	
+	public void testMutator5()
+	{
+		Client client = new Client("Bill", "2045551326", "bill@test.com", "San Dimas", "Wyld Stallyns", ClientStatus.Active);
+		assertNotNull("Null client", client != null);
+		
+		client.setPhoneNumber("");
+		assertTrue("Null phone number", client.getPhoneNumber() != null);
+		assertTrue("Invalid phone number length", client.getPhoneNumber().length() == Client.PHONE_NUMBER_LENGTH);
+		assertTrue("Phone number changed", client.getPhoneNumber().equals("2045551326"));		
+	}
+	
+	public void testMutator6()
+	{
+		Client client = new Client("Bill", "2045551326", "bill@test.com", "San Dimas", "Wyld Stallyns", ClientStatus.Active);
+		assertNotNull("Null client", client != null);
+		
+		client.setPhoneNumber("5551326");
+		assertTrue("Null phone number", client.getPhoneNumber() != null);
+		assertTrue("Invalid phone number length", client.getPhoneNumber().length() == Client.PHONE_NUMBER_LENGTH);
+		assertTrue("Phone number changed", client.getPhoneNumber().equals("2045551326"));		
+	}
+	
+	public void testMutator7()
+	{
+		Client client = new Client("Bill", "2045551326", "bill@test.com", "San Dimas", "Wyld Stallyns", ClientStatus.Active);
+		assertNotNull("Null client", client != null);
+		
+		client.setEmail(null);
+		assertTrue("Null email", client.getEmail() != null);
+		assertTrue("Email changed", client.getEmail().equals("bill@test.com"));		
+	}
+	
+	public void testMutator8()
+	{
+		Client client = new Client("Bill", "2045551326", "bill@test.com", "San Dimas", "Wyld Stallyns", ClientStatus.Active);
+		assertNotNull("Null client", client != null);
+		
+		client.setEmail("");
+		assertTrue("Null email", client.getEmail() != null);
+		assertTrue("Email changed", client.getEmail().equals("bill@test.com"));		
+	}
+	
+	public void testMutator9()
+	{
+		Client client = new Client("Bill", "2045551326", "bill@test.com", "San Dimas", "Wyld Stallyns", ClientStatus.Active);
+		assertNotNull("Null client", client != null);
+		
+		client.setEmail("invalid.com");
+		assertTrue("Null email", client.getEmail() != null);
+		assertTrue("Email changed", client.getEmail().equals("bill@test.com"));		
+	}
+	
+	public void testMutator10()
+	{
+		Client client = new Client("Bill", "2045551326", "bill@test.com", "San Dimas", "Wyld Stallyns", ClientStatus.Active);
+		assertNotNull("Null client", client != null);
+		
+		client.setEmail("@invalid.com");
+		assertTrue("Null email", client.getEmail() != null);
+		assertTrue("Email changed", client.getEmail().equals("bill@test.com"));		
+	}
+	
+	public void testMutator11()
+	{
+		Client client = new Client("Bill", "2045551326", "bill@test.com", "San Dimas", "Wyld Stallyns", ClientStatus.Active);
+		assertNotNull("Null client", client != null);
+		
+		client.setAddress(null);
+		assertTrue("Null address", client.getAddress() != null);
+		assertTrue("Address changed", client.getAddress().equals("San Dimas"));		
+	}
+	
+	public void testMutator12()
+	{
+		Client client = new Client("Bill", "2045551326", "bill@test.com", "San Dimas", "Wyld Stallyns", ClientStatus.Active);
+		assertNotNull("Null client", client != null);
+		
+		client.setAddress("");
+		assertTrue("Null address", client.getAddress() != null);
+		assertTrue("Address changed", client.getAddress().equals("San Dimas"));		
+	}
+	
+	public void testMutator13()
+	{
+		Client client = new Client("Bill", "2045551326", "bill@test.com", "San Dimas", "Wyld Stallyns", ClientStatus.Active);
+		assertNotNull("Null client", client != null);
+		
+		client.setBusinessName(null);
+		assertTrue("Null business name", client.getBusinessName() != null);
+		assertTrue("Business name changed", client.getBusinessName().equals("Wyld Stallyns"));		
+	}
+	
+	
 }
