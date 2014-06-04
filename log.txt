@@ -13,6 +13,30 @@ Description:
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Export files to docx/pdf
+Date: 06/04, time
+Assigned to: Jason
+Status: in progress
+Duration:
+Description: Implementation of translating contracts to docx/pdf for printing
+
+
+Task: Login screen
+Date: 06/03, 9:00pm
+Assigned to: Jason
+Status: Wrapping up
+Duration:
+Description: Create secure login screen.
+
+
+Task: Additional data collection for clients, services and contracts
+Date: 06/01, 2:00pm
+Assigned to: Jason
+Status: Completed
+Duration: 1 hour
+Description: Retrieved additional client/services/contract information needed for the app from the customer
+
+
 Task: Testing 
 Date: 06/03, 2:30pm
 Assigned to: Tim
@@ -54,9 +78,9 @@ Description: Create the set of files described in the iteration 1 document on ho
 
 
 Task: Sketch program structure
-Date: 06/02, 7:20pm
-Assigned to: 
-Status: 
+Date: 06/04, 7:20pm
+Assigned to: Jason
+Status: Started
 Duration:
 Description: Sketch a basic outline of the program flow
 
