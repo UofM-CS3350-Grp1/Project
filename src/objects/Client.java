@@ -80,9 +80,17 @@ public class Client implements Storable {
 		
 		// check for null?
 		this.clientID = id;
+		
+		if ( phoneNumber == null || phoneNumber.length() != PHONE_NUMBER_LENGTH ) throw new IllegalArgumentException();
 		this.phoneNumber = phoneNumber;
+		
+		if ( email == null || ! email.matches(EMAIL_REGEX) ) throw new IllegalArgumentException();
 		this.email = email;
+		
+		if ( address == null || address.isEmpty() ) throw new IllegalArgumentException();
 		this.address = address;
+		
+		if ( businessName == null || businessName.isEmpty() ) throw new IllegalArgumentException();
 		this.businessName = businessName;
 
 		
