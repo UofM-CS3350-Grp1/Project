@@ -21,6 +21,7 @@ TODO(Dell):
 TODO(Timothy):
 
 TODO(Derek):
+		- Create scripts to build/run program
 
 TODO(Karl):
 		- Refactor Stub UI into single window application
