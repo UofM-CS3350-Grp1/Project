@@ -13,6 +13,14 @@ Description:
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Service tests
+Date: 06/04, 2:50pm
+Assigned to: Tim
+Status: In progress
+Duration:
+Description: 	Added some tests for the Client class.
+				Added an empty name check to Client.
+
 
 Task: Add/edit services
 Date: 06/04, time

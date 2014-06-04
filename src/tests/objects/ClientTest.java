@@ -1,14 +1,9 @@
 package tests.objects;
 
-import java.util.Arrays;
-import java.util.Collection;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized.Parameters;
-import org.junit.runners.Parameterized;
 
-import junit.framework.TestCase;
 import objects.Client;
 import objects.Client.ClientStatus;
 
@@ -16,52 +11,91 @@ import objects.Client.ClientStatus;
  * tests the Client object; anything else that you feel the client should (not) be
  * please create the test here;
  */
-@RunWith(Parameterized.class)
-public class ClientTest extends TestCase
+public class ClientTest
 {
-	private Client client;
-	private String name;
-	private String businessName;
-	private String phoneNumber;
-	private String email;
-	private String address;
-	private ClientStatus status;
-	
-	@Parameters
-	public static Collection<Object[]> data() 
-	{
-		return Arrays.asList(new Object[][] 
-		{
-			{ new Client("Bob", "2046452100", "asd@asd.com", "123 Main St.", "ABC Co.", ClientStatus.Potential), 
-				"Bob", "2046452100", "asd@asd.com", "123 Main St.", "ABC Co.", ClientStatus.Potential }
-		});
-	}
-	
-	public ClientTest(Client client, String name, String phoneNumber, 
-			String email, String address, String business, ClientStatus status)
-	{
-		this.client = client;
-		this.name = name;
-		this.businessName = business;
-		this.phoneNumber = phoneNumber;
-		this.email = email;
-		this.address = address;
-		this.status = status;
-	}
-	
 	@Test
 	public void testClient1()
 	{
-		System.out.println("\nStarting testClient1:");
+		Client client = new Client("Bill", "2045551326", "bill@test.com", "San Dimas", "Wyld Stallyns", ClientStatus.Active);
 		
 		assertNotNull("Client is null", client);
-		assertTrue("Name is invalid", client.getName().equals(name));
-		assertTrue("Business name is invalid", client.getBusinessName().equals(businessName));
-		assertTrue("Phone number is invalid", client.getPhoneNumber().equals(phoneNumber));
-		assertTrue("Email is invalid", client.getEmail().equals(email));
-		assertTrue("Address is invalid", client.getAddress().equals(address));
-		assertTrue("Client status is invalid", client.getStatus().equals(status));
-		
-		System.out.println("\nFinished testClient1");
+		assertTrue("Name is invalid", client.getName().equals("Bill"));
+		assertTrue("Business name is invalid", client.getBusinessName().equals("Wyld Stallyns"));
+		assertTrue("Phone number is invalid", client.getPhoneNumber().equals("2045551326"));
+		assertTrue("Email is invalid", client.getEmail().equals("bill@test.com"));
+		assertTrue("Address is invalid", client.getAddress().equals("San Dimas"));
+		assertTrue("Client status is invalid", client.getStatus() == ClientStatus.Active);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testClient2()
+	{
+		new Client("Bill", "2045551326", "bill@test.com", "San Dimas", "", ClientStatus.Active);
+	}
+
+	@Test(expected=IllegalArgumentException.class)
+	public void testClient3()
+	{
+		new Client(null, "2045551326", "bill@test.com", "San Dimas", "Wyld Stallyns", ClientStatus.Active);
+	}
+
+	@Test(expected=IllegalArgumentException.class)
+	public void testClient4()
+	{
+		new Client("", "2045551326", "bill@test.com", "San Dimas", "Wyld Stallyns", ClientStatus.Active);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testClient5()
+	{
+		new Client("Bill", null, "bill@test.com", "San Dimas", "Wyld Stallyns", ClientStatus.Active);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testClient6()
+	{
+		new Client("Bill", "", "bill@test.com", "San Dimas", "Wyld Stallyns", ClientStatus.Active);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testClient7()
+	{
+		new Client("Bill", "5551326", "bill@test.com", "San Dimas", "Wyld Stallyns", ClientStatus.Active);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testClient8()
+	{
+		new Client("Bill", "2045551326", null, "San Dimas", "Wyld Stallyns", ClientStatus.Active);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testClient9()
+	{
+		new Client("Bill", "2045551326", "", "San Dimas", "Wyld Stallyns", ClientStatus.Active);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testClient10()
+	{
+		new Client("Bill", "2045551326", "bill.com", "San Dimas", "Wyld Stallyns", ClientStatus.Active);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testClient11()
+	{
+		new Client("Bill", "2045551326", "bill@test.com", null, "Wyld Stallyns", ClientStatus.Active);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testClient12()
+	{
+		new Client("Bill", "2045551326", "bill@test.com", "", "Wyld Stallyns", ClientStatus.Active);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testClient13()
+	{
+		new Client("Bill", "2045551326", "bill@test.com", "San Dimas", null, ClientStatus.Active);
 	}
 }
