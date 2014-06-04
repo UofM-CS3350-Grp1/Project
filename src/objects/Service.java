@@ -31,7 +31,8 @@ public class Service implements Storable
 					String type
 					) throws IllegalArgumentException
 	{
-		if(title == null || title.isEmpty() || id <= 0) // Reject objects with undefined names or invalid ID's
+		if(title == null || title.isEmpty() || id < 0 || description == null ||
+				rate < 0 || type == null || type.isEmpty()) // Reject objects with undefined names or invalid ID's
 		{
 			throw new IllegalArgumentException();
 		}
@@ -55,7 +56,8 @@ public class Service implements Storable
 					String type
 					) throws IllegalArgumentException
 	{
-		if(title == null || title.isEmpty()) // Reject objects with undefined names
+		if(title == null || title.isEmpty() || id < 0 || description == null ||
+				rate < 0 || type == null || type.isEmpty())
 		{
 			throw new IllegalArgumentException();
 		}
@@ -115,29 +117,32 @@ public class Service implements Storable
 	//	SETTERS
 	//-------------
 	
-	public void setTitle(String title) throws IllegalArgumentException
+	public void setTitle(String title)
 	{
-		if(title == null || title.isEmpty()) // Reject changes that would remove the service name
-		{
-			throw new IllegalArgumentException();
-		}
-		
-		this.title = title;
+		assert (title != null && !title.isEmpty());
+		if(title != null && !title.isEmpty())
+			this.title = title;
 	}
 	
 	public void setDescription(String description)
 	{
-		this.description = description;
+		assert (description != null);
+		if(description != null)
+			this.description = description;
 	}
 	
 	public void setRate(double rate)
 	{
-		this.rate = rate;
+		assert (rate >= 0);
+		if(rate >= 0)
+			this.rate = rate;
 	}
 	
 	public void setType(String type)
 	{
-		this.type = type;
+		assert (type != null && !type.isEmpty());
+		if(type != null && !type.isEmpty())
+			this.type = type;
 	}
 	
 	//----------------------------------------------------------------------------
