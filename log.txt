@@ -13,6 +13,15 @@ Description:
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+
+Task: Add/edit services
+Date: 06/04, time
+Assigned to: 12noon
+Status: in progress
+Duration:
+Description: provide options to add and edit services
+
+
 Task: Service tests
 Date: 06/04, 1:30pm
 Assigned to: Tim
