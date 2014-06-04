@@ -17,7 +17,7 @@ Task: Service tests
 Date: 06/04, 2:50pm
 Assigned to: Tim
 Status: In progress
-Duration:
+Duration: 30 minutes
 Description: 	Added some tests for the Client class.
 				Added an empty name check to Client.
 
@@ -34,7 +34,7 @@ Task: Service tests
 Date: 06/04, 1:30pm
 Assigned to: Tim
 Status: In progress
-Duration:
+Duration:	45 minutes
 Description: 	Added some tests for the service class.
 				Modified the service class to throw InvalidArgumentExceptions from the constructor and performed some error checking on the mutators 
 
@@ -67,7 +67,7 @@ Task: Testing
 Date: 06/03, 2:30pm
 Assigned to: Tim
 Status: In Progress
-Duration:
+Duration: 	1 hour
 Description:	Created test foundation.
 
 
@@ -75,7 +75,7 @@ Task: Stub UI
 Date: 06/03, 11:35am
 Assigned to: Tim
 Status: In Progress
-Duration:
+Duration: 10 minutes
 Description:	Cleaned up client window.
 
 
@@ -83,7 +83,7 @@ Task: Stub UI
 Date: 06/02, 7:30pm
 Assigned to: Tim
 Status: In Progress
-Duration:
+Duration: 30 minutes
 Description:	Modified interface to edit client information via clicking list object instead of a button
 
 
@@ -157,14 +157,14 @@ Task: Stub UI Client Screen
 Date: 5/28, 8:58pm
 Assigned to: Tim
 Status: In progress
-Duration: 
+Duration: 3 hours
 Description: Created a basic interface to add, edit and delete client information.
 
 Task: Client
 Date: 5/28, 8:24pm
 Assigned to: Tim
 Status: In progress
-Duration:
+Duration: 15 minutes
 Description: Added accessors and mutators for the client.
 			 Added some basic validation to client mutators. 
 
@@ -172,7 +172,7 @@ Task: Created a basic Contract class
 Date: 5/28, 1:10pm
 Assigned to: Tim
 Status: Completed
-Duration: 
+Duration: 15 minutes
 Description: Created a basic Contract class
 
 Task: Document Code
