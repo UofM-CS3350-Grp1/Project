@@ -27,7 +27,7 @@ Date: 06/04, time
 Assigned to: 12noon
 Status: in progress
 Duration:
-Description: provide options to add and edit services
+Description: rough gui completed, needs some tweaking yet
 
 
 Task: Service tests
@@ -43,8 +43,10 @@ Task: Export files to docx/pdf
 Date: 06/04, time
 Assigned to: Jason
 Status: in progress
-Duration:
-Description: Implementation of translating contracts to docx/pdf for printing
+Duration: 3hours
+Description: I figured out how to export data to pdf format and save locally. I have added the required "rough" code
+		to the Contract.java class (commented out) (jar files needed, unable to upload atm due to 
+		authorization issue).
 
 
 Task: Login screen
@@ -52,7 +54,7 @@ Date: 06/03, 9:00pm
 Assigned to: Jason
 Status: Wrapping up
 Duration:
-Description: Create secure login screen.
+Description: Create secure login screen. Need to connect to user table in db.
 
 
 Task: Additional data collection for clients, services and contracts
