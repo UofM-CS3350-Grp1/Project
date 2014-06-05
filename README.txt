@@ -34,7 +34,6 @@ TODO(Jason):
 			
 TODO(Adrian):
 		- Testing.
-		- Insert/Update/Delete Implementation
-		- Populate temporary tables with Client/Contract data.
-		- Query implementation for Client/Contract objects.
 		- Familiarize myself with GUI structure.
+		- Persistence in DBMS.
+		- Modify SERVICES table/model to reflect changes in new client data.

@@ -13,6 +13,18 @@ Description:
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Stub DB
+Date: 06/05
+Assigned to: Adrian
+Status: In progress
+Duration: 1.5 hr
+Description:	- Added base generic INSERT/UPDATE/DELETE functionality to
+				DBController as well as some error checking.
+				- Modified model objects slightly, forced the implementation
+				of a toIndex() method in all storable classes.
+				- Added some basic table dumps to StubDBInterface. Returns
+				ArrayList<#Model Requested#>
+
 Task: Service tests
 Date: 06/04, 2:50pm
 Assigned to: Tim
