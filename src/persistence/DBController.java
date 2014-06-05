@@ -29,6 +29,7 @@ public class DBController
 	private ResultSet rs1, rs2, rs3, rsColumns;
 	
 	private String cmdString;
+	private int updateIndex;
 
 	//----------------------------------------------------------------------------
 	//	Constructor, is passed specified database name.
@@ -93,99 +94,135 @@ public class DBController
 	
 
 	/**
-	 * INSERTCLIENT()															</br></br>
+	 * INSERT()															</br></br>
 	 * 
-	 * NOTES:	####VERY EARLY#### Will be re-implemented just throwing out ideas.
-	 * 			Will drop insert element into table.
+	 * NOTES:	Inserts a storable element into a table.
 	 * 
 	 * @param Table		-	Table to insert into 
 	 * @param element	-	Client to insert							</br></br>
 	 * 
 	 */
 	
-	public void insertClient(Client element)
+	public void insert(String table, Storable element)
 	{
-
+		String modify = "";
+		String warning = null;
+		int newIndex = -1;
+		ArrayList<String> objectIndexes;
+		ArrayList<String> fields = fieldBuilder(table);
+		boolean valid = true;
+		
+		//getActiveIndex("SERVICES");
+		//getActiveIndex("CLIENTS");
+		//getActiveIndex("CONTRACTS");
+		
+		if(valid)
+		{
+			
+			newIndex = getActiveIndex(table);
+			//Confirm there is no difference in size between table and object
+			if(fields.size() == element.toIndex().size() && newIndex != -1)
+			{
+				objectIndexes = element.toIndex();
+				modify = "INSERT INTO " + table + "\nVALUES \n(" +newIndex+",\n";
+				
+				//Modify everything except for first index (ROW_ID)
+				for(int i = 1 ; i < fields.size()-1; i ++)
+				{
+					modify += "'" + objectIndexes.get(i) + "',\n";
+				}
+				
+				modify += "'"+objectIndexes.get(fields.size()-1)+"')";
+				
+				System.out.println(modify);
+				
+				try
+				{
+					cmdString = modify;
+					updateIndex = st1.executeUpdate(cmdString);
+					
+					warning = checkWarning(st1, updateIndex);
+					
+					if(warning !=  null)
+					{
+						System.out.println(warning);
+					}
+				}
+				catch(Exception e)
+				{
+					errorOutput(e);
+				}
+				
+			}
+			else
+			{
+				System.out.println("Size mismatch between DB fields and input object.");
+				System.out.println("Fields: "+ fields.size() + " Elements " + element.toIndex().size());
+			}
+		}
 	}
+
 	
 	/**
-	 * INSERTSERVICE()															</br></br>
+	 * UPDATE()															</br></br>
 	 * 
-	 * NOTES:	####VERY EARLY#### Will be re-implemented just throwing out ideas.
-	 * 			Will drop insert element into table.
-	 * 
-	 * @param Table		-	Table to insert into 
-	 * @param element	-	Service to insert							</br></br>
-	 * 
-	 */
-	
-	public void insertService(Service element)
-	{
-
-	}
-	
-	/**
-	 * INSERTCONTRACT()															</br></br>
-	 * 
-	 * NOTES:	####VERY EARLY#### Will be re-implemented just throwing out ideas.
-	 * 			Will drop insert element into table.
-	 * 
-	 * @param Table		-	Table to insert into 
-	 * @param element	-	Contrct to insert							</br></br>
-	 * 
-	 */
-	
-	public void insertContract(Contract element)
-	{
-
-	}
-	
-	/**
-	 * UPDATECLIENT()															</br></br>
-	 * 
-	 * NOTES:	####VERY EARLY#### Will be re-implemented just throwing out ideas.
-	 * 			Will update specified element on table.
+	 * NOTES:	Updates a storable element on a table
 	 * 
 	 * @param table		-	Table to update *
-	 * @param element	-	Client to update							</br></br>
+	 * @param element	-	Storable to update							</br></br>
 	 * 
 	 */
 	
-	public void updateClient(Client element)
+	public void update(String table, Storable element)
 	{
+		String modify = "";
+		String warning = null;
+		ArrayList<String> objectIndexes;
+		ArrayList<String> fields = fieldBuilder(table);
+		boolean valid = modifyValidator(table, element.getID());
 		
-	}
-	
-	/**
-	 * UPDATESERVICE()															</br></br>
-	 * 
-	 * NOTES:	####VERY EARLY#### Will be re-implemented just throwing out ideas.
-	 * 			Will update specified element on table.
-	 * 
-	 * @param table		-	Table to update *
-	 * @param element	-	Service to update							</br></br>
-	 * 
-	 */
-	
-	public void updateService(Service element)
-	{
-		
-	}
-	
-	/**
-	 * UPDATECONTRACT()															</br></br>
-	 * 
-	 * NOTES:	####VERY EARLY#### Will be re-implemented just throwing out ideas.
-	 * 			Will update specified element on table.
-	 * 
-	 * @param table		-	Table to update *
-	 * @param element	-	Contract to update							</br></br>
-	 * 
-	 */
-	
-	public void updateContract(Contract element)
-	{
-		
+		if(valid)
+		{
+			//Confirm there is no difference in size between table and object
+			if(fields.size() == element.toIndex().size())
+			{
+				objectIndexes = element.toIndex();
+				modify = "UPDATE " + table + "\nSET \n";
+				
+				//Modify everything except for first index (ROW_ID)
+				for(int i = 1 ; i < fields.size()-1; i ++)
+				{
+					modify += fields.get(i) +" = '"+objectIndexes.get(i) + "',\n";
+				}
+				
+				modify += fields.get(fields.size()-1) +" = '"+objectIndexes.get(fields.size()-1)+"'\n";
+				
+				modify += "WHERE\nROW_ID = " + element.getID();
+				
+				System.out.println(modify);
+				try
+				{
+					cmdString = modify;
+					updateIndex = st1.executeUpdate(cmdString);
+					
+					warning = checkWarning(st1, updateIndex);
+					
+					if(warning !=  null)
+					{
+						System.out.println(warning);
+					}
+				}
+				catch(Exception e)
+				{
+					errorOutput(e);
+				}
+			}
+			else
+			{
+				System.out.println("Size mismatch between DB fields and input object.");
+				System.out.println("Fields: "+ fields.size() + " Elements " + element.toIndex().size());
+			}
+		}
 	}
 	
 	
@@ -201,8 +238,31 @@ public class DBController
 	 */
 	public void drop(String table, int id)
 	{
-
+		String modify = "";
+		String warning = null;
+		boolean valid = modifyValidator(table, id);
 		
+		if(valid)
+		{
+			modify = "DELETE FROM " + table + " WHERE ROW_ID = " +id;
+			System.out.println(modify);
+			try
+			{
+				cmdString = modify;
+				updateIndex = st1.executeUpdate(cmdString);
+				
+				warning = checkWarning(st1, updateIndex);
+				
+				if(warning !=  null)
+				{
+					System.out.println(warning);
+				}
+			}
+			catch(Exception e)
+			{
+				errorOutput(e);
+			}
+		}
 	}
 	
 	/**
@@ -340,7 +400,6 @@ public class DBController
 			{
 				cmdString = query;
 				rs3 = st1.executeQuery(cmdString);
-				
 				while(rs3.next())
 				{
 					//Appends services to output based on query results.
@@ -451,7 +510,7 @@ public class DBController
 		{
 			for(int i = 0; i < selects.size()-1; i++)
 			{
-			query = query + selects.get(i) + ",\n";
+				query = query + selects.get(i) + ",\n";
 			}
 		
 			query = query + selects.get(selects.size()-1) + "\n";
@@ -531,6 +590,98 @@ public class DBController
 	}
 	
 	/**
+	 * MODIFYVALIDATOR()
+	 * 
+	 * 		Checks if set ID exists on active table.
+	 * 
+	 * @param table		Table to check.
+	 * @param id		Id to check for.
+	 */
+	
+	public boolean modifyValidator(String table, int id)
+	{
+		boolean output = true;
+		boolean validator = true;
+		String query = "";
+		ArrayList<String> selects = new ArrayList<String>();
+		ArrayList<String> test = new ArrayList<String>();
+		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+		
+		selects.add("COUNT(*) VAL");
+		
+		test.add("ROW_ID");
+		test.add("=");
+		test.add(""+id+"");
+		
+		clauses.add(test);
+		
+		validator = queryValidator(null, null, clauses);
+		
+		if(validator)
+		{
+			query = queryBuilder(table, null, null, clauses);	//Returns full objects so No Joins/All Value
+			try
+			{
+				cmdString = query;
+				rs3 = st1.executeQuery(cmdString);
+				
+				rs3.next();
+				System.out.println(rs3.getInt(1));
+				if(rs3.getInt(1) < 1)
+				{
+					output = false; //Must contain at east one entry.
+				}
+			
+			}
+			catch(Exception e)
+			{
+				errorOutput(e);
+			}
+		}
+		else
+		{
+			System.out.println("Invaid Modify Request.");
+		}
+		
+		return output;
+	}
+	
+	/**
+	 * GETACTIVEINDEX()
+	 * 
+	 *		##This has no error checking, by no means should you be calling this.
+	 *
+	 * @param table		Table to find index on.
+	 * @return
+	 */
+	
+	int getActiveIndex(String table)
+	{
+		int output = -1;
+		String query = "SELECT MAX(ROW_ID) FROM "+ table;
+		
+		try
+		{
+			cmdString = query;
+			rs3 = st1.executeQuery(cmdString);
+			
+			rs3.next();
+			output = rs3.getInt(1) + 1;
+			if(output <= 0)
+			{
+				output = -1;
+			}
+			System.out.println(output);
+		}
+		catch(Exception e)
+		{
+			errorOutput(e);
+		}
+		
+		return output;
+	}
+	
+	/**
 	 * ERROROUTPUT()															</br></br>
 	 * 
 	 * NOTES:	Spits out errors.
@@ -544,8 +695,35 @@ public class DBController
 		e.printStackTrace();
 	}
 	
-
+	/**MODIFYWARNINGS()
+	 * 
+	 * @param st		Statement being executed.	
+	 * @param index		Index indicating if modification took place.
+	 * @return
+	 */
 	
+	public String checkWarning(Statement st, int index)
+	{
+		String result = null;
+		
+		try
+		{
+			SQLWarning warning = st.getWarnings();
+			if (warning != null)
+			{
+				result = warning.getMessage();
+			}
+		}
+		catch (Exception e)
+		{
+			errorOutput(e);
+		}
+		if (index != 1)
+		{
+			result = "Failed to modify";
+		}
+		return result;
+	}
 	
 	
 }

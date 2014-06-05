@@ -1,4 +1,6 @@
 package objects;
+
+import java.util.ArrayList;
 /*
  * based on "I want to be able to add, delete, edit, view *active or potential clients*
  */
@@ -226,6 +228,28 @@ public class Client implements Storable {
 	public void setStatus(ClientStatus status)
 	{
 		this.status = status;
+	}
+	
+	
+	/**TOINDEX()
+	 * 
+	 * Returns an ArrayList containing the values of this object in the order they
+	 * appear on the DBMS.
+	 */
+	
+	public ArrayList<String> toIndex()
+	{
+		ArrayList<String> index = new ArrayList<String>();
+		
+		index.add(this.clientID+"");
+		index.add(this.name);
+		index.add(this.phoneNumber+"");
+		index.add(this.email);
+		index.add(this.address);
+		index.add(this.businessName);
+		index.add(this.status == ClientStatus.Active ? 1+"" : 0+"");
+		
+		return index;
 	}
 	
 	public String toString()

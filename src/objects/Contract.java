@@ -1,6 +1,8 @@
 package objects;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.text.SimpleDateFormat;;
 
 /*
 *
@@ -36,7 +38,8 @@ public class Contract implements Storable
 	private String details;			//Specific details of the contract
 	private double value;			//Value of the contract
 	private Date period;			//Contract period (end date)
-	
+	private final String DATE_FORMAT = "yyyy-MM-dd";
+	private SimpleDateFormat sdf;
 	/**
 	 * Creates a new contract
 	 * @param contractNumber 	The number of the contract
@@ -53,6 +56,7 @@ public class Contract implements Storable
 		this.details = details;
 		this.value = value;
 		this.period = period;
+		this.sdf = new SimpleDateFormat(DATE_FORMAT);
 	}
 	
 	/**
@@ -71,6 +75,7 @@ public class Contract implements Storable
 		this.details = details;
 		this.value = value;
 		this.period = period;
+		this.sdf = new SimpleDateFormat(DATE_FORMAT);
 	}
 	
 	/*********************************************************
@@ -81,7 +86,7 @@ public class Contract implements Storable
 	 * Get the number of the contract
 	 * @return The contract number
 	 */
-	public int getContractNumber() 
+	public int getID() 
 	{
 		return contractNumber;
 	}
@@ -173,6 +178,25 @@ public class Contract implements Storable
 				", Details: " + this.details +
 				", Value: " + String.format("%.2f", this.value) +
 				", End Date: " + this.period.toString() +")";
+	}
+	
+	/**TOINDEX()
+	 * 
+	 * Returns an ArrayList containing the values of this object in the order they
+	 * appear on the DBMS.
+	 */
+	
+	public ArrayList<String> toIndex()
+	{
+		ArrayList<String> index = new ArrayList<String>();
+		
+		index.add(""+this.contractNumber+"");
+		index.add(this.businessName);
+		index.add(this.details);
+		index.add(String.format("%.2f", this.value));
+		index.add(this.sdf.format(period));
+		
+		return index;
 	}
 	
 	/*

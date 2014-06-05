@@ -37,7 +37,7 @@ public class DBInterface
 		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
 		ArrayList<String> conditions = new ArrayList<String>();
 		
-		conditions.add("SERVICE_ID");
+		conditions.add("ROW_ID");
 		conditions.add("= ");
 		conditions.add(""+id+"");
 		
@@ -101,7 +101,7 @@ public class DBInterface
 		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
 		ArrayList<String> conditions = new ArrayList<String>();
 		
-		conditions.add("CLIENT_ID");
+		conditions.add("ROW_ID");
 		conditions.add("= ");
 		conditions.add(""+id+"");
 		
@@ -169,7 +169,7 @@ public class DBInterface
 		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
 		ArrayList<String> conditions = new ArrayList<String>();
 		
-		conditions.add("CONTRACT_ID");
+		conditions.add("ROW_ID");
 		conditions.add("= ");
 		conditions.add(""+id+"");
 		
@@ -229,15 +229,15 @@ public class DBInterface
 	{
 		if(element instanceof Client)
 		{
-			this.mainDB.insertClient((Client)element);
+			this.mainDB.insert("CLIENTS", element);
 		}
 		else if(element instanceof Service)
 		{
-			this.mainDB.insertService((Service)element);
+			this.mainDB.insert("SERVICES", element);
 		}
 		else if(element instanceof Contract)
 		{
-			this.mainDB.insertContract((Contract)element);
+			this.mainDB.insert("CONTRACTS", element);
 		}
 		else
 		{
@@ -255,15 +255,15 @@ public class DBInterface
 	{
 		if(element instanceof Client)
 		{
-			this.mainDB.updateClient((Client)element);
+			this.mainDB.update("CLIENTS", element);
 		}
 		else if(element instanceof Service)
 		{
-			this.mainDB.updateService((Service)element);
+			this.mainDB.update("SERVICES", element);
 		}
 		else if(element instanceof Contract)
 		{
-			this.mainDB.updateContract((Contract)element);
+			this.mainDB.update("CONTRACTS", element);
 		}
 		else
 		{
@@ -282,22 +282,56 @@ public class DBInterface
 		if(element instanceof Client)
 		{
 			Client toDrop = (Client)element;
-			this.mainDB.drop("CLIENT", toDrop.getID());
+			this.mainDB.drop("CLIENTS", toDrop.getID());
 		}
 		else if(element instanceof Service)
 		{
 			Service toDrop = (Service)element;
-			this.mainDB.drop("SERVICE", toDrop.getID());
+			this.mainDB.drop("SERVICES", toDrop.getID());
 		}
 		else if(element instanceof Contract)
 		{
 			Contract toDrop = (Contract)element;
-			this.mainDB.drop("CONTRACT", toDrop.getContractNumber());
+			this.mainDB.drop("CONTRACTS", toDrop.getID());
 		}
 		else
 		{
 			System.out.println("Invalid input for DROP statement.");
 		}
+	}
+	
+	
+	/**DUMPCLIENTS()
+	 * 
+	 * Returns all clients on the DBMS;
+	 * 
+	 */
+	
+	public ArrayList<Client> dumpClients()
+	{
+		return null;
+	}
+
+	/**DUMPSERVICES()
+	 * 
+	 * Returns all services on the DBMS;
+	 * 
+	 */
+
+	ArrayList<Service> dumpServices()
+	{
+		return null;
+	}
+	
+	/**DUMPCONTRACTS()
+	 * 
+	 * Returns all contracts on the DBMS;
+	 * 
+	 */
+	
+	public ArrayList<Contract> dumpContracts()
+	{
+		return null;
 	}
 	
 	/**

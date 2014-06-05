@@ -145,7 +145,7 @@ public class StubDBInterface extends DBInterface
 		Contract output = null;
 		for(int i = 0; i < services.size() && !breakloop ;i ++)
 		{
-			if(contracts.get(i).getContractNumber() == id)
+			if(contracts.get(i).getID() == id)
 			{
 				output = contracts.get(i);
 				breakloop = true;
@@ -259,7 +259,7 @@ public class StubDBInterface extends DBInterface
 			
 			for(int i = 0; i< contracts.size() && !breakloop; i++)
 			{
-				if(contracts.get(i).getContractNumber() == update.getContractNumber())
+				if(contracts.get(i).getID() == update.getID())
 				{
 					contracts.remove(i);
 					breakloop = true;
@@ -270,6 +270,39 @@ public class StubDBInterface extends DBInterface
 		{
 			System.out.println("Invalid input for DROP statement.");
 		}
+	}
+	
+	/**DUMPCLIENTS()
+	 * 
+	 * Returns all clients on the DBMS;
+	 * 
+	 */
+	
+	public ArrayList<Client> dumpClients()
+	{
+		return clients;
+	}
+	
+	/**DUMPSERVICES()
+	 * 
+	 * Returns all services on the DBMS;
+	 * 
+	 */
+	
+	public ArrayList<Service> dumpServices()
+	{
+		return services;
+	}
+	
+	/**DUMPCONTRACTS()
+	 * 
+	 * Returns all contracts on the DBMS;
+	 * 
+	 */
+	
+	public ArrayList<Contract> dumpContracts()
+	{
+		return contracts;
 	}
 	
 	/**

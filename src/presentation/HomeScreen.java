@@ -5,6 +5,7 @@ import objects.Client;
 import objects.Contract;
 import objects.Service;
 import persistence.StubDBInterface;
+import persistence.DBInterface;
 
 import java.util.Date;
 
@@ -30,8 +31,54 @@ public class HomeScreen {
 	{	
 		int dbDebug = 0;
 		StubDBInterface test = new StubDBInterface("Test");
+		//DBInterface testDB = new DBInterface("Test");
 
-		if(dbDebug == 1)
+		/*if(dbDebug == 2)
+		{
+			System.out.println("Service By ID");
+			System.out.println(testDB.getServiceByID(1));
+			System.out.println(testDB.getServiceByID(2));
+			System.out.println(testDB.getServiceByID(3));
+			System.out.println(testDB.getServiceByID(4));
+			System.out.println(testDB.getServiceByID(7)); //Inexistant ID
+			System.out.println(testDB.getServicesByTitle("Service 2"));
+			
+			System.out.println();
+			
+			System.out.println("Client By ID");
+			System.out.println(testDB.getClientByID(1));
+			System.out.println(testDB.getClientByID(2));
+			System.out.println(testDB.getClientByID(3));
+			System.out.println(testDB.getClientByID(4));
+			System.out.println(testDB.getClientByID(7)); //Inexistant ID
+			System.out.println(testDB.getClientsByStatus(ClientStatus.Active));
+			
+			System.out.println();
+			
+			System.out.println("Contract By ID");
+			System.out.println(testDB.getContractByID(1));
+			System.out.println(testDB.getContractByID(2));
+			System.out.println(testDB.getContractByID(3));
+			System.out.println(testDB.getContractByID(4));
+			System.out.println(testDB.getContractByID(7)); //Inexistant ID
+			System.out.println(testDB.getContractsByBusiness("Business 3"));
+			
+			Contract samply = testDB.getContractByID(1);
+			testDB.drop(samply);
+			System.out.println("Samply is " + samply);
+			
+			testDB.insert(samply);
+			System.out.println(testDB.getContractByID(4));
+			System.out.println("Samply is " + samply);
+			
+			samply = testDB.getContractByID(4);
+			samply.setBusinessName("Business 5");
+			testDB.update(samply);
+			System.out.println(testDB.getContractByID(4));
+			System.out.println("Samply is " + samply);
+			
+		}
+		else if(dbDebug == 1)
 		{
 			Client clientTest = new Client(4, "Joe Doe", "5552222", "joedoe@gmail.com", "223 Main St.", "Joe's Business", 1);
 			Contract contractTest = new Contract(4, "Joe's Business", "Details go here...", 3500.00, new Date());
@@ -80,7 +127,7 @@ public class HomeScreen {
 			
 			System.out.println();
 		}
-			
+	*/		
 		try {
 			HomeScreen window = new HomeScreen();
 			window.open();

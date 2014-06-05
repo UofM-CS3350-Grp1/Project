@@ -1,5 +1,7 @@
 package objects;
 
+import java.util.ArrayList;
+
 //----------------------------------------------------------------------------
 //	Class: Service
 //
@@ -157,6 +159,25 @@ public class Service implements Storable
 	public void commit()
 	{
 		System.out.println("Currently not comitting service changes to the database.");
+	}
+	
+	/**TOINDEX()
+	 * 
+	 * Returns an ArrayList containing the values of this object in the order they
+	 * appear on the DBMS.
+	 */
+	
+	public ArrayList<String> toIndex()
+	{
+		ArrayList<String> index = new ArrayList<String>();
+		
+		index.add(this.id+"");
+		index.add(this.title);
+		index.add(this.description);
+		index.add(String.format("%.2f", this.rate));
+		index.add(this.type);
+			
+		return index;
 	}
 	
 	//----------------------------------------------------------------------------
