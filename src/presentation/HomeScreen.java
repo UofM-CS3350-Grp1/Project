@@ -211,6 +211,19 @@ public class HomeScreen {
 			}
 		});
 		
+		Button btnLogin = new Button( loginComp, SWT.None );
+		btnLogin.setText( "Login" );
+		btnLogin.addSelectionListener( new SelectionAdapter() {
+			public void widgetSelected( SelectionEvent event ) {
+				if ( ( userIn.getText() ).equals( "admin" ) 
+						&& ( passIn.getText()).equals( "password" ) ) {
+					// log in - match credentials with DB maybe?
+				}
+				else {
+					// invalid user prompt?
+				}
+			}
+		});
 		
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
