@@ -9,14 +9,19 @@ import persistence.DBInterface;
 
 import java.util.Date;
 
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.ModifyEvent;
 
 
 public class HomeScreen {
@@ -166,6 +171,47 @@ public class HomeScreen {
 		
 		Label lblEveryoneShouldBe = new Label(shell, SWT.NONE);
 		lblEveryoneShouldBe.setText("Everyone should be able to start placing their code into the src folder.");
+		
+		// separator
+		Label line1 = new Label(shell, SWT.HORIZONTAL | SWT.SEPARATOR);
+		line1.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		
+		// login
+		Composite loginComp = new Composite( shell, SWT.NONE );
+		GridLayout loginGrid = new GridLayout();
+		loginGrid.numColumns = 2;
+		loginComp.setLayout( loginGrid );
+		loginComp.setLayoutData( new GridData() );
+		
+		final Label userLabel = new Label( loginComp, SWT.NONE );
+		userLabel.setText( "User( type admin ):" );
+		final Text userIn = new Text( loginComp, SWT.BORDER );
+		userIn.addModifyListener( new ModifyListener() {
+			public void modifyText( ModifyEvent event ) {
+				if ( ( userIn.getText() ).equals( "admin" ) ) {
+					userLabel.setText( "User( good ):" );
+				}
+				else {
+					userLabel.setText( "User( type admin ):" );
+				}
+			}
+		});
+		
+		final Label passLabel = new Label( loginComp, SWT.NONE );
+		passLabel.setText( "Password...is:" );
+		final Text passIn = new Text( loginComp, SWT.BORDER | SWT.PASSWORD );
+		passIn.addModifyListener( new ModifyListener() {
+			public void modifyText( ModifyEvent event ) {
+				if ( ( passIn.getText() ).equals( "password" ) ) {
+					passLabel.setText( "Correct" );
+				}
+				else {
+					passLabel.setText( "Password...is:" );
+				}
+			}
+		});
+		
+		
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
@@ -174,7 +220,6 @@ public class HomeScreen {
 		Button btnManageClients = new Button(shell, SWT.NONE);
 		btnManageClients.addSelectionListener(new SelectionAdapter()
 		{
-			@Override
 			public void widgetSelected(SelectionEvent event) 
 			{
 				new ClientScreen();
