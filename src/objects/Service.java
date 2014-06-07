@@ -269,7 +269,7 @@ public class Service implements Storable
 		this.payPeriod = ayPeriod;
 	}
 	
-	public void gstSecondaryPayPeriod(String secondPayPeriod)
+	public void setSecondaryPayPeriod(String secondPayPeriod)
 	{
 		this.secondPayPeriod = secondPayPeriod;
 	}
