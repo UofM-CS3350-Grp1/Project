@@ -39,6 +39,16 @@ public class StubDBInterface extends DBInterface
 
 	}
 	
+	public void connect()
+	{
+		//stub
+	}
+	
+	public void disconnect()
+	{
+		//stub
+	}
+	
 	/**
 	 * 	GETSERVICEBYID()
 	 * 
@@ -310,6 +320,21 @@ public class StubDBInterface extends DBInterface
 	 * 
 	 * @return String output indicating which database is in use.
 	 */
+	
+	/**
+	 * BLINDSQLQUERY();
+	 *
+	 * Runs a query against the DBMS and returns an arrayList of strings
+	 *
+	 * @param sql
+	 * @return
+	 */
+	
+	public ArrayList<String> blindSQLQuery(String sql)
+	{
+		//The stub DB doesen't evaluate actual SQL;
+		return null;
+	}
 	
 	public String toString()
 	{

@@ -19,8 +19,17 @@ public class DBInterface
 		{
 			this.dbName = dbName;
 			this.mainDB = new DBController(dbName);
-			this.mainDB.connect();
 		}
+	}
+	
+	public void connect()
+	{
+		this.mainDB.connect();
+	}
+	
+	public void disconnect()
+	{
+		this.mainDB.disconnect();
 	}
 	
 	/**
@@ -332,6 +341,21 @@ public class DBInterface
 	public ArrayList<Contract> dumpContracts()
 	{
 		return null;
+	}
+	
+	/**
+	 * BLINDSQLQUERY();
+	 *
+	 * Runs a query against the DBMS and returns an arrayList of strings
+	 *
+	 * @param sql
+	 * @return
+	 */
+	
+	public ArrayList<String> blindSQLQuery(String sql)
+	{
+		ArrayList<String> output = this.mainDB.blindQuery(sql);
+		return output;
 	}
 	
 	/**

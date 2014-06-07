@@ -20,7 +20,7 @@ import java.util.Locale;
 
 public class DBController 
 {
-	
+	private final int SQL_DEBUGGING = 1; //1 for full SQL output, 0 to disable.
 	private String dbName;
 	private String dbType;
 	
@@ -134,7 +134,8 @@ public class DBController
 				
 				modify += "'"+objectIndexes.get(fields.size()-1)+"')";
 				
-				System.out.println(modify);
+				if(SQL_DEBUGGING == 1)
+					System.out.println(modify);
 				
 				try
 				{
@@ -199,7 +200,9 @@ public class DBController
 				
 				modify += "WHERE\nROW_ID = " + element.getID();
 				
-				System.out.println(modify);
+				if(SQL_DEBUGGING == 1)
+					System.out.println(modify);
+				
 				try
 				{
 					cmdString = modify;
@@ -245,7 +248,10 @@ public class DBController
 		if(valid)
 		{
 			modify = "DELETE FROM " + table + " WHERE ROW_ID = " +id;
-			System.out.println(modify);
+
+			if(SQL_DEBUGGING == 1)
+				System.out.println(modify);
+			
 			try
 			{
 				cmdString = modify;
@@ -287,6 +293,9 @@ public class DBController
 		{
 			query = queryBuilder("SERVICES", null, null, clauses);	//Returns full objects so No Joins/All Values
 			fields = fieldBuilder("SERVICES"); //Retrieves columns from SERVICES table
+			
+			if(SQL_DEBUGGING == 1)
+				System.out.println(query);
 			
 			try
 			{
@@ -340,6 +349,9 @@ public class DBController
 		{
 			query = queryBuilder("CLIENTS", null, null, clauses);	//Returns full objects so No Joins/All Values
 			fields = fieldBuilder("CLIENTS"); //Retrieves columns from CLIENTS table
+			
+			if(SQL_DEBUGGING == 1)
+				System.out.println(query);
 			
 			try
 			{
@@ -396,6 +408,9 @@ public class DBController
 			query = queryBuilder("CONTRACTS", null, null, clauses);	//Returns full objects so No Joins/All Values
 			fields = fieldBuilder("CONTRACTS"); //Retrieves columns from CONTRACTS table
 			
+			if(SQL_DEBUGGING == 1)
+				System.out.println(query);
+			
 			try
 			{
 				cmdString = query;
@@ -420,6 +435,46 @@ public class DBController
 		else
 		{
 			System.out.println("Invaid Contract query.");
+		}
+		
+		return output;
+	}
+	
+	/**
+	 * BLINDQUERY();
+	 * 
+	 *  Runs a generic SQL query against DBMS and retrns an ArrayList of Strings.
+	 * 
+	 * @param query
+	 * @return
+	 */
+	
+	ArrayList<String> blindQuery(String query)
+	{
+		ArrayList<String> output = new ArrayList<String>();
+		int counter = 0;
+		
+		try
+		{
+			cmdString = query;
+			rs3 = st1.executeQuery(cmdString);
+			counter = rs3.getMetaData().getColumnCount();
+			
+			while(rs3.next())
+			{
+				String row = new String();
+				
+				for(int i = 1; i <= counter; i++)
+				{
+					row += rs3.getString(i) + ", ";
+				}
+				
+				output.add(row);
+			}
+		}
+		catch(Exception e)
+		{
+			errorOutput(e);
 		}
 		
 		return output;
@@ -460,7 +515,7 @@ public class DBController
 	 * 
 	 */
 	
-	ArrayList<String> fieldBuilder(String table)
+	private ArrayList<String> fieldBuilder(String table)
 	{
 		ArrayList<String> output = new ArrayList<String>();
 		String columnName = "";
@@ -498,7 +553,7 @@ public class DBController
 	 * 
 	 */
 	
-	public String queryBuilder(
+	private String queryBuilder(
 						String table,
 						ArrayList<String> selects, 
 						ArrayList<ArrayList<String>> joins, 
@@ -559,7 +614,7 @@ public class DBController
 	 * 
 	 */
 	
-	public boolean queryValidator(
+	private boolean queryValidator(
 							ArrayList<String> selects, 
 							ArrayList<ArrayList<String>> joins,
 							ArrayList<ArrayList<String>> clauses)
@@ -570,10 +625,6 @@ public class DBController
 		{ 
 			validator = false; 
 		}
-		
-		//////////////////////////////////////////////////////////////////////
-		//NOTE: THIS WILL LIKELY CHANGE AS CLAUSES BECOME MORE SOPHISTICATED//
-		//////////////////////////////////////////////////////////////////////
 		
 		if(validator) //Invalidates if clauses arrays contain more the 3 arguments
 		{
@@ -598,7 +649,7 @@ public class DBController
 	 * @param id		Id to check for.
 	 */
 	
-	public boolean modifyValidator(String table, int id)
+	private boolean modifyValidator(String table, int id)
 	{
 		boolean output = true;
 		boolean validator = true;
@@ -655,7 +706,7 @@ public class DBController
 	 * @return
 	 */
 	
-	int getActiveIndex(String table)
+	private int getActiveIndex(String table)
 	{
 		int output = -1;
 		String query = "SELECT MAX(ROW_ID) FROM "+ table;
@@ -688,7 +739,7 @@ public class DBController
 	 * 
 	 */
 	
-	public void errorOutput(Exception e)
+	private void errorOutput(Exception e)
 	{
 		
 		System.out.println(e.getMessage());
@@ -702,7 +753,7 @@ public class DBController
 	 * @return
 	 */
 	
-	public String checkWarning(Statement st, int index)
+	private String checkWarning(Statement st, int index)
 	{
 		String result = null;
 		

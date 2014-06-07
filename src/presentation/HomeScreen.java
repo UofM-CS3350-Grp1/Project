@@ -8,6 +8,7 @@ import persistence.StubDBInterface;
 import persistence.DBInterface;
 
 import java.util.Date;
+import java.util.ArrayList;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -34,12 +35,22 @@ public class HomeScreen {
 	 */
 	public static void main(String[] args) 
 	{	
-		int dbDebug = 0;
+		int dbDebug = 2;
 		StubDBInterface test = new StubDBInterface("Test");
 		//DBInterface testDB = new DBInterface("Test");
-
-		/*if(dbDebug == 2)
+/*
+		if(dbDebug == 2)
 		{
+			
+			testDB.connect();
+			
+			ArrayList<String> testQuery = testDB.blindSQLQuery("SELECT * FROM SERVICES");
+			
+			for(int i = 0; i < testQuery.size(); i++)
+			{
+				System.out.println(testQuery.get(i));
+			}
+			
 			System.out.println("Service By ID");
 			System.out.println(testDB.getServiceByID(1));
 			System.out.println(testDB.getServiceByID(2));
@@ -82,9 +93,11 @@ public class HomeScreen {
 			System.out.println(testDB.getContractByID(4));
 			System.out.println("Samply is " + samply);
 			
+			testDB.disconnect();
 		}
 		else if(dbDebug == 1)
 		{
+			test.connect();
 			Client clientTest = new Client(4, "Joe Doe", "5552222", "joedoe@gmail.com", "223 Main St.", "Joe's Business", 1);
 			Contract contractTest = new Contract(4, "Joe's Business", "Details go here...", 3500.00, new Date());
 			Service serviceTest = new Service(4, "Service 4", "Service description...", 3.0, "Other");
@@ -131,8 +144,10 @@ public class HomeScreen {
 			System.out.println(test.getContractsByBusiness("Jane's Business"));
 			
 			System.out.println();
+			
+			test.disconnect();
 		}
-	*/		
+		*/
 		try {
 			HomeScreen window = new HomeScreen();
 			window.open();
