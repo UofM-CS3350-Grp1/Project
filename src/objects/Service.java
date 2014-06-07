@@ -21,10 +21,11 @@ public class Service implements Storable
 	 * NEW DATA MEMBERS FOR SERVICE, can be moved in once code is adjusted.
 	 */
 	
-	private String payPeriod;		//month/week/year/now
+	/*private String payPeriod;		//month/week/year/now
 	private double secondaryRate;	//optional secondary rate for maintenance
 	private String secondPayPeriod;	//secondary pay period
 	private String serviceRenewal;	// Monthly/Yearly/Per Request
+	*/
 
 	
 	
@@ -208,6 +209,28 @@ public class Service implements Storable
 		return this.id;
 	}
 	
+	/*
+	public String getPayPeriod()
+	{
+		return this.payPeriod;
+	}
+	
+	public String getSecondaryPayPeriod()
+	{
+		return this.secondPayPeriod;
+	}
+	
+	public double getSecondaryRate()
+	{
+		return this.secodaryRate;
+	}
+	
+	public String getServiceRenewal()
+	{
+		return this.serviceRenewal;
+	}
+	*/
+	
 	//-------------
 	//	SETTERS
 	//-------------
@@ -239,6 +262,28 @@ public class Service implements Storable
 		if(type != null && !type.isEmpty())
 			this.type = type;
 	}
+	
+	/*
+	public void setPayPeriod(String payPeriod)
+	{
+		this.payPeriod = ayPeriod;
+	}
+	
+	public void gstSecondaryPayPeriod(String secondPayPeriod)
+	{
+		this.secondPayPeriod = secondPayPeriod;
+	}
+	
+	public void setSecondaryRate(double secondaryRate)
+	{
+		this.secodaryRate = secondaryRate;
+	}
+	
+	public void setServiceRenewal(String serviceRenewal)
+	{
+		this.serviceRenewal = serviceRenewal;
+	}
+	*/
 	
 	//----------------------------------------------------------------------------
 	//	COMMIT()
