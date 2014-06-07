@@ -36,6 +36,16 @@ public class StubDBInterface extends DBInterface
 		services.add(new Service(1, "Service 1", "Service description...", 4.0, "Web Design"));
 		services.add(new Service(2, "Service 2", "Service description...", 3.0, "Social Media"));
 		services.add(new Service(3, "Service 3", "Service description...", 5.5, "Marketing"));
+		
+		//
+		//NEW SERVICE IMPLEMENTATION
+		//
+		
+		/*
+		services.add(new Service(1, "Service 1", "Service description...", 4.0, "Base", 10.0, "Month", "Monthly", "Web Design"));
+		services.add(new Service(2, "Service 2", "Service description...", 3.0, "Monthly", 0.0, null, "Monthly", "Social Media"));
+		services.add(new Service(3, "Service 3", "Service description...", 5.5, "Monthly", 0.0, null, "Yearly", "Marketing"));
+		 */
 
 	}
 	
@@ -153,7 +163,7 @@ public class StubDBInterface extends DBInterface
 	{
 		boolean breakloop = false;
 		Contract output = null;
-		for(int i = 0; i < services.size() && !breakloop ;i ++)
+		for(int i = 0; i < contracts.size() && !breakloop ;i ++)
 		{
 			if(contracts.get(i).getID() == id)
 			{

@@ -35,7 +35,7 @@ public class HomeScreen {
 	 */
 	public static void main(String[] args) 
 	{	
-		int dbDebug = 2;
+		int dbDebug = 1;
 		StubDBInterface test = new StubDBInterface("Test");
 		//DBInterface testDB = new DBInterface("Test");
 /*
@@ -95,14 +95,16 @@ public class HomeScreen {
 			
 			testDB.disconnect();
 		}
-		else if(dbDebug == 1)
+		*/
+		/*
+		if(dbDebug == 1)
 		{
 			test.connect();
-			Client clientTest = new Client(4, "Joe Doe", "5552222", "joedoe@gmail.com", "223 Main St.", "Joe's Business", 1);
+			//Client clientTest = new Client(4, "Joe Doe", "5552222", "joedoe@gmail.com", "223 Main St.", "Joe's Business", 1);
 			Contract contractTest = new Contract(4, "Joe's Business", "Details go here...", 3500.00, new Date());
-			Service serviceTest = new Service(4, "Service 4", "Service description...", 3.0, "Other");
+			Service serviceTest = new Service(4, "Service 3", "This one is new", 5.5, "Monthly", 0.0, null, "Yearly", "Marketing");
 	
-			test.insert(clientTest);
+			//test.insert(clientTest);
 			test.insert(contractTest);
 			test.insert(serviceTest);
 			
@@ -110,9 +112,9 @@ public class HomeScreen {
 			test.drop(test.getContractByID(3));
 			test.drop(test.getClientByID(3));
 			
-			clientTest.setAddress("225 Main St.");
+		//	clientTest.setAddress("225 Main St.");
 			contractTest.setDetails("Recently moved.");
-			serviceTest.setDescription("What does this service do?");
+			serviceTest.setDescription("Now its REALLY new");
 			
 		//	test.update(clientTest);
 		//	test.update(contractTest);

@@ -310,7 +310,11 @@ public class DBController
 								rs3.getString(fields.get(1)),//Title
 								rs3.getString(fields.get(2)),//Description
 								Double.parseDouble(rs3.getString(fields.get(3))), //Rate
-								rs3.getString(fields.get(4)) //Type
+								//r3.getString(field.get(4)) //Pay_Period
+								//Double.parseDouble(rs3.getString(fields.get(5))) //Secondary Rate
+								//r3.getString(field.get(6)); //Secondary Pay Period
+								//r3.getString(field.get(7)); //Service Renewal
+								rs3.getString(fields.get(4)) //Type, will become field(8)
 								));
 				}
 			}

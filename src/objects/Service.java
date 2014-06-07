@@ -16,20 +16,53 @@ public class Service implements Storable
 	private double rate;				// Rate at which this service is charged.
 	private int id;					// Unique Row ID of service.
 	
+	
+	/**
+	 * NEW DATA MEMBERS FOR SERVICE, can be moved in once code is adjusted.
+	 */
+	
+	private String payPeriod;		//month/week/year/now
+	private double secondaryRate;	//optional secondary rate for maintenance
+	private String secondPayPeriod;	//secondary pay period
+	private String serviceRenewal;	// Monthly/Yearly/Per Request
+
+	
+	
 	//-------------
 	//	CONSTRUCT
 	//-------------
 	
 
-	//----------------------------------------------------------------------------
-	//	DBMS Constructor, assumes ID is known
-	//----------------------------------------------------------------------------
+	/**
+	 * NEW SERVICE
+	 * 
+	 * This the the new model for services, please make the needed changes to your code and we will move this
+	 * into production.
+	 * 
+	 * Note that "Type" is moved to the end of the constructor, to allow for the new variables.
+	 * 
+	 * @param id
+	 * @param title
+	 * @param description
+	 * @param rate
+	 * @param payPeriod
+	 * @param secondaryRate
+	 * @param secondaryPayPeriod
+	 * @param serviceRenewal
+	 * @param type
+	 * @throws IllegalArgumentException
+	 */
 	
+	/*
 	public Service(
 					int id,
 					String title,
 					String description,
 					double rate,
+					String payPeriod,
+					double sdcondaryRate,
+					String secondaryPayPeriod,
+					String serviceRenewal,
 					String type
 					) throws IllegalArgumentException
 	{
@@ -44,6 +77,64 @@ public class Service implements Storable
 		this.rate = rate;
 		this.id = id;
 		this.type = type;
+		this.payPeriod = payPeriod;
+		this.secondaryRate = secondaryRate;
+		this.secondPayPeriod = secondaryPayPeriod;
+		this.serviceRenewal = serviceRenewal;
+		
+	}
+	*/
+		
+	/*
+		public Service(
+					String title,
+					String description,
+					double rate,
+					String payPeriod,
+					double sdcondaryRate,
+					String secondaryPayPeriod,
+					String serviceRenewal,
+					String type
+					) throws IllegalArgumentException
+	{
+		if(title == null || title.isEmpty() || id < 0 || description == null ||
+				rate < 0 || type == null || type.isEmpty()) // Reject objects with undefined names or invalid ID's
+		{
+			throw new IllegalArgumentException();
+		}
+	
+		this.title = title;
+		this.description = description;
+		this.rate = rate;
+		this.id = 0;
+		this.type = type;
+		this.payPeriod = payPeriod;
+		this.secondaryRate = secondaryRate;
+		this.secondPayPeriod = secondaryPayPeriod;
+		this.serviceRenewal = serviceRenewal;
+	}
+	*/
+	
+	
+	public Service(
+				int id,
+				String title,
+				String description,
+				double rate,
+				String type
+				) throws IllegalArgumentException
+	{
+	if(title == null || title.isEmpty() || id < 0 || description == null ||
+			rate < 0 || type == null || type.isEmpty()) // Reject objects with undefined names or invalid ID's
+	{
+		throw new IllegalArgumentException();
+	}
+	
+	this.title = title;
+	this.description = description;
+	this.rate = rate;
+	this.id = id;
+	this.type = type;
 	}
 	
 	//----------------------------------------------------------------------------
@@ -70,6 +161,8 @@ public class Service implements Storable
 		this.id = 0;
 		this.type = type;
 	}
+	
+	
 	
 	//----------------------------------------------------------------------------
 	//	Null constructor, currently creates a test service
@@ -179,6 +272,33 @@ public class Service implements Storable
 			
 		return index;
 	}
+	
+	/**
+	 * 
+	 * NEW TOINDEX()
+	 * 
+	 * This can be moved in once the new service model has been implmented.
+	 * 
+	 */
+	
+	/*
+	public ArrayList<String> toIndex()
+	{
+		ArrayList<String> index = new ArrayList<String>();
+		
+		index.add(this.id+"");
+		index.add(this.title);
+		index.add(this.description);
+		index.add(String.format("%.2f", this.rate));
+		index.add(this.payPeriod);
+		index.add(String.format("%.2f", this.secondaryRate));
+		index.add(this.secondPayPeriod);
+		index.add(this.serviceRenewal);
+		index.add(this.type);
+			
+		return index;
+	}
+	*/
 	
 	//----------------------------------------------------------------------------
 	//	TOSTRING()
