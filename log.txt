@@ -80,7 +80,7 @@ Description: 	Added some tests for the Client class.
 
 Task: Add/edit services
 Date: 06/04, time
-Assigned to: 12noon
+Assigned to: Jason
 Status: in progress
 Duration:
 Description: rough gui completed, needs some tweaking yet
@@ -159,14 +159,6 @@ Assigned to: Derek
 Status: Will start 6/4
 Duration:
 Description: Create the set of files described in the iteration 1 document on how to build and run the program and tests
-
-
-Task: Sketch program structure
-Date: 06/04, 7:20pm
-Assigned to: Jason
-Status: Started
-Duration:
-Description: Sketch a basic outline of the program flow
 
 
 Task StubDB
