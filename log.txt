@@ -68,6 +68,14 @@ Description:	- Added base generic INSERT/UPDATE/DELETE functionality to
 				of a toIndex() method in all storable classes.
 				- Added some basic table dumps to StubDBInterface. Returns
 				ArrayList<#Model Requested#>
+				
+				
+--------------
+Meeting Summary
+Date: 06/05
+Discussed what was left to do in this iteration. Finalized System architecture diagram. Re-evaluated big user stories. Created deatailed user stories for iteration 2. 
+--------------
+
 
 Task: Service tests
 Date: 06/04, 2:50pm
