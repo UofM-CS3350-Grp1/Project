@@ -1,7 +1,6 @@
 package presentation;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
@@ -20,14 +19,7 @@ import objects.Client.ClientStatus;
 
 import org.eclipse.swt.widgets.List;
 
-/**
- * Stuff to do still
- * 
- * Create something much better looking than that list box and remove the listbox specific index stuff
- * Still some cases that are not complete/ working
- * Need some feedback on existing stuff as GUI is not Tim's strong suit.
- * Hook up screen to main page
- */
+import business.ProcessClient;
 
 /**
  * Draws the Client information screen
@@ -56,11 +48,8 @@ public class ClientScreen
 	
 	private List listClients;
 	private Client currentClient;
-		
-	//Temporary client data
-	private ArrayList<Client> clients = new ArrayList<Client>(Arrays.asList(
-			new Client("Bill", "2045551326", "bill@test.com", "San Dimas", "Wyld Stallyns", ClientStatus.Active),
-			new Client("Ted", "2045551238", "ted@wyldstallions.com", "California", "Wyld Stallyns", ClientStatus.Potential)));
+	private ArrayList<Client> clients = new ArrayList<Client>();
+	private ProcessClient processClient;
 
 	/**
 	 * Create the shell.
@@ -70,6 +59,7 @@ public class ClientScreen
 	{
 		display = Display.getDefault();
 		currentClient = null;
+		processClient = new ProcessClient();
 		
 		createWindow();
 	}
@@ -212,19 +202,7 @@ public class ClientScreen
 		{
 			public void verifyText(VerifyEvent event)
 			{
-				Text text;
-				
-				assert (event != null);
-				if(event != null)
-				{
-					text = (Text) event.widget;
-					
-					if(text != null)
-					{
-						//Check if the textbox is numeric
-						event.doit = isValidNumericTextbox(event, text.getText(), AREA_CODE_LENGTH);
-					}
-				}
+				verifyNumericTextbox(event, AREA_CODE_LENGTH);
 			}
 		});
 		txtPhoneNumberA.setBounds(310, 194, 35, 21);
@@ -245,19 +223,7 @@ public class ClientScreen
 		{
 			public void verifyText(VerifyEvent event)
 			{
-				Text text;
-				
-				assert (event != null);
-				if(event != null)
-				{
-					text = (Text) event.widget;
-					
-					if(text != null)
-					{
-						//Check if the textbox is numeric
-						event.doit = isValidNumericTextbox(event, text.getText(), PREFIX_CODE_LENGTH);
-					}
-				}
+				verifyNumericTextbox(event, PREFIX_CODE_LENGTH);
 			}
 		});
 		txtPhoneNumberB.setBounds(368, 194, 35, 21);
@@ -273,19 +239,7 @@ public class ClientScreen
 		{
 			public void verifyText(VerifyEvent event)
 			{
-				Text text;
-				
-				assert (event != null);
-				if(event != null)
-				{
-					text = (Text) event.widget;
-					
-					if(text != null)
-					{
-						//Check if the textbox is numeric
-						event.doit = isValidNumericTextbox(event, text.getText(), LINE_NUMBER_CODE);
-					}
-				}
+				verifyNumericTextbox(event, LINE_NUMBER_CODE);
 			}
 		});
 		txtPhoneNumberC.setBounds(418, 194, 55, 21);
@@ -296,8 +250,10 @@ public class ClientScreen
 	 */
 	private void initializeClientListFields()
 	{
+		Client client = null;
+		
 		//Client List
-		Label lblClients = new Label(shell, SWT.NONE);
+		Label lblClients = new Label(shell, SWT.NONE | SWT.SINGLE);
 		lblClients.setBounds(10, 10, 55, 15);
 		lblClients.setText("Client List");
 		
@@ -313,8 +269,11 @@ public class ClientScreen
 		listClients.setBounds(10, 31, 177, 370);
 		
 		//Add our clients to the list
-		for(int i = 0; i < clients.size(); i++)
-			listClients.add(clients.get(i).getName() + " - " + clients.get(i).getBusinessName());
+		while((client = processClient.getNextClient()) != null)
+		{
+			clients.add(client);
+			listClients.add(client.getName() + " - " + client.getBusinessName());
+		}
 		
 		//New client button
 		Button btnNew = new Button(shell, SWT.NONE);
@@ -337,44 +296,57 @@ public class ClientScreen
 			public void widgetSelected(SelectionEvent event)
 			{
 				int selectedIndex;
-				
+
 				//Find the selected client in our list, if
 				//one is selected
 				selectedIndex = listClients.getSelectionIndex();
-				if(selectedIndex != -1 && selectedIndex < clients.size())
+				if(selectedIndex != -1)
 				{
 					//Delete the client
-					//TODO Delete from database
-					if(clients.get(selectedIndex) == currentClient)
-						currentClient = null;
-					
-					clients.remove(selectedIndex);
-					listClients.remove(selectedIndex);
-					
-					//After we have deleted select the entry above where we
-                    //just deleted
-                    selectedIndex--;
-                    
-                    if(selectedIndex < 0 && listClients.getItemCount() > 0)
-                        selectedIndex = 0;
-                    
-                    listClients.setSelection(selectedIndex);
-                    
-                    if(selectedIndex >= 0)
-                    {
-                        //Show the client record
-                        editSelectedClient();
-                    }
-                    else
-                    {
-                        //There are no entries in the list
-                        processNewButton();
-                    }
+					if(processClient.deleteClient(currentClient))
+					{
+						//Remove the clients from our client list
+						clients.remove(selectedIndex);
+						listClients.remove(selectedIndex);
+						
+						//After we have deleted select the entry above where we
+	                    //just deleted
+	                    selectedIndex--;
+	                    
+	                    if(selectedIndex < 0 && listClients.getItemCount() > 0)
+	                        selectedIndex = 0;
+	                    
+	                    listClients.setSelection(selectedIndex);
+	                    
+	                    if(selectedIndex >= 0)
+	                    {
+	                        //Show the client record
+	                        editSelectedClient();
+	                    }
+	                    else
+	                    {
+	                        //There are no entries in the list
+	                        processNewButton();
+	                    }
+					}
 				}
 			}
 		});
 		btnDelete.setBounds(101, 407, 86, 25);
 		btnDelete.setText("Delete");
+		
+		Button btnClose = new Button(shell, SWT.NONE);
+		btnClose.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent event) 
+			{
+				shell.setVisible(false);
+				shell.dispose();
+			}
+		});
+		btnClose.setBounds(467, 391, 75, 25);
+		btnClose.setText("Close");
 	}
 	
 	/**
@@ -382,8 +354,6 @@ public class ClientScreen
     */
     private void processNewButton()
     {
-        //Create a new client   
-        
         //Swap the Add/ Update buttons
         btnUpdate.setVisible(false);
         btnAdd.setVisible(true);
@@ -511,29 +481,25 @@ public class ClientScreen
 		
 		//Basic error checking
 		if(isFormDataValid())
-		{
-			//Find our client's status
-			status = (btnActive.getSelection()) ? ClientStatus.Active : ClientStatus.Potential;
-			
+		{			
 			try
 			{
-				//TODO Error check the client
+				//Find our client's status
+				status = (btnActive.getSelection()) ? ClientStatus.Active : ClientStatus.Potential;
 				
 				//Create the client
 				client = new Client(txtClientName.getText(), txtPhoneNumberA.getText() + txtPhoneNumberB.getText() + txtPhoneNumberC.getText(), 
 									txtEmail.getText(), txtAddress.getText(), txtBusinessName.getText(), status);
 				
-				//TODO Add the client to the database
 				//For now we will use the client list above
-				if(clients.add(client))
+				if(processClient.insertClient(client))
 				{
 					index = clients.indexOf(client);
-					listClients.add(client.getName() + " - " + client.getBusinessName(), index); //Temporary list name
+					listClients.add(client.getName() + " - " + client.getBusinessName(), index);
 				
 					//Clear the fields
 					clearFields();
-				}
-				
+				}				
 			}
 			catch(Exception e)
 			{
@@ -574,10 +540,12 @@ public class ClientScreen
 					client.setAddress(txtAddress.getText());
 					client.setBusinessName(txtBusinessName.getText());
 					client.setStatus(status);	
-									
-					//TODO Update the client in the database
-					//For now we will use the client list above
-					listClients.setItem(index, client.getName() + " - " + client.getBusinessName());
+
+					if(processClient.updateClient(client))
+					{						
+						//For now we will use the client list above
+						listClients.setItem(index, client.getName() + " - " + client.getBusinessName());
+					}
 				}
 			}
 		}
@@ -588,43 +556,29 @@ public class ClientScreen
 	/**
 	 * Validates a textbox event to ensure that its textbox is only numeric
 	 * @param event The textbox event to validate
-	 * @return True if the input is numeric or an allowed character
+	 * @param maxLength	The maximum length of the numeric string
 	 */
-	private boolean isValidNumericTextbox(VerifyEvent event)
-	{		
-		boolean isValid = false;
+	private void verifyNumericTextbox(VerifyEvent event, int maxLength)
+	{
+		Text text;
+		boolean valid = false;
 		
 		assert (event != null);
 		if(event != null)
 		{
-			isValid = (event.character == SWT.BS || event.keyCode == SWT.ARROW_LEFT || event.keyCode == SWT.ARROW_RIGHT || 
-						event.keyCode == SWT.DEL || event.keyCode == SWT.NULL);
+			text = (Text) event.widget;
+			
+			if(text != null && maxLength > 0)
+			{
+				//Check if the textbox is numeric
+				if(event.character == SWT.BS || event.keyCode == SWT.ARROW_LEFT || event.keyCode == SWT.ARROW_RIGHT || 
+						event.keyCode == SWT.DEL || event.keyCode == SWT.NULL)
+					valid = true;
+				else if(Character.isDigit(event.character) && text.getText().length() < maxLength)
+					valid = true;
+				
+				event.doit = valid;
+			}
 		}
-		
-		return isValid;
-	}
-	
-	/**
-	 * Validates a textbox event to ensure that its textbox is only numeric
-	 * @param event The textbox event to validate
-	 * @param input The textbox's input string
-	 * @param maxLength	The maximum length of the numeric string
-	 * @return True if the input is numeric or an allowed character
-	 */
-	private boolean isValidNumericTextbox(VerifyEvent event, String input, int maxLength)
-	{
-		boolean valid = false;
-		
-		//Ensure that our string and length is valid
-		assert (event != null && input != null && maxLength > 0);
-		if(event != null && input != null && maxLength > 0)
-		{			
-			if(isValidNumericTextbox(event))
-				valid = true;
-			else if(Character.isDigit(event.character) && input.length() < maxLength)
-				valid = true;
-		}
-		
-		return valid;
 	}
 }
