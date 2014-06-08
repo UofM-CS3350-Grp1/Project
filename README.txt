@@ -19,6 +19,8 @@ Directory:
 TODO(Dell):
 
 TODO(Timothy):
+		- Testing
+		- Refactoring Stub UI
 
 TODO(Derek):
 		- Create scripts to build/run program
