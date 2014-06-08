@@ -17,13 +17,12 @@ echo Compiling src\persistence\*.java
 javac -d bin\ -cp %classpath% src\persistence\*.java
 
 echo.
+echo Compiling src\business\*.java
+javac -d bin\ -cp %classpath% src\business\*.java
+
+echo.
 echo Compiling src\presentation\*.java
 javac -d bin\ -cp %classpath% src\presentation\*.java
-
-REM Tests are failing to compile properly...
-echo.
-echo Compiling src\tests\*.java
-javac -d bin\ -cp %classpath% src\tests\*.java
 
 echo.
 echo Compiling src\tests\objects\*.java
@@ -32,5 +31,9 @@ javac -d bin\ -cp %classpath% src\tests\objects\*.java
 echo.
 echo Compiling src\tests\persistence\*.java
 javac -d bin\ -cp %classpath% src\tests\persistence\*.java
+
+echo.
+echo Compiling src\tests\*.java
+javac -d bin\ -cp %classpath% src\tests\*.java
 
 pause
