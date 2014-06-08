@@ -13,6 +13,15 @@ Description:
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Contract tests
+Date: 06/07, 10:40pm
+Assigned to: Tim
+Status: In progress
+Duration:	45 minutes
+Description: 	Added tests for contract
+				Added invalid argument checks to contract.
+
+
 Task: Stub DB
 Date: 06/05
 Assigned to: Adrian

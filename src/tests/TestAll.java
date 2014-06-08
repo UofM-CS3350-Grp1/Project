@@ -5,6 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import tests.objects.ClientTest;
+import tests.objects.ContractTest;
 import tests.objects.ServiceTest;
 import tests.persistence.TestDBController;
 
@@ -13,6 +14,7 @@ import tests.persistence.TestDBController;
 		{
 			ClientTest.class,
 			ServiceTest.class,
+			ContractTest.class,
 			TestDBController.class
 		})
 public class TestAll
