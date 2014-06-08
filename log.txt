@@ -13,6 +13,15 @@ Description:
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Documentation
+Date: 06/05
+Assigned to: Adrian
+Status: In progress
+Duration: 30 mins.
+Description:	Created User Stories Cards
+				Created Simple Architecture Diagram
+				Check UofM emal for documents.
+
 Task: Contract tests
 Date: 06/07, 10:40pm
 Assigned to: Tim
