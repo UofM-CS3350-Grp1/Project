@@ -9,28 +9,28 @@ echo Setting class path...
 call setClasspath
 
 echo.
-echo Comiling src\objects\*.java
+echo Compiling src\objects\*.java
 javac -d bin\ -cp %classpath% src\objects\*.java
 
 echo.
-echo Comiling src\persistence\*.java
+echo Compiling src\persistence\*.java
 javac -d bin\ -cp %classpath% src\persistence\*.java
 
 echo.
-echo Comiling src\presentation\*.java
+echo Compiling src\presentation\*.java
 javac -d bin\ -cp %classpath% src\presentation\*.java
 
 REM Tests are failing to compile properly...
 echo.
-echo Comiling src\tests\*.java
+echo Compiling src\tests\*.java
 javac -d bin\ -cp %classpath% src\tests\*.java
 
 echo.
-echo Comiling src\tests\objects\*.java
+echo Compiling src\tests\objects\*.java
 javac -d bin\ -cp %classpath% src\tests\objects\*.java
 
 echo.
-echo Comiling src\tests\persistence\*.java
+echo Compiling src\tests\persistence\*.java
 javac -d bin\ -cp %classpath% src\tests\persistence\*.java
 
 pause
