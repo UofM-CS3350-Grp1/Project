@@ -13,6 +13,14 @@ Description:
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Stub DB
+Date: 06/05
+Assigned to: Adrian
+Status: In progress
+Duration: 1 hr
+Description:	Added tests for DBController.
+				Fixed bugs in DBController.
+
 Task: Stub UI
 Date: 06/07, 08:30pm
 Assigned to: Tim
