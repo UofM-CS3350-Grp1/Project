@@ -198,7 +198,6 @@ public class HomeScreen {
 		GridLayout loginGrid = new GridLayout();
 		loginGrid.numColumns = 2;
 		loginComp.setLayout( loginGrid );
-		loginComp.setLayoutData( new GridData() );
 		
 		final Label userLabel = new Label( loginComp, SWT.NONE );
 		userLabel.setText( "User( type admin ):" );
@@ -230,6 +229,7 @@ public class HomeScreen {
 		
 		Button btnLogin = new Button( loginComp, SWT.None );
 		btnLogin.setText( "Login" );
+		new Label(loginComp, SWT.NONE);
 		btnLogin.addSelectionListener( new SelectionAdapter() {
 			public void widgetSelected( SelectionEvent event ) {
 				if ( ( userIn.getText() ).equals( "admin" ) 
@@ -245,7 +245,6 @@ public class HomeScreen {
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
 		
 		Button btnManageClients = new Button(shell, SWT.NONE);
 		btnManageClients.addSelectionListener(new SelectionAdapter()
@@ -256,6 +255,20 @@ public class HomeScreen {
 			}
 		});
 		btnManageClients.setText("Manage Clients");
+		
+		Button btnExit = new Button(shell, SWT.NONE);
+		btnExit.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent event) 
+			{
+				shell.dispose();
+			}
+		});
+		GridData gd_btnExit = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_btnExit.widthHint = 69;
+		btnExit.setLayoutData(gd_btnExit);
+		btnExit.setText("Exit");
 
 	}
 

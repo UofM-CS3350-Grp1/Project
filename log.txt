@@ -13,6 +13,16 @@ Description:
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Stub UI
+Date: 06/07, 08:30pm
+Assigned to: Tim
+Status: In Progress
+Duration: 30 minutes
+Description:	Cleaned up client window.	
+				Added close button to client window.
+				Added quit button to home screen.
+
+
 Task: Login Stub
 Date: 06/06
 Assigned to: Dell
