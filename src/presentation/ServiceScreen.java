@@ -1,25 +1,27 @@
 package presentation;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.custom.CCombo;
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;
-import java.util.ArrayList;
 
 import objects.Service;
 
-import org.eclipse.swt.widgets.List;
 
-import persistence.DBController;
+import persistence.StubDBInterface;
+import persistence.DBInterface;
+
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 
 /*
  * 
@@ -31,83 +33,84 @@ import persistence.DBController;
  */
 public class ServiceScreen extends Shell {
 	private Text svcType;
+	private Shell shell;
 	private Text rate_amount;
-	private Text svc_terms;
-	private Text svc_description;
-	private List list_services;
 	private Display display;
-	final Button svc_del = new Button(this, SWT.NONE);
-	final Button svc_edit = new Button(this, SWT.NONE);
-	final CCombo select_svc = new CCombo(this, SWT.BORDER);
-	Button btnCancel = new Button(this, SWT.NONE);
-	final Button btnAdd = new Button(this, SWT.NONE);
-	Button svc_new = new Button(this, SWT.NONE);
+	private Text svc_description;
+	private ArrayList<Service> list_services = new ArrayList();
 	int selection = 0;
+	private ArrayList<Service> services;
 
 	/**
 	 * Launch the application.
 	 * @param args
 	 */
-	public static void main(String args[]) {
-		try {
-			Display display = Display.getDefault();
-			ServiceScreen shell = new ServiceScreen(display);
-			shell.open();
-			shell.layout();
-			while (!shell.isDisposed()) {
-				if (!display.readAndDispatch()) {
-					display.sleep();
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+
+	public ServiceScreen() 
+	{
+		display = Display.getDefault();
+		
+		createWindow();
+	}
+	private void createWindow()
+	{
+		shell = new Shell(display);
+		shell.setText("Service");
+		shell.setSize(640, 480);
+		
+		initializeServiceFields();
+		
+		shell.open();
 	}
 
 	/**
 	 * Create the shell.
 	 * @param display
 	 */
-	public ServiceScreen(final Display display) {
-		super(display, SWT.SHELL_TRIM);
+	public void initializeServiceFields() {
+		final Button svc_del = new Button(shell, SWT.NONE);
+		final Button svc_edit = new Button(shell, SWT.NONE);
+		final CCombo select_svc = new CCombo(shell, SWT.BORDER);
+		final Button btnCancel = new Button(shell, SWT.NONE);
+		final Button btnAdd = new Button(shell, SWT.NONE);
+		final Button svc_new = new Button(shell, SWT.NONE);
+		//super(display, SWT.SHELL_TRIM);
 		
-		Label lblServiceType = new Label(this, SWT.NONE);
+		Label lblServiceType = new Label(shell, SWT.NONE);
 		lblServiceType.setBounds(95, 145, 71, 15);
 		lblServiceType.setText("Service Type");
 		
-		Menu menu = new Menu(this, SWT.BAR);
-		setMenuBar(menu);
 		
-		Label lblAddNewService = new Label(this, SWT.NONE);
+		Label lblAddNewService = new Label(shell, SWT.NONE);
 		lblAddNewService.setBounds(223, 10, 114, 15);
 		lblAddNewService.setText("ADD / EDIT SERVICE");
 		
-		svcType = new Text(this, SWT.BORDER);
+		svcType = new Text(shell, SWT.BORDER);
 		svcType.setBounds(214, 145, 263, 21);
 		svcType.setEnabled(false);
 		
-		Label lblServiceRate = new Label(this, SWT.NONE);
+		Label lblServiceRate = new Label(shell, SWT.NONE);
 		lblServiceRate.setBounds(95, 180, 71, 15);
 		lblServiceRate.setText("Service Rate");
 		
-		rate_amount = new Text(this, SWT.BORDER);
+		rate_amount = new Text(shell, SWT.BORDER);
 		rate_amount.setBounds(214, 180, 76, 21);
 		rate_amount.setEnabled(false);
 		
-		Label label = new Label(this, SWT.NONE);
+		Label label = new Label(shell, SWT.NONE);
 		label.setBounds(311, 186, 16, 15);
 		label.setText("/");
 		
-		final Combo rate_lenght = new Combo(this, SWT.NONE);
+		final Combo rate_lenght = new Combo(shell, SWT.NONE);
 		rate_lenght.setItems(new String[] {"Year", "Month", "Week", "Session"});
 		rate_lenght.setBounds(333, 178, 91, 23);
 		rate_lenght.setEnabled(false);
 		
-		Label lblServiceDescription = new Label(this, SWT.NONE);
+		Label lblServiceDescription = new Label(shell, SWT.NONE);
 		lblServiceDescription.setBounds(95, 222, 106, 15);
 		lblServiceDescription.setText("Service Description");
 		
-		svc_description = new Text(this, SWT.BORDER);
+		svc_description = new Text(shell, SWT.BORDER);
 		svc_description.setBounds(214, 219, 263, 141);
 		svc_description.setEnabled(false);
 		
@@ -127,7 +130,7 @@ public class ServiceScreen extends Shell {
 		btnAdd.setBounds(214, 391, 75, 25);
 		btnAdd.setText("SAVE");
 		btnAdd.setEnabled(false);
-		
+
 		/*
 		 * Canceling the current selection - button event
 		 */
@@ -145,26 +148,52 @@ public class ServiceScreen extends Shell {
 				svc_new.setEnabled(true);
 				btnAdd.setEnabled(false);
 				selection = 0;
+				/*try {
+					Contract.createPDF();
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (DocumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}*/
+				//display.close();
 			}
 		});
 		btnCancel.setBounds(348, 391, 75, 25);
 		btnCancel.setText("CANCEL");
 		
-		Label lblSelectService = new Label(this, SWT.NONE);
+		Label lblSelectService = new Label(shell, SWT.NONE);
 		lblSelectService.setBounds(95, 113, 82, 15);
 		lblSelectService.setText("Select Service");
 
-		final Service svc = new Service();
+		/*final Service svc = new Service();
+		final Service svc2 = new Service(02,"Websites", "Host a domain and publish a website", 400.00, "Websites");
+		list_services.add(svc);
+		list_services.add(svc2);*/
+
+		StubDBInterface db = new StubDBInterface("db");
+		services = db.dumpServices();
+		Iterator<Service> it = services.iterator();
+		String[] servs = new String[3];
+		int i = 0;
+		while(it.hasNext()){
+			servs[i] += it.next().getTitle();
+			i++;
+		}
+
+		select_svc.setItems(servs);
 		
 		select_svc.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				editSelectedService(svc);
+				int selectedIndex;
+				selectedIndex = select_svc.getSelectionIndex();
+				editSelectedService(services.get(selectedIndex));
 			}
 		});
-
-		String test = svc.getTitle();
-		select_svc.setItems(new String[] {test});
+		
+		//String test = svc.getTitle();
 		select_svc.setBounds(214, 107, 168, 21);
 		select_svc.setEnabled(false);
 		
@@ -191,6 +220,7 @@ public class ServiceScreen extends Shell {
 		svc_edit.setBounds(262, 49, 75, 25);
 		svc_edit.setText("EDIT");
 		
+
 		/*
 		 * Disables appropriate buttons and enables appropriate fields
 		 * for editing services - button event
@@ -214,6 +244,7 @@ public class ServiceScreen extends Shell {
 		svc_del.setBounds(402, 49, 75, 25);
 		svc_del.setText("DELETE");
 		
+
 		/*
 		 * Disables appropriate buttons and enables appropriate fields
 		 * for adding a new service - button event
@@ -229,11 +260,23 @@ public class ServiceScreen extends Shell {
 				svc_del.setEnabled(false);
 				svc_edit.setEnabled(false);
 				btnAdd.setEnabled(true);
+				btnAdd.setText("SAVE");
 				selection = 1;
 			}
 		});
 		svc_new.setBounds(126, 49, 75, 25);
 		svc_new.setText("NEW");
+		
+		Button btnExit = new Button(shell, SWT.NONE);
+		btnExit.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				shell.dispose();
+			}
+		});
+		btnExit.setBounds(539, 391, 75, 25);
+		btnExit.setText("EXIT");
+		
 		svc_new.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
@@ -241,7 +284,6 @@ public class ServiceScreen extends Shell {
 				
 			}
 		});
-		
 		createContents();
 	}
 
@@ -255,21 +297,24 @@ public class ServiceScreen extends Shell {
 	 * 							- 3: delete a service
 	 */
 	private void submit_svc(Object param, int selection) {
-		DBController db = new DBController("db");
+		StubDBInterface db = new StubDBInterface("db");
 		db.connect();
 		Service temp = (Service)param;
 		
 		/*Remove comments once ready to use with the db*/
 		
-		/*
+		
 		switch(selection){
 			case 1://add new
-				db.insert("SERVICES", temp);
+				db.insert(temp);
+				break;
 			case 2://edit
-				db.update("SERVICES", temp);
+				db.update(temp);
+				break;
 			case 3://delete
-				db.drop("SERVICES", temp.getID());
-		}*/
+				db.drop(temp);
+				break;
+		}
 		
 		db.disconnect();
 	}
@@ -284,19 +329,19 @@ public class ServiceScreen extends Shell {
 		
 	}
 	
-	private void editSelectedService(Service svc2){
-		populateSvcFields(svc2);
+	private void editSelectedService(Service service){
+		populateSvcFields(service);
 	}
 	
-	private void populateSvcFields(Service svc3)
+	private void populateSvcFields(Service service)
 	{
 		
-		if(svc3 != null)
+		if(service != null)
 		{
-			svcType.setText(svc3.getType());
-			//rate_amount.set(svc.getRate());
-			//svc_terms.setText(svc.get);
-			svc_description.setText(svc3.getDescription());
+			svcType.setText(service.getType());
+			rate_amount.setText(String.valueOf(service.getRate()));
+			//rate_length.setText(service.getTime()s);
+			svc_description.setText(service.getDescription());
 		}
 	}
 	/**
@@ -313,3 +358,4 @@ public class ServiceScreen extends Shell {
 		// Disable the check that prevents subclassing of SWT components
 	}
 }
+
