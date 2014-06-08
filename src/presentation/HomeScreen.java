@@ -244,7 +244,15 @@ public class HomeScreen {
 		
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
+		
+		Button btnManageServices = new Button(shell, SWT.NONE);
+		btnManageServices.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				new ServiceScreen();
+			}
+		});
+		btnManageServices.setText("Manage Services");
 		
 		Button btnManageClients = new Button(shell, SWT.NONE);
 		btnManageClients.addSelectionListener(new SelectionAdapter()
