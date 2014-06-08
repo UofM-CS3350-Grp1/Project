@@ -1,3 +1,21 @@
+To run this program:
+
+Compile:
+	run Compile.bat
+
+Run:
+	run Run.bat
+		- if you receive error: "Cannot load 32-bit SWT libraries on 64-bit JVM"
+			- run swt_jar_64-bit.bat
+			- re-run Run.bat
+		- if you receive error: "Cannot load 64-bit SWT libraries on 32-bit JVM"
+			- run swt_jar_32-bit.bat
+			- re-run Run.bat
+
+Run tests:
+	run RunTests.bat
+
+
 This is the Buzzin' Digital Marketing software development project.
 This software is designed to manage various clients and services offered by Buzzin' Digital Marketing.
 Future releases will also be able to build and store client contracts, and analyze the performance of clients over a given date range.
