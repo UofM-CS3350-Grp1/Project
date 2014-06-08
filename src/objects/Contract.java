@@ -33,13 +33,15 @@ import com.itextpdf.text.Paragraph;
  */
 public class Contract implements Storable
 {
+	private final String DATE_FORMAT = "yyyy-MM-dd";	//The string date representation
+	
 	private int contractNumber; 	//Contract ID number
 	private String businessName;	//Name of the associated business
 	private String details;			//Specific details of the contract
 	private double value;			//Value of the contract
 	private Date period;			//Contract period (end date)
-	private final String DATE_FORMAT = "yyyy-MM-dd";
 	private SimpleDateFormat sdf;
+	
 	/**
 	 * Creates a new contract
 	 * @param contractNumber 	The number of the contract
@@ -49,14 +51,21 @@ public class Contract implements Storable
 	 * @param period			The period of the contract
 	 * 
 	 */
-	public Contract(int contractNumber, String businessName, String details, double value, Date period)
+	public Contract(int contractNumber, String businessName, String details, double value, Date period) throws IllegalArgumentException
 	{
-		this.contractNumber = contractNumber;
-		this.businessName = businessName;
-		this.details = details;
-		this.value = value;
-		this.period = period;
-		this.sdf = new SimpleDateFormat(DATE_FORMAT);
+		if(contractNumber >= 0 && businessName != null && !businessName.isEmpty() && details != null && !details.isEmpty() && value >= 0 && period != null)
+		{
+			this.contractNumber = contractNumber;
+			this.businessName = businessName;
+			this.details = details;
+			this.value = value;
+			this.period = period;
+			this.sdf = new SimpleDateFormat(DATE_FORMAT);
+		}
+		else
+		{
+			throw new IllegalArgumentException();
+		}
 	}
 	
 	/**
@@ -68,14 +77,21 @@ public class Contract implements Storable
 	 * @param period			The period of the contract
 	 * 
 	 */
-	public Contract(String businessName, String details, double value, Date period)
+	public Contract(String businessName, String details, double value, Date period) throws IllegalArgumentException
 	{
-		this.contractNumber = 0;
-		this.businessName = businessName;
-		this.details = details;
-		this.value = value;
-		this.period = period;
-		this.sdf = new SimpleDateFormat(DATE_FORMAT);
+		if(contractNumber >= 0 && businessName != null && !businessName.isEmpty() && details != null && !details.isEmpty() && value >= 0 && period != null)
+		{
+			this.contractNumber = 0;
+			this.businessName = businessName;
+			this.details = details;
+			this.value = value;
+			this.period = period;
+			this.sdf = new SimpleDateFormat(DATE_FORMAT);
+		}
+		else
+		{
+			throw new IllegalArgumentException();
+		}
 	}
 	
 	/*********************************************************
@@ -106,8 +122,8 @@ public class Contract implements Storable
 	 */
 	public void setBusinessName(String businessName) 
 	{
-		assert (businessName != null && businessName != "");
-		if(businessName != null && businessName != "")
+		assert (businessName != null && !businessName.isEmpty());
+		if(businessName != null && !businessName.isEmpty())
 			this.businessName = businessName;
 	}
 
@@ -126,8 +142,8 @@ public class Contract implements Storable
 	 */
 	public void setDetails(String details) 
 	{
-		assert (details != null);
-		if(details != null)
+		assert (details != null && !details.isEmpty());
+		if(details != null && !details.isEmpty())
 			this.details = details;
 	}
 
