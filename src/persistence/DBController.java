@@ -21,6 +21,8 @@ import java.util.Locale;
 public class DBController 
 {
 	private final int SQL_DEBUGGING = 1; //1 for full SQL output, 0 to disable.
+	private final int ERROR_LOG = 0; //1 for error log, 0 to disable.
+	
 	private String dbName;
 	private String dbType;
 	
@@ -103,7 +105,7 @@ public class DBController
 	 * 
 	 */
 	
-	public void insert(String table, Storable element)
+	public int insert(String table, Storable element)
 	{
 		String modify = "";
 		String warning = null;
@@ -111,10 +113,14 @@ public class DBController
 		ArrayList<String> objectIndexes;
 		ArrayList<String> fields = fieldBuilder(table);
 		boolean valid = true;
+		int success = -1;
 		
 		//getActiveIndex("SERVICES");
 		//getActiveIndex("CLIENTS");
 		//getActiveIndex("CONTRACTS");
+		
+		if(table == null || table.isEmpty())
+			valid = false;
 		
 		if(valid)
 		{
@@ -146,7 +152,12 @@ public class DBController
 					
 					if(warning !=  null)
 					{
-						System.out.println(warning);
+						if(ERROR_LOG == 1)
+							System.out.println(warning);
+					}
+					else
+					{
+						success = newIndex;
 					}
 				}
 				catch(Exception e)
@@ -161,6 +172,8 @@ public class DBController
 				System.out.println("Fields: "+ fields.size() + " Elements " + element.toIndex().size());
 			}
 		}
+		
+		return success;
 	}
 
 	
@@ -174,13 +187,17 @@ public class DBController
 	 * 
 	 */
 	
-	public void update(String table, Storable element)
+	public boolean update(String table, Storable element)
 	{
 		String modify = "";
 		String warning = null;
 		ArrayList<String> objectIndexes;
 		ArrayList<String> fields = fieldBuilder(table);
-		boolean valid = modifyValidator(table, element.getID());
+		boolean valid = false;
+		boolean success = false;
+		
+		if(element != null)
+				valid = modifyValidator(table, element.getID());
 		
 		if(valid)
 		{
@@ -212,7 +229,12 @@ public class DBController
 					
 					if(warning !=  null)
 					{
-						System.out.println(warning);
+						if(ERROR_LOG == 1)
+							System.out.println(warning);
+					}
+					else
+					{
+						success = true;
 					}
 				}
 				catch(Exception e)
@@ -226,6 +248,7 @@ public class DBController
 				System.out.println("Fields: "+ fields.size() + " Elements " + element.toIndex().size());
 			}
 		}
+		return success;
 	}
 	
 	
@@ -239,11 +262,12 @@ public class DBController
 	 * @param id		-	ID to drop 							</br></br>
 	 * 
 	 */
-	public void drop(String table, int id)
+	public boolean drop(String table, int id)
 	{
 		String modify = "";
 		String warning = null;
 		boolean valid = modifyValidator(table, id);
+		boolean success = false;
 		
 		if(valid)
 		{
@@ -261,7 +285,12 @@ public class DBController
 				
 				if(warning !=  null)
 				{
-					System.out.println(warning);
+					if(ERROR_LOG == 1)
+						System.out.println(warning);
+				}
+				else
+				{
+					success = true;
 				}
 			}
 			catch(Exception e)
@@ -269,6 +298,8 @@ public class DBController
 				errorOutput(e);
 			}
 		}
+		
+		return success;
 	}
 	
 	/**
@@ -325,6 +356,7 @@ public class DBController
 		}
 		else
 		{
+			output = null;
 			System.out.println("Invaid Services query.");
 		}
 		
@@ -383,6 +415,7 @@ public class DBController
 		}
 		else
 		{
+			output = null;
 			System.out.println("Invaid Clients query.");
 		}
 		
@@ -438,6 +471,7 @@ public class DBController
 		}
 		else
 		{
+			output = null;
 			System.out.println("Invaid Contract query.");
 		}
 		
@@ -453,7 +487,7 @@ public class DBController
 	 * @return
 	 */
 	
-	ArrayList<String> blindQuery(String query)
+	public ArrayList<String> blindQuery(String query)
 	{
 		ArrayList<String> output = new ArrayList<String>();
 		int counter = 0;
@@ -586,19 +620,22 @@ public class DBController
 			//DO NOTHING ATM
 		}
 		
-		query = query + "\nWHERE\n";
-		
 		if(clauses != null) //Checks for clauses
 		{
-			for(int i = 0; i < clauses.size()-1; i++) //Loops through clauses, spitting out clause arguments.
+			if(clauses.get(0).get(0).compareTo("ALL") != 0)
 			{
-				for(int j = 0; j < clauses.get(i).size() -1; j++) //Loops through clause parameters appending them to query.
+				query = query + "\nWHERE\n";
+				
+				for(int i = 0; i < clauses.size()-1; i++) //Loops through clauses, spitting out clause arguments.
 				{
-					query = query + clauses.get(i).get(j) + " ";
+					for(int j = 0; j < clauses.get(i).size() -1; j++) //Loops through clause parameters appending them to query.
+					{
+						query = query + clauses.get(i).get(j) + " ";
+					}
+					query = query + clauses.get(i).get(clauses.get(i).size()-1) + " AND";
 				}
-				query = query + clauses.get(i).get(clauses.get(i).size()-1) + " AND";
+				query = query + clauses.get(clauses.size()-1).get(0) + " " + clauses.get(clauses.size()-1).get(1) + " " + clauses.get(clauses.size()-1).get(2);
 			}
-			query = query + clauses.get(clauses.size()-1).get(0) + " " + clauses.get(clauses.size()-1).get(1) + " " + clauses.get(clauses.size()-1).get(2);
 		}
 		
 		return query;
@@ -625,21 +662,60 @@ public class DBController
 	{
 		boolean validator = true;
 		
-		if((selects != null && selects.size() < 1) || (clauses != null && clauses.size() < 1) || (joins != null && clauses.size() < 1)) //Checks for empty ArrayLists
+		if((selects != null && (selects.size() < 1 || selects.contains(null))) || 
+				(clauses != null && (clauses.size() < 1 || clauses.contains(null))) || 
+				(joins != null && (joins.size() < 1 || joins.contains(null)))) //Checks for empty/invalid ArrayLists
 		{ 
 			validator = false; 
 		}
-		
-		if(validator) //Invalidates if clauses arrays contain more the 3 arguments
+		else
 		{
-			for(int i = 0; i < clauses.size()-1 && validator; i++)
+			if(clauses != null) //Handle nested causes with nulls.
 			{
-				if(clauses.get(i).size() != 3)
+				for(int i = 0;  i < clauses.size(); i++)
 				{
-					validator = false;
+					for(int j = 0; j < clauses.get(i).size(); j++)
+					{
+						if(clauses.get(i).get(j) == null || clauses.get(i).get(j).isEmpty())
+						{
+							validator = false;
+						}
+					}
+				}
+			}
+			
+			if(joins != null) //Handle nested joins with nulls.
+			{
+				for(int i = 0;  i < joins.size(); i++)
+				{
+					for(int j = 0; j < joins.get(i).size(); j++)
+					{
+						if(joins.get(i).get(j) == null || joins.get(i).get(j).isEmpty())
+						{
+							validator = false;
+						}
+					}
 				}
 			}
 		}
+		
+		
+		if(validator) //Invalidates if clauses arrays contain more the 3 arguments
+		{
+			if((clauses != null) && clauses.get(0).get(0).compareTo("ALL") != 0)
+			{
+				for(int i = 0; (clauses != null) && i < clauses.size()-1 && validator; i++)
+				{
+					if(clauses.get(i).size() != 3)
+					{
+						validator = false;
+					}
+				}
+			}
+		}
+		
+		if(selects == null && clauses == null && joins  == null)
+			validator = false;
 		
 		return validator;
 	}
@@ -672,7 +748,7 @@ public class DBController
 		
 		validator = queryValidator(null, null, clauses);
 		
-		if(validator)
+		if(validator && table != null && !table.isEmpty())
 		{
 			query = queryBuilder(table, null, null, clauses);	//Returns full objects so No Joins/All Value
 			try
@@ -745,9 +821,11 @@ public class DBController
 	
 	private void errorOutput(Exception e)
 	{
-		
-		System.out.println(e.getMessage());
-		e.printStackTrace();
+		if(ERROR_LOG == 1)
+		{
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	/**MODIFYWARNINGS()

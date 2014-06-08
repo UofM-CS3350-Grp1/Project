@@ -6,12 +6,14 @@ import org.junit.runners.Suite.SuiteClasses;
 
 import tests.objects.ClientTest;
 import tests.objects.ServiceTest;
+import tests.persistence.TestDBController;
 
 @RunWith(Suite.class)
 @SuiteClasses(
 		{
 			ClientTest.class,
-			ServiceTest.class
+			ServiceTest.class,
+			TestDBController.class
 		})
 public class TestAll
 { }
