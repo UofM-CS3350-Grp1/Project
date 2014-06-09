@@ -202,10 +202,10 @@ public class HomeScreen {
 		userIn.addModifyListener( new ModifyListener() {
 			public void modifyText( ModifyEvent event ) {
 				if ( ( userIn.getText() ).equals( "admin" ) ) {
-					userLabel.setText( "User( good ):" );
+					userLabel.setText( "User: (Correct):" );
 				}
 				else {
-					userLabel.setText( "User( type admin ):" );
+					userLabel.setText( "User: (Type admin)" );
 				}
 			}
 		});
@@ -219,10 +219,10 @@ public class HomeScreen {
 		passIn.addModifyListener( new ModifyListener() {
 			public void modifyText( ModifyEvent event ) {
 				if ( ( passIn.getText() ).equals( "password" ) ) {
-					passLabel.setText( "Correct" );
+					passLabel.setText( "Password: (Correct)" );
 				}
 				else {
-					passLabel.setText( "Password...is:" );
+					passLabel.setText( "Password: (Type password)" );
 				}
 			}
 		});

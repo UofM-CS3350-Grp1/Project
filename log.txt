@@ -13,7 +13,12 @@ Description:
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
-
+Task: Login Reaction Listener Fix
+Date: 06/08
+Assigned to: Dell
+Status: done
+Duration: 10 mins
+Description:	- the label changes when typing; fixed it
 
 Task: Add/edit/delete services
 Date: 06/08
