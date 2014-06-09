@@ -4,30 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.text.SimpleDateFormat;;
 
-/*
-*
-* these jar files need to be uploaded yet.
-* Im looking for another way to do it since
-* for some reason im not authorized to do so
-* from eclipse.
-*
-*/
-/*
-import java.awt.Rectangle;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import com.sun.xml.internal.txw2.Document;
-import com.itextpdf.*;
-import com.itextpdf.text.pdf.CMYKColor;
-import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.Anchor;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.Paragraph;
-*/
-
 /**
  * Handles the service rendered between the company and their client
  */
@@ -214,37 +190,4 @@ public class Contract implements Storable
 		
 		return index;
 	}
-	
-	/*
-	*
-	* Calling this method will export a pdf file of the contract.
-	* It is not completed yet. Jar file need to be uploaded,
-	* as well as the contract data needs to be connected to
-	* this method as well. Im working on that now.
-	*
-	*/
-	
-	/*
-	public static void createPDF() throws FileNotFoundException, DocumentException{
-		PageSize size = new PageSize();
-		com.itextpdf.text.Document document = new com.itextpdf.text.Document(size.A4, 50, 50, 50, 50); //initialize document obj
-		PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:\\Users/Jason/Desktop/CS/COMP3350/test.pdf"));//creation of pdfwriter obj
-		document.open();
-		
-		//creation of paragraph object
-		Anchor anchorTarget = new Anchor("First page of the document.");
-	      anchorTarget.setName("BackToTop");
-	      Paragraph paragraph1 = new Paragraph();
-
-	      paragraph1.setSpacingBefore(50);
-
-	      paragraph1.add(anchorTarget);
-	      document.add(paragraph1);
-	
-		document.add(new Paragraph("Some more text on the first page with different color and font type.", 
-	
-		FontFactory.getFont(FontFactory.COURIER, 14, Font.BOLD,	new CMYKColor(0, 255, 0, 0))));
-		document.close();
-	}
-	*/
 }
