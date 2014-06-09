@@ -179,7 +179,7 @@ public class HomeScreen {
 	 */
 	protected void createContents() {
 		shell = new Shell();
-		shell.setSize(450, 300);
+		shell.setSize(450, 280);
 		shell.setText("Buzzin' Digital Marketing");
 		shell.setLayout(new GridLayout(1, false));
 		
@@ -242,9 +242,10 @@ public class HomeScreen {
 			}
 		});
 		
-		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
-		
+		// separator
+		Label line2 = new Label(shell, SWT.HORIZONTAL | SWT.SEPARATOR);
+		line2.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+				
 		Button btnManageServices = new Button(shell, SWT.NONE);
 		btnManageServices.addSelectionListener(new SelectionAdapter() {
 			@Override

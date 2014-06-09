@@ -13,6 +13,14 @@ Description:
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Cleaned homescreen
+Date: 06/08
+Assigned to: Dell
+Status: Complete
+Duration: 10 mins
+Description:	- separated login from operations
+				- made window compact and neater 
+				
 Task: Stub DB
 Date: 06/08
 Assigned to: Adrian
