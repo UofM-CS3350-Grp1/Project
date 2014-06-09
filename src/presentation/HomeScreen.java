@@ -25,7 +25,8 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.ModifyEvent;
 
 
-public class HomeScreen {
+public class HomeScreen 
+{
 
 	protected Shell shell;
 
@@ -150,10 +151,13 @@ public class HomeScreen {
 			test.disconnect();
 		}
 		*/
-		try {
+		try
+		{
 			HomeScreen window = new HomeScreen();
 			window.open();
-		} catch (Exception e) {
+		} 
+		catch(Exception e) 
+		{
 			e.printStackTrace();
 		}
 	}
@@ -161,13 +165,16 @@ public class HomeScreen {
 	/**
 	 * Open the window.
 	 */
-	public void open() {
+	public void open()
+	{
 		Display display = Display.getDefault();
 		createContents();
 		shell.open();
 		shell.layout();
-		while (!shell.isDisposed()) {
-			if (!display.readAndDispatch()) {
+		while(!shell.isDisposed())
+		{
+			if(!display.readAndDispatch()) 
+			{
 				display.sleep();
 			}
 		}
@@ -177,7 +184,8 @@ public class HomeScreen {
 	/**
 	 * Create contents of the window.
 	 */
-	protected void createContents() {
+	protected void createContents()
+	{
 		shell = new Shell();
 		shell.setSize(450, 280);
 		shell.setText("Buzzin' Digital Marketing");
@@ -199,13 +207,17 @@ public class HomeScreen {
 		GridData gd_userIn = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
 		gd_userIn.widthHint = 143;
 		userIn.setLayoutData(gd_userIn);
-		userIn.addModifyListener( new ModifyListener() {
-			public void modifyText( ModifyEvent event ) {
-				if ( ( userIn.getText() ).equals( "admin" ) ) {
-					userLabel.setText( "User: (Correct):" );
+		userIn.addModifyListener(new ModifyListener()
+		{
+			public void modifyText(ModifyEvent event)
+			{
+				if((userIn.getText()).equals("admin")) 
+				{
+					userLabel.setText("User: (Correct):");
 				}
-				else {
-					userLabel.setText( "User: (Type admin)" );
+				else
+				{
+					userLabel.setText("User: (Type admin)");
 				}
 			}
 		});
@@ -213,15 +225,21 @@ public class HomeScreen {
 		final Label passLabel = new Label( loginComp, SWT.NONE );
 		passLabel.setText( "Password: (Type password)" );
 		final Text passIn = new Text( loginComp, SWT.BORDER | SWT.PASSWORD );
+		
 		GridData gd_passIn = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
 		gd_passIn.widthHint = 143;
+		
 		passIn.setLayoutData(gd_passIn);
-		passIn.addModifyListener( new ModifyListener() {
-			public void modifyText( ModifyEvent event ) {
-				if ( ( passIn.getText() ).equals( "password" ) ) {
+		passIn.addModifyListener( new ModifyListener() 
+		{
+			public void modifyText( ModifyEvent event )
+			{
+				if ( ( passIn.getText() ).equals( "password" ) ) 
+				{
 					passLabel.setText( "Password: (Correct)" );
 				}
-				else {
+				else 
+				{
 					passLabel.setText( "Password: (Type password)" );
 				}
 			}
@@ -230,16 +248,22 @@ public class HomeScreen {
 		Button btnLogin = new Button( loginComp, SWT.None );
 		GridData gd_btnLogin = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
 		gd_btnLogin.widthHint = 69;
+		
 		btnLogin.setLayoutData(gd_btnLogin);
 		btnLogin.setText( "Login" );
+		
 		new Label(loginComp, SWT.NONE);
-		btnLogin.addSelectionListener( new SelectionAdapter() {
-			public void widgetSelected( SelectionEvent event ) {
+		btnLogin.addSelectionListener( new SelectionAdapter() 
+		{
+			public void widgetSelected( SelectionEvent event ) 
+			{
 				if ( ( userIn.getText() ).equals( "admin" ) 
-						&& ( passIn.getText()).equals( "password" ) ) {
+						&& ( passIn.getText()).equals( "password" ) )
+				{
 					// log in - match credentials with DB maybe?
 				}
-				else {
+				else
+				{
 					// invalid user prompt?
 				}
 			}
@@ -257,9 +281,11 @@ public class HomeScreen {
 		
 		Button btnManageServices = new Button(composite, SWT.CENTER);
 		btnManageServices.setBounds(171, 36, 100, 50);
-		btnManageServices.addSelectionListener(new SelectionAdapter() {
+		btnManageServices.addSelectionListener(new SelectionAdapter() 
+		{
 			@Override
-			public void widgetSelected(SelectionEvent arg0) {
+			public void widgetSelected(SelectionEvent arg0)
+			{
 				new ServiceScreen();
 			}
 		});
@@ -287,7 +313,5 @@ public class HomeScreen {
 			}
 		});
 		btnExit.setText("Exit");
-
 	}
-
 }

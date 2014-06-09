@@ -4,6 +4,9 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
+/**
+ * Runs all of the tests
+ */
 public class RunTests
 {
 	/**
@@ -13,11 +16,12 @@ public class RunTests
 	public static void main(String[] args) throws Exception
 	{
 		Result result = JUnitCore.runClasses(TestAll.class);
-	      for(Failure failure : result.getFailures()) 
-	      {
-	    	  System.out.println(failure.toString());
-	      }
-	      System.out.println(result.wasSuccessful());
-	   
+		
+		for(Failure failure : result.getFailures()) 
+		{
+			System.out.println(failure.toString());
+		}
+		
+		System.out.println(result.wasSuccessful());   
 	}
 }

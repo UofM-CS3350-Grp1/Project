@@ -18,7 +18,8 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
-public class Login extends Shell {
+public class Login extends Shell 
+{
 	private Text user_login;
 	private Text user_pwd;
 
@@ -26,18 +27,24 @@ public class Login extends Shell {
 	 * Launch the application.
 	 * @param args
 	 */
-	public static void main(String args[]) {
-		try {
+	public static void main(String args[]) 
+	{
+		try
+		{
 			Display display = Display.getDefault();
 			Login shell = new Login(display);
 			shell.open();
 			shell.layout();
-			while (!shell.isDisposed()) {
-				if (!display.readAndDispatch()) {
+			while (!shell.isDisposed()) 
+			{
+				if (!display.readAndDispatch())
+				{
 					display.sleep();
 				}
 			}
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
 			e.printStackTrace();
 		}
 	}
@@ -46,7 +53,8 @@ public class Login extends Shell {
 	 * Create the shell.
 	 * @param display
 	 */
-	public Login(Display display) {
+	public Login(Display display) 
+	{
 		super(display, SWT.SHELL_TRIM);
 		
 		Label lblLogIn = new Label(this, SWT.NONE);
@@ -73,13 +81,18 @@ public class Login extends Shell {
 		error_msg.setVisible(false);
 		
 		Button btnLogIn = new Button(this, SWT.NONE);
-		btnLogIn.addSelectionListener(new SelectionAdapter() {
+		btnLogIn.addSelectionListener(new SelectionAdapter() 
+		{
 			@Override
-			public void widgetSelected(SelectionEvent arg0) {
+			public void widgetSelected(SelectionEvent arg0)
+			{
 					String a = user_pwd.toString();
-					if(a!="admin"){
+					if(a!="admin")
+					{
 						JOptionPane.showMessageDialog(null, "Invalid login");
-					}else{
+					}
+					else
+					{
 						HomeScreen.main(null);
 					}
 			}
@@ -87,22 +100,21 @@ public class Login extends Shell {
 
 		btnLogIn.setBounds(153, 174, 75, 25);
 		btnLogIn.setText("Log in");
-		createContents();
-		
+		createContents();		
 	}
-
 	
 	/**
 	 * Create contents of the shell.
 	 */
-	protected void createContents() {
+	protected void createContents()
+	{
 		setText("Buzzin' Digital Marketing");
 		setSize(352, 277);
-
 	}
 
 	@Override
-	protected void checkSubclass() {
+	protected void checkSubclass() 
+	{
 		// Disable the check that prevents subclassing of SWT components
 	}
 

@@ -326,12 +326,6 @@ public class StubDBInterface extends DBInterface
 	}
 	
 	/**
-	 * TOSTRING()
-	 * 
-	 * @return String output indicating which database is in use.
-	 */
-	
-	/**
 	 * BLINDSQLQUERY();
 	 *
 	 * Runs a query against the DBMS and returns an arrayList of strings
@@ -345,6 +339,12 @@ public class StubDBInterface extends DBInterface
 		//The stub DB doesen't evaluate actual SQL;
 		return null;
 	}
+	
+	/**
+	 * TOSTRING()
+	 * 
+	 * @return String output indicating which database is in use.
+	 */
 	
 	public String toString()
 	{
