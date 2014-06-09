@@ -13,6 +13,17 @@ Description:
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+
+
+Task: Add/edit/delete services
+Date: 06/08
+Assigned to: Jason
+Status: in progress
+Duration: 1hrs
+Description: configured settings between edit/delete/add
+		-need to update the query calls yet
+
+
 Task: Cleaned homescreen
 Date: 06/08
 Assigned to: Dell
@@ -109,7 +120,7 @@ Task: Add/edit services
 Date: 06/04, time
 Assigned to: Jason
 Status: in progress
-Duration:
+Duration: 2hrs
 Description: rough gui completed, needs some tweaking yet
 
 
@@ -136,7 +147,7 @@ Task: Login screen
 Date: 06/03, 9:00pm
 Assigned to: Jason
 Status: Wrapping up
-Duration:
+Duration: 30min
 Description: Create secure login screen. Need to connect to user table in db.
 
 
@@ -184,7 +195,7 @@ Task: Create scripts to build program
 Date: 06/02, 7:20pm
 Assigned to: Derek 
 Status: Will start 6/4
-Duration:
+Duration:r
 Description: Create the set of files described in the iteration 1 document on how to build and run the program and tests
 
 
@@ -267,6 +278,15 @@ Assigned to: Dell
 Status: In Progress
 Duration:
 Description: created the tests package and the TestClient class for testing valid Client states
+
+
+Task: Additional requirements gathering
+Date: 05/27, time
+Assigned to: Jason
+Status: in progress
+Duration: 1hrs
+Description: talked with customer regarding some more details that he wants to include
+		when saving client/contact/service information.
 
 
 Task: Stub DB
