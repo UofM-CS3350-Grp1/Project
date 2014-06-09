@@ -494,6 +494,7 @@ public class ClientScreen
 				//For now we will use the client list above
 				if(processClient.insertClient(client))
 				{
+					clients.add(client);
 					index = clients.indexOf(client);
 					listClients.add(client.getName() + " - " + client.getBusinessName(), index);
 				
