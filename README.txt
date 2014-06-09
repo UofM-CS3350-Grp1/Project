@@ -53,7 +53,5 @@ TODO(Jason):
 		- Implementation of the logging in feature
 			
 TODO(Adrian):
-		- Testing.
 		- Familiarize myself with GUI structure.
-		- Persistence in DBMS.
 		- Modify SERVICES table/model to reflect changes in new client data.

@@ -13,14 +13,25 @@ Description:
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Stub DB
+Date: 06/08
+Assigned to: Adrian
+Status: In progress
+Duration: 15 mins.
+Description:	More bugfixes to DBMS controller.
+				Reviewed peristence in HyperSQL.
+				Currently running memory tables for simplicity.
+					(Can be found in databases/Test.script)
+				Will switch out to cache when table size increases.
+
 Task: Documentation
-Date: 06/05
+Date: 06/07
 Assigned to: Adrian
 Status: In progress
 Duration: 30 mins.
 Description:	Created User Stories Cards
 				Created Simple Architecture Diagram
-				Check UofM emal for documents.
+				Check UofM email for documents.
 
 Task: Contract tests
 Date: 06/07, 10:40pm
@@ -32,7 +43,7 @@ Description: 	Added tests for contract
 
 
 Task: Stub DB
-Date: 06/05
+Date: 06/07
 Assigned to: Adrian
 Status: In progress
 Duration: 1 hr
