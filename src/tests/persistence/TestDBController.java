@@ -46,9 +46,7 @@ public class TestDBController {
 		
 		clauses4.add(null);
 		conditions4.add(clauses4);
-		
-		System.out.println(conditions4 != null && (conditions4.size() < 1 || conditions4.contains(null)));
-		
+
 		controller.connect();
 		
 		assertNotNull("BlindSQL -> Null", controller.blindQuery("SELECT * FROM CLIENTS"));

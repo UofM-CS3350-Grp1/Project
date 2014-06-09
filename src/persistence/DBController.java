@@ -20,7 +20,7 @@ import java.util.Locale;
 
 public class DBController 
 {
-	private final int SQL_DEBUGGING = 1; //1 for full SQL output, 0 to disable.
+	private final int SQL_DEBUGGING = 0; //1 for full SQL output, 0 to disable.
 	private final int ERROR_LOG = 0; //1 for error log, 0 to disable.
 	
 	private String dbName;
@@ -51,7 +51,7 @@ public class DBController
 	
 	public void connect()
 	{
-		String addr = "jdbc:hsqldb:database/" + dbName;
+		String addr = "jdbc:hsqldb:file:database/" + dbName;
 		try
 		{
 			dbType = "HSQL";
@@ -119,7 +119,7 @@ public class DBController
 		//getActiveIndex("CLIENTS");
 		//getActiveIndex("CONTRACTS");
 		
-		if(table == null || table.isEmpty())
+		if(table == null || table.isEmpty() || fields == null)
 			valid = false;
 		
 		if(valid)
@@ -197,7 +197,10 @@ public class DBController
 		boolean success = false;
 		
 		if(element != null)
-				valid = modifyValidator(table, element.getID());
+			valid = modifyValidator(table, element.getID());
+		
+		if(fields == null)
+			valid = false;
 		
 		if(valid)
 		{
@@ -557,22 +560,31 @@ public class DBController
 	{
 		ArrayList<String> output = new ArrayList<String>();
 		String columnName = "";
-		try
+		
+		if(table != null && !table.isEmpty())
 		{
-			ResultSet rsColumns = null;
-			DatabaseMetaData meta = conn.getMetaData(); //Get metadata
-			rsColumns = meta.getColumns(null, null, table, null); //Retrieve columns from table
-	    
-			while(rsColumns.next()) //Loop though columns and add to output
+			try
 			{
-				columnName = rsColumns.getString("COLUMN_NAME");
-				output.add(new String(columnName));
+				ResultSet rsColumns = null;
+				DatabaseMetaData meta = conn.getMetaData(); //Get metadata
+				rsColumns = meta.getColumns(null, null, table, null); //Retrieve columns from table
+		    
+				while(rsColumns.next()) //Loop though columns and add to output
+				{
+					columnName = rsColumns.getString("COLUMN_NAME");
+					output.add(new String(columnName));
+				}
+			}
+			catch(Exception e)
+			{
+				errorOutput(e);
 			}
 		}
-		catch(Exception e)
+		else
 		{
-			errorOutput(e);
+			output = null;
 		}
+		
 		
 		return output;
 	}
@@ -599,43 +611,50 @@ public class DBController
 	{
 		String query = "SELECT \n";
 		
-		if(selects!= null) //Checks for selects, otherwise returns '*'
+		if(table != null || !table.isEmpty())
 		{
-			for(int i = 0; i < selects.size()-1; i++)
+			if(selects!= null) //Checks for selects, otherwise returns '*'
 			{
-				query = query + selects.get(i) + ",\n";
+				for(int i = 0; i < selects.size()-1; i++)
+				{
+					query = query + selects.get(i) + ",\n";
+				}
+			
+				query = query + selects.get(selects.size()-1) + "\n";
 			}
+			else
+			{
+				query = query +"*\n";
+			}
+			
+			query = query + "FROM " +table;
 		
-			query = query + selects.get(selects.size()-1) + "\n";
+			if(joins != null) //Checks for joins, not currently implemented
+			{
+				//DO NOTHING ATM
+			}
+			
+			if(clauses != null) //Checks for clauses
+			{
+				if(clauses.get(0).get(0).compareTo("ALL") != 0)
+				{
+					query = query + "\nWHERE\n";
+					
+					for(int i = 0; i < clauses.size()-1; i++) //Loops through clauses, spitting out clause arguments.
+					{
+						for(int j = 0; j < clauses.get(i).size() -1; j++) //Loops through clause parameters appending them to query.
+						{
+							query = query + clauses.get(i).get(j) + " ";
+						}
+						query = query + clauses.get(i).get(clauses.get(i).size()-1) + " AND";
+					}
+					query = query + clauses.get(clauses.size()-1).get(0) + " " + clauses.get(clauses.size()-1).get(1) + " " + clauses.get(clauses.size()-1).get(2);
+				}
+			}
 		}
 		else
 		{
-			query = query +"*\n";
-		}
-		
-		query = query + "FROM " +table;
-	
-		if(joins != null) //Checks for joins, not currently implemented
-		{
-			//DO NOTHING ATM
-		}
-		
-		if(clauses != null) //Checks for clauses
-		{
-			if(clauses.get(0).get(0).compareTo("ALL") != 0)
-			{
-				query = query + "\nWHERE\n";
-				
-				for(int i = 0; i < clauses.size()-1; i++) //Loops through clauses, spitting out clause arguments.
-				{
-					for(int j = 0; j < clauses.get(i).size() -1; j++) //Loops through clause parameters appending them to query.
-					{
-						query = query + clauses.get(i).get(j) + " ";
-					}
-					query = query + clauses.get(i).get(clauses.get(i).size()-1) + " AND";
-				}
-				query = query + clauses.get(clauses.size()-1).get(0) + " " + clauses.get(clauses.size()-1).get(1) + " " + clauses.get(clauses.size()-1).get(2);
-			}
+			query = null;
 		}
 		
 		return query;
