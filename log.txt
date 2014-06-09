@@ -241,8 +241,8 @@ Description:	Modified interface to edit client information via clicking list obj
 Task: Update/create detailed user stories for iteration 2
 Date: 06/02, 7:20pm
 Assigned to: All
-Status: 
-Duration:
+Status: Completed
+Duration: 30 minutes
 Description: Update big user stories based on what has been completed and what the following iterations will look like. Also create detailed user stories for iteration 2.
 
 
@@ -368,8 +368,8 @@ Description: Created a basic client class.
 Task: Stub UI
 Date: 05/26, 7:39pm
 Assigned to: Karl
-Status: in progress
-Duration:
+Status: Ongoing
+Duration: 2 hours
 Description: Create a basic UI that can be used to navigate through basic components in the program for iteration 1.
 
 
