@@ -225,8 +225,8 @@ Description: Update big user stories based on what has been completed and what t
 Task: Create scripts to build program
 Date: 06/02, 7:20pm
 Assigned to: Derek 
-Status: Will start 6/4
-Duration:r
+Status: Complete
+Duration: 1.5hrs
 Description: Create the set of files described in the iteration 1 document on how to build and run the program and tests
 
 
