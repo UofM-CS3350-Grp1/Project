@@ -13,7 +13,7 @@ Run:
 			- re-run Run.bat
 
 Run tests:
-	run RunTests.bat
+	run RunUnitTests.bat
 
 
 This is the Buzzin' Digital Marketing software development project.
