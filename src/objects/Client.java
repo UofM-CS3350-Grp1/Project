@@ -5,8 +5,8 @@ import java.util.ArrayList;
  * based on "I want to be able to add, delete, edit, view *active or potential clients*
  */
 
-public class Client implements Storable {
-	
+public class Client implements Storable 
+{	
 	/**
 	 * Keeps track of the client's status allowing us to track
 	 * one value rather and risk an invalid state and unnecessary
@@ -26,42 +26,31 @@ public class Client implements Storable {
 	private String phoneNumber;
 	private String email;
 	private String address;
-	private String businessName;  // ???
+	private String businessName; 
 	private ClientStatus status;
 
-	/*
-	 * constructs the client; Name probably shouldn't be null;
+	/**
+	 * Constructs the client; Name probably shouldn't be null;
 	 * throws exception since we shouldn't let broken objects
 	 * live to cause mayhem at some other point in time;
 	 */
-	public Client( 
-			String name, 
-			String phoneNumber,
-			String email,
-			String address,
-			String businessName,
-			ClientStatus status
-			) throws IllegalArgumentException {
-		// nameless clients are likely useless for the user, thus, exception
-		if ( name == null || name.isEmpty() )	throw new IllegalArgumentException();
-		this.name = name;
-		
-		// check for null?
-		this.clientID = -1; //Could be -1 as well if anyone has a preference
-		
-		if ( phoneNumber == null || phoneNumber.length() != PHONE_NUMBER_LENGTH ) throw new IllegalArgumentException();
-		this.phoneNumber = phoneNumber;
-		
-		if ( email == null || ! email.matches(EMAIL_REGEX) ) throw new IllegalArgumentException();
-		this.email = email;
-		
-		if ( address == null || address.isEmpty() ) throw new IllegalArgumentException();
-		this.address = address;
-		
-		if ( businessName == null || businessName.isEmpty() ) throw new IllegalArgumentException();
-		this.businessName = businessName;
-		
-		this.status = status;
+	public Client(String name, String phoneNumber, String email, String address, String businessName, ClientStatus status) throws IllegalArgumentException
+	{
+		if(name != null && !name.isEmpty() && phoneNumber != null && phoneNumber.length() == PHONE_NUMBER_LENGTH && email != null &&
+				email.matches(EMAIL_REGEX) && address != null && !address.isEmpty() && businessName != null && !businessName.isEmpty())
+		{
+			this.name = name;
+			this.clientID = -1; 
+			this.phoneNumber = phoneNumber;
+			this.email = email;
+			this.address = address;
+			this.businessName = businessName;
+			this.status = status;
+		}
+		else
+		{
+			throw new IllegalArgumentException();
+		}
 	}
 	
 	/*
@@ -72,42 +61,32 @@ public class Client implements Storable {
 	 * 		and doing the type check in the constructor.Do you have an alternate 
 	 * 		implementation you'd prefer?
 	 * 
-	 * <A>:	?
+	 * <A>:	If you wish to store the status as a 0/ 1 variable we need to ensure that
+	 * 		the enumerated type is set to that and that the associated values won't 
+	 * 		change if more states are added.
 	 */
 	
-	public Client(
-			int id,
-			String name, 
-			String phoneNumber,
-			String email,
-			String address,
-			String businessName,
-			int status
-			) throws IllegalArgumentException {
-		// nameless clients are likely useless for the user, thus, exception
-		if ( name == null || name.isEmpty() )	throw new IllegalArgumentException();
-		this.name = name;
-		
-		// check for null?
-		this.clientID = id;
-		
-		if ( phoneNumber == null || phoneNumber.length() != PHONE_NUMBER_LENGTH ) throw new IllegalArgumentException();
-		this.phoneNumber = phoneNumber;
-		
-		if ( email == null || ! email.matches(EMAIL_REGEX) ) throw new IllegalArgumentException();
-		this.email = email;
-		
-		if ( address == null || address.isEmpty() ) throw new IllegalArgumentException();
-		this.address = address;
-		
-		if ( businessName == null || businessName.isEmpty() ) throw new IllegalArgumentException();
-		this.businessName = businessName;
-
-		
-		if(status == 1)
-			this.status = ClientStatus.Active;
+	public Client(int id, String name, String phoneNumber, String email, String address, String businessName, int status) throws IllegalArgumentException
+	{
+		if(id >= 0 && name != null && !name.isEmpty() && phoneNumber != null && phoneNumber.length() == PHONE_NUMBER_LENGTH && email != null &&
+				email.matches(EMAIL_REGEX) && address != null && !address.isEmpty() && businessName != null && !businessName.isEmpty())
+		{
+			this.name = name;
+			this.clientID = id; 
+			this.phoneNumber = phoneNumber;
+			this.email = email;
+			this.address = address;
+			this.businessName = businessName;
+			
+			if(status == 1)
+				this.status = ClientStatus.Active;
+			else
+				this.status = ClientStatus.Potential;
+		}
 		else
-			this.status = ClientStatus.Potential;
+		{
+			throw new IllegalArgumentException();
+		}
 	}
 		
 	/*********************************************************
@@ -252,6 +231,9 @@ public class Client implements Storable {
 		return index;
 	}
 	
+	/**
+	 * @return String representation of the client
+	 */
 	public String toString()
 	{
 		return "(Name: " + this.name +

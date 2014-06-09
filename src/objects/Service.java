@@ -2,12 +2,9 @@ package objects;
 
 import java.util.ArrayList;
 
-//----------------------------------------------------------------------------
-//	Class: Service
-//
-//	Def: Base class for services.
-//----------------------------------------------------------------------------
-
+/**
+ * Base class for services
+ */
 public class Service implements Storable
 {	
 	private String title;			// Name of Service
@@ -116,55 +113,61 @@ public class Service implements Storable
 	}
 	*/
 	
-	
-	public Service(
-				int id,
-				String title,
-				String description,
-				double rate,
-				String type
-				) throws IllegalArgumentException
+	/**
+	 * Creates a new service
+	 *  
+	 * @param id The ID of the service
+	 * @param title The service title
+	 * @param description The description of the service
+	 * @param rate The rate of the service
+	 * @param type The type of service
+	 * @throws IllegalArgumentException
+	 */
+	public Service(int id, String title, String description, double rate, String type) throws IllegalArgumentException
 	{
-	if(title == null || title.isEmpty() || id < 0 || description == null ||
-			rate < 0 || type == null || type.isEmpty()) // Reject objects with undefined names or invalid ID's
-	{
-		throw new IllegalArgumentException();
-	}
-	
-	this.title = title;
-	this.description = description;
-	this.rate = rate;
-	this.id = id;
-	this.type = type;
-	}
-	
-	//----------------------------------------------------------------------------
-	//	Business Logic constructor, used if a new service is created 
-	//	within the program
-	//----------------------------------------------------------------------------
-	
-	public Service(
-					String title,
-					String description,
-					double rate,
-					String type
-					) throws IllegalArgumentException
-	{
-		if(title == null || title.isEmpty() || id < 0 || description == null ||
-				rate < 0 || type == null || type.isEmpty())
+		if(title != null && !title.isEmpty() && id >= 0 && description != null && rate >= 0 && type != null && !type.isEmpty()) 
 		{
+			this.title = title;
+			this.description = description;
+			this.rate = rate;
+			this.id = id;
+			this.type = type;
+		}
+		else
+		{
+			// Reject objects with undefined names or invalid ID's
 			throw new IllegalArgumentException();
 		}
-		
-		this.title = title;
-		this.description = description;
-		this.rate = rate;
-		this.id = 0;
-		this.type = type;
 	}
 	
-	
-	
+	/**
+	 * Creates a new service
+	 * Business Logic constructor, used if a new service is created within the program
+	 *  
+	 * @param id The ID of the service
+	 * @param title The service title
+	 * @param description The description of the service
+	 * @param rate The rate of the service
+	 * @param type The type of service
+	 * @throws IllegalArgumentException
+	 */
+	public Service(String title, String description, double rate, String type) throws IllegalArgumentException
+	{		
+		if(title != null && !title.isEmpty() && id >= 0 && description != null && rate >= 0 && type != null && !type.isEmpty()) 
+		{
+			this.title = title;
+			this.description = description;
+			this.rate = rate;
+			this.id = 0;
+			this.type = type;
+		}
+		else
+		{
+			// Reject objects with undefined names or invalid ID's
+			throw new IllegalArgumentException();
+		}
+	}
+		
 	//----------------------------------------------------------------------------
 	//	Null constructor, currently creates a test service
 	//----------------------------------------------------------------------------
@@ -184,26 +187,41 @@ public class Service implements Storable
 	//	GETTERS
 	//-------------
 
+	/**
+	 * @return Gets the service title
+	 */
 	public String getTitle()
 	{
 		return title;
 	}
 	
+	/**
+	 * @return Gets the description of the service
+	 */
 	public String getDescription()
 	{
 		return description;
 	}
 	
+	/**
+	 * @return Gets the service rate
+	 */
 	public double getRate()
 	{
 		return rate;
 	}
 	
+	/**
+	 * @return Gets the type of the service
+	 */
 	public String getType()
 	{
 		return this.type;
 	}
 	
+	/**
+	 * @return Gets the service ID
+	 */
 	public int getID()
 	{
 		return this.id;
@@ -235,6 +253,10 @@ public class Service implements Storable
 	//	SETTERS
 	//-------------
 	
+	/**
+	 * Sets the service title
+	 * @param title The service title
+	 */
 	public void setTitle(String title)
 	{
 		assert (title != null && !title.isEmpty());
@@ -242,6 +264,10 @@ public class Service implements Storable
 			this.title = title;
 	}
 	
+	/**
+	 * Sets the service description 
+	 * @param description The service description
+	 */
 	public void setDescription(String description)
 	{
 		assert (description != null);
@@ -249,6 +275,10 @@ public class Service implements Storable
 			this.description = description;
 	}
 	
+	/**
+	 * Sets the service rate
+	 * @param rate The service rate
+	 */
 	public void setRate(double rate)
 	{
 		assert (rate >= 0);
@@ -256,6 +286,10 @@ public class Service implements Storable
 			this.rate = rate;
 	}
 	
+	/**
+	 * Sets the service type
+	 * @param type The service type
+	 */
 	public void setType(String type)
 	{
 		assert (type != null && !type.isEmpty());
@@ -345,14 +379,9 @@ public class Service implements Storable
 	}
 	*/
 	
-	//----------------------------------------------------------------------------
-	//	TOSTRING()
-	//
-	//	PARAMS: NONE
-	//
-	//	NOTES: 	Standard toString() method.
-	//----------------------------------------------------------------------------
-	
+	/**
+	 * @returns The string representation of the service
+	 */
 	public String toString()
 	{
 		return "(Title: " + this.title + 
