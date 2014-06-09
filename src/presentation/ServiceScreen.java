@@ -1,8 +1,6 @@
 package presentation;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -12,16 +10,9 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.custom.CCombo;
 
 import objects.Service;
 
-
-import persistence.StubDBInterface;
-import persistence.DBInterface;
-
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.widgets.List;
@@ -217,7 +208,7 @@ public class ServiceScreen
 		
 		Label lblServiceName = new Label(shell, SWT.NONE);
 		lblServiceName.setText("Service Name");
-		lblServiceName.setBounds(232, 57, 71, 15);
+		lblServiceName.setBounds(232, 57, 82, 15);
 		
 		svcName = new Text(shell, SWT.BORDER);
 		svcName.setBounds(351, 57, 263, 21);

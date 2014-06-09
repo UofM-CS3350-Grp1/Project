@@ -183,12 +183,6 @@ public class HomeScreen {
 		shell.setText("Buzzin' Digital Marketing");
 		shell.setLayout(new GridLayout(1, false));
 		
-		Label lblHelloGroup = new Label(shell, SWT.NONE);
-		lblHelloGroup.setText("HELLO GROUP #1!!!");
-		
-		Label lblEveryoneShouldBe = new Label(shell, SWT.NONE);
-		lblEveryoneShouldBe.setText("Everyone should be able to start placing their code into the src folder.");
-		
 		// separator
 		Label line1 = new Label(shell, SWT.HORIZONTAL | SWT.SEPARATOR);
 		line1.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -200,8 +194,11 @@ public class HomeScreen {
 		loginComp.setLayout( loginGrid );
 		
 		final Label userLabel = new Label( loginComp, SWT.NONE );
-		userLabel.setText( "User( type admin ):" );
+		userLabel.setText( "User: (Type admin)" );
 		final Text userIn = new Text( loginComp, SWT.BORDER );
+		GridData gd_userIn = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_userIn.widthHint = 143;
+		userIn.setLayoutData(gd_userIn);
 		userIn.addModifyListener( new ModifyListener() {
 			public void modifyText( ModifyEvent event ) {
 				if ( ( userIn.getText() ).equals( "admin" ) ) {
@@ -214,8 +211,11 @@ public class HomeScreen {
 		});
 		
 		final Label passLabel = new Label( loginComp, SWT.NONE );
-		passLabel.setText( "Password...is:" );
+		passLabel.setText( "Password: (Type password)" );
 		final Text passIn = new Text( loginComp, SWT.BORDER | SWT.PASSWORD );
+		GridData gd_passIn = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_passIn.widthHint = 143;
+		passIn.setLayoutData(gd_passIn);
 		passIn.addModifyListener( new ModifyListener() {
 			public void modifyText( ModifyEvent event ) {
 				if ( ( passIn.getText() ).equals( "password" ) ) {
@@ -228,6 +228,9 @@ public class HomeScreen {
 		});
 		
 		Button btnLogin = new Button( loginComp, SWT.None );
+		GridData gd_btnLogin = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_btnLogin.widthHint = 69;
+		btnLogin.setLayoutData(gd_btnLogin);
 		btnLogin.setText( "Login" );
 		new Label(loginComp, SWT.NONE);
 		btnLogin.addSelectionListener( new SelectionAdapter() {
@@ -245,8 +248,15 @@ public class HomeScreen {
 		// separator
 		Label line2 = new Label(shell, SWT.HORIZONTAL | SWT.SEPARATOR);
 		line2.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-				
-		Button btnManageServices = new Button(shell, SWT.NONE);
+		
+		Composite composite = new Composite(shell, SWT.NONE);
+		GridData gd_composite = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_composite.heightHint = 128;
+		gd_composite.widthHint = 424;
+		composite.setLayoutData(gd_composite);
+		
+		Button btnManageServices = new Button(composite, SWT.CENTER);
+		btnManageServices.setBounds(171, 36, 100, 50);
 		btnManageServices.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
@@ -255,7 +265,8 @@ public class HomeScreen {
 		});
 		btnManageServices.setText("Manage Services");
 		
-		Button btnManageClients = new Button(shell, SWT.NONE);
+		Button btnManageClients = new Button(composite, SWT.CENTER);
+		btnManageClients.setBounds(54, 36, 94, 50);
 		btnManageClients.addSelectionListener(new SelectionAdapter()
 		{
 			public void widgetSelected(SelectionEvent event) 
@@ -265,7 +276,8 @@ public class HomeScreen {
 		});
 		btnManageClients.setText("Manage Clients");
 		
-		Button btnExit = new Button(shell, SWT.NONE);
+		Button btnExit = new Button(composite, SWT.CENTER);
+		btnExit.setBounds(294, 36, 69, 50);
 		btnExit.addSelectionListener(new SelectionAdapter() 
 		{
 			@Override
@@ -274,9 +286,6 @@ public class HomeScreen {
 				shell.dispose();
 			}
 		});
-		GridData gd_btnExit = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_btnExit.widthHint = 69;
-		btnExit.setLayoutData(gd_btnExit);
 		btnExit.setText("Exit");
 
 	}
