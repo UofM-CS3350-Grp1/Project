@@ -22,6 +22,11 @@ import persistence.DBInterface;
 
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.VerifyListener;
+import org.eclipse.swt.events.VerifyEvent;
+import org.eclipse.swt.widgets.List;
+
+import business.ProcessService;
 
 /*
  * 
@@ -31,15 +36,25 @@ import org.eclipse.swt.events.MouseEvent;
  * Needs to be changed a bit yet to read services into a list
  * 
  */
-public class ServiceScreen extends Shell {
+public class ServiceScreen
+{
+	private enum Action
+	{
+		Add,
+		Update, 
+		Delete
+	}
+	
 	private Text svcType;
 	private Shell shell;
 	private Text rate_amount;
 	private Display display;
 	private Text svc_description;
-	private ArrayList<Service> list_services = new ArrayList();
-	int selection = 0;
+	private List list;
+	private Service currentService;
 	private ArrayList<Service> services;
+	private ProcessService processService;
+	private Text svcName;
 
 	/**
 	 * Launch the application.
@@ -49,9 +64,12 @@ public class ServiceScreen extends Shell {
 	public ServiceScreen() 
 	{
 		display = Display.getDefault();
+		services = new ArrayList<Service>();
+		processService = new ProcessService();
 		
 		createWindow();
 	}
+	
 	private void createWindow()
 	{
 		shell = new Shell(display);
@@ -67,295 +85,312 @@ public class ServiceScreen extends Shell {
 	 * Create the shell.
 	 * @param display
 	 */
-	public void initializeServiceFields() {
+	public void initializeServiceFields()
+	{
 		final Button svc_del = new Button(shell, SWT.NONE);
-		final Button svc_edit = new Button(shell, SWT.NONE);
-		final CCombo select_svc = new CCombo(shell, SWT.BORDER);
-		final Button btnCancel = new Button(shell, SWT.NONE);
 		final Button btnAdd = new Button(shell, SWT.NONE);
 		final Button svc_new = new Button(shell, SWT.NONE);
-		//super(display, SWT.SHELL_TRIM);
+		Service service;
 		
 		Label lblServiceType = new Label(shell, SWT.NONE);
-		lblServiceType.setBounds(95, 145, 71, 15);
+		lblServiceType.setBounds(232, 90, 71, 15);
 		lblServiceType.setText("Service Type");
 		
 		
 		Label lblAddNewService = new Label(shell, SWT.NONE);
-		lblAddNewService.setBounds(223, 10, 114, 15);
-		lblAddNewService.setText("ADD / EDIT SERVICE");
+		lblAddNewService.setBounds(52, 20, 114, 15);
+		lblAddNewService.setText("Add/ Edit Service");
 		
 		svcType = new Text(shell, SWT.BORDER);
-		svcType.setBounds(214, 145, 263, 21);
-		svcType.setEnabled(false);
+		svcType.setBounds(351, 90, 263, 21);
 		
 		Label lblServiceRate = new Label(shell, SWT.NONE);
-		lblServiceRate.setBounds(95, 180, 71, 15);
+		lblServiceRate.setBounds(232, 125, 71, 15);
 		lblServiceRate.setText("Service Rate");
 		
 		rate_amount = new Text(shell, SWT.BORDER);
-		rate_amount.setBounds(214, 180, 76, 21);
-		rate_amount.setEnabled(false);
+		rate_amount.addVerifyListener(new VerifyListener()
+		{
+			public void verifyText(VerifyEvent event)
+			{
+				verifyMonetaryValue(event);
+			}
+		});
+		rate_amount.setBounds(351, 125, 76, 21);
 		
 		Label label = new Label(shell, SWT.NONE);
-		label.setBounds(311, 186, 16, 15);
+		label.setBounds(448, 131, 16, 15);
 		label.setText("/");
 		
-		final Combo rate_lenght = new Combo(shell, SWT.NONE);
-		rate_lenght.setItems(new String[] {"Year", "Month", "Week", "Session"});
-		rate_lenght.setBounds(333, 178, 91, 23);
-		rate_lenght.setEnabled(false);
+		final Combo rate_length = new Combo(shell, SWT.NONE);
+		rate_length.setItems(new String[] {"Year", "Month", "Week", "Session"});
+		rate_length.setBounds(470, 123, 91, 23);
+		rate_length.select(0);
 		
 		Label lblServiceDescription = new Label(shell, SWT.NONE);
-		lblServiceDescription.setBounds(95, 222, 106, 15);
+		lblServiceDescription.setBounds(232, 167, 106, 15);
 		lblServiceDescription.setText("Service Description");
 		
 		svc_description = new Text(shell, SWT.BORDER);
-		svc_description.setBounds(214, 219, 263, 141);
-		svc_description.setEnabled(false);
+		svc_description.setBounds(351, 164, 263, 189);
 		
-		/*
+		/**
 		 * Submit the selected options and fields - button event
 		 * the selection variable specifies if its an add, edit or delete
 		 */
-		btnAdd.addSelectionListener(new SelectionAdapter() {
+		btnAdd.addSelectionListener(new SelectionAdapter() 
+		{
 			@Override
-			public void widgetSelected(SelectionEvent arg0) {
-				String description = svc_description.toString();
-				String servicetype = svcType.toString();
-				Service service = new Service(servicetype, description, 100, servicetype);
-				submit_svc(service, selection);
+			public void widgetSelected(SelectionEvent arg0)
+			{
+				if(currentService == null)
+				{
+					try
+					{
+						Service service = new Service(svcName.getText(), svc_description.getText(), Double.parseDouble(rate_amount.getText()), svcType.getText());
+						submitSvc(service, Action.Add);
+					}
+					catch(Exception e)
+					{
+						//Do nothing, invalid data
+					}
+				}
+				else
+				{
+					//Update the service's values
+					currentService.setTitle(svcName.getText());
+					currentService.setDescription(svc_description.getText());
+					currentService.setRate(Double.parseDouble(rate_amount.getText()));
+					currentService.setType(svcType.getText());
+					
+					submitSvc(currentService, Action.Update);
+				}
 			}
 		});
-		btnAdd.setBounds(214, 391, 75, 25);
-		btnAdd.setText("SAVE");
-		btnAdd.setEnabled(false);
-
-		/*
-		 * Canceling the current selection - button event
-		 */
-		btnCancel.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent event) {
-				clearFields();
-				svcType.setEnabled(false);
-				svc_description.setEnabled(false);
-				rate_amount.setEnabled(false);
-				rate_lenght.setEnabled(false);
-				select_svc.setEnabled(false);
-				svc_del.setEnabled(true);
-				svc_edit.setEnabled(true);
-				svc_new.setEnabled(true);
-				btnAdd.setEnabled(false);
-				selection = 0;
-				/*try {
-					Contract.createPDF();
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (DocumentException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}*/
-				//display.close();
-			}
-		});
-		btnCancel.setBounds(348, 391, 75, 25);
-		btnCancel.setText("CANCEL");
+		btnAdd.setBounds(351, 376, 75, 25);
+		btnAdd.setText("Save");
 		
-		Label lblSelectService = new Label(shell, SWT.NONE);
-		lblSelectService.setBounds(95, 113, 82, 15);
-		lblSelectService.setText("Select Service");
 
-		/*final Service svc = new Service();
-		final Service svc2 = new Service(02,"Websites", "Host a domain and publish a website", 400.00, "Websites");
-		list_services.add(svc);
-		list_services.add(svc2);*/
-
-		StubDBInterface db = new StubDBInterface("db");
-		services = db.dumpServices();
-		Iterator<Service> it = services.iterator();
-		String[] servs = new String[3];
-		int i = 0;
-		while(it.hasNext()){
-			servs[i] += it.next().getTitle();
-			i++;
-		}
-
-		select_svc.setItems(servs);
-		
-		select_svc.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent arg0) {
-				int selectedIndex;
-				selectedIndex = select_svc.getSelectionIndex();
-				editSelectedService(services.get(selectedIndex));
-			}
-		});
-		
-		//String test = svc.getTitle();
-		select_svc.setBounds(214, 107, 168, 21);
-		select_svc.setEnabled(false);
-		
-		/*
+		/**
 		 * Disables appropriate buttons and enables appropriate fields
 		 * for editing services - button event
 		 */
-		svc_edit.addMouseListener(new MouseAdapter() {
+		svc_del.addSelectionListener(new SelectionAdapter() 
+		{
 			@Override
-			public void mouseUp(MouseEvent arg0) {
-				svcType.setEnabled(true);
-				svc_description.setEnabled(true);
-				rate_amount.setEnabled(true);
-				rate_lenght.setEnabled(true);
-				select_svc.setEnabled(true);
-				svc_del.setEnabled(false);
-				svc_new.setEnabled(false);
-				svc_edit.setEnabled(true);
-				btnAdd.setEnabled(true);
-				btnAdd.setText("UPDATE");
-				selection = 2;
+			public void widgetSelected(SelectionEvent arg0) 
+			{
+				if(currentService != null)
+				{
+					submitSvc(currentService, Action.Delete);
+				}
 			}
 		});
-		svc_edit.setBounds(262, 49, 75, 25);
-		svc_edit.setText("EDIT");
+		svc_del.setBounds(112, 407, 75, 25);
+		svc_del.setText("Delete");
 		
-
-		/*
-		 * Disables appropriate buttons and enables appropriate fields
-		 * for editing services - button event
-		 */
-		svc_del.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseUp(MouseEvent arg0) {
-				svcType.setEnabled(false);
-				svc_description.setEnabled(false);
-				rate_amount.setEnabled(false);
-				rate_lenght.setEnabled(false);
-				select_svc.setEnabled(true);
-				svc_del.setEnabled(false);
-				svc_edit.setEnabled(false);
-				svc_new.setEnabled(false);
-				btnAdd.setEnabled(true);
-				btnAdd.setText("DELETE");
-				selection = 3;
-			}
-		});
-		svc_del.setBounds(402, 49, 75, 25);
-		svc_del.setText("DELETE");
-		
-
-		/*
-		 * Disables appropriate buttons and enables appropriate fields
-		 * for adding a new service - button event
-		 */
-		svc_new.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseUp(MouseEvent arg0) {
-				svcType.setEnabled(true);
-				svc_description.setEnabled(true);
-				rate_amount.setEnabled(true);
-				rate_lenght.setEnabled(true);
-				select_svc.setEnabled(false);
-				svc_del.setEnabled(false);
-				svc_edit.setEnabled(false);
-				btnAdd.setEnabled(true);
-				btnAdd.setText("SAVE");
-				selection = 1;
-			}
-		});
-		svc_new.setBounds(126, 49, 75, 25);
-		svc_new.setText("NEW");
+		svc_new.setBounds(10, 407, 75, 25);
+		svc_new.setText("New");
 		
 		Button btnExit = new Button(shell, SWT.NONE);
-		btnExit.addSelectionListener(new SelectionAdapter() {
+		btnExit.addSelectionListener(new SelectionAdapter() 
+		{
 			@Override
-			public void widgetSelected(SelectionEvent arg0) {
+			public void widgetSelected(SelectionEvent arg0) 
+			{
 				shell.dispose();
 			}
 		});
-		btnExit.setBounds(539, 391, 75, 25);
-		btnExit.setText("EXIT");
+		btnExit.setBounds(539, 376, 75, 25);
+		btnExit.setText("Exit");
 		
-		svc_new.addSelectionListener(new SelectionAdapter() {
+		list = new List(shell, SWT.BORDER);
+		list.addSelectionListener(new SelectionAdapter()
+		{
 			@Override
-			public void widgetSelected(SelectionEvent arg0) {
-				clearFields();
-				
+			public void widgetSelected(SelectionEvent event)
+			{
+				editSelectedService();
 			}
 		});
-		createContents();
-	}
-
-	/*
-	 * Notes: This method submits the selected option and fields.
-	 * 
-	 * @param param - object containing the parameters of new/update/delete
-	 * @param selection - provides direction of what to do
-	 * 							- 1: add new service
-	 * 							- 2: edit a service
-	 * 							- 3: delete a service
-	 */
-	private void submit_svc(Object param, int selection) {
-		StubDBInterface db = new StubDBInterface("db");
-		db.connect();
-		Service temp = (Service)param;
+		list.setBounds(10, 57, 177, 339);
 		
-		/*Remove comments once ready to use with the db*/
+		Label lblServiceName = new Label(shell, SWT.NONE);
+		lblServiceName.setText("Service Name");
+		lblServiceName.setBounds(232, 57, 71, 15);
 		
+		svcName = new Text(shell, SWT.BORDER);
+		svcName.setBounds(351, 57, 263, 21);
 		
-		switch(selection){
-			case 1://add new
-				db.insert(temp);
-				break;
-			case 2://edit
-				db.update(temp);
-				break;
-			case 3://delete
-				db.drop(temp);
-				break;
+		//Initialize the service list
+		while((service = processService.getNextService()) != null)
+		{
+			services.add(service);
+			list.add(service.getTitle());
 		}
 		
-		db.disconnect();
+		svc_new.addSelectionListener(new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected(SelectionEvent arg0)
+			{
+				currentService = null;
+				clearFields();				
+			}
+		});
+	}
+
+	/**
+	 * This method submits the selected option and fields.
+	 * 
+	 * @param service - The service to update
+	 * @param selection - provides direction of what to do
+	 */
+	private void submitSvc(Service service, Action selection) 
+	{
+		int index;
+		
+		assert (service != null);
+		if(service != null)
+		{		
+			switch(selection)
+			{
+				case Add://add new
+					if(processService.insertService(service))
+					{
+						services.add(service);
+						list.add(service.getTitle());
+					}
+					break;
+					
+				case Update://edit					
+					if(processService.updateService(service))
+					{
+						index = services.indexOf(service);
+						if(index != -1)
+						{
+							list.setItem(index, service.getTitle());
+						}
+					}
+					break;
+					
+				case Delete://delete										
+					if(processService.deleteService(service))
+					{
+						index = services.indexOf(service);
+						
+						if(index != -1)
+						{	
+							services.remove(index);
+							list.remove(index);
+						}
+						
+						//After we have deleted select the entry above where we
+	                    //just deleted
+	                    index--;
+	                    
+	                    if(index < 0 && list.getItemCount() > 0)
+	                    	index = 0;
+	                    
+	                    list.setSelection(index);
+	                    
+	                    if(index >= 0)
+	                    {
+	                        //Show the service record
+	                        editSelectedService();
+	                    }
+	                    else
+	                    {
+	                        //There are no entries in the list
+	                        clearFields();
+	                    }
+					}
+					
+					break;
+			}
+		}
 	}
 	
-	/*
-	 * Notes: clears all input fields
+	/**
+	 * Clears all input fields
 	 */
-	private void clearFields() {
+	private void clearFields()
+	{
+		svcName.setText("");
 		svcType.setText("");
 		svc_description.setText("");
-		rate_amount.setText("");
-		
+		rate_amount.setText("");		
 	}
 	
-	private void editSelectedService(Service service){
-		populateSvcFields(service);
-	}
-	
-	private void populateSvcFields(Service service)
+	/**
+	 * Edits the currently selected service in the list
+	 */
+	private void editSelectedService()
 	{
-		
+		Service service;
+        int selectedIndex;
+        
+        //Find the selected service in our list, if
+        //one is selected
+        selectedIndex = list.getSelectionIndex();
+        if(selectedIndex != -1 && selectedIndex < services.size())
+        {
+            service = services.get(selectedIndex);
+            currentService = service;
+            
+            //Populate the service fields with our service data
+            populateSvcFields(service);
+        }
+	}
+	
+	/**
+	 * Populates the given service data on the form
+	 * @param service Service to populate
+	 */
+	private void populateSvcFields(Service service)
+	{		
 		if(service != null)
 		{
+			svcName.setText(service.getTitle());
 			svcType.setText(service.getType());
 			rate_amount.setText(String.valueOf(service.getRate()));
-			//rate_length.setText(service.getTime()s);
+			//rate_length.setText(service.getTime());
 			svc_description.setText(service.getDescription());
 		}
 	}
+	
 	/**
-	 * Create contents of the shell.
+	 * Ensures that characters entered into the text box are valid
+	 * characters. Numeric characters, one ., and at most 2 decimal places
+	 * @param event The entry event
 	 */
-	protected void createContents() {
-		setText("Buzzin' Digital Marketing");
-		setSize(587, 484);
+	private void verifyMonetaryValue(VerifyEvent event)
+	{
+		Text text;
+		int periodIndex = -1;
+		boolean valid = false;
+		
+		assert (event != null);
+		if(event != null)
+		{
+			text = (Text) event.widget;
+			
+			if(text != null)
+			{
+				periodIndex = text.getText().indexOf('.');
 
-	}
-
-	@Override
-	protected void checkSubclass() {
-		// Disable the check that prevents subclassing of SWT components
+				//Check if the textbox is a valid monetary value
+				if(event.character == SWT.BS || event.keyCode == SWT.ARROW_LEFT || event.keyCode == SWT.ARROW_RIGHT || 
+						event.keyCode == SWT.DEL || event.keyCode == SWT.NULL)
+					valid = true;
+				else if(Character.isDigit(event.character) && (periodIndex == -1 || (periodIndex != -1 && (event.start < periodIndex + 1 || text.getText().substring(periodIndex + 1).length() < 2))))
+					valid = true;
+				else if(event.character == '.' && periodIndex == -1)
+					valid = true;
+				
+				event.doit = valid;
+			}
+		}
 	}
 }
 
