@@ -168,8 +168,12 @@ public class DBController
 			}
 			else
 			{
-				System.out.println("Size mismatch between DB fields and input object.");
-				System.out.println("Fields: "+ fields.size() + " Elements " + element.toIndex().size());
+				if(ERROR_LOG == 1)
+				{
+					System.out.println("Size mismatch between DB fields and input object.");
+					System.out.println("Fields: "+ fields.size() + " Elements " + element.toIndex().size());
+
+				}
 			}
 		}
 		
@@ -247,8 +251,12 @@ public class DBController
 			}
 			else
 			{
-				System.out.println("Size mismatch between DB fields and input object.");
-				System.out.println("Fields: "+ fields.size() + " Elements " + element.toIndex().size());
+				if(ERROR_LOG == 1)
+				{
+					System.out.println("Size mismatch between DB fields and input object.");
+					System.out.println("Fields: "+ fields.size() + " Elements " + element.toIndex().size());
+
+				}
 			}
 		}
 		return success;
@@ -360,7 +368,8 @@ public class DBController
 		else
 		{
 			output = null;
-			System.out.println("Invaid Services query.");
+			if(ERROR_LOG == 1)
+				System.out.println("Invaid Services query.");
 		}
 		
 		return output;
@@ -419,7 +428,8 @@ public class DBController
 		else
 		{
 			output = null;
-			System.out.println("Invaid Clients query.");
+			if(ERROR_LOG == 1)
+				System.out.println("Invaid Clients query.");
 		}
 		
 		return output;
@@ -475,7 +485,8 @@ public class DBController
 		else
 		{
 			output = null;
-			System.out.println("Invaid Contract query.");
+			if(ERROR_LOG == 1)
+				System.out.println("Invaid Contract query.");
 		}
 		
 		return output;
@@ -776,7 +787,7 @@ public class DBController
 				rs3 = st1.executeQuery(cmdString);
 				
 				rs3.next();
-				System.out.println(rs3.getInt(1));
+				//System.out.println(rs3.getInt(1));
 				if(rs3.getInt(1) < 1)
 				{
 					output = false; //Must contain at east one entry.
@@ -790,7 +801,8 @@ public class DBController
 		}
 		else
 		{
-			System.out.println("Invaid Modify Request.");
+			if(ERROR_LOG == 1)
+				System.out.println("Invaid Modify Request.");
 		}
 		
 		return output;
@@ -821,7 +833,7 @@ public class DBController
 			{
 				output = -1;
 			}
-			System.out.println(output);
+			//System.out.println(output);
 		}
 		catch(Exception e)
 		{
