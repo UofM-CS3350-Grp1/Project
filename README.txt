@@ -37,8 +37,7 @@ Directory:
 TODO(Dell):
 
 TODO(Timothy):
-		- Testing
-		- Refactoring Stub UI
+		- Tag project with Itr1 
 
 TODO(Derek):
 		- Create scripts to build/run program

@@ -13,6 +13,32 @@ Description:
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Housekeeping
+Date: 06/08 
+Assigned to: Tim
+Status: In progress
+Duration: 1 hour
+Description: 	Enforced the common coding style
+				Added additional documentation
+				Removed dead code
+
+
+Task: UI
+Date: 06/08 
+Assigned to: Tim
+Status: In progress
+Duration: 30 minutes
+Description: 	Fixed and cleaned issues with home, client and service screens
+
+
+Task: Service GUI
+Date: 06/08 
+Assigned to: Tim
+Status: In progress
+Duration: 1.5 hours
+Description: 	Updated the Service screen to match the same style as the Client screen
+
+
 Task: Login Reaction Listener Fix
 Date: 06/08
 Assigned to: Dell
