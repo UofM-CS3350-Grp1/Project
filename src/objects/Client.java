@@ -30,9 +30,15 @@ public class Client implements Storable
 	private ClientStatus status;
 
 	/**
-	 * Constructs the client; Name probably shouldn't be null;
-	 * throws exception since we shouldn't let broken objects
-	 * live to cause mayhem at some other point in time;
+	 * Creates a new client 
+	 * @param id The ID of the client
+	 * @param name The name of the client's contact
+	 * @param phoneNumber The phone number of the client
+	 * @param email The email of the client
+	 * @param address The address of the client
+	 * @param businessName The client name
+	 * @param status The status of the client
+	 * @throws IllegalArgumentException
 	 */
 	public Client(String name, String phoneNumber, String email, String address, String businessName, ClientStatus status) throws IllegalArgumentException
 	{
@@ -66,6 +72,17 @@ public class Client implements Storable
 	 * 		change if more states are added.
 	 */
 	
+	/**
+	 * Creates a new client 
+	 * @param id The ID of the client
+	 * @param name The name of the client's contact
+	 * @param phoneNumber The phone number of the client
+	 * @param email The email of the client
+	 * @param address The address of the client
+	 * @param businessName The client name
+	 * @param status The status of the client
+	 * @throws IllegalArgumentException
+	 */
 	public Client(int id, String name, String phoneNumber, String email, String address, String businessName, int status) throws IllegalArgumentException
 	{
 		if(id >= 0 && name != null && !name.isEmpty() && phoneNumber != null && phoneNumber.length() == PHONE_NUMBER_LENGTH && email != null &&

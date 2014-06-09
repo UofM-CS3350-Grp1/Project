@@ -86,8 +86,8 @@ public class ClientScreen
 	{
 		//Name
 		Label lblName = new Label(shell, SWT.NONE);
-		lblName.setBounds(204, 34, 55, 15);
-		lblName.setText("Name");
+		lblName.setBounds(204, 34, 91, 15);
+		lblName.setText("Contact Name");
 		
 		txtClientName = new Text(shell, SWT.BORDER);
 		txtClientName.setBounds(301, 31, 172, 21);
