@@ -38,9 +38,9 @@ public class ServiceScreen
 	
 	private Text svcType;
 	private Shell shell;
-	private Text rate_amount;
+	private Text rateAmount;
 	private Display display;
-	private Text svc_description;
+	private Text svcDescription;
 	private List list;
 	private Service currentService;
 	private ArrayList<Service> services;
@@ -99,15 +99,15 @@ public class ServiceScreen
 		lblServiceRate.setBounds(232, 125, 71, 15);
 		lblServiceRate.setText("Service Rate");
 		
-		rate_amount = new Text(shell, SWT.BORDER);
-		rate_amount.addVerifyListener(new VerifyListener()
+		rateAmount = new Text(shell, SWT.BORDER);
+		rateAmount.addVerifyListener(new VerifyListener()
 		{
 			public void verifyText(VerifyEvent event)
 			{
 				verifyMonetaryValue(event);
 			}
 		});
-		rate_amount.setBounds(351, 125, 76, 21);
+		rateAmount.setBounds(351, 125, 76, 21);
 		
 		Label label = new Label(shell, SWT.NONE);
 		label.setBounds(448, 131, 16, 15);
@@ -122,8 +122,8 @@ public class ServiceScreen
 		lblServiceDescription.setBounds(232, 167, 106, 15);
 		lblServiceDescription.setText("Service Description");
 		
-		svc_description = new Text(shell, SWT.BORDER);
-		svc_description.setBounds(351, 164, 263, 189);
+		svcDescription = new Text(shell, SWT.BORDER);
+		svcDescription.setBounds(351, 164, 263, 189);
 		
 		/**
 		 * Submit the selected options and fields - button event
@@ -138,7 +138,7 @@ public class ServiceScreen
 				{
 					try
 					{
-						Service service = new Service(svcName.getText(), svc_description.getText(), Double.parseDouble(rate_amount.getText()), svcType.getText());
+						Service service = new Service(svcName.getText(), svcDescription.getText(), Double.parseDouble(rateAmount.getText()), svcType.getText());
 						submitSvc(service, Action.Add);
 					}
 					catch(Exception e)
@@ -150,8 +150,8 @@ public class ServiceScreen
 				{
 					//Update the service's values
 					currentService.setTitle(svcName.getText());
-					currentService.setDescription(svc_description.getText());
-					currentService.setRate(Double.parseDouble(rate_amount.getText()));
+					currentService.setDescription(svcDescription.getText());
+					currentService.setRate(Double.parseDouble(rateAmount.getText()));
 					currentService.setType(svcType.getText());
 					
 					submitSvc(currentService, Action.Update);
@@ -225,6 +225,9 @@ public class ServiceScreen
 			@Override
 			public void widgetSelected(SelectionEvent arg0)
 			{
+				//Remove the selection from the service list
+		        list.setSelection(-1);
+		        
 				currentService = null;
 				clearFields();				
 			}
@@ -309,8 +312,8 @@ public class ServiceScreen
 	{
 		svcName.setText("");
 		svcType.setText("");
-		svc_description.setText("");
-		rate_amount.setText("");		
+		svcDescription.setText("");
+		rateAmount.setText("");		
 	}
 	
 	/**
@@ -344,9 +347,9 @@ public class ServiceScreen
 		{
 			svcName.setText(service.getTitle());
 			svcType.setText(service.getType());
-			rate_amount.setText(String.valueOf(service.getRate()));
+			rateAmount.setText(String.valueOf(service.getRate()));
 			//rate_length.setText(service.getTime());
-			svc_description.setText(service.getDescription());
+			svcDescription.setText(service.getDescription());
 		}
 	}
 	
