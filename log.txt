@@ -37,6 +37,16 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Composite Switching based GUI
+Date: 06/16
+Assigned to: Dell
+Status: In progress
+Duration: 2 days?
+Description:	A composite based GUI now exists as an option
+				- just put a composite in there, and it should be fine
+				- none of the buttons work
+				- haven't actually put a composite in there either
+
 Task: Housekeeping
 Date: 06/08 
 Assigned to: Tim
