@@ -37,6 +37,13 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Service/ Performance Tracking 
+Date: 6/17, 2:00pm
+Assigned to: Tim
+Status: In progress
+Duration: 30 minutes
+Description:	Created first, rough draft of service/ performance tracking objects
+
 
 Task: Client Screen - Composite Version
 Data: 06/16

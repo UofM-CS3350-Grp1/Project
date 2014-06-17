@@ -5,7 +5,7 @@ import java.util.ArrayList;
  * based on "I want to be able to add, delete, edit, view *active or potential clients*
  */
 
-public class Client implements Storable 
+public class Client implements Storable, Trackable 
 {	
 	/**
 	 * Keeps track of the client's status allowing us to track

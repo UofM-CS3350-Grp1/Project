@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Base class for services
  */
-public class Service implements Storable
+public class Service implements Storable, Trackable
 {	
 	private String title;			// Name of Service
 	private String description;		// Description of service.
