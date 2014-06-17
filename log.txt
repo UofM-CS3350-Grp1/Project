@@ -38,6 +38,25 @@ TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 
+Task: Client Screen - Composite Version
+Data: 06/16
+Assigned to: Dell
+Status: Graphical/Non-functional
+Duration: 3 hours
+Description:	A composite version of the client screen for the composite based GUI
+				Non-functional
+				
+Task: Composite Switching based GUI
+Date: 06/16
+Assigned to: Dell
+Status: In progress
+Duration: 2 days?
+Description:	A composite based GUI now exists as an option
+				- just put a composite in there, and it should be fine
+				- none of the buttons work
+				- haven't actually put a composite in there either
+
+
 Task: Redo UI
 Date: 06/14
 Assigned to: Karl
@@ -51,7 +70,6 @@ Meeting Summary
 Date: 06/12
 Discussed what we needed to do for iteration 2. This mostly included the design of the user interface and the way in which certain data will be stored. 
 --------------
-
 
 
 Task: Housekeeping
