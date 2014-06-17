@@ -11,8 +11,8 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 
 public class SwitchScreen {
-	private static final int WIN_WIDTH = 450;
-	private static final int WIN_HEIGHT = 280;
+	private static final int WIN_WIDTH = 640;
+	private static final int WIN_HEIGHT = 480;
 	private static final String WIN_TEXT = "Buzzin' Digital Marketing";
 	
 	public static void main( String[] args ) {
@@ -52,11 +52,9 @@ public class SwitchScreen {
 		content.setLayout( contentLayout );
 		GridData contentData = new GridData( GridData.FILL_BOTH );
 		content.setLayoutData( contentData );
-		Button fillerButton = new Button( content, SWT.FLAT );
-		/*
-		 * REPLACE THIS BUTTON WITH A COMPOSITE
-		 */
-		fillerButton.setText( "CONTENT" );
+		
+		ClientScreenDrawer csd = new ClientScreenDrawer( content );
+		
 		
 		shell.open();
 		shell.layout();

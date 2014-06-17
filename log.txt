@@ -37,6 +37,14 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Client Screen - Composite Version
+Data: 06/16
+Assigned to: Dell
+Status: Graphical/Non-functional
+Duration: 3 hours
+Description:	A composite version of the client screen for the composite based GUI
+				Non-functional
+				
 Task: Composite Switching based GUI
 Date: 06/16
 Assigned to: Dell
