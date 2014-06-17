@@ -37,6 +37,33 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Login Composite
+Date: 6/17
+Assigned to: Dell
+Status: Graphical/Non-Functional
+Duration: 40 mins
+Description:	A composite constructor can be used to create the login composite
+				See SwitchScreen.java for how to use it to work with a parent shell
+				
+Task: Documenting ClientScreenDrawer source
+Date: 6/17
+Assigned to: Dell
+Status: Constructor documented
+Duration: 1 minute
+Description:	A rough explanation on how to use the constructor to attach the composite to a parent
+				See SwitchScreen.java for how to use it to work with a parent shell
+				
+Task: Composite Switching Shell
+Date: 6/17
+Assigned to: Dell
+Status: Login and Clients can switch on button press
+Duration: 2 hours
+Description:	Running SwitchScreen.java's main:
+					You can display the Clients screen content by pressing the "CLIENTS" button
+					You can display the Login screen by pressing the "LOG IN" button
+				I couldn't compile ProgramShell.java; so until I get that working, someone else can adapt
+					ProgramShell to have the same functionality if you study SwitchScreen.java's code
+					
 Task: Service/ Performance Tracking 
 Date: 6/17, 2:00pm
 Assigned to: Tim

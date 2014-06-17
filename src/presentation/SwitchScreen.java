@@ -9,25 +9,37 @@ import org.eclipse.swt.layout.GridLayout; //
 import org.eclipse.swt.layout.RowLayout; //
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.custom.StackLayout;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 public class SwitchScreen {
 	private static final int WIN_WIDTH = 640;
 	private static final int WIN_HEIGHT = 480;
 	private static final String WIN_TEXT = "Buzzin' Digital Marketing";
 	
+	static int pageNum = -1;
+	
 	public static void main( String[] args ) {
 		Display display = Display.getDefault();
 		Shell shell = new Shell();
 		initShell( shell );
 		
+		/*
+		 * Create the navigation bar
+		 */
 		Composite navBar = new Composite( shell, SWT.BORDER );
 		GridLayout navLayout = new GridLayout();
-		navLayout.numColumns = 6;
+		navLayout.numColumns = 6; // 6 buttons
 		navLayout.makeColumnsEqualWidth = true;
 		navBar.setLayout( navLayout );
-		GridData navData = new GridData( GridData.FILL_HORIZONTAL );
+		GridData navData = new GridData( GridData.FILL_HORIZONTAL ); // expand to shell width
 		navBar.setLayoutData( navData );
 		
+		/*
+		 * adds the buttons to the nav bar; more than six will cause it to overflow
+		 * to a new row; if you need more buttons, adjust num columns above
+		 */
 		Button bBack = new Button( navBar, SWT.FLAT );
 		tuneNavButton( bBack, "BACK" );
 		
@@ -47,13 +59,57 @@ public class SwitchScreen {
 		tuneNavButton( bLogin, "LOG IN" );
 		
 		
-		Composite content = new Composite( shell, SWT.BORDER );
-		FillLayout contentLayout = new FillLayout();
+		/*
+		 * create the switching composite
+		 */
+		final Composite content = new Composite( shell, SWT.BORDER  );
+		GridData contentFormatter = new GridData( GridData.FILL_BOTH ); // expands the composite
+		content.setLayoutData( contentFormatter );
+		final StackLayout contentLayout = new StackLayout(); // allows switching between composites
 		content.setLayout( contentLayout );
-		GridData contentData = new GridData( GridData.FILL_BOTH );
-		content.setLayoutData( contentData );
 		
-		ClientScreenDrawer csd = new ClientScreenDrawer( content );
+		
+		/*
+		 *  draws the client screen
+		 */
+		final Composite clientScreen = new Composite( content, SWT.None );
+		clientScreen.setLayout( new FillLayout() );
+		ClientScreenDrawer csd = new ClientScreenDrawer( clientScreen );
+		
+		/*
+		 *  gives the clients button the ability to switch to the client composite
+		 */
+		bClients.addSelectionListener( new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected( SelectionEvent event )
+			{
+				contentLayout.topControl = clientScreen;
+				content.layout();
+			}
+		});
+		
+		/*
+		 *  draws the login screen
+		 */
+		final Composite loginScreen = new Composite( content, SWT.None );
+		loginScreen.setLayout( new FillLayout() );
+		LoginDrawer ld = new LoginDrawer( loginScreen );
+		
+		/*
+		 *  gives the login button the ability to switch to the client composite
+		 */
+		bLogin.addSelectionListener( new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected( SelectionEvent event )
+			{
+				contentLayout.topControl = loginScreen;
+				content.layout();
+			}
+		});
+		
+		
 		
 		
 		shell.open();
@@ -69,6 +125,9 @@ public class SwitchScreen {
 		// System.out.println( "END." );
 	}
 	
+	/*
+	 * all your shell tweaking needs should go here
+	 */
 	private static void initShell( Shell srcShell ) {
 		srcShell.setSize( WIN_WIDTH, WIN_HEIGHT );
 		srcShell.setText( WIN_TEXT );
@@ -78,6 +137,9 @@ public class SwitchScreen {
 		srcShell.setLayout( shellLayout );
 	}
 	
+	/*
+	 * all your button tweaking needs for the nav bar should go here
+	 */
 	private static void tuneNavButton( Button navButton, String label ) {
 		GridData navButtonData = new GridData( GridData.FILL_HORIZONTAL );
 		navButtonData.heightHint = 50;

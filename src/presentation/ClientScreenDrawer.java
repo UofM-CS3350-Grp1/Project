@@ -21,6 +21,10 @@ public class ClientScreenDrawer
 	
 	private Text txtClientName;
 	
+	/*
+	 * Call the constructor with a shell's main component as <container>
+	 * and it will be added to that component;
+	 */
 	public ClientScreenDrawer( Composite container )
 	{
 		composite = new Composite( container, SWT.BORDER );
