@@ -37,6 +37,23 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+
+Task: Redo UI
+Date: 06/14
+Assigned to: Karl
+Status: In progress
+Duration: 6 hours
+Description: Refactor Stub UI into single window application
+
+
+--------------
+Meeting Summary
+Date: 06/12
+Discussed what we needed to do for iteration 2. This mostly included the design of the user interface and the way in which certain data will be stored. 
+--------------
+
+
+
 Task: Housekeeping
 Date: 06/08 
 Assigned to: Tim
