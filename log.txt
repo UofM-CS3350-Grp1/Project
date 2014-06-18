@@ -37,6 +37,14 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Refactoring
+Date: 6/17, 8:00pm
+Assigned to: Tim
+Status: In progress
+Duration: 20 minutes
+Description:	Pulled phone number and email into their own classes.
+
+
 Task: Login Composite
 Date: 6/17
 Assigned to: Dell
