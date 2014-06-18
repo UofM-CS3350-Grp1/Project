@@ -105,7 +105,11 @@ public class UpdateTrackableFeatureDrawer
 	{
 		assert (feature != null);
 		if(feature != null)
+		{
 			this.feature = feature;
+			
+			populateFields();
+		}
 	}
 	
 	/**
@@ -120,6 +124,18 @@ public class UpdateTrackableFeatureDrawer
 			
 			processAddFeature.updateFeature(feature);
 			backToPreviousScreen();
+		}
+	}
+	
+	/**
+	 * Populates the fields
+	 */
+	private void populateFields()
+	{
+		if(feature != null)
+		{
+			txtName.setText(feature.getFeatureName());
+			txtNotes.setText(feature.getNotes());
 		}
 	}
 	
