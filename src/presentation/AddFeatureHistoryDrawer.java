@@ -1,5 +1,11 @@
 package presentation;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import business.ProcessFeatureHistory;
+import objects.FeatureHistory;
+import objects.Trackable;
 import objects.TrackedFeature;
 
 import org.eclipse.swt.SWT;
@@ -11,51 +17,57 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.DateTime;
 
-import business.ProcessAddFeature;
-
-public class UpdateTrackableFeatureDrawer
+/**
+ * Manages the adding of data for features at a given time period
+ */
+public class AddFeatureHistoryDrawer
 {
-	private Composite composite;	
-	
-	private Text txtName;
+	private Composite composite;
 	private Text txtNotes;
 	private Button btnAction;
 	private Composite buttonComposite;
 	private Button btnCancel;
-	private ProcessAddFeature processAddFeature;
-	private TrackedFeature feature;
+	private ProcessFeatureHistory processFeatureHistory;
 	private GridData gd_txtNotes;
-		
+	private Label lblValue;
+	private Text txtValue;
+	private Label lblDatePeriod;
+	private DateTime dateTime;
+	private TrackedFeature feature;
+	private Trackable trackedService;
+	
 	/**
-	 * Updates a given tracked feature
+	 * Adds a given tracked feature
 	 * @param container 	The composite
-	 *
+	 * 
 	 * NOTE: Because the window builder will NOT recognize the constructor
-	 * or garbage error message 'no entry point found' if a second parameter
-	 * is set. So call setFeature() after construction
+	 * [due to a garbage error message 'no entry point found'] if a second parameter
+	 * is set. So call setupAddFeature() after construction
 	 */
-	public UpdateTrackableFeatureDrawer( Composite container ) 
+	public AddFeatureHistoryDrawer( Composite container )
 	{
-		processAddFeature = new ProcessAddFeature();
+		processFeatureHistory = new ProcessFeatureHistory();
 		
 		composite = new Composite( container, SWT.BORDER );
-				
+		
 		// organizes the component
 		GridLayout compositeLayout = new GridLayout();
 		compositeLayout.numColumns = 2;
 		composite.setLayout( compositeLayout );
 		
-		// organizes how components look within composites
-		GridData componentTweaker = null;		
+		lblValue = new Label(composite, SWT.NONE);
+		lblValue.setText("Value");
 		
-		// Name
-		Label lblName = new Label( composite, SWT.None );
-		lblName.setText( "Name" );
+		txtValue = new Text(composite, SWT.BORDER);
+		txtValue.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
-		txtName = new Text( composite, SWT.BORDER );
-		componentTweaker = new GridData( GridData.FILL_HORIZONTAL );
-		txtName.setLayoutData( componentTweaker );
+		lblDatePeriod = new Label(composite, SWT.NONE);
+		lblDatePeriod.setText("Date Period");
+		
+		dateTime = new DateTime(composite, SWT.BORDER);
+		dateTime.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		
 		// Notes
 		Label lblNotes = new Label( composite, SWT.None );
@@ -83,7 +95,7 @@ public class UpdateTrackableFeatureDrawer
 			}
 		});
 		btnAction.setBounds(10, 10, 64, 25);
-		btnAction.setText("Update");
+		btnAction.setText("Add");
 		
 		btnCancel = new Button(buttonComposite, SWT.NONE);
 		btnCancel.addSelectionListener(new SelectionAdapter() 
@@ -99,50 +111,46 @@ public class UpdateTrackableFeatureDrawer
 	}
 	
 	/**
-	 * @param feature the feature to set
+	 * Finishes the setup for adding feature history
+	 * @param feature			The feature being recorded
+	 * @param trackedService	The corresponding service/ client being served
 	 */
-	public void setFeature(TrackedFeature feature)
+	public void setupAddFeature(TrackedFeature feature, Trackable trackedService)
 	{
-		assert (feature != null);
-		if(feature != null)
+		assert (feature != null && trackedService != null);
+		if(feature != null && trackedService != null)
 		{
 			this.feature = feature;
-			
-			populateFields();
+			this.trackedService = trackedService;
 		}
 	}
 	
 	/**
 	 * Processes an action on button press
 	 */
-	protected void processActionButton()
-	{		
-		if(feature != null)
+	private void processActionButton()
+	{
+		FeatureHistory history;
+		Date date;
+		SimpleDateFormat formatter;
+		
+		try
 		{
-			feature.setFeatureName(txtName.getText());
-			feature.setNotes(txtNotes.getText());
+			formatter = new SimpleDateFormat("dd/MM/yyyy");
+			date = formatter.parse(dateTime.getDay() + "/" + dateTime.getMonth() + "/" + dateTime.getYear());
 			
-			if(processAddFeature.updateFeature(feature))
+			history = new FeatureHistory(feature, trackedService, Integer.parseInt(txtValue.getText()), date, txtNotes.getText());
+			
+			if(processFeatureHistory.addFeatureHistory(history))
 				backToPreviousScreen();
 		}
-	}
-	
-	/**
-	 * Populates the fields
-	 */
-	private void populateFields()
-	{
-		if(feature != null)
-		{
-			txtName.setText(feature.getFeatureName());
-			txtNotes.setText(feature.getNotes());
-		}
+		catch(Exception e) {}	
 	}
 	
 	/**
 	 * Go back to the previous screen
 	 */
-	protected void backToPreviousScreen()
+	private void backToPreviousScreen()
 	{
 		//TODO Go back to previous screen
 	}
