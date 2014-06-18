@@ -37,6 +37,15 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Tracking and History UI
+Date: 6/18, 1:30am
+Assigned to: Tim
+Status: In progress
+Duration: 2 hours
+Description:	Created initial composites for adding and updating trackable features
+				Created initial composites for adding and updating feature history
+
+
 Task: Refactoring
 Date: 6/17, 8:00pm
 Assigned to: Tim
