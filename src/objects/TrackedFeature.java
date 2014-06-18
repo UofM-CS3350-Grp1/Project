@@ -14,10 +14,9 @@ public class TrackedFeature implements Storable
 	/**
 	 * Creates a new feature tracker
 	 * @param featureName 	Name of the feature to track
-	 * @param value			Performance metric of the feature
 	 * @throws IllegalArgumentException
 	 */
-	public TrackedFeature(String featureName, double value) throws IllegalArgumentException
+	public TrackedFeature(String featureName) throws IllegalArgumentException
 	{
 		if(featureName != null && !featureName.isEmpty())
 		{
