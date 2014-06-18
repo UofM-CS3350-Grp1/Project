@@ -37,7 +37,7 @@ TODO(Adrian):
 
 Task: Financial tracking (for the business)
 Date: 6/18, 1:30am
-Assigned to: Tim
+Assigned to: Jason
 Status: starting 06/20
 Duration: 
 Description:
