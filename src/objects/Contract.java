@@ -2,12 +2,13 @@ package objects;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.text.SimpleDateFormat;;
+import java.text.SimpleDateFormat;
+import objects.Service;
 
 /**
  * Handles the service rendered between the company and their client
  */
-public class Contract implements Storable
+public class Contract implements Storable, Financials
 {
 	private final String DATE_FORMAT = "yyyy-MM-dd";	//The string date representation
 	
@@ -17,6 +18,8 @@ public class Contract implements Storable
 	private double value;			//Value of the contract
 	private Date period;			//Contract period (end date)
 	private SimpleDateFormat sdf;
+	private ArrayList<Service> services; //list of services in the contract
+	private Date signedDate;
 	
 	/**
 	 * Creates a new contract
@@ -37,6 +40,7 @@ public class Contract implements Storable
 			this.value = value;
 			this.period = period;
 			this.sdf = new SimpleDateFormat(DATE_FORMAT);
+			this.signedDate = null;
 		}
 		else
 		{
@@ -63,6 +67,7 @@ public class Contract implements Storable
 			this.value = value;
 			this.period = period;
 			this.sdf = new SimpleDateFormat(DATE_FORMAT);
+			this.services = null;
 		}
 		else
 		{
@@ -73,6 +78,20 @@ public class Contract implements Storable
 	/*********************************************************
 	 * 				Accessors and Mutators
 	 ********************************************************/
+	
+	/*
+	 * set the date when the contract was signed
+	 */
+	public void setSignedDate(Date date){
+		this.signedDate = date;
+	}
+	
+	/*
+	 * returns the date the contract was signed
+	 */
+	public Date getSignedDate(){
+		return signedDate;
+	}
 	
 	/**
 	 * Get the number of the contract
@@ -90,6 +109,20 @@ public class Contract implements Storable
 	public String getBusinessName()
 	{
 		return businessName;
+	}
+	
+	/*
+	 * returns the list of services assigned to this contract
+	 */
+	public ArrayList<Service> getServices(){
+		return services;
+	}
+	
+	/*
+	 * Assign a list of services to this contract
+	 */
+	public void addServices(ArrayList<Service> services){
+		this.services = services;
 	}
 
 	/**
