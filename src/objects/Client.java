@@ -17,14 +17,11 @@ public class Client implements Storable, Trackable
 		Active,
 		Potential
 	}
-	
-	public static final String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";	//Email verification regular expression
-	public static final int PHONE_NUMBER_LENGTH = 10;		//Number of digits in a phone number
-	
+		
 	private int clientID;
 	private String name;
-	private String phoneNumber;
-	private String email;
+	private PhoneNumber phoneNumber;
+	private Email email;
 	private String address;
 	private String businessName; 
 	private ClientStatus status;
@@ -40,10 +37,10 @@ public class Client implements Storable, Trackable
 	 * @param status The status of the client
 	 * @throws IllegalArgumentException
 	 */
-	public Client(String name, String phoneNumber, String email, String address, String businessName, ClientStatus status) throws IllegalArgumentException
+	public Client(String name, PhoneNumber phoneNumber, Email email, String address, String businessName, ClientStatus status) throws IllegalArgumentException
 	{
-		if(name != null && !name.isEmpty() && phoneNumber != null && phoneNumber.length() == PHONE_NUMBER_LENGTH && email != null &&
-				email.matches(EMAIL_REGEX) && address != null && !address.isEmpty() && businessName != null && !businessName.isEmpty())
+		if(name != null && !name.isEmpty() && phoneNumber != null && email != null && address != null && 
+				!address.isEmpty() && businessName != null && !businessName.isEmpty())
 		{
 			this.name = name;
 			this.clientID = -1; 
@@ -83,10 +80,10 @@ public class Client implements Storable, Trackable
 	 * @param status The status of the client
 	 * @throws IllegalArgumentException
 	 */
-	public Client(int id, String name, String phoneNumber, String email, String address, String businessName, int status) throws IllegalArgumentException
+	public Client(int id, String name, PhoneNumber phoneNumber, Email email, String address, String businessName, int status) throws IllegalArgumentException
 	{
-		if(id >= 0 && name != null && !name.isEmpty() && phoneNumber != null && phoneNumber.length() == PHONE_NUMBER_LENGTH && email != null &&
-				email.matches(EMAIL_REGEX) && address != null && !address.isEmpty() && businessName != null && !businessName.isEmpty())
+		if(id >= 0 && name != null && !name.isEmpty() && phoneNumber != null && email != null && address != null && 
+				!address.isEmpty() && businessName != null && !businessName.isEmpty())
 		{
 			this.name = name;
 			this.clientID = id; 
@@ -141,7 +138,7 @@ public class Client implements Storable, Trackable
 	/**
 	 * @return The client's phone number
 	 */
-	public String getPhoneNumber() 
+	public PhoneNumber getPhoneNumber() 
 	{
 		return phoneNumber;
 	}
@@ -149,17 +146,17 @@ public class Client implements Storable, Trackable
 	/**
 	 * @param phoneNumber The client's phone number
 	 */
-	public void setPhoneNumber(String phoneNumber)
+	public void setPhoneNumber(PhoneNumber phoneNumber)
 	{
-		assert (phoneNumber != null && phoneNumber.length() == PHONE_NUMBER_LENGTH);
-		if(phoneNumber != null && phoneNumber.length() == PHONE_NUMBER_LENGTH)
+		assert (phoneNumber != null);
+		if(phoneNumber != null)
 			this.phoneNumber = phoneNumber;
 	}
 
 	/**
 	 * @return The client's email
 	 */
-	public String getEmail() 
+	public Email getEmail() 
 	{
 		return email;
 	}
@@ -167,10 +164,10 @@ public class Client implements Storable, Trackable
 	/**
 	 * @param email The client's email
 	 */
-	public void setEmail(String email)
+	public void setEmail(Email email)
 	{
 		assert (email != null);
-		if(email != null && email.matches(EMAIL_REGEX))
+		if(email != null)
 			this.email = email;
 	}
 
@@ -239,8 +236,8 @@ public class Client implements Storable, Trackable
 		
 		index.add(this.clientID+"");
 		index.add(this.name);
-		index.add(this.phoneNumber+"");
-		index.add(this.email);
+		index.add(this.phoneNumber.getAreaCode() + this.phoneNumber.getPrefix() + this.phoneNumber.getLineNumber());
+		index.add(this.email.getEmail());
 		index.add(this.address);
 		index.add(this.businessName);
 		index.add(this.status == ClientStatus.Active ? 1+"" : 0+"");

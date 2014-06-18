@@ -412,8 +412,8 @@ public class DBController
 					output.add(new Client(
 								Integer.parseInt(rs3.getString(fields.get(0))), //ID
 								rs3.getString(fields.get(1)),//Name
-								rs3.getString(fields.get(2)),//Phone Number
-								rs3.getString(fields.get(3)),//Email
+								new PhoneNumber(rs3.getString(fields.get(2))),//Phone Number
+								new Email(rs3.getString(fields.get(3))),//Email
 								rs3.getString(fields.get(4)),//Address
 								rs3.getString(fields.get(5)),//Business Name
 								Integer.parseInt(rs3.getString(fields.get(6)))//Status

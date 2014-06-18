@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import objects.Client;
+import objects.Email;
+import objects.PhoneNumber;
 import objects.Service;
 import objects.Storable;
 import objects.Contract;
@@ -25,9 +27,9 @@ public class StubDBInterface extends DBInterface
 		contracts = new ArrayList<Contract>();
 		services = new ArrayList<Service>();
 		
-		clients.add(new Client(1, "John Doe", "4035551212", "johndoe@gmail.com", "123 Main St.", "John's Business", 1));
-		clients.add(new Client(2, "Jane Doe", "4045553434", "janedoe@gmail.com", "333 Park St.", "Jane's Business", 1));
-		clients.add(new Client(3, "Steve Smith", "2065550021", "stevesmith@gmail.com", "212 Broad St.", "Steve's Business", 0));
+		clients.add(new Client(1, "John Doe", new PhoneNumber("4035551212"), new Email("johndoe@gmail.com"), "123 Main St.", "John's Business", 1));
+		clients.add(new Client(2, "Jane Doe", new PhoneNumber("4045553434"), new Email("janedoe@gmail.com"), "333 Park St.", "Jane's Business", 1));
+		clients.add(new Client(3, "Steve Smith", new PhoneNumber("2065550021"), new Email("stevesmith@gmail.com"), "212 Broad St.", "Steve's Business", 0));
 		
 		contracts.add(new Contract(1, "John's Business", "Details go here...", 4000.00, new Date()));
 		contracts.add(new Contract(2, "Jane's Business", "Details go here...", 4500.00, new Date()));

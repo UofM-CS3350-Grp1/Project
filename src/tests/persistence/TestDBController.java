@@ -1,12 +1,12 @@
 package tests.persistence;
 
 import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 import java.util.ArrayList;
 
 import objects.*;
-
 import persistence.DBController;
 
 public class TestDBController {
@@ -79,7 +79,7 @@ public class TestDBController {
 	{
 		DBController controller = new DBController("Test");
 		
-		Client clientTest = new Client(234, "Joe Doe", "2135552222", "joedoe@gmail.com", "223 Main St.", "Joes Business", 1);
+		Client clientTest = new Client(234, "Joe Doe", new PhoneNumber("2135552222"), new Email("joedoe@gmail.com"), "223 Main St.", "Joes Business", 1);
 		ArrayList<String> clauses = new ArrayList<String>();
 		ArrayList<ArrayList<String>> conditions = new ArrayList<ArrayList<String>>();
 

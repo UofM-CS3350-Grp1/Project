@@ -16,6 +16,8 @@ import org.eclipse.swt.events.SelectionEvent;
 
 import objects.Client;
 import objects.Client.ClientStatus;
+import objects.Email;
+import objects.PhoneNumber;
 
 import org.eclipse.swt.widgets.List;
 
@@ -25,11 +27,7 @@ import business.ProcessClient;
  * Draws the Client information screen
  */
 public class ClientScreen
-{	
-	private static final int AREA_CODE_LENGTH = 3;			//Area code in the phone number
-	private static final int PREFIX_CODE_LENGTH = 3;		//Prefix code in the phone number
-	private static final int LINE_NUMBER_CODE = 4;			//Line number code in the phone number
-	
+{		
 	private Shell shell;
 	private Display display;
 	
@@ -202,7 +200,7 @@ public class ClientScreen
 		{
 			public void verifyText(VerifyEvent event)
 			{
-				verifyNumericTextbox(event, AREA_CODE_LENGTH);
+				verifyNumericTextbox(event, PhoneNumber.AREA_CODE_LENGTH);
 			}
 		});
 		txtPhoneNumberA.setBounds(310, 194, 35, 21);
@@ -223,7 +221,7 @@ public class ClientScreen
 		{
 			public void verifyText(VerifyEvent event)
 			{
-				verifyNumericTextbox(event, PREFIX_CODE_LENGTH);
+				verifyNumericTextbox(event, PhoneNumber.PREFIX_CODE_LENGTH);
 			}
 		});
 		txtPhoneNumberB.setBounds(368, 194, 35, 21);
@@ -239,7 +237,7 @@ public class ClientScreen
 		{
 			public void verifyText(VerifyEvent event)
 			{
-				verifyNumericTextbox(event, LINE_NUMBER_CODE);
+				verifyNumericTextbox(event, PhoneNumber.LINE_NUMBER_CODE);
 			}
 		});
 		txtPhoneNumberC.setBounds(418, 194, 55, 21);
@@ -415,7 +413,7 @@ public class ClientScreen
 	 */
 	private void populateFields(Client client)
 	{
-		String phoneNumber;
+		PhoneNumber phoneNumber;
 		
 		assert (client != null);
 		if(client != null)
@@ -423,16 +421,13 @@ public class ClientScreen
 			txtClientName.setText(client.getName());
 			txtBusinessName.setText(client.getBusinessName());
 			txtAddress.setText(client.getAddress());
-			txtEmail.setText(client.getEmail());
+			txtEmail.setText(client.getEmail().toString());
 			
 			//Split the phone number into the three components
 			phoneNumber = client.getPhoneNumber();
-			if(phoneNumber.length() == Client.PHONE_NUMBER_LENGTH)
-			{
-				txtPhoneNumberA.setText(phoneNumber.substring(0, 3));
-				txtPhoneNumberB.setText(phoneNumber.substring(3, 6));
-				txtPhoneNumberC.setText(phoneNumber.substring(6));
-			}
+			txtPhoneNumberA.setText(phoneNumber.getAreaCode());
+			txtPhoneNumberB.setText(phoneNumber.getPrefix());
+			txtPhoneNumberC.setText(phoneNumber.getLineNumber());
 			
 			//Set our client's status
 			if(client.getStatus() == ClientStatus.Active)
@@ -488,8 +483,8 @@ public class ClientScreen
 				status = (btnActive.getSelection()) ? ClientStatus.Active : ClientStatus.Potential;
 				
 				//Create the client
-				client = new Client(txtClientName.getText(), txtPhoneNumberA.getText() + txtPhoneNumberB.getText() + txtPhoneNumberC.getText(), 
-									txtEmail.getText(), txtAddress.getText(), txtBusinessName.getText(), status);
+				client = new Client(txtClientName.getText(), new PhoneNumber(txtPhoneNumberA.getText() + txtPhoneNumberB.getText() + txtPhoneNumberC.getText()), 
+									new Email(txtEmail.getText()), txtAddress.getText(), txtBusinessName.getText(), status);
 				
 				//For now we will use the client list above
 				if(processClient.insertClient(client))
@@ -536,8 +531,8 @@ public class ClientScreen
 					
 					//Update all the information. There is no doubt a better way...
 					client.setName(txtClientName.getText());
-					client.setPhoneNumber(txtPhoneNumberA.getText() + txtPhoneNumberB.getText() + txtPhoneNumberC.getText());
-					client.setEmail(txtEmail.getText());
+					client.setPhoneNumber(new PhoneNumber(txtPhoneNumberA.getText() + txtPhoneNumberB.getText() + txtPhoneNumberC.getText()));
+					client.setEmail(new Email(txtEmail.getText()));
 					client.setAddress(txtAddress.getText());
 					client.setBusinessName(txtBusinessName.getText());
 					client.setStatus(status);	
