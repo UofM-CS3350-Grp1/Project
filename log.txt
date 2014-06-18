@@ -26,10 +26,7 @@ TODO(Karl):
 		- Refactor Stub UI into single window application
 
 TODO(Jason):
-		- Final data collection for services / clients / contracts
-		- Familiarize myself with GIT and SourceTree (having difficutly uploading/committing files)
-		- Implementation of exporting contracts to docx/pdf format
-		- Implementation of the logging in feature
+
 			
 TODO(Adrian):
 		- Familiarize myself with GUI structure.
@@ -37,6 +34,23 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+
+Task: Financial tracking (for the business)
+Date: 6/18, 1:30am
+Assigned to: Tim
+Status: starting 06/20
+Duration: 
+Description:
+
+				
+Task: Contract processing
+Date: 6/18 
+Assigned to: Jason
+Status: In progress
+Duration: 
+Description: implementing contract processing (search/insert/delete/modify/services)
+				
+				
 Task: Tracking and History UI
 Date: 6/18, 1:30am
 Assigned to: Tim
@@ -88,6 +102,14 @@ Status: In progress
 Duration: 30 minutes
 Description:	Created first, rough draft of service/ performance tracking objects
 
+
+Task: Requirements gathering
+Date: 6/16
+Assigned to: Jason
+Status:
+Duration: 30min
+Description: additional requirements gathering from our customer
+				
 
 Task: Client Screen - Composite Version
 Data: 06/16
