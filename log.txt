@@ -34,6 +34,20 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: NewClientScreenDrawer New Client Button Works!
+Date: 6/19 12:20pm
+Assigned to: Dell
+Status: Complete
+Duration: 30mins
+Description:	Click Clients -> New Clients summons the AddClientScreen
+
+Task: AddClientScreenDrawer Cancel Button Retreats!
+Date: 6/19 12:20pm
+Assigned to: Dell
+Status: Finit
+Duration: 30mins
+Description:	Click Clients -> New Clients -> Cancel retreats to NewClientScreen
+
 Task: UI and Refactoring
 Date: 6/19, 2:00am
 Assigned to: Tim

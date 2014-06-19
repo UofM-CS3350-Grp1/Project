@@ -13,6 +13,7 @@ import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.layout.FillLayout;
+
 import objects.Client;
 import objects.Email;
 import objects.PhoneNumber;
@@ -225,6 +226,11 @@ public class AddClientScreenDrawer
 	protected void goBackToClientScreen()
 	{
 		//TODO Go back to the client screen
+		Composite clientScreen = new Composite( SwitchScreen.content, SWT.None );
+		clientScreen.setLayout( new FillLayout() );
+		NewClientScreenDrawer acsd = new NewClientScreenDrawer( clientScreen );
+		SwitchScreen.contentLayout.topControl = clientScreen;
+		SwitchScreen.content.layout();
 	}
 	
 	/**

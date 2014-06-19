@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import presentation.NewClientScreenDrawer;
 
 public class SwitchScreen {
 	private static final int WIN_WIDTH = 640;
@@ -19,6 +20,8 @@ public class SwitchScreen {
 	private static final String WIN_TEXT = "Buzzin' Digital Marketing";
 	
 	static int pageNum = -1;
+	static StackLayout contentLayout;
+	static Composite content;
 	
 	public static void main( String[] args ) {
 		Display display = Display.getDefault();
@@ -28,9 +31,10 @@ public class SwitchScreen {
 		/*
 		 * Create the navigation bar
 		 */
+		final int NUM_NAV_BUTTONS = 6;
 		Composite navBar = new Composite( shell, SWT.BORDER );
 		GridLayout navLayout = new GridLayout();
-		navLayout.numColumns = 6; // 6 buttons
+		navLayout.numColumns = NUM_NAV_BUTTONS;
 		navLayout.makeColumnsEqualWidth = true;
 		navBar.setLayout( navLayout );
 		GridData navData = new GridData( GridData.FILL_HORIZONTAL ); // expand to shell width
@@ -58,14 +62,13 @@ public class SwitchScreen {
 		Button bLogin = new Button( navBar, SWT.FLAT );
 		tuneNavButton( bLogin, "LOG IN" );
 		
-		
 		/*
 		 * create the switching composite
 		 */
-		final Composite content = new Composite( shell, SWT.BORDER  );
+		content = new Composite( shell, SWT.BORDER  );
 		GridData contentFormatter = new GridData( GridData.FILL_BOTH ); // expands the composite
 		content.setLayoutData( contentFormatter );
-		final StackLayout contentLayout = new StackLayout(); // allows switching between composites
+		contentLayout = new StackLayout(); // allows switching between composites
 		content.setLayout( contentLayout );
 		
 		
@@ -74,7 +77,8 @@ public class SwitchScreen {
 		 */
 		final Composite clientScreen = new Composite( content, SWT.None );
 		clientScreen.setLayout( new FillLayout() );
-		ClientScreenDrawer csd = new ClientScreenDrawer( clientScreen );
+		//ClientScreenDrawer csd = new ClientScreenDrawer( clientScreen );
+		NewClientScreenDrawer csd = new NewClientScreenDrawer( clientScreen );
 		
 		/*
 		 *  gives the clients button the ability to switch to the client composite
@@ -88,6 +92,7 @@ public class SwitchScreen {
 				content.layout();
 			}
 		});
+		
 		
 		
 		/*

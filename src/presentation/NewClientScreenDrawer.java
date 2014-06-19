@@ -14,6 +14,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import objects.Client;
 import business.ProcessClient;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.layout.FillLayout;
 
 public class NewClientScreenDrawer
 {
@@ -25,6 +26,7 @@ public class NewClientScreenDrawer
 	private Button btnUpdate;
 	private Button btnDelete;
 	private ProcessClient processClient;
+	private Button btnAdd;
 	
 	/*
 	 * Call the constructor with a shell's main component as <container>
@@ -43,7 +45,7 @@ public class NewClientScreenDrawer
 		gd_btnComposite.heightHint = 232;
 		btnComposite.setLayoutData(gd_btnComposite);
 		
-		Button btnAdd = new Button(btnComposite, SWT.NONE);
+		btnAdd = new Button(btnComposite, SWT.NONE);
 		btnAdd.addSelectionListener(new SelectionAdapter() 
 		{
 			@Override
@@ -140,6 +142,11 @@ public class NewClientScreenDrawer
 	private void addNewClient()
 	{
 		//TODO Open new client composite
+		Composite addClientScreen = new Composite( SwitchScreen.content, SWT.None );
+		addClientScreen.setLayout( new FillLayout() );
+		AddClientScreenDrawer acsd = new AddClientScreenDrawer( addClientScreen );
+		SwitchScreen.contentLayout.topControl = addClientScreen;
+		SwitchScreen.content.layout();
 	}
 	
 	/**
