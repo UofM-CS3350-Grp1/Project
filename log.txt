@@ -34,6 +34,17 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: UI and Refactoring
+Date: 6/19, 2:00am
+Assigned to: Tim
+Status: In progress
+Duration: 2 hours
+Description:	Created a new table based client screen as per our design sheet.
+				Modified Add and Update X Drawer classes to form hierarchies.
+					NOTE: Only the base classes will allow editing to the structure. Text changes are OK.
+				Screens are ready to go but not hooked up.
+
+
 Task: ClientScreen Composite Delete Button Deletes!
 Date: 6/19
 Assigned to: Dell
