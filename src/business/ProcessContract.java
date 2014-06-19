@@ -17,8 +17,7 @@ public class ProcessContract {
 	
 	private StubDBInterface database;
 	private ArrayList<Contract> contracts;
-	private int contractIndex = 0;
-
+	
 	/**
 	 * Creates a contract accessor used to create, edit, delete information from contracts
 	 */
@@ -26,7 +25,6 @@ public class ProcessContract {
 	{
 		database = new StubDBInterface("dbName");
 		contracts = null;
-		contractIndex = 0;
 	}
 	
 	/**
@@ -114,7 +112,7 @@ public class ProcessContract {
 		double result = 0;
 		contracts = database.dumpContracts();
 		Contract temp = null;
-		Iterator it = contracts.iterator();
+		Iterator<Contract> it = contracts.iterator();
 		while(it.hasNext()){
 			temp = (Contract) it.next();
 			result += temp.getValue();
@@ -131,7 +129,7 @@ public class ProcessContract {
 		int result = 0;
 		contracts = database.dumpContracts();
 		Contract temp = null;
-		Iterator it = contracts.iterator();
+		Iterator<Contract> it = contracts.iterator();
 		while(it.hasNext()){
 			temp = (Contract) it.next();
 			if(temp.getSignedDate().getSeconds()>=start.getSeconds() && temp.getSignedDate().getSeconds()<=end.getSeconds()){
@@ -150,7 +148,7 @@ public class ProcessContract {
 		double result = 0;
 		contracts = database.dumpContracts();
 		Contract temp = null;
-		Iterator it = contracts.iterator();
+		Iterator<Contract> it = contracts.iterator();
 		while(it.hasNext()){
 			temp = (Contract) it.next();
 			if(temp.getSignedDate().getSeconds()>=start.getSeconds() && temp.getSignedDate().getSeconds()<=end.getSeconds()){
@@ -168,7 +166,7 @@ public class ProcessContract {
 		double result = 0;
 		Service temp = null;
 		ArrayList<Service> services = contract.getServices();
-		Iterator it = services.iterator();
+		Iterator<Service> it = services.iterator();
 		while(it.hasNext()){
 			temp = (Service) it.next();
 			result += temp.getValue();
@@ -177,26 +175,3 @@ public class ProcessContract {
 	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
