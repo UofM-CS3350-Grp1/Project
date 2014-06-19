@@ -8,7 +8,8 @@ import objects.Service;
 /**
  * Handles the service rendered between the company and their client
  */
-public class Contract implements Storable, Financials
+//public class Contract implements Storable, Financials
+public class Contract implements Storable
 {
 	private final String DATE_FORMAT = "yyyy-MM-dd";	//The string date representation
 	

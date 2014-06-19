@@ -93,9 +93,9 @@ public class SwitchScreen {
 		/*
 		 *  draws the service screen
 		 */
-		final Composite seviceScreen = new Composite( content, SWT.None );
-		seviceScreen.setLayout( new FillLayout() );
-		ServiceScreenDrawer ssd = new ServiceScreenDrawer( seviceScreen );
+		final Composite serviceScreen = new Composite( content, SWT.None );
+		serviceScreen.setLayout( new FillLayout() );
+		ServiceScreenDrawer ssd = new ServiceScreenDrawer( serviceScreen );
 		
 		/*
 		 *  gives the clients button the ability to switch to the client composite
@@ -105,7 +105,7 @@ public class SwitchScreen {
 			@Override
 			public void widgetSelected( SelectionEvent event )
 			{
-				contentLayout.topControl = seviceScreen;
+				contentLayout.topControl = serviceScreen;
 				content.layout();
 			}
 		});

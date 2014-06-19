@@ -35,6 +35,21 @@ TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 
+Task: More Operational ClientScreen Composite
+Date: 6/18
+Assigned to: Dell
+Status: in progress
+Duration: 4 hours
+Description:	Clicking on clients on the list autofills
+				and a button changes... update/add switch depending on the context
+				
+Task: SwitchScreen typo fix
+Date: 6/18
+Assigned to: Dell
+Status: complete
+Duration: 1 minute
+Description:	sevice -> service
+
 Task: ServiceScreen Composite
 Date: 6/18, 7:30pm
 Assigned to: Karl
