@@ -39,8 +39,8 @@ Task: ServiceScreen Composite
 Date: 6/18, 7:30pm
 Assigned to: Karl
 Status: in progress
-Duration: 
-Description: Convert the ServiceScreen into a composite
+Duration: 1 hour
+Description: Convert the ServiceScreen into a composite. Update: other features not yet implemented prevent service screen from functioning properly
 
 
 Task: Financial tracking (for the business)

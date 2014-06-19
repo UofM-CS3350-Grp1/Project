@@ -89,6 +89,28 @@ public class SwitchScreen {
 			}
 		});
 		
+		
+		/*
+		 *  draws the service screen
+		 */
+		final Composite seviceScreen = new Composite( content, SWT.None );
+		seviceScreen.setLayout( new FillLayout() );
+		ServiceScreenDrawer ssd = new ServiceScreenDrawer( seviceScreen );
+		
+		/*
+		 *  gives the clients button the ability to switch to the client composite
+		 */
+		bServices.addSelectionListener( new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected( SelectionEvent event )
+			{
+				contentLayout.topControl = seviceScreen;
+				content.layout();
+			}
+		});
+		
+		
 		/*
 		 *  draws the login screen
 		 */
