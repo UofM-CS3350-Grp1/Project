@@ -19,8 +19,9 @@ import org.eclipse.swt.custom.StackLayout;
 import java.util.ArrayList;
 
 import objects.Client;
+import objects.Email;
+import objects.PhoneNumber;
 import objects.Client.ClientStatus;
-
 import business.ProcessClient;
 
 public class ClientScreenDrawer
@@ -236,44 +237,9 @@ public class ClientScreenDrawer
 		btnActive.setText( "Active" );
 		
 		
-		// buttons
 		/*
-		final int BUTTON_HOLDER_WIDTH = 8;
-		Composite buttonHolder = new Composite( composite, SWT.RIGHT_TO_LEFT );
-		GridLayout buttonHolderLayout = new GridLayout();
-		buttonHolderLayout.numColumns = 3;
-		buttonHolder.setLayout( buttonHolderLayout );
-		GridData buttonHolderData = new GridData( GridData.FILL_HORIZONTAL );
-		buttonHolderData.horizontalSpan = BUTTON_HOLDER_WIDTH;
-		buttonHolder.setLayoutData( buttonHolderData );
-		/*
-		Label filler1 = new Label( buttonHolder, SWT.None );
-		componentTweaker = new GridData( GridData.FILL_HORIZONTAL );
-		componentTweaker.horizontalSpan = 1;
-		filler1.setLayoutData( componentTweaker );
-		Label filler2 = new Label( buttonHolder, SWT.None );
-		componentTweaker = new GridData( GridData.FILL_HORIZONTAL );
-		componentTweaker.horizontalSpan = 1;
-		filler2.setLayoutData( componentTweaker );
-		*/
-		/*
-		Button btnAdd = new Button( buttonHolder, SWT.None );
-		componentTweaker = new GridData();
-		btnAdd.setLayoutData( componentTweaker );
-		btnAdd.setText( "Add" );
-		
-		Button btnClear = new Button( buttonHolder, SWT.None );
-		componentTweaker = new GridData();
-		btnClear.setLayoutData( componentTweaker );
-		btnClear.setText( "Clear" );
-		
-		Button btnUpdate = new Button( buttonHolder, SWT.None );
-		componentTweaker = new GridData();
-		btnUpdate.setLayoutData( componentTweaker );
-		btnUpdate.setText( "Update" );
-		*/
-		
-		
+		 * buttons clear and add/update
+		 */
 		final int NON_LIST_GRID_WIDTH = 8;
 		final int ADD_UPDATE = 1;
 		final int CLEAR = 1;
@@ -293,6 +259,14 @@ public class ClientScreenDrawer
 		componentTweaker = new GridData();
 		btnAdd.setLayoutData( componentTweaker );
 		btnAdd.setText( "Add" );
+		btnAdd.addSelectionListener( new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected( SelectionEvent event )
+			{
+				createClient();
+			}
+		});
 		
 		btnUpdate = new Button( addUpdateHolder, SWT.None );
 		componentTweaker = new GridData();
@@ -306,19 +280,14 @@ public class ClientScreenDrawer
 		componentTweaker = new GridData();
 		btnClear.setLayoutData( componentTweaker );
 		btnClear.setText( "Clear" );
-		
-		
-		
-		/*
-		 * blank space to place the add/update and clear buttons to the side
-		 */
-		/*
-		Label filler1 = new Label( buttonHolder, SWT.None );
-		componentTweaker = new GridData( GridData.FILL_HORIZONTAL ); // so the label fills it cell, no matter the content
-		componentTweaker.horizontalSpan = 1; // so it takes only one cell
-		filler1.setLayoutData( componentTweaker );
-		*/
-		
+		btnClear.addSelectionListener( new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected( SelectionEvent event )
+			{
+				clearFields();
+			}
+		});
 		
 		
 		
@@ -332,9 +301,131 @@ public class ClientScreenDrawer
 		
 		Button btnNew = new Button( listButtons, SWT.None );
 		btnNew.setText( "New" );
+		btnNew.addSelectionListener( new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected( SelectionEvent event )
+			{
+				processNewButton();
+			}
+			
+		});
+		
 		
 		Button btnDelete = new Button( listButtons, SWT.None );
 		btnDelete.setText( "Delete" );
+		btnDelete.addSelectionListener( new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected( SelectionEvent event )
+			{
+				int selectedIndex = listClients.getSelectionIndex();
+				if ( selectedIndex != -1 )
+				{
+					/*
+					 * delete the client
+					 */
+					clients.remove( selectedIndex );
+					listClients.remove( selectedIndex );
+					
+					/*
+					 * with the current client deleted, select some other entry
+					 */
+					selectedIndex--;
+					if ( selectedIndex < 0 && listClients.getItemCount() > 0 ) selectedIndex = 0;
+					
+					listClients.setSelection( selectedIndex );
+					
+					if ( selectedIndex >= 0 )
+					{
+						// show some other client's data
+						editSelectedClient();
+					}
+					else
+					{
+						// no list entries
+						processNewButton();
+					}
+				}
+			}
+		});
+	}
+	
+	
+	
+	/**
+	 * Clears all of the fields on the window
+	 */
+	private void clearFields()
+	{
+		txtClientName.setText("");
+		txtBusinessName.setText("");
+		txtAddress.setText("");
+		txtEmail.setText("");
+		txtPhoneNumberA.setText("");
+		txtPhoneNumberB.setText("");
+		txtPhoneNumberC.setText("");
+		
+		//Default the client status to potential
+		btnActive.setSelection(false);
+		btnPotential.setSelection(true);
+	}
+	
+	
+	
+	/**
+	 * Creates a client given the data supplied on the form
+	 * @return True if the client was created
+	 */
+	private boolean createClient()
+	{
+		Client client = null;
+		
+		if ( isFormDataValid() )
+		{
+			ClientStatus status = null;
+			try {
+				if ( btnActive.getSelection() ) status = ClientStatus.Active;
+				else status = ClientStatus.Potential;
+				
+				client = new Client(txtClientName.getText(), new PhoneNumber(txtPhoneNumberA.getText() + txtPhoneNumberB.getText() + txtPhoneNumberC.getText()), 
+						new Email(txtEmail.getText()), txtAddress.getText(), txtBusinessName.getText(), status);
+				
+				if ( processClient.insertClient( client ) )
+				{
+					clients.add( client );
+					int index = clients.indexOf( client );
+					listClients.add( client.getName() + " - " + client.getBusinessName(), index );
+					
+					clearFields();
+				}
+			}
+			catch ( Exception e ) {
+				client = null;
+			}
+		}
+		
+		return ( client != null );
+	}
+	
+	
+	
+	/**
+	 * Provides very simple validation to ensure that the form data
+	 * contains some data.
+	 * @return True if valid
+	 */
+	private boolean isFormDataValid()
+	{
+		// check if the fields have something in them
+		if ( txtClientName.getText() == "" ) return false;
+		if ( txtBusinessName.getText() == "" ) return false;
+		if ( txtEmail.getText() == "" ) return false;
+		if ( txtPhoneNumberA.getText() == "" ) return false;
+		if ( txtPhoneNumberB.getText() == "" ) return false;
+		if ( txtPhoneNumberC.getText() == "" ) return false;
+		
+		return true;
 	}
 	
 	
@@ -399,7 +490,9 @@ public class ClientScreenDrawer
 	 */
 	private void processNewButton()
 	{
-		System.out.println( "LIST: NEW BUTTON CLICKED" );
+		addUpdateSwitcher.topControl = btnAdd;
+		listClients.setSelection( -1 );
+		clearFields();
 	}
 	
 	

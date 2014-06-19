@@ -34,6 +34,33 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: ClientScreen Composite Delete Button Deletes!
+Date: 6/19
+Assigned to: Dell
+Status: Done
+Duration: 15 minutes
+Description:	removes clients from the list
+
+Task: ClientScreen Composite New Button Resets!
+Date: 6/19
+Assigned to: Dell
+Status: Done
+Duration: 5 minutes
+Description:	if the fields have stuff in them, pressing new resets the fields
+
+Task: ClientScreen Composite Clear Button Clears!
+Date: 6/19
+Assigned to: Dell
+Status: Done
+Duration: 5 minutes
+Description:	if the fields have stuff in them, pressing clear clears them
+
+Task: ClientScreen Composite Add Button Adds!
+Date: 6/19
+Assigned to: Dell
+Status: Done
+Duration: 1 hour
+Description:	Fill in the blanks properly, press add, and the client is added
 
 Task: More Operational ClientScreen Composite
 Date: 6/18
