@@ -83,6 +83,22 @@ public class ProcessClient
 	}
 	
 	/**
+	 * Gets a client by the given ID
+	 * @param id 	The ID of the client
+	 * @return	The client if found, null otherwise
+	 */
+	public Client getClientByID(int id)
+	{
+		Client client = null;
+		
+		assert (id >= 0);
+		if(id >= 0)
+			client = database.getClientByID(id);
+		
+		return client;
+	}
+	
+	/**
 	 * Gets the next client in the database
 	 * @return The next client or null if we have reached the end of the list
 	 */
