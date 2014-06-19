@@ -16,15 +16,14 @@ import business.ProcessAddFeature;
 
 public class AddTrackableFeatureDrawer
 {
-	private Composite composite;
-	
-	private Text txtName;
-	private Text txtNotes;
-	private Button btnAction;
-	private Composite buttonComposite;
-	private Button btnCancel;
-	private ProcessAddFeature processAddFeature;
-	private GridData gd_txtNotes;
+	protected Composite composite;	
+	protected Text txtName;
+	protected Text txtNotes;
+	protected Button btnAction;
+	protected Composite buttonComposite;
+	protected Button btnCancel;
+	protected ProcessAddFeature processAddFeature;
+	protected GridData gd_txtNotes;
 	
 	/**
 	 * Adds a given tracked feature
