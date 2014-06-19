@@ -35,6 +35,14 @@ TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 
+Task: ServiceScreen Composite
+Date: 6/18, 7:30pm
+Assigned to: Karl
+Status: in progress
+Duration: 
+Description: Convert the ServiceScreen into a composite
+
+
 Task: Financial tracking (for the business)
 Date: 6/18, 1:30am
 Assigned to: Jason
@@ -101,6 +109,16 @@ Assigned to: Tim
 Status: In progress
 Duration: 30 minutes
 Description:	Created first, rough draft of service/ performance tracking objects
+
+
+
+--------------
+Meeting Summary
+Date: 06/17
+Jason and Derek met with the client and gathered more information. We discussed the information and how we would store it. 
+The client wanted us to add an additional feature where he could add specific items to track. We have initially determined that this would not be a problem 
+--------------
+
 
 
 Task: Requirements gathering
@@ -476,7 +494,7 @@ Description: Created a basic client class.
 Task: Stub UI
 Date: 05/26, 7:39pm
 Assigned to: Karl
-Status: Ongoing
+Status: Completed
 Duration: 2 hours
 Description: Create a basic UI that can be used to navigate through basic components in the program for iteration 1.
 

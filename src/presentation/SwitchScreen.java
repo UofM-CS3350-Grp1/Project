@@ -115,6 +115,9 @@ public class SwitchScreen {
 		shell.open();
 		shell.layout();
 		
+		contentLayout.topControl = loginScreen;
+		content.layout();
+		
 		
 		while ( ! shell.isDisposed() ) {
 			if ( ! display.readAndDispatch() ) {
