@@ -34,6 +34,16 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Service/Client History
+Date: 6/20 1:18pm
+Assigned to: Adrian
+Status: In progress
+Duration: 30 mins.
+Description:	-Adding controller/interface implementation for TrackedFeature/FeatureHistory
+				-Still untested, please refrain from use in Business Layer/GUI
+				-A lot of repeat code regarding query implementation. WIll likely refactor
+				and move object constructors into Interface layer.
+
 Task: NewClientScreenDrawer New Client Button Works!
 Date: 6/19 12:20pm
 Assigned to: Dell
