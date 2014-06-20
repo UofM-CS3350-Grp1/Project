@@ -10,6 +10,7 @@ public class TrackedFeature implements Storable
 {
 	private String featureName;			//Name of the feature to track
 	private String notes;				//Notes related to the feature
+	private int id;
 	
 	/**
 	 * Creates a new feature tracker
@@ -20,6 +21,7 @@ public class TrackedFeature implements Storable
 	{
 		if(featureName != null && !featureName.isEmpty())
 		{
+			this.id = -1;
 			this.featureName = featureName;
 			this.notes = "";
 		}
@@ -39,6 +41,28 @@ public class TrackedFeature implements Storable
 	{
 		if(featureName != null && !featureName.isEmpty() && notes != null)
 		{
+			this.id = -1;
+			this.featureName = featureName;
+			this.notes = notes;
+		}
+		else
+		{
+			throw new IllegalArgumentException();
+		}
+	}
+	
+	/**
+	 * Creates a new feature tracker
+	 * @param featureName 	Name of the feature to track
+	 * @param notes 		Some additional notes/ documentation on the feature
+	 * @param id			The unique id of this feature
+	 * @throws IllegalArgumentException
+	 */
+	public TrackedFeature(String featureName, String notes, int id) throws IllegalArgumentException
+	{
+		if(featureName != null && !featureName.isEmpty() && notes != null)
+		{
+			this.id = id;
 			this.featureName = featureName;
 			this.notes = notes;
 		}
@@ -52,7 +76,7 @@ public class TrackedFeature implements Storable
 	public int getID()
 	{
 		// TODO Auto-generated method stub
-		return 0;
+		return this.id;
 	}
 
 	@Override

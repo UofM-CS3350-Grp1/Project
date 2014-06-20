@@ -237,7 +237,7 @@ public class DBInterface
 	 * @param element Object with that can handle tackable features.
 	 * @return - Array list containing the tracked features associated with this object otherise null
 	 */
-	/*
+	
 	public ArrayList<TrackedFeature> getTrackedFeaturesFromParent(Trackable element)
 	{
 		ArrayList<TrackedFeature> storage = new ArrayList<TrackedFeature>();
@@ -257,7 +257,7 @@ public class DBInterface
 			conditions.add("'"+element.getID()+"'");
 		}
 		clauses.add(conditions);
-		//storage = this.mainDB.queryContracts(clauses);
+		storage = this.mainDB.queryTrackedFeatures(clauses);
 		
 		if(storage.size() == 0)
 		{
@@ -268,34 +268,41 @@ public class DBInterface
 			return storage;
 		}
 	}
-	*/
+	
 	/**
 	 * GETFEATUREHISTORYFROMPARENT()
 	 * 
 	 * @param element Object with that can handle tackable features.
 	 * @return - Array list containing the tracked features history items associated with this object otherise null
 	 */
-	/*
-	public ArrayList<TrackedFeature> getFeatureHistoryFromParent(Trackable element)
+	
+	public ArrayList<FeatureHistory> getFeatureHistoryFromParent(Trackable element, TrackedFeature feature)
 	{
-		ArrayList<TrackedFeature> storage = new ArrayList<TrackedFeature>();
+		ArrayList<FeatureHistory> storage = new ArrayList<FeatureHistory>();
 		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
-		ArrayList<String> conditions = new ArrayList<String>();
+		ArrayList<String> conditions1 = new ArrayList<String>();
+		ArrayList<String> conditions2 = new ArrayList<String>();
 		
 		if(element instanceof Service)
 		{
-			conditions.add("SERVICE_ID");
-			conditions.add("= ");
-			conditions.add("'"+element.getID()+"'");
+			conditions1.add("SERVICE_ID");
+			conditions1.add("= ");
+			conditions1.add("'"+element.getID()+"'");
+			
+			clauses.add(conditions1);
 		}
 		else
 		{
-			conditions.add("CLIENT_ID");
-			conditions.add("= ");
-			conditions.add("'"+element.getID()+"'");
+			conditions1.add("CLIENT_ID");
+			conditions1.add("= ");
+			conditions1.add("'"+element.getID()+"'");
+			clauses.add(conditions1);
 		}
-		clauses.add(conditions);
-		//storage = this.mainDB.queryContracts(clauses);
+		conditions2.add("FEATURE_ID");
+		conditions2.add("= ");
+		conditions2.add("feature.getID()");
+		clauses.add(conditions2);
+		//storage = this.mainDB.queryFeatureHistory(clauses);
 		
 		if(storage.size() == 0)
 		{
@@ -306,7 +313,7 @@ public class DBInterface
 			return storage;
 		}
 	}
-	*/
+
 	/**
 	 * INSERT()
 	 * 

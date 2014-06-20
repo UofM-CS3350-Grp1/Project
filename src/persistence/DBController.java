@@ -493,6 +493,115 @@ public class DBController
 	}
 	
 	/**
+	 * QUERYTRACKEDFEATURES()													</br></br>
+	 * 
+	 * NOTES:	Instantiates tracked features objects based on input clauses.
+	 * 
+	 * @param clauses	-	WHERE clauses.get(1)... etc.				</br></br>
+	 * 
+	 * @return	-	?													</br></br>
+	 * 
+	 */
+	
+	public ArrayList<TrackedFeature> queryTrackedFeatures(ArrayList<ArrayList<String>> clauses)
+	{
+		ArrayList<TrackedFeature> output = new ArrayList<TrackedFeature>();
+		boolean validator = queryValidator(null, null, clauses);
+		String query = "";
+		ArrayList<String> fields = new ArrayList<String>();
+
+		if(validator)
+		{
+			query = queryBuilder("FEATURE", null, null, clauses);	//Returns full objects so No Joins/All Values
+			fields = fieldBuilder("FESTURE"); //Retrieves columns from CONTRACTS table
+			
+			if(SQL_DEBUGGING == 1)
+				System.out.println(query);
+			
+			try
+			{
+				cmdString = query;
+				rs3 = st1.executeQuery(cmdString);
+				while(rs3.next())
+				{
+					//Appends services to output based on query results.
+					output.add(new TrackedFeature(
+								rs3.getString(fields.get(3)), //Name
+								rs3.getString(fields.get(4)) //Details
+								));
+				}
+			}
+			catch(Exception e)
+			{
+				errorOutput(e);
+			}
+		}
+		else
+		{
+			output = null;
+			if(ERROR_LOG == 1)
+				System.out.println("Invaid Contract query.");
+		}
+		
+		return output;
+	}
+	
+	/**
+	 * QUERYFEATUREHISTORY()													</br></br>
+	 * 
+	 * NOTES:	Instantiates feature history objects based on input clauses.
+	 * 
+	 * @param clauses	-	WHERE clauses.get(1)... etc.				</br></br>
+	 * 
+	 * @return	-	?													</br></br>
+	 * 
+	 */
+	
+	public ArrayList<FeatureHistory> queryFeatureHistory(ArrayList<ArrayList<String>> clauses)
+	{
+		ArrayList<FeatureHistory> output = new ArrayList<FeatureHistory>();
+		boolean validator = queryValidator(null, null, clauses);
+		String query = "";
+		ArrayList<String> fields = new ArrayList<String>();
+
+		if(validator)
+		{
+			query = queryBuilder("FEATURE_HISTORY", null, null, clauses);	//Returns full objects so No Joins/All Values
+			fields = fieldBuilder("FESTURE_HISTORY"); //Retrieves columns from CONTRACTS table
+			
+			if(SQL_DEBUGGING == 1)
+				System.out.println(query);
+			
+			try
+			{
+				cmdString = query;
+				rs3 = st1.executeQuery(cmdString);
+				while(rs3.next())
+				{
+					//Appends services to output based on query results.
+					output.add(new FeatureHistory(null, null,
+							 	Double.parseDouble(rs3.getString(6)),//Value
+							 	new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(rs3.getString(fields.get(4))),
+								rs3.getString(fields.get(5)) //Details
+								));
+				}
+			}
+			catch(Exception e)
+			{
+				errorOutput(e);
+			}
+		}
+		else
+		{
+			output = null;
+			if(ERROR_LOG == 1)
+				System.out.println("Invaid Contract query.");
+		}
+		
+		return output;
+	}
+	
+	/**
 	 * BLINDQUERY();
 	 * 
 	 *  Runs a generic SQL query against DBMS and retrns an ArrayList of Strings.
