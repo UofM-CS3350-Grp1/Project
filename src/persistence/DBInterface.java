@@ -6,6 +6,9 @@ import objects.Client;
 import objects.Service;
 import objects.Storable;
 import objects.Contract;
+import objects.TrackedFeature;
+import objects.FeatureHistory;
+import objects.Trackable;
 import objects.Client.ClientStatus;
 
 public class DBInterface 
@@ -228,6 +231,82 @@ public class DBInterface
 		}
 	}
 	
+	/**
+	 * GETTRACKEDFEATUREFROMPARENT()
+	 * 
+	 * @param element Object with that can handle tackable features.
+	 * @return - Array list containing the tracked features associated with this object otherise null
+	 */
+	/*
+	public ArrayList<TrackedFeature> getTrackedFeaturesFromParent(Trackable element)
+	{
+		ArrayList<TrackedFeature> storage = new ArrayList<TrackedFeature>();
+		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+		ArrayList<String> conditions = new ArrayList<String>();
+		
+		if(element instanceof Service)
+		{
+			conditions.add("SERVICE_ID");
+			conditions.add("= ");
+			conditions.add("'"+element.getID()+"'");
+		}
+		else
+		{
+			conditions.add("CLIENT_ID");
+			conditions.add("= ");
+			conditions.add("'"+element.getID()+"'");
+		}
+		clauses.add(conditions);
+		//storage = this.mainDB.queryContracts(clauses);
+		
+		if(storage.size() == 0)
+		{
+			return null;
+		}
+		else
+		{
+			return storage;
+		}
+	}
+	*/
+	/**
+	 * GETFEATUREHISTORYFROMPARENT()
+	 * 
+	 * @param element Object with that can handle tackable features.
+	 * @return - Array list containing the tracked features history items associated with this object otherise null
+	 */
+	/*
+	public ArrayList<TrackedFeature> getFeatureHistoryFromParent(Trackable element)
+	{
+		ArrayList<TrackedFeature> storage = new ArrayList<TrackedFeature>();
+		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+		ArrayList<String> conditions = new ArrayList<String>();
+		
+		if(element instanceof Service)
+		{
+			conditions.add("SERVICE_ID");
+			conditions.add("= ");
+			conditions.add("'"+element.getID()+"'");
+		}
+		else
+		{
+			conditions.add("CLIENT_ID");
+			conditions.add("= ");
+			conditions.add("'"+element.getID()+"'");
+		}
+		clauses.add(conditions);
+		//storage = this.mainDB.queryContracts(clauses);
+		
+		if(storage.size() == 0)
+		{
+			return null;
+		}
+		else
+		{
+			return storage;
+		}
+	}
+	*/
 	/**
 	 * INSERT()
 	 * 

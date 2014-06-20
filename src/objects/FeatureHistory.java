@@ -14,6 +14,7 @@ public class FeatureHistory implements Storable
 	private double value;				//Value/ performance metric of feature
 	private Date date;					//The date of the information
 	private String notes;				//Additional information for this history
+	private int parentID;				//ID of the featue being tracked
 	
 	/**
 	 * Creates a new feature history
@@ -23,7 +24,7 @@ public class FeatureHistory implements Storable
 	 * @param date			 The period
 	 * @throws IllegalArgumentException
 	 */
-	public FeatureHistory(TrackedFeature feature, Trackable trackedService, double value, Date date) throws IllegalArgumentException
+	public FeatureHistory(TrackedFeature feature, Trackable trackedService, double value, Date date, int paretID) throws IllegalArgumentException
 	{
 		if(feature != null && trackedService != null && date != null)
 		{
@@ -32,6 +33,7 @@ public class FeatureHistory implements Storable
 			this.value = value;
 			this.date = date;
 			this.notes = "";
+			this.parentID = parentID;
 		}
 		else
 		{

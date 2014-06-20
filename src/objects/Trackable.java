@@ -6,5 +6,5 @@ package objects;
  */
 public interface Trackable 
 {
-
+	public int getID();
 }
