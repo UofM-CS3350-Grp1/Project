@@ -35,6 +35,15 @@ TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 Task: UI
+Date: 6/21, 5:00am
+Assigned to: Tim
+Status: In progress
+Duration: 1 hour
+Description:	Created the initial design of the client performance screen.
+					Not yet hooked up.
+					Added the stub button for this feature on the Client (and Service) drawer: View Selected.
+
+Task: UI
 Date: 6/21, 3:00am
 Assigned to: Tim
 Status: In progress
