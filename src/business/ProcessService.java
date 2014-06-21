@@ -1,7 +1,6 @@
 package business;
 
 import java.util.ArrayList;
-
 import objects.Service;
 import persistence.StubDBInterface;
 
@@ -109,6 +108,22 @@ public class ProcessService
 		{
 			services = null;
 		}
+		
+		return service;
+	}
+
+	/**
+	 * Gets a service by the given ID
+	 * @param id 	The ID of the service
+	 * @return	The service if found, null otherwise
+	 */
+	public Service getServiceByID(int id)
+	{
+		Service service = null;
+		
+		assert (id >= 0);
+		if(id >= 0)
+			service = database.getServiceByID(id);
 		
 		return service;
 	}
