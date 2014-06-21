@@ -28,6 +28,7 @@ public abstract class BaseStorableScreenDrawer
 	protected Button btnUpdate;
 	protected Button btnDelete;
 	protected Button btnAdd;
+	private Button btnView;
 	
 	/*
 	 * Call the constructor with a shell's main component as <container>
@@ -66,7 +67,7 @@ public abstract class BaseStorableScreenDrawer
 			}
 		});
 		btnUpdate.setText("Edit Selected");
-		btnUpdate.setBounds(0, 46, 111, 40);
+		btnUpdate.setBounds(0, 92, 111, 40);
 		
 		btnDelete = new Button(btnComposite, SWT.NONE);
 		btnDelete.addSelectionListener(new SelectionAdapter()
@@ -78,7 +79,19 @@ public abstract class BaseStorableScreenDrawer
 			}
 		});
 		btnDelete.setText("Delete Selected");
-		btnDelete.setBounds(0, 92, 111, 40);
+		btnDelete.setBounds(0, 138, 111, 40);
+		
+		btnView = new Button(btnComposite, SWT.NONE);
+		btnView.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent arg0) 
+			{
+				viewSelectedItem();
+			}
+		});
+		btnView.setText("View Selected");
+		btnView.setBounds(0, 46, 111, 40);
 		
 		table = new Table(composite, SWT.BORDER | SWT.FULL_SELECTION | SWT.V_SCROLL | SWT.H_SCROLL);
 		table.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
@@ -208,6 +221,11 @@ public abstract class BaseStorableScreenDrawer
 	 * Edits a new client through the edit client composite
 	 */
 	protected abstract void editSelectedItem();
+	
+	/**
+	 * View the selected client through one of the analysis windows
+	 */
+	protected abstract void viewSelectedItem();
 	
 	/**
 	 * Deletes the selected item in the table

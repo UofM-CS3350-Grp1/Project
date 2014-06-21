@@ -91,6 +91,14 @@ public class ClientScreenDrawer extends BaseStorableScreenDrawer
 	}
 	
 	/**
+	 * View the selected client through one of the analysis windows
+	 */
+	protected void viewSelectedItem()
+	{
+		//TODO Open the ClientAnalysisScreen
+	}
+	
+	/**
 	 * Deletes the selected item in the table
 	 */
 	protected void deleteSelectedItem()

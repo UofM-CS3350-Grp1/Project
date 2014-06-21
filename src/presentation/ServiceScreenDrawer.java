@@ -87,6 +87,14 @@ public class ServiceScreenDrawer extends BaseStorableScreenDrawer
 	}
 	
 	/**
+	 * View the selected service through one of the analysis windows
+	 */
+	protected void viewSelectedItem()
+	{
+		//TODO Open the service analysis screen
+	}
+	
+	/**
 	 * Deletes the selected item in the table
 	 */
 	protected void deleteSelectedItem()
