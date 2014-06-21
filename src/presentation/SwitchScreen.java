@@ -2,8 +2,10 @@ package presentation;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Widget;
 import org.eclipse.swt.layout.GridData; //
 import org.eclipse.swt.layout.GridLayout; //
 import org.eclipse.swt.layout.RowLayout; //
@@ -12,6 +14,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+
 import presentation.NewClientScreenDrawer;
 
 public class SwitchScreen {
@@ -31,7 +34,7 @@ public class SwitchScreen {
 		/*
 		 * Create the navigation bar
 		 */
-		final int NUM_NAV_BUTTONS = 6;
+		final int NUM_NAV_BUTTONS = 7;
 		Composite navBar = new Composite( shell, SWT.BORDER );
 		GridLayout navLayout = new GridLayout();
 		navLayout.numColumns = NUM_NAV_BUTTONS;
@@ -61,6 +64,9 @@ public class SwitchScreen {
 		
 		Button bLogin = new Button( navBar, SWT.FLAT );
 		tuneNavButton( bLogin, "LOG IN" );
+		
+		Button bExit = new Button( navBar, SWT.FLAT );
+		tuneNavButton( bExit, "EXIT" );
 		
 		/*
 		 * create the switching composite
@@ -92,7 +98,6 @@ public class SwitchScreen {
 				content.layout();
 			}
 		});
-		
 		
 		
 		/*
@@ -133,6 +138,18 @@ public class SwitchScreen {
 			{
 				contentLayout.topControl = loginScreen;
 				content.layout();
+			}
+		});
+		
+		/*
+		 *  exits the program
+		 */
+		bExit.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent event) 
+			{
+				((Control) event.getSource()).getShell().dispose();
 			}
 		});
 		

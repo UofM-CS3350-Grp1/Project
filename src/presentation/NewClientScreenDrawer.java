@@ -1,8 +1,13 @@
 package presentation;
 
+import java.text.Collator;
+import java.util.Locale;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
@@ -11,8 +16,10 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.TableColumn;
+
 import objects.Client;
 import business.ProcessClient;
+
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.FillLayout;
 
@@ -36,11 +43,11 @@ public class NewClientScreenDrawer
 	{
 		processClient = new ProcessClient();
 		
-		composite = new Composite( container, SWT.BORDER );
+		composite = new Composite( container, SWT.NONE );
 		composite.setLayout(new GridLayout(2, false));
 		
 		btnComposite = new Composite(composite, SWT.NONE);
-		GridData gd_btnComposite = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		GridData gd_btnComposite = new GridData(SWT.LEFT, SWT.TOP, false, false, 1, 1);
 		gd_btnComposite.widthHint = 111;
 		gd_btnComposite.heightHint = 232;
 		btnComposite.setLayoutData(gd_btnComposite);
@@ -54,7 +61,7 @@ public class NewClientScreenDrawer
 				addNewClient();
 			}
 		});
-		btnAdd.setBounds(0, 10, 111, 40);
+		btnAdd.setBounds(0, 0, 111, 40);
 		btnAdd.setText("New Client");
 		
 		btnUpdate = new Button(btnComposite, SWT.NONE);
@@ -67,7 +74,7 @@ public class NewClientScreenDrawer
 			}
 		});
 		btnUpdate.setText("Edit Selected");
-		btnUpdate.setBounds(0, 56, 111, 40);
+		btnUpdate.setBounds(0, 46, 111, 40);
 		
 		btnDelete = new Button(btnComposite, SWT.NONE);
 		btnDelete.addSelectionListener(new SelectionAdapter()
@@ -79,15 +86,19 @@ public class NewClientScreenDrawer
 			}
 		});
 		btnDelete.setText("Delete Selected");
-		btnDelete.setBounds(0, 102, 111, 40);
+		btnDelete.setBounds(0, 92, 111, 40);
 		
 		clientsTable = new Table(composite, SWT.BORDER | SWT.FULL_SELECTION | SWT.V_SCROLL | SWT.H_SCROLL);
 		clientsTable.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		clientsTable.setHeaderVisible(true);
-		clientsTable.setLinesVisible(true);	
-		
+		clientsTable.setLinesVisible(true);
+		clientsTable.setSortDirection(SWT.UP);
+	    
 		initializeTable();
 		populateTable();
+		
+		clientsTable.getColumn(1).notifyListeners(SWT.Selection, null);
+	    
 	}
 	
 	/**
@@ -97,12 +108,76 @@ public class NewClientScreenDrawer
 	{
 		TableColumn column;
 		
+		//sort listener
+		Listener sortListener = new Listener() {  
+	         public void handleEvent(Event e) {  
+	             TableItem[] items = clientsTable.getItems();  
+	             Collator collator = Collator.getInstance(Locale.getDefault());  
+	             TableColumn column = (TableColumn)e.widget;
+	             int index = 0;
+	             
+	             for(int i = 0; i < tableColumnNames.length; i++)
+	             {
+	            	 if(column.getText() == tableColumnNames[i])
+	            	 {
+	            		 index = i;
+	            		 break;
+	            	 }
+	             }
+	             
+	             for (int i = 1; i < items.length; i++) 
+	             {  
+	                 String value1 = items[i].getText(index);  
+	                 for (int j = 0; j < i; j++)
+	                 {  
+	                     String value2 = items[j].getText(index);
+	                     
+	                     if(clientsTable.getSortColumn() == column && clientsTable.getSortDirection() == SWT.UP)
+	    	             {
+	    	            	 if (collator.compare(value1, value2) > 0) 
+	                         {  
+	                             String[] values = {items[i].getText(0), items[i].getText(1), items[i].getText(2),
+	                            		 items[i].getText(3), items[i].getText(4), items[i].getText(5), items[i].getText(6)};  
+	                             items[i].dispose();  
+	                             TableItem item = new TableItem(clientsTable, SWT.NONE, j);  
+	                             item.setText(values);  
+	                             items = clientsTable.getItems();
+	                             break;
+	                         }   
+	    	             }
+	                     else if (collator.compare(value1, value2) < 0) 
+	                     {  
+	                         String[] values = {items[i].getText(0), items[i].getText(1), items[i].getText(2),
+	                        		 items[i].getText(3), items[i].getText(4), items[i].getText(5), items[i].getText(6)};  
+	                         items[i].dispose();  
+	                         TableItem item = new TableItem(clientsTable, SWT.NONE, j);  
+	                         item.setText(values);  
+	                         items = clientsTable.getItems();
+	                         break;
+	                     } 
+	                     
+	                 }  
+	             }  
+	             
+	             if(clientsTable.getSortColumn() == column && clientsTable.getSortDirection() == SWT.UP)
+	             {
+	            	 clientsTable.setSortDirection(SWT.DOWN);
+	             }
+	             else
+	             {
+	            	 clientsTable.setSortDirection(SWT.UP);
+	             }
+	             clientsTable.setSortColumn(column);
+	         }  
+	     }; 
+		
 		//Create the columns of the table
 		for(int i = 0; i < tableColumnNames.length; i++)
 		{
 			column = new TableColumn(clientsTable, SWT.NULL);
 			column.setText(tableColumnNames[i]);
 			column.setWidth(tableWidths[i]);
+			column.addListener(SWT.Selection, sortListener);  
 		}
 		
 		//Hide the ID field because the user does not need to see

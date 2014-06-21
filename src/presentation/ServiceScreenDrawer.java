@@ -51,8 +51,9 @@ public class ServiceScreenDrawer {
 		final Button svc_del = new Button(composite, SWT.NONE);
 		final Button btnAdd = new Button(composite, SWT.NONE);
 		final Button svc_new = new Button(composite, SWT.NONE);
-		//uncomment this and block at 188
-		//processService = new ProcessService();
+
+		processService = new ProcessService();
+		services = new ArrayList<Service>();
 		Service service = null;
 		
 		Label lblServiceType = new Label(composite, SWT.NONE);
@@ -185,14 +186,14 @@ public class ServiceScreenDrawer {
 		svcName = new Text(composite, SWT.BORDER);
 		svcName.setBounds(351, 57, 263, 21);
 		
-		/*		
+			
 		//Initialize the service list
 		while((service = processService.getNextService()) != null)
 		{
 			services.add(service);
 			list.add(service.getTitle());
 		}
-		*/
+		
 		
 		svc_new.addSelectionListener(new SelectionAdapter()
 		{

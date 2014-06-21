@@ -34,6 +34,22 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Add sorting to NewClientScreenDrawer
+Date: 6/20 7:30pm
+Assigned to: Karl
+Status: Completed
+Duration: 1 hour 30 minutes 
+Description: Allows sorting of the clients by any of the elements displayed at the top of the chart
+
+
+Task: Add an exit button
+Date: 6/20 7:30pm
+Assigned to: Karl
+Status: Completed
+Duration: 15 minutes
+Description: Add an exit button to the program shell as being able to exit the program from any view is required
+
+
 Task: Service/Client History
 Date: 6/20 1:18pm
 Assigned to: Adrian
@@ -115,8 +131,8 @@ Description:	sevice -> service
 Task: ServiceScreen Composite
 Date: 6/18, 7:30pm
 Assigned to: Karl
-Status: in progress
-Duration: 1 hour
+Status: Completed
+Duration: 1 hour 15 mins
 Description: Convert the ServiceScreen into a composite. Update: other features not yet implemented prevent service screen from functioning properly
 
 
@@ -228,7 +244,7 @@ Description:	A composite based GUI now exists as an option
 Task: Redo UI
 Date: 06/14
 Assigned to: Karl
-Status: In progress
+Status: Merged with above task
 Duration: 6 hours
 Description: Refactor Stub UI into single window application
 
