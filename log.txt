@@ -34,6 +34,19 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: UI
+Date: 6/21, 3:00am
+Assigned to: Tim
+Status: In progress
+Duration: 2 hours
+Description:	Created table based UI for services screen. Largely based off of the client's design.
+					Delete button works.
+					Sorting works.
+				Created composites for the adding and updating of the services.
+					The add and update composites are not yet hooked up, but they are ready to go.
+				Performed some build error fixing
+
+
 Task: Add sorting to NewClientScreenDrawer
 Date: 6/20 7:30pm
 Assigned to: Karl
