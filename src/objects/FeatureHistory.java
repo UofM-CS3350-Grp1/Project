@@ -64,14 +64,12 @@ public class FeatureHistory implements Storable
 		}
 	}
 	
-	@Override
 	public int getID() 
 	{
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
 	public ArrayList<String> toIndex() 
 	{
 		// TODO Auto-generated method stub

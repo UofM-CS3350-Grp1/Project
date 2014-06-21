@@ -72,14 +72,12 @@ public class TrackedFeature implements Storable
 		}
 	}
 	
-	@Override
 	public int getID()
 	{
 		// TODO Auto-generated method stub
 		return this.id;
 	}
 
-	@Override
 	public ArrayList<String> toIndex() 
 	{
 		// TODO Auto-generated method stub

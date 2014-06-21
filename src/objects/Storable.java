@@ -7,6 +7,6 @@ import java.util.ArrayList;
  */
 public interface Storable
 {	
-	public int getID();
-	public ArrayList<String> toIndex();
+	int getID();
+	ArrayList<String> toIndex();
 }
