@@ -228,7 +228,7 @@ public class AddClientScreenDrawer
 		//TODO Go back to the client screen
 		Composite clientScreen = new Composite( SwitchScreen.content, SWT.None );
 		clientScreen.setLayout( new FillLayout() );
-		NewClientScreenDrawer acsd = new NewClientScreenDrawer( clientScreen );
+		ClientScreenDrawer acsd = new ClientScreenDrawer( clientScreen );
 		SwitchScreen.contentLayout.topControl = clientScreen;
 		SwitchScreen.content.layout();
 	}

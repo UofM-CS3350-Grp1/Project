@@ -1,53 +1,39 @@
 package presentation;
 
+import java.text.Collator;
+import java.util.Locale;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.List;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.VerifyListener;
-import org.eclipse.swt.events.VerifyEvent;
-import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.custom.StackLayout;
-
-import java.util.ArrayList;
+import org.eclipse.swt.widgets.TableColumn;
 
 import objects.Client;
-import objects.Email;
-import objects.PhoneNumber;
-import objects.Client.ClientStatus;
 import business.ProcessClient;
+
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.layout.FillLayout;
 
 public class ClientScreenDrawer
 {
+	private static final String[] tableColumnNames = { "ID", "Client", "Contact", "Status", "Address", "Email", "Phone Number" };
+	private static final int[] tableWidths = { 0, 150, 100, 100, 150, 150, 100 };
 	private Composite composite;
-	
-	private Text txtClientName;
-	private Text txtBusinessName;
-	private Text txtAddress;
-	private Text txtEmail;
-	
-	private Text txtPhoneNumberA;
-	private Text txtPhoneNumberB;
-	private Text txtPhoneNumberC;
-	
-	private Button btnPotential;
-	private Button btnActive;
-	
-	private List listClients;
-	private ArrayList<Client> clients;
-	private ProcessClient processClient;
-	
-	private Composite addUpdateHolder;
-	private StackLayout addUpdateSwitcher;
-	private Button btnAdd;
+	private Table clientsTable;
+	private Composite btnComposite;
 	private Button btnUpdate;
+	private Button btnDelete;
+	private ProcessClient processClient;
+	private Button btnAdd;
 	
 	/*
 	 * Call the constructor with a shell's main component as <container>
@@ -55,454 +41,243 @@ public class ClientScreenDrawer
 	 */
 	public ClientScreenDrawer( Composite container )
 	{
-		composite = new Composite( container, SWT.BORDER );
+		processClient = new ProcessClient();
 		
-		// units = grid columns
-		final int GRID_WIDTH = 11;
-		final int LIST_WIDTH = 3;
-		final int LIST_HEIGHT = 7;
-		final int TEXT_WIDTH = 7;
+		composite = new Composite( container, SWT.NONE );
+		composite.setLayout(new GridLayout(2, false));
 		
-		/*
-		 * organizes the component
-		 */
-		GridLayout compositeLayout = new GridLayout();
-		compositeLayout.numColumns = GRID_WIDTH;
-		composite.setLayout( compositeLayout );
+		btnComposite = new Composite(composite, SWT.NONE);
+		GridData gd_btnComposite = new GridData(SWT.LEFT, SWT.TOP, false, false, 1, 1);
+		gd_btnComposite.widthHint = 111;
+		gd_btnComposite.heightHint = 232;
+		btnComposite.setLayoutData(gd_btnComposite);
 		
-		
-		/*
-		 * organizes how components look within composites
-		 */
-		GridData componentTweaker = null;
-		
-		
-		/*
-		 * client list header
-		 */
-		Label lblClientList = new Label( composite, SWT.None );
-		lblClientList.setText( "Client List" );
-		componentTweaker = new GridData( GridData.FILL_HORIZONTAL );
-		componentTweaker.horizontalSpan = GRID_WIDTH;
-		lblClientList.setLayoutData( componentTweaker );
-		
-		
-		/*
-		 * client list
-		 */
-		clients = new ArrayList< Client >();
-		listClients = new List( composite, SWT.BORDER );
-		listClients.addSelectionListener( new SelectionAdapter()
+		btnAdd = new Button(btnComposite, SWT.NONE);
+		btnAdd.addSelectionListener(new SelectionAdapter() 
 		{
 			@Override
-			public void widgetSelected( SelectionEvent event )
+			public void widgetSelected(SelectionEvent event)
 			{
-				editSelectedClient();
+				addNewClient();
 			}
 		});
-		componentTweaker = new GridData( GridData.FILL_BOTH ); // each component needs its own instance of GridData
-		componentTweaker.horizontalSpan = LIST_WIDTH;
-		componentTweaker.verticalSpan = LIST_HEIGHT;
-		listClients.setLayoutData( componentTweaker );
+		btnAdd.setBounds(0, 0, 111, 40);
+		btnAdd.setText("New Client");
 		
-		/*
-		 * populate the list
-		 */
-		processClient = new ProcessClient();
-		Client client = processClient.getNextClient();
-		while ( client != null ) {
-			clients.add( client );
-			listClients.add( client.getName() + " - " + client.getBusinessName() );
-			client = processClient.getNextClient();
+		btnUpdate = new Button(btnComposite, SWT.NONE);
+		btnUpdate.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent event)
+			{
+				editSelectedItem();
+			}
+		});
+		btnUpdate.setText("Edit Selected");
+		btnUpdate.setBounds(0, 46, 111, 40);
+		
+		btnDelete = new Button(btnComposite, SWT.NONE);
+		btnDelete.addSelectionListener(new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected(SelectionEvent event) 
+			{
+				deleteSelectedItem();
+			}
+		});
+		btnDelete.setText("Delete Selected");
+		btnDelete.setBounds(0, 92, 111, 40);
+		
+		clientsTable = new Table(composite, SWT.BORDER | SWT.FULL_SELECTION | SWT.V_SCROLL | SWT.H_SCROLL);
+		clientsTable.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		clientsTable.setHeaderVisible(true);
+		clientsTable.setLinesVisible(true);
+		clientsTable.setSortDirection(SWT.UP);
+	    
+		initializeTable();
+		populateTable();
+		
+		clientsTable.getColumn(1).notifyListeners(SWT.Selection, null);
+	    
+	}
+	
+	/**
+	 * Initializes the columns in the table
+	 */
+	private void initializeTable()
+	{
+		TableColumn column;
+		
+		//sort listener
+		Listener sortListener = new Listener() {  
+	         public void handleEvent(Event e) {  
+	             TableItem[] items = clientsTable.getItems();  
+	             Collator collator = Collator.getInstance(Locale.getDefault());  
+	             TableColumn column = (TableColumn)e.widget;
+	             int index = 0;
+	             
+	             for(int i = 0; i < tableColumnNames.length; i++)
+	             {
+	            	 if(column.getText() == tableColumnNames[i])
+	            	 {
+	            		 index = i;
+	            		 break;
+	            	 }
+	             }
+	             
+	             for (int i = 1; i < items.length; i++) 
+	             {  
+	                 String value1 = items[i].getText(index);  
+	                 for (int j = 0; j < i; j++)
+	                 {  
+	                     String value2 = items[j].getText(index);
+	                     
+	                     if(clientsTable.getSortColumn() == column && clientsTable.getSortDirection() == SWT.UP)
+	    	             {
+	    	            	 if (collator.compare(value1, value2) > 0) 
+	                         {  
+	                             String[] values = {items[i].getText(0), items[i].getText(1), items[i].getText(2),
+	                            		 items[i].getText(3), items[i].getText(4), items[i].getText(5), items[i].getText(6)};  
+	                             items[i].dispose();  
+	                             TableItem item = new TableItem(clientsTable, SWT.NONE, j);  
+	                             item.setText(values);  
+	                             items = clientsTable.getItems();
+	                             break;
+	                         }   
+	    	             }
+	                     else if (collator.compare(value1, value2) < 0) 
+	                     {  
+	                         String[] values = {items[i].getText(0), items[i].getText(1), items[i].getText(2),
+	                        		 items[i].getText(3), items[i].getText(4), items[i].getText(5), items[i].getText(6)};  
+	                         items[i].dispose();  
+	                         TableItem item = new TableItem(clientsTable, SWT.NONE, j);  
+	                         item.setText(values);  
+	                         items = clientsTable.getItems();
+	                         break;
+	                     } 
+	                     
+	                 }  
+	             }  
+	             
+	             if(clientsTable.getSortColumn() == column && clientsTable.getSortDirection() == SWT.UP)
+	             {
+	            	 clientsTable.setSortDirection(SWT.DOWN);
+	             }
+	             else
+	             {
+	            	 clientsTable.setSortDirection(SWT.UP);
+	             }
+	             clientsTable.setSortColumn(column);
+	         }  
+	     }; 
+		
+		//Create the columns of the table
+		for(int i = 0; i < tableColumnNames.length; i++)
+		{
+			column = new TableColumn(clientsTable, SWT.NULL);
+			column.setText(tableColumnNames[i]);
+			column.setWidth(tableWidths[i]);
+			column.addListener(SWT.Selection, sortListener);  
 		}
 		
-		
-		/*
-		 *  contact name
-		 */
-		Label lblName = new Label( composite, SWT.None );
-		lblName.setText( "Contact Name" );
-		
-		txtClientName = new Text( composite, SWT.BORDER );
-		componentTweaker = new GridData( GridData.FILL_HORIZONTAL );
-		componentTweaker.horizontalSpan = TEXT_WIDTH;
-		txtClientName.setLayoutData( componentTweaker );
-		
-		
-		/*
-		 *  business name
-		 */
-		Label lblBusinessName = new Label( composite, SWT.None );
-		lblBusinessName.setText( "Business Name" );
-		
-		txtBusinessName = new Text( composite, SWT.BORDER );
-		componentTweaker = new GridData( GridData.FILL_HORIZONTAL );
-		componentTweaker.horizontalSpan = TEXT_WIDTH;
-		txtBusinessName.setLayoutData( componentTweaker );
-		
-		
-		/*
-		 *  address
-		 */
-		Label lblAddress = new Label( composite, SWT.None );
-		lblAddress.setText( "Address" );
-		
-		txtAddress = new Text( composite, SWT.BORDER );
-		componentTweaker = new GridData( GridData.FILL_HORIZONTAL );
-		componentTweaker.horizontalSpan = TEXT_WIDTH;
-		txtAddress.setLayoutData( componentTweaker );
-		
-		
-		/*
-		 *  email
-		 */
-		Label lblEmail = new Label( composite, SWT.None );
-		lblEmail.setText( "Email" );
-		
-		txtEmail = new Text( composite, SWT.BORDER );
-		componentTweaker = new GridData( GridData.FILL_HORIZONTAL );
-		componentTweaker.horizontalSpan = TEXT_WIDTH;
-		txtEmail.setLayoutData( componentTweaker );
-		
-		
-		/*
-		 *  phone number fields
-		 */
-		final int AREA_CODE_LENGTH = 3;
-		final int PREFIX_CODE_LENGTH = 3;
-		final int LINE_NUMBER_CODE = 4;
-		
-		Label lblPhoneNumber = new Label( composite, SWT.None );
-		lblPhoneNumber.setText( "Phone Number" );
-		
-		Label lblOpenBracket = new Label( composite, SWT.None );
-		lblOpenBracket.setText( "(" );
-		
-		txtPhoneNumberA = new Text( composite, SWT.BORDER | SWT.CENTER );
-		txtPhoneNumberA.addVerifyListener( new VerifyListener()
-		{
-			public void verifyText( VerifyEvent event )
-			{
-				verifyNumericTextbox( event, AREA_CODE_LENGTH );
-			}
-		});
-		
-		Label lblCloseBracket = new Label( composite, SWT.None );
-		lblCloseBracket.setText( ")" );
-		
-		Label lblPhoneSep1 = new Label( composite, SWT.None );
-		lblPhoneSep1.setText( "-" );
-		
-		txtPhoneNumberB = new Text( composite, SWT.BORDER | SWT.CENTER );
-		txtPhoneNumberB.addVerifyListener( new VerifyListener()
-		{
-			public void verifyText( VerifyEvent event )
-			{
-				verifyNumericTextbox( event, PREFIX_CODE_LENGTH );
-			}
-		});
-		
-		Label lblPhoneSep2 = new Label( composite, SWT.None );
-		lblPhoneSep2.setText( "-" );
-		
-		txtPhoneNumberC = new Text( composite, SWT.BORDER | SWT.CENTER );
-		txtPhoneNumberC.addVerifyListener( new VerifyListener()
-		{
-			public void verifyText( VerifyEvent event )
-			{
-				verifyNumericTextbox( event, LINE_NUMBER_CODE );
-			}
-		});
-		
-		
-		/*
-		 *  client status
-		 */
-		final int CLIENT_STATUS_OPTION_COUNT = 2;
-		final int GROUP_SIZE = 7; // this lets this components around it format properly
-		Label lblClientStatus = new Label( composite, SWT.None );
-		lblClientStatus.setText( "Client Status" );
-		
-		Group group = new Group( composite, SWT.None );
-		group.setLayout( new FillLayout( SWT.VERTICAL ) );
-		componentTweaker = new GridData();
-		componentTweaker.horizontalSpan = TEXT_WIDTH;
-		group.setLayoutData( componentTweaker );
-		
-		btnPotential = new Button( group, SWT.RADIO );
-		btnPotential.setSelection( true );
-		btnPotential.setText( "Potential" );
-		
-		btnActive = new Button( group, SWT.RADIO );
-		btnActive.setText( "Active" );
-		
-		
-		/*
-		 * buttons clear and add/update
-		 */
-		final int NON_LIST_GRID_WIDTH = 8;
-		final int ADD_UPDATE = 1;
-		final int CLEAR = 1;
-		Composite buttonHolder = new Composite( composite, SWT.RIGHT_TO_LEFT );
-		GridLayout rightJustifiedButtons = new GridLayout();
-		rightJustifiedButtons.numColumns = ADD_UPDATE + CLEAR;
-		buttonHolder.setLayout( rightJustifiedButtons );
-		GridData oneRowAndStretchesHorizontally = new GridData( GridData.FILL_HORIZONTAL );
-		oneRowAndStretchesHorizontally.horizontalSpan = NON_LIST_GRID_WIDTH;
-		buttonHolder.setLayoutData( oneRowAndStretchesHorizontally );
-		
-		addUpdateHolder = new Composite( buttonHolder, SWT.None );
-		addUpdateSwitcher = new StackLayout();
-		addUpdateHolder.setLayout( addUpdateSwitcher );
-		
-		btnAdd = new Button( addUpdateHolder, SWT.None );
-		componentTweaker = new GridData();
-		btnAdd.setLayoutData( componentTweaker );
-		btnAdd.setText( "Add" );
-		btnAdd.addSelectionListener( new SelectionAdapter()
-		{
-			@Override
-			public void widgetSelected( SelectionEvent event )
-			{
-				createClient();
-			}
-		});
-		
-		btnUpdate = new Button( addUpdateHolder, SWT.None );
-		componentTweaker = new GridData();
-		btnUpdate.setLayoutData( componentTweaker );
-		btnUpdate.setText( "Update" );
-		
-		addUpdateSwitcher.topControl = btnAdd;
-		addUpdateHolder.layout();
-		
-		Button btnClear = new Button( buttonHolder, SWT.None );
-		componentTweaker = new GridData();
-		btnClear.setLayoutData( componentTweaker );
-		btnClear.setText( "Clear" );
-		btnClear.addSelectionListener( new SelectionAdapter()
-		{
-			@Override
-			public void widgetSelected( SelectionEvent event )
-			{
-				clearFields();
-			}
-		});
-		
-		
-		
-		// list buttons
-		Composite listButtons = new Composite( composite, SWT.BORDER );
-		FillLayout listButtonsLayout = new FillLayout();
-		listButtons.setLayout( listButtonsLayout );
-		GridData listButtonsGridFormat = new GridData( GridData.FILL_HORIZONTAL );
-		listButtonsGridFormat.horizontalSpan = LIST_WIDTH; // sizes the list
-		listButtons.setLayoutData( listButtonsGridFormat );
-		
-		Button btnNew = new Button( listButtons, SWT.None );
-		btnNew.setText( "New" );
-		btnNew.addSelectionListener( new SelectionAdapter()
-		{
-			@Override
-			public void widgetSelected( SelectionEvent event )
-			{
-				processNewButton();
-			}
-			
-		});
-		
-		
-		Button btnDelete = new Button( listButtons, SWT.None );
-		btnDelete.setText( "Delete" );
-		btnDelete.addSelectionListener( new SelectionAdapter()
-		{
-			@Override
-			public void widgetSelected( SelectionEvent event )
-			{
-				int selectedIndex = listClients.getSelectionIndex();
-				if ( selectedIndex != -1 )
-				{
-					/*
-					 * delete the client
-					 */
-					clients.remove( selectedIndex );
-					listClients.remove( selectedIndex );
-					
-					/*
-					 * with the current client deleted, select some other entry
-					 */
-					selectedIndex--;
-					if ( selectedIndex < 0 && listClients.getItemCount() > 0 ) selectedIndex = 0;
-					
-					listClients.setSelection( selectedIndex );
-					
-					if ( selectedIndex >= 0 )
-					{
-						// show some other client's data
-						editSelectedClient();
-					}
-					else
-					{
-						// no list entries
-						processNewButton();
-					}
-				}
-			}
-		});
+		//Hide the ID field because the user does not need to see
+		//it. It is simply an internal helper to find the associated object.
+		column = clientsTable.getColumn(0);
+		column.setResizable(false);
 	}
 	
-	
-	
 	/**
-	 * Clears all of the fields on the window
+	 * Populates the table with the client data
 	 */
-	private void clearFields()
-	{
-		txtClientName.setText("");
-		txtBusinessName.setText("");
-		txtAddress.setText("");
-		txtEmail.setText("");
-		txtPhoneNumberA.setText("");
-		txtPhoneNumberB.setText("");
-		txtPhoneNumberC.setText("");
-		
-		//Default the client status to potential
-		btnActive.setSelection(false);
-		btnPotential.setSelection(true);
-	}
-	
-	
-	
-	/**
-	 * Creates a client given the data supplied on the form
-	 * @return True if the client was created
-	 */
-	private boolean createClient()
+	private void populateTable()
 	{
 		Client client = null;
+		TableItem item;
 		
-		if ( isFormDataValid() )
+		clientsTable.removeAll();
+		
+		//Populate our clients
+		while((client = processClient.getNextClient()) != null)
 		{
-			ClientStatus status = null;
-			try {
-				if ( btnActive.getSelection() ) status = ClientStatus.Active;
-				else status = ClientStatus.Potential;
-				
-				client = new Client(txtClientName.getText(), new PhoneNumber(txtPhoneNumberA.getText() + txtPhoneNumberB.getText() + txtPhoneNumberC.getText()), 
-						new Email(txtEmail.getText()), txtAddress.getText(), txtBusinessName.getText(), status);
-				
-				if ( processClient.insertClient( client ) )
-				{
-					clients.add( client );
-					int index = clients.indexOf( client );
-					listClients.add( client.getName() + " - " + client.getBusinessName(), index );
+			item = new TableItem(clientsTable, SWT.NULL);
+			
+			item.setText(0, client.getID() + "");
+			item.setText(1, client.getBusinessName());
+			item.setText(2, client.getName());
+			item.setText(3, client.getStatus().toString());
+			item.setText(4, client.getAddress());
+			item.setText(5, client.getEmail().toString());
+			item.setText(6, client.getPhoneNumber().formattedPhoneNumber());
+		}
+	}
+	
+	/**
+	 * Adds a new client through the new client composite
+	 */
+	private void addNewClient()
+	{
+		//TODO Open new client composite
+		Composite addClientScreen = new Composite( SwitchScreen.content, SWT.None );
+		addClientScreen.setLayout( new FillLayout() );
+		AddClientScreenDrawer acsd = new AddClientScreenDrawer( addClientScreen );
+		SwitchScreen.contentLayout.topControl = addClientScreen;
+		SwitchScreen.content.layout();
+	}
+	
+	/**
+	 * Edits a new client through the edit client composite
+	 */
+	private void editSelectedItem()
+	{
+		int selectedIndex = clientsTable.getSelectionIndex();
+		Client client;
+		
+		if(selectedIndex != -1)
+		{
+			client = processClient.getClientByID(Integer.parseInt(clientsTable.getItem(selectedIndex).getText(0)));
+			if(client != null)
+			{
+				//TODO Open the edit client composite and supply it with the client to edit
+			}
+		}
+	}
+	
+	/**
+	 * Deletes the selected item in the table
+	 */
+	private void deleteSelectedItem()
+	{
+		int selectedIndex = clientsTable.getSelectionIndex();
+		MessageBox dialog;
+		int buttonID;
+		Client client;
+		TableItem selectedItem;
+		
+		if(selectedIndex != -1)
+		{
+			selectedItem = clientsTable.getItem(selectedIndex);
+			
+			//Ensure that the user actually wants to delete the item
+			dialog = new MessageBox(new Shell(), SWT.ICON_WARNING | SWT.YES | SWT.NO);
+			dialog.setText("Confirmation");
+			dialog.setMessage("Are you sure you want to delete " + selectedItem.getText(1) + "?");
+			
+			buttonID = dialog.open();
+			switch(buttonID)
+			{
+				case SWT.YES:
+					client = processClient.getClientByID(Integer.parseInt(selectedItem.getText(0)));
 					
-					clearFields();
-				}
-			}
-			catch ( Exception e ) {
-				client = null;
-			}
-		}
-		
-		return ( client != null );
-	}
-	
-	
-	
-	/**
-	 * Provides very simple validation to ensure that the form data
-	 * contains some data.
-	 * @return True if valid
-	 */
-	private boolean isFormDataValid()
-	{
-		// check if the fields have something in them
-		if ( txtClientName.getText() == "" ) return false;
-		if ( txtBusinessName.getText() == "" ) return false;
-		if ( txtEmail.getText() == "" ) return false;
-		if ( txtPhoneNumberA.getText() == "" ) return false;
-		if ( txtPhoneNumberB.getText() == "" ) return false;
-		if ( txtPhoneNumberC.getText() == "" ) return false;
-		
-		return true;
-	}
-	
-	
-	/**
-	 * Opens the currently selected client for editing
-	 */
-	private void editSelectedClient()
-	{
-		int selectedIndex = listClients.getSelectionIndex();
-		if ( selectedIndex != -1 && selectedIndex < clients.size() )
-		{
-			Client client = clients.get( selectedIndex );
-			
-			addUpdateSwitcher.topControl = btnUpdate;
-			addUpdateHolder.layout();
-			
-			populateFields( client );
-		}
-	}
-	
-	
-	/**
-	 * Populates all of the fields for a specific client
-	 * @param client The client to show
-	 */
-	private void populateFields( Client client )
-	{
-		assert( client != null );
-		if ( client != null )
-		{
-			txtClientName.setText( client.getName() );
-			txtBusinessName.setText( client.getBusinessName() );
-			txtAddress.setText( client.getAddress() );
-			txtEmail.setText( client.getAddress() );
-			/*
-			// Split the phone number into the three components
-			String phoneNumber = client.getPhoneNumber();
-			if(phoneNumber.length() == Client.PHONE_NUMBER_LENGTH)
-			{
-				txtPhoneNumberA.setText(phoneNumber.substring(0, 3));
-				txtPhoneNumberB.setText(phoneNumber.substring(3, 6));
-				txtPhoneNumberC.setText(phoneNumber.substring(6));
-			}
-			*/
-			// Set the given client's status
-			if(client.getStatus() == ClientStatus.Active)
-			{
-				btnActive.setSelection(true);
-				btnPotential.setSelection(false);
-			}
-			else if(client.getStatus() == ClientStatus.Potential)
-			{
-				btnActive.setSelection(false);
-				btnPotential.setSelection(true);
+					if(client != null)
+						processClient.deleteClient(client);
+					
+					clientsTable.remove(selectedIndex);
+					
+					break;
+					
+				case SWT.NO:
+					break;
 			}
 		}
-	}
-	
-	
-	/**
-	 * Processes the new button and sets up the window for a new client
-	 */
-	private void processNewButton()
-	{
-		addUpdateSwitcher.topControl = btnAdd;
-		listClients.setSelection( -1 );
-		clearFields();
-	}
-	
-	
-	/**
-	 * Validates a textbox event to ensure that its textbox is only numeric
-	 * @param event The textbox event to validate
-	 * @param maxLength	The maximum length of the numeric string
-	 */
-	private void verifyNumericTextbox( VerifyEvent event, int maxLength )
-	{
-		System.out.println( "VERIFYING NUMERIC TEXTBOX" );
 	}
 }

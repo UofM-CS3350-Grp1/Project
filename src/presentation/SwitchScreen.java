@@ -15,7 +15,7 @@ import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
-import presentation.NewClientScreenDrawer;
+import presentation.ClientScreenDrawer;
 
 public class SwitchScreen {
 	private static final int WIN_WIDTH = 640;
@@ -84,7 +84,7 @@ public class SwitchScreen {
 		final Composite clientScreen = new Composite( content, SWT.None );
 		clientScreen.setLayout( new FillLayout() );
 		//ClientScreenDrawer csd = new ClientScreenDrawer( clientScreen );
-		NewClientScreenDrawer csd = new NewClientScreenDrawer( clientScreen );
+		ClientScreenDrawer csd = new ClientScreenDrawer( clientScreen );
 		
 		/*
 		 *  gives the clients button the ability to switch to the client composite
