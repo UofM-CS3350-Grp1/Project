@@ -67,7 +67,14 @@ public class ServiceScreenDrawer extends BaseStorableScreenDrawer
 	 */
 	protected void addNew()
 	{
-		//TODO Open new service composite
+		Composite addNewService;
+		Service service = null;
+
+		addNewService = new Composite(SwitchScreen.getContent(), SWT.None);
+		addNewService.setLayout(new FillLayout());
+		new AddServiceScreenDrawer(addNewService);
+		SwitchScreen.setcontentLayoutTopControl(addNewService);
+		SwitchScreen.getContent().layout();
 	}
 	
 	/**
@@ -95,7 +102,7 @@ public class ServiceScreenDrawer extends BaseStorableScreenDrawer
 	{
 		int selectedIndex = table.getSelectionIndex();
 		int index, id;
-		Composite viewServicePerformance;
+		Composite viewService;
 		Service service;
 
 		if(selectedIndex != -1)
@@ -108,11 +115,10 @@ public class ServiceScreenDrawer extends BaseStorableScreenDrawer
 				
 				if(service != null)
 				{
-					//Open the service performance tracking screen
-					viewServicePerformance = new Composite(SwitchScreen.getContent(), SWT.None);
-					viewServicePerformance.setLayout(new FillLayout());
-					new PerformanceServiceScreenDrawer(viewServicePerformance, service);
-					SwitchScreen.setcontentLayoutTopControl(viewServicePerformance);
+					viewService = new Composite(SwitchScreen.getContent(), SWT.None);
+					viewService.setLayout(new FillLayout());
+					new PerformanceServiceScreenDrawer(viewService, service);
+					SwitchScreen.setcontentLayoutTopControl(viewService);
 					SwitchScreen.getContent().layout();
 				}
 			}
