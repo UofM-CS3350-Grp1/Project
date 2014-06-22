@@ -60,7 +60,7 @@ public class TrackedFeature implements Storable
 	 */
 	public TrackedFeature(String featureName, String notes, int id) throws IllegalArgumentException
 	{
-		if(featureName != null && !featureName.isEmpty() && notes != null)
+		if(featureName != null && !featureName.isEmpty() && notes != null && id >= 0)
 		{
 			this.id = id;
 			this.featureName = featureName;
@@ -117,8 +117,8 @@ public class TrackedFeature implements Storable
 	 */
 	public void setNotes(String notes) 
 	{
-		assert (notes != null && !notes.isEmpty());
-		if(notes != null && !notes.isEmpty())
+		assert (notes != null);
+		if(notes != null)
 			this.notes = notes;
 	}
 	
