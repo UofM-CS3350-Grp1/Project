@@ -34,6 +34,32 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Testing
+Date: 6/22, 4:30am
+Assigned to: Tim
+Status: Completed
+Duration: 30 minutes
+Description:	Created some tests for email, phone number and tracked features.
+
+
+Task: Build Scripts
+Date: 6/22, 4:00am
+Assigned to: Tim
+Status: Completed
+Duration: 10 minutes
+Description:	Updated the build scripts to compile and run the application.
+
+
+Task: UI
+Date: 6/22, 3:00am
+Assigned to: Tim
+Status: In progress
+Duration: 1.5 hour
+Description:	Created initial service tracking screen.
+				Setup and included a graph library.
+				Created a few graphs with dummy data until the tracking features and history are implemented.
+
+
 Task: UI
 Date: 6/21, 5:00am
 Assigned to: Tim
