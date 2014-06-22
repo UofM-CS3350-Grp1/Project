@@ -15,11 +15,13 @@ public class DBInterface
 {
 	private DBController mainDB;
 	private String dbName;
+	private DBParser parser;
 	
 	public DBInterface(String dbName)
 	{
 		if(dbName != null)
 		{
+			this.parser = new DBParser();
 			this.dbName = dbName;
 			this.mainDB = new DBController(dbName);
 		}
@@ -48,6 +50,7 @@ public class DBInterface
 		ArrayList<Service> storage = new ArrayList<Service>();
 		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
 		ArrayList<String> conditions = new ArrayList<String>();
+		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
 		
 		conditions.add("ROW_ID");
 		conditions.add("= ");
@@ -55,7 +58,9 @@ public class DBInterface
 		
 		clauses.add(conditions);
 		
-		storage = this.mainDB.queryServices(clauses);
+		returnValue  = this.mainDB.query("SERVICES", clauses);
+		
+		storage = parser.parseServices(returnValue);
 		
 		if(storage.size() != 1)
 		{

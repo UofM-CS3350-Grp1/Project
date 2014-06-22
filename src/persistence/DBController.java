@@ -20,8 +20,8 @@ import java.util.Locale;
 
 public class DBController 
 {
-	private final int SQL_DEBUGGING = 0; //1 for full SQL output, 0 to disable.
-	private final int ERROR_LOG = 0; //1 for error log, 0 to disable.
+	private final int SQL_DEBUGGING = 1; //1 for full SQL output, 0 to disable.
+	private final int ERROR_LOG = 1; //1 for error log, 0 to disable.
 	
 	private String dbName;
 	private String dbType;
@@ -314,6 +314,65 @@ public class DBController
 	}
 	
 	/**
+	 * QUERYTRACKEDFEATURES()													</br></br>
+	 * 
+	 * NOTES:	Instantiates tracked features objects based on input clauses.
+	 * 
+	 * @param clauses	-	WHERE clauses.get(1)... etc.				</br></br>
+	 * 
+	 * @return	-	?													</br></br>
+	 * 
+	 */
+	
+	public ArrayList<ArrayList<String>> query(String tableTarget, ArrayList<ArrayList<String>> clauses)
+	{
+		int counter = 0;
+		ArrayList<ArrayList<String>> output = new ArrayList<ArrayList<String>>();
+		boolean validator = queryValidator(null, null, clauses);
+		String query = "";
+		ArrayList<String> fields = new ArrayList<String>();
+
+		if(validator)
+		{
+			query = queryBuilder(tableTarget, null, null, clauses);	//Returns full objects so No Joins/All Values
+			fields = fieldBuilder(tableTarget); //Retrieves columns from CONTRACTS table
+			
+			if(SQL_DEBUGGING == 1)
+				System.out.println(query);
+			
+			try
+			{
+				cmdString = query;
+				rs3 = st1.executeQuery(cmdString);
+				counter = rs3.getMetaData().getColumnCount();
+				while(rs3.next())
+				{
+					ArrayList<String> row = new ArrayList<String>();
+					//Appends services to output based on query results.
+					for(int i = 0; i < counter; i++)
+					{
+						row.add(rs3.getString(fields.get(i)));
+					}
+					
+					output.add(row);
+				}
+			}
+			catch(Exception e)
+			{
+				errorOutput(e);
+			}
+		}
+		else
+		{
+			output = null;
+			if(ERROR_LOG == 1)
+				System.out.println("Invaid Contract query.");
+		}
+		
+		return output;
+	}
+	
+	/**
 	 * QUERYSERVICES()													</br></br>
 	 * 
 	 * NOTES:	Instantiates service object based on input clauses.
@@ -513,7 +572,7 @@ public class DBController
 		if(validator)
 		{
 			query = queryBuilder("FEATURE", null, null, clauses);	//Returns full objects so No Joins/All Values
-			fields = fieldBuilder("FESTURE"); //Retrieves columns from CONTRACTS table
+			fields = fieldBuilder("FEATURE"); //Retrieves columns from CONTRACTS table
 			
 			if(SQL_DEBUGGING == 1)
 				System.out.println(query);

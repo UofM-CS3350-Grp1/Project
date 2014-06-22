@@ -32,6 +32,8 @@ public class TestDBController {
 		ArrayList<ArrayList<String>> conditions3 = new ArrayList<ArrayList<String>>();
 		ArrayList<ArrayList<String>> conditions4 = new ArrayList<ArrayList<String>>();
 		
+		Client samp = new Client(234, "Joe Doe", new PhoneNumber("2135552222"), new Email("joedoe@gmail.com"), "223 Main St.", "Joes Business", 1);
+		
 		clauses.add("ROW_ID");
 		clauses.add("=");
 		clauses.add("1");
@@ -50,6 +52,14 @@ public class TestDBController {
 		
 		assertNotNull("BlindSQL -> Null", controller.blindQuery("SELECT * FROM CLIENTS"));
 		assertTrue("BlindSQL -> Not Array List", controller.blindQuery("SELECT * FROM CLIENTS") instanceof ArrayList<?>);
+		
+		/*System.out.println();
+		System.out.println();
+		assertNotNull("Test a basic query", controller.query(samp.getTableName(), conditions2));
+		ArrayList<ArrayList<String>> holder = controller.query(samp.getTableName(), conditions2);
+		System.out.println();
+		System.out.println();
+		*/
 		
 		assertNotNull("Contracts -> Can't Run Basic Query", controller.queryContracts(conditions));
 		assertNotNull("Services -> Can't Run Basic Query", controller.queryServices(conditions));
