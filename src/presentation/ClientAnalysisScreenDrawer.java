@@ -1,14 +1,28 @@
 package presentation;
 
 import objects.Client;
+import objects.Service;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.widgets.Table;
+import org.jfree.experimental.chart.swt.ChartComposite;
+
+import persistence.StubDBInterface;
+import business.GenerateLineGraph;
+import business.ProcessService;
+
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 /*
  * To Do:
@@ -27,6 +41,7 @@ import org.eclipse.swt.widgets.Table;
  */
 public class ClientAnalysisScreenDrawer
 {
+	private ScrolledComposite scrollComposite;
 	private Composite composite;
 	private Table servicesTable;
 	private Client client;
@@ -38,23 +53,34 @@ public class ClientAnalysisScreenDrawer
 	private Label lblPhoneNumberData;
 	private Label lblStatusData;
 	
+	private ProcessService processService;
+	
+	private ChartComposite chartComposite;
+	private Button btnViewSelected;
+	
 	/**
 	 * Creates a new client analysis screen
 	 * @param container 	The composite
 	 */
 	public ClientAnalysisScreenDrawer(Composite container, Client client) throws IllegalArgumentException 
 	{
-		composite = new Composite(container, SWT.BORDER);
+		scrollComposite = new ScrolledComposite(container, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
+		
+		composite = new Composite(scrollComposite, SWT.NONE);
 		composite.setLayout(new GridLayout(1, false));	
+		
+		scrollComposite.setContent(composite);
 		
 		if(client != null)
 			this.client = client;
 		else
 			throw new IllegalArgumentException();
 		
+		processService = new ProcessService();
+		
 		Composite clientDataComposite = new Composite(composite, SWT.NONE);
 		clientDataComposite.setLayout(new GridLayout(5, false));
-		GridData gd_clientDataComposite = new GridData(SWT.FILL, SWT.FILL, false, false, 1, 1);
+		GridData gd_clientDataComposite = new GridData(GridData.FILL_BOTH);
 		gd_clientDataComposite.heightHint = 129;
 		gd_clientDataComposite.widthHint = 486;
 		clientDataComposite.setLayoutData(gd_clientDataComposite);
@@ -133,7 +159,7 @@ public class ClientAnalysisScreenDrawer
 		
 		Composite serviceDataComposite = new Composite(composite, SWT.NONE);
 		serviceDataComposite.setLayout(new GridLayout(1, false));
-		GridData gd_serviceDataComposite = new GridData(SWT.FILL, SWT.FILL, false, false, 1, 1);
+		GridData gd_serviceDataComposite = new GridData(GridData.FILL_BOTH);
 		gd_serviceDataComposite.heightHint = 220;
 		gd_serviceDataComposite.widthHint = 319;
 		serviceDataComposite.setLayoutData(gd_serviceDataComposite);
@@ -144,15 +170,27 @@ public class ClientAnalysisScreenDrawer
 		lblServices.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.BOLD));
 		lblServices.setText("Services");
 		
-		servicesTable = new Table(serviceDataComposite, SWT.BORDER);
+		servicesTable = new Table(serviceDataComposite, SWT.BORDER | SWT.FULL_SELECTION | SWT.V_SCROLL | SWT.H_SCROLL);
 		servicesTable.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		servicesTable.setHeaderVisible(true);
 		servicesTable.setLinesVisible(true);
+		
+		btnViewSelected = new Button(serviceDataComposite, SWT.NONE);
+		btnViewSelected.addSelectionListener(new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected(SelectionEvent arg0) 
+			{
+				viewSelected();
+			}
+		});
+		btnViewSelected.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
+		btnViewSelected.setText("View Selected");
 		new Label(composite, SWT.NONE);
 		
 		Composite performanceComposite = new Composite(composite, SWT.NONE);
 		performanceComposite.setLayout(new GridLayout(1, false));
-		GridData gd_performanceComposite = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
+		GridData gd_performanceComposite = new GridData(GridData.FILL_BOTH);
 		gd_performanceComposite.heightHint = 100;
 		performanceComposite.setLayoutData(gd_performanceComposite);
 		
@@ -164,9 +202,18 @@ public class ClientAnalysisScreenDrawer
 		lblPerformance.setLayoutData(gd_lblPerformance);
 		lblPerformance.setText("Performance");
 		
+		/*chartComposite = new ChartComposite(composite, SWT.HORIZONTAL);
+		GridData gd_chartComposite = new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1);
+		gd_chartComposite.heightHint = 85;
+		chartComposite.setLayoutData(gd_chartComposite);	*/
+				
 		populateClientData();
 		populateServiceData();
 		generateReports();
+		
+		scrollComposite.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+		scrollComposite.setExpandHorizontal(true);
+		scrollComposite.setExpandVertical(true);
 	}
 	
 	/**
@@ -189,6 +236,34 @@ public class ClientAnalysisScreenDrawer
 	{
 		//TODO Get all services that the client is using
 		//TODO Pull the financial data for the most recent period - Revenue and Expenses
+		
+		//TEMPORARY TEST DATA
+		TableItem item;
+		TableColumn column;
+		Service service;
+		final String[] names = { "ID", "Service" };
+		final int[] widths = { 0, 300 };
+		
+		for(int i = 0; i < 2; i++)
+		{
+			column = new TableColumn(servicesTable, SWT.NULL);
+			column.setText(names[i]);
+			column.setWidth(widths[i]);
+		}
+		
+		//Hide the ID field because the user does not need to see
+		//it. It is simply an internal helper to find the associated object.
+		column = servicesTable.getColumn(0);
+		column.setResizable(false);
+		
+		for(int i = 1; i <= 3; i++)
+		{
+			item = new TableItem(servicesTable, SWT.NULL);
+			service = processService.getServiceByID(i);
+			
+			item.setText(0, service.getID() + "");
+			item.setText(1, service.getTitle());
+		}
 	}
 	
 	/**
@@ -199,5 +274,39 @@ public class ClientAnalysisScreenDrawer
 		//TODO Pull all records of each service
 		//TODO Plot each service financial/ feature history on a line graph
 		//Abstract the building of the reports into some new business layer object
+	}
+	
+	/**
+	 * View the performance data for the selected service item
+	 */
+	private void viewSelected()
+	{
+		int index, id;
+		Composite viewServicePerformance;
+		Service service;
+
+		if((index = servicesTable.getSelectionIndex()) != -1)
+		{
+			try
+			{
+				//Extract the service ID from the table
+				id = Integer.parseInt(servicesTable.getItem(index).getText(0));
+				service = processService.getServiceByID(id);
+				
+				if(service != null)
+				{
+					//Open the service performance tracking screen
+					viewServicePerformance = new Composite(SwitchScreen.content, SWT.None);
+					viewServicePerformance.setLayout(new FillLayout());
+					new PerformanceServiceScreenDrawer(viewServicePerformance, service);
+					SwitchScreen.contentLayout.topControl = viewServicePerformance;
+					SwitchScreen.content.layout();
+				}
+			}
+			catch(NumberFormatException nfe) 
+			{
+				System.out.println(nfe);
+			}
+		}
 	}
 }
