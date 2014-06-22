@@ -64,7 +64,6 @@ public class ClientScreenDrawer extends BaseStorableScreenDrawer
 	 */
 	protected void addNew()
 	{
-		//TODO Open new client composite
 		Composite addClientScreen = new Composite( SwitchScreen.content, SWT.None );
 		addClientScreen.setLayout( new FillLayout() );
 		AddClientScreenDrawer acsd = new AddClientScreenDrawer( addClientScreen );
@@ -95,7 +94,33 @@ public class ClientScreenDrawer extends BaseStorableScreenDrawer
 	 */
 	protected void viewSelectedItem()
 	{
-		//TODO Open the ClientAnalysisScreen
+		int index, id;
+		Composite analysisScreen;
+		Client client;
+		
+		if((index = table.getSelectionIndex()) != -1)
+		{
+			try
+			{
+				//Extract the service ID from the table
+				id = Integer.parseInt(table.getItem(index).getText(0));
+				client = processClient.getClientByID(id);
+				
+				if(client != null)
+				{
+					//Open the client performance tracking screen
+					analysisScreen = new Composite(SwitchScreen.content, SWT.None);
+					analysisScreen.setLayout(new FillLayout());
+					new ClientAnalysisScreenDrawer(analysisScreen, client);
+					SwitchScreen.contentLayout.topControl = analysisScreen;
+					SwitchScreen.content.layout();
+				}
+			}
+			catch(NumberFormatException nfe)
+			{
+				System.out.println(nfe);
+			}
+		}
 	}
 	
 	/**

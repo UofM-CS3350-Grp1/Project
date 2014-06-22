@@ -10,11 +10,18 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class GenerateLineGraph
 {
+	/**
+	 * Creates a new line graph generator
+	 */
 	public GenerateLineGraph()
-	{
-		
+	{	
 	}
 	
+	/**
+	 * Generates a chart given the service's history data
+	 * @param service	The service to use
+	 * @return	A chart of the data
+	 */
 	public JFreeChart GenerateChartForService(Service service)
 	{
 		JFreeChart chart = null;
