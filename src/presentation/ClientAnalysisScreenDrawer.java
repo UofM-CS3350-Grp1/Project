@@ -14,10 +14,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.widgets.Table;
-import org.jfree.experimental.chart.swt.ChartComposite;
-
-import persistence.StubDBInterface;
-import business.GenerateLineGraph;
 import business.ProcessService;
 
 import org.eclipse.swt.widgets.Button;
@@ -26,12 +22,8 @@ import org.eclipse.swt.events.SelectionEvent;
 
 /*
  * To Do:
- * 	Implement scrolling feature on panel
  * 	List services related to the client
  * 	Generate performance reports based on all services
- * 
- * Notes:
- * 	This should be opened from the ClientScreenDrawer's View Client Button
  */
 
 /**
@@ -54,8 +46,6 @@ public class ClientAnalysisScreenDrawer
 	private Label lblStatusData;
 	
 	private ProcessService processService;
-	
-	private ChartComposite chartComposite;
 	private Button btnViewSelected;
 	
 	/**
