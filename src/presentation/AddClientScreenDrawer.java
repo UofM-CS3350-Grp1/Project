@@ -222,7 +222,31 @@ public class AddClientScreenDrawer
 				goBackToClientScreen();
 			}
 		});
-	}	
+	}
+	
+	
+	/* LEAVE BLANK */ void fillFields( final Client client ) {
+		assert ( client != null );
+		if ( client != null ) {
+			txtClientName.setText( client.getName() );
+			txtBusinessName.setText( client.getBusinessName() );
+			txtAddress.setText( client.getAddress() );
+			txtEmail.setText( ( client.getEmail() ).getEmail() );
+			txtPhoneNumberA.setText( ( client.getPhoneNumber() ).getAreaCode() );
+			txtPhoneNumberB.setText( ( client.getPhoneNumber() ).getPrefix() );
+			txtPhoneNumberC.setText( ( client.getPhoneNumber() ).getLineNumber() );
+			
+			if ( ( client.getStatus() ) == ClientStatus.Active ) {
+				btnPotential.setSelection( false );
+				btnActive.setSelection( true );
+			}
+			else if ( ( client.getStatus() ) == ClientStatus.Potential ) {
+				btnPotential.setSelection( true );
+				btnActive.setSelection( false );
+			}
+		}
+	}
+
 	
 	protected void goBackToClientScreen()
 	{

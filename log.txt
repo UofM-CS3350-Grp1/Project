@@ -34,6 +34,13 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Clients -> Edit Selected Is Properly Filled
+Date: 6/22
+Assigned to: Dell
+Status: Completed
+Duration: 30 mins
+Description:	Click on someone on the list, then click Edit Selected, and then POW!  Filled fields
+
 Task: Clients -> New Client -> Add Goes Back To ClientScreen
 Date: 6/22
 Assigned to: Dell
