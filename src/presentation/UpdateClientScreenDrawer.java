@@ -45,20 +45,27 @@ public class UpdateClientScreenDrawer extends AddClientScreenDrawer
 		
 		if (isFormDataValid())
 		{
-			//Find our client's status
-			status = (btnActive.getSelection()) ? ClientStatus.Active : ClientStatus.Potential;
-			
-			//Update all the information. There is no doubt a better way...
-			client.setName(txtClientName.getText());
-			client.setPhoneNumber(new PhoneNumber(txtPhoneNumberA.getText() + txtPhoneNumberB.getText() + txtPhoneNumberC.getText()));
-			client.setEmail(new Email(txtEmail.getText()));
-			client.setAddress(txtAddress.getText());
-			client.setBusinessName(txtBusinessName.getText());
-			client.setStatus(status);	
-
-			if(processClient.updateClient(client))
-			{	
-				goBackToClientScreen();
+			try
+			{
+				//Find our client's status
+				status = (btnActive.getSelection()) ? ClientStatus.Active : ClientStatus.Potential;
+				
+				//Update all the information. There is no doubt a better way...
+				client.setName(txtClientName.getText());
+				client.setPhoneNumber(new PhoneNumber(txtPhoneNumberA.getText() + txtPhoneNumberB.getText() + txtPhoneNumberC.getText()));
+				client.setEmail(new Email(txtEmail.getText()));
+				client.setAddress(txtAddress.getText());
+				client.setBusinessName(txtBusinessName.getText());
+				client.setStatus(status);	
+	
+				if(processClient.updateClient(client))
+				{	
+					goBackToClientScreen();
+				}
+			}
+			catch(IllegalArgumentException iae)
+			{
+				//Invalid data. Notify user
 			}
 		}
 	}		
