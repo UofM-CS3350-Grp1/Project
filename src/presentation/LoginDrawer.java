@@ -42,7 +42,7 @@ public class LoginDrawer {
 		lblPass.setText( "Password: ( Type password )" );
 		lblPass.setLayoutData( componentTweaker );
 		
-		Text txtPass = new Text( composite, SWT.BORDER );
+		Text txtPass = new Text( composite, SWT.BORDER | SWT.PASSWORD );
 		txtPass.setLayoutData( componentTweaker );
 		
 		// login button

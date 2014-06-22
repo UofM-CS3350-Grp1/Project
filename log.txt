@@ -34,6 +34,13 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Password Text Hidden
+Date: 6/22 4:14
+Assigned to: Dell
+Status: Completed
+Duration: 20 mins
+Description:	Text entered into the password textbox is now hidden
+
 Task: Back Button Backtracks!
 Date: 6/22
 Assigned to: Dell
