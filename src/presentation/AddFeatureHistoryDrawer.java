@@ -52,7 +52,7 @@ public class AddFeatureHistoryDrawer extends BaseFeatureHistoryDrawer
 			formatter = new SimpleDateFormat("dd/MM/yyyy");
 			date = formatter.parse(dateTime.getDay() + "/" + dateTime.getMonth() + "/" + dateTime.getYear());
 			
-			history = new FeatureHistory(feature, trackedService, Integer.parseInt(txtValue.getText()), date, txtNotes.getText());
+			history = new FeatureHistory(feature, trackedService, trackedService, Integer.parseInt(txtValue.getText()), date, txtNotes.getText());
 			
 			if(processFeatureHistory.addFeatureHistory(history))
 				backToPreviousScreen();

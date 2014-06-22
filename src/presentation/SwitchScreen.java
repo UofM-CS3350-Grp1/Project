@@ -16,6 +16,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
 import presentation.ClientScreenDrawer;
+import presentation.ServiceScreenDrawer;
 
 import java.util.Deque;
 import java.util.ArrayDeque;
@@ -238,5 +239,18 @@ public class SwitchScreen {
 		
 		navButton.setText( label );
 		navButton.setLayoutData( navButtonData );
+	}
+
+
+
+	public static Composite getContent() {
+		// TODO Auto-generated method stub
+		return content;
+	}
+
+
+
+	public static Object setcontentLayoutTopControl(Composite viewServicePerformance) {
+		return contentLayout.topControl = viewServicePerformance;
 	}
 }
