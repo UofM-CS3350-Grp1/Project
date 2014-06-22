@@ -322,17 +322,9 @@ public class DBInterface
 	
 	public void insert(Storable element)
 	{
-		if(element instanceof Client)
+		if(element.getTableName().compareTo("") != 0 && element.getTableName() != null)
 		{
-			this.mainDB.insert("CLIENTS", element);
-		}
-		else if(element instanceof Service)
-		{
-			this.mainDB.insert("SERVICES", element);
-		}
-		else if(element instanceof Contract)
-		{
-			this.mainDB.insert("CONTRACTS", element);
+			mainDB.insert(element.getTableName(), element);
 		}
 		else
 		{
@@ -348,17 +340,9 @@ public class DBInterface
 	
 	public void update(Storable element)
 	{
-		if(element instanceof Client)
+		if(element.getTableName().compareTo("") != 0 && element.getTableName() != null)
 		{
-			this.mainDB.update("CLIENTS", element);
-		}
-		else if(element instanceof Service)
-		{
-			this.mainDB.update("SERVICES", element);
-		}
-		else if(element instanceof Contract)
-		{
-			this.mainDB.update("CONTRACTS", element);
+			mainDB.update(element.getTableName(), element);
 		}
 		else
 		{
@@ -374,20 +358,9 @@ public class DBInterface
 	
 	public void drop(Storable element)
 	{
-		if(element instanceof Client)
+		if(element.getTableName().compareTo("") != 0 && element.getTableName() != null)
 		{
-			Client toDrop = (Client)element;
-			this.mainDB.drop("CLIENTS", toDrop.getID());
-		}
-		else if(element instanceof Service)
-		{
-			Service toDrop = (Service)element;
-			this.mainDB.drop("SERVICES", toDrop.getID());
-		}
-		else if(element instanceof Contract)
-		{
-			Contract toDrop = (Contract)element;
-			this.mainDB.drop("CONTRACTS", toDrop.getID());
+			mainDB.drop(element.getTableName(), element.getID());
 		}
 		else
 		{

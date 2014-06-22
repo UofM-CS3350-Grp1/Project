@@ -25,6 +25,7 @@ public class Client implements Storable, Trackable
 	private String address;
 	private String businessName; 
 	private ClientStatus status;
+	private String tableName;
 
 	/**
 	 * Creates a new client 
@@ -49,6 +50,7 @@ public class Client implements Storable, Trackable
 			this.address = address;
 			this.businessName = businessName;
 			this.status = status;
+			this.tableName = "CLIENTS";
 		}
 		else
 		{
@@ -96,6 +98,7 @@ public class Client implements Storable, Trackable
 				this.status = ClientStatus.Active;
 			else
 				this.status = ClientStatus.Potential;
+			this.tableName = "CLIENTS";
 		}
 		else
 		{
@@ -243,6 +246,16 @@ public class Client implements Storable, Trackable
 		index.add(this.status == ClientStatus.Active ? 1+"" : 0+"");
 		
 		return index;
+	}
+	
+	/**GETTABLENAME()
+	 * 
+	 * Returns the table name of this object.
+	 */
+	
+	public String getTableName()
+	{
+		return this.tableName;
 	}
 	
 	/**

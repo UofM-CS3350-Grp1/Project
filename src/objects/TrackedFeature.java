@@ -11,6 +11,7 @@ public class TrackedFeature implements Storable
 	private String featureName;			//Name of the feature to track
 	private String notes;				//Notes related to the feature
 	private int id;
+	private String tableName;
 	
 	/**
 	 * Creates a new feature tracker
@@ -24,6 +25,7 @@ public class TrackedFeature implements Storable
 			this.id = -1;
 			this.featureName = featureName;
 			this.notes = "";
+			this.tableName = "FEATURE";
 		}
 		else
 		{
@@ -65,6 +67,7 @@ public class TrackedFeature implements Storable
 			this.id = id;
 			this.featureName = featureName;
 			this.notes = notes;
+			this.tableName = "FEATURE";
 		}
 		else
 		{
@@ -120,6 +123,16 @@ public class TrackedFeature implements Storable
 		assert (notes != null);
 		if(notes != null)
 			this.notes = notes;
+	}
+	
+	/**GETTABLENAME()
+	 * 
+	 * Returns the table name of this object.
+	 */
+	
+	public String getTableName()
+	{
+		return this.tableName;
 	}
 	
 }

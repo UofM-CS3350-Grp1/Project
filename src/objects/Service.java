@@ -12,6 +12,7 @@ public class Service implements Storable, Trackable
 	private String type;			// General type of service, could be used for reinstantiating a subclass.
 	private double rate;			// Rate at which this service is charged.
 	private int id;					// Unique Row ID of service.
+	private String tableName;
 		
 	/**
 	 * Creates a new service
@@ -32,6 +33,7 @@ public class Service implements Storable, Trackable
 			this.rate = rate;
 			this.id = id;
 			this.type = type;
+			this.tableName = "SERVICES";
 		}
 		else
 		{
@@ -60,6 +62,7 @@ public class Service implements Storable, Trackable
 			this.rate = rate;
 			this.id = 0;
 			this.type = type;
+			this.tableName = "SERVICES";
 		}
 		else
 		{
@@ -214,6 +217,16 @@ public class Service implements Storable, Trackable
 		return index;
 	}
 	*/
+	
+	/**GETTABLENAME()
+	 * 
+	 * Returns the table name of this object.
+	 */
+	
+	public String getTableName()
+	{
+		return this.tableName;
+	}
 	
 	/**
 	 * @returns The string representation of the service

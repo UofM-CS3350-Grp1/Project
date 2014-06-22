@@ -1,5 +1,6 @@
 package objects;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -9,29 +10,40 @@ import java.util.Date;
  */
 public class FeatureHistory implements Storable
 {
+	private final String DATE_FORMAT = "yyyy-MM-dd";	//The string date representation
+	
 	private TrackedFeature feature;		//The tracked feature this history object is for
-	private Trackable trackedService;	//The service/ client that the history is for
+	private Trackable trackedClient;	//The client that the history is for, null if none
+	private Trackable trackedService;	//The service that the history is for, null if none
 	private double value;				//Value/ performance metric of feature
+	private SimpleDateFormat sdf;
 	private Date date;					//The date of the information
 	private String notes;				//Additional information for this history
+	private String tableName;
+	private int id;
 	
 	/**
 	 * Creates a new feature history
 	 * @param feature 		 The feature we storing history for
-	 * @param trackedService The client/service we are storing history for
+	 * @param trackedClient	The client we are storing history for
+	 * @param trackedService The service we are storing history for
 	 * @param value 		 The value/ performance metric for this period
 	 * @param date			 The period
 	 * @throws IllegalArgumentException
 	 */
-	public FeatureHistory(TrackedFeature feature, Trackable trackedService, double value, Date date) throws IllegalArgumentException
+	public FeatureHistory(TrackedFeature feature, Trackable trackedClient, Trackable trackedService, double value, Date date) throws IllegalArgumentException
 	{
 		if(feature != null && trackedService != null && date != null)
 		{
 			this.feature = feature;
+			this.trackedClient = trackedClient;
 			this.trackedService = trackedService;
 			this.value = value;
 			this.date = date;
 			this.notes = "";
+			this.sdf = new SimpleDateFormat(DATE_FORMAT);
+			this.tableName = "FEATURE_HISTORY";
+			this.id = -1;
 		}
 		else
 		{
@@ -42,21 +54,58 @@ public class FeatureHistory implements Storable
 	/**
 	 * Creates a new feature history
 	 * @param feature 		 The feature we storing history for
-	 * @param trackedService The client/service we are storing history for
+	 * @param trackedCLient  The client we are storing history for.
+	 * @param trackedService The service we are storing history for
 	 * @param value 		 The value/ performance metric for this period
 	 * @param date			 The period
 	 * @param notes 		 Additional documentation for the record
 	 * @throws IllegalArgumentException
 	 */
-	public FeatureHistory(TrackedFeature feature, Trackable trackedService, double value, Date date, String notes) throws IllegalArgumentException
+	public FeatureHistory(TrackedFeature feature, Trackable trackedClient, Trackable trackedService, double value, Date date, String notes) throws IllegalArgumentException
 	{
 		if(feature != null && trackedService != null && date != null)
 		{
 			this.feature = feature;
+			this.trackedClient = trackedClient;
 			this.trackedService = trackedService;
 			this.value = value;
 			this.date = date;
 			this.notes = notes;
+			this.sdf = new SimpleDateFormat(DATE_FORMAT);
+			this.tableName = "FEATURE_HISTORY";
+			this.id = -1;
+		}
+		else
+		{
+			throw new IllegalArgumentException();
+		}
+	}
+	
+	/**
+	 * Creates a new feature history
+	 * @param feature 		 The feature we storing history for
+	 * @param trackedService The service we are storing history for
+	 * @param trackedCleint	 The client we are storing history for, null if empty
+	 * @param value 		 The value/ performance metric for this period
+	 * @param date			 The period
+	 * @param notes 		 Additional documentation for the record
+	 * @param id			Unique id of this object
+	 * @throws IllegalArgumentException
+	 */
+	
+	public FeatureHistory(TrackedFeature feature, Trackable trackedClient, Trackable trackedService, double value, Date date, String notes, int id) throws IllegalArgumentException
+	{
+		if(feature != null && trackedService != null && date != null)
+		{
+			this.feature = feature;
+			this.trackedClient = trackedClient;
+			this.trackedService = trackedService;
+			this.value = value;
+			this.date = date;
+			this.notes = notes;
+			this.sdf = new SimpleDateFormat(DATE_FORMAT);
+			this.tableName = "FEATURE_HISTORY";
+			this.id = id;
 		}
 		else
 		{
@@ -66,14 +115,7 @@ public class FeatureHistory implements Storable
 	
 	public int getID() 
 	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public ArrayList<String> toIndex() 
-	{
-		// TODO Auto-generated method stub
-		return null;
+		return this.id;
 	}
 
 	/**
@@ -157,6 +199,14 @@ public class FeatureHistory implements Storable
 	{
 		return trackedService;
 	}
+	
+	/**
+	 * @return The trackedService
+	 */
+	public Trackable getTrackedClient() 
+	{
+		return trackedClient;
+	}
 
 	/**
 	 * @param trackedService The trackedService to set
@@ -166,6 +216,42 @@ public class FeatureHistory implements Storable
 		assert (trackedService != null);
 		if(trackedService != null)
 			this.trackedService = trackedService;
+	}
+	
+	public ArrayList<String> toIndex() 
+	{
+		ArrayList<String> index = new ArrayList<String>();
+		index.add(""+this.id);
+		
+		if(this.getFeature() != null)
+			index.add(""+this.getFeature().getID());
+		else
+			index.add(""+(-1));
+		
+		if(this.trackedClient == null)
+			index.add(""+(-1));
+		else
+			index.add(""+this.getTrackedClient().getID());
+		
+		if(this.trackedService == null)
+			index.add(""+(-1));
+		else
+			index.add(""+this.getTrackedService().getID());
+		
+		index.add(this.sdf.format(date));
+		index.add(this.notes);
+		
+		return null;
+	}
+	
+	/**GETTABLENAME()
+	 * 
+	 * Returns the table name of this object.
+	 */
+	
+	public String getTableName()
+	{
+		return this.tableName;
 	}
 
 }

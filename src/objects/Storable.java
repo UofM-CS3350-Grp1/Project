@@ -9,4 +9,5 @@ public interface Storable
 {	
 	int getID();
 	ArrayList<String> toIndex();
+	String getTableName();
 }

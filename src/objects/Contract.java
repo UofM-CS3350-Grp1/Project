@@ -3,6 +3,7 @@ package objects;
 import java.util.ArrayList;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+
 import objects.Service;
 
 /**
@@ -21,6 +22,7 @@ public class Contract implements Storable
 	private SimpleDateFormat sdf;
 	private ArrayList<Service> services; //list of services in the contract
 	private Date signedDate;
+	private String tableName;
 	
 	/**
 	 * Creates a new contract
@@ -42,6 +44,7 @@ public class Contract implements Storable
 			this.period = period;
 			this.sdf = new SimpleDateFormat(DATE_FORMAT);
 			this.signedDate = null;
+			this.tableName = "CONTRACTS";
 		}
 		else
 		{
@@ -69,6 +72,7 @@ public class Contract implements Storable
 			this.period = period;
 			this.sdf = new SimpleDateFormat(DATE_FORMAT);
 			this.services = null;
+			this.tableName = "CONTRACTS";
 		}
 		else
 		{
@@ -223,5 +227,15 @@ public class Contract implements Storable
 		index.add(this.sdf.format(period));
 		
 		return index;
+	}
+	
+	/**GETTABLENAME()
+	 * 
+	 * Returns the table name of this object.
+	 */
+	
+	public String getTableName()
+	{
+		return this.tableName;
 	}
 }

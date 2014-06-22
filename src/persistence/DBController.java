@@ -579,7 +579,7 @@ public class DBController
 				while(rs3.next())
 				{
 					//Appends services to output based on query results.
-					output.add(new FeatureHistory(null, null,
+					output.add(new FeatureHistory(null, null, null,
 							 	Double.parseDouble(rs3.getString(6)),//Value
 							 	new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(rs3.getString(fields.get(4))),
 								rs3.getString(fields.get(5)) //Details
