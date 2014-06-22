@@ -34,6 +34,13 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Back Button Backtracks!
+Date: 6/22
+Assigned to: Dell
+Status: Completed ...too well, even filled forms return
+Duration: 2 hours
+Description:	Back button works
+
 Task: Clients -> Edit Selected Is Properly Filled
 Date: 6/22
 Assigned to: Dell

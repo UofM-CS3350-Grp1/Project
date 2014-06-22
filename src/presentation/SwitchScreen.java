@@ -17,16 +17,24 @@ import org.eclipse.swt.events.SelectionEvent;
 
 import presentation.ClientScreenDrawer;
 
+import java.util.Deque;
+import java.util.ArrayDeque;
+
 public class SwitchScreen {
 	private static final int WIN_WIDTH = 640;
 	private static final int WIN_HEIGHT = 480;
 	private static final String WIN_TEXT = "Buzzin' Digital Marketing";
 	
 	static int pageNum = -1;
-	static StackLayout contentLayout;
-	static Composite content;
+	private static StackLayout contentLayout;
+	private static Composite content;
+	
+	private static Deque< Composite > backStack;
+	
 	
 	public static void main( String[] args ) {
+		backStack = new ArrayDeque< Composite >();
+		
 		Display display = Display.getDefault();
 		Shell shell = new Shell();
 		initShell( shell );
@@ -69,6 +77,18 @@ public class SwitchScreen {
 		tuneNavButton( bExit, "EXIT" );
 		
 		/*
+		 * Back button listener
+		 */
+		bBack.addSelectionListener( new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected( SelectionEvent event )
+			{
+				switchBack();
+			}
+		});
+		
+		/*
 		 * create the switching composite
 		 */
 		content = new Composite( shell, SWT.BORDER  );
@@ -77,69 +97,61 @@ public class SwitchScreen {
 		contentLayout = new StackLayout(); // allows switching between composites
 		content.setLayout( contentLayout );
 		
-		
 		/*
 		 *  draws the client screen
 		 */
-		final Composite clientScreen = new Composite( content, SWT.None );
-		clientScreen.setLayout( new FillLayout() );
-		//ClientScreenDrawer csd = new ClientScreenDrawer( clientScreen );
+		Composite clientScreen = SwitchScreen.getContentContainer();
 		ClientScreenDrawer csd = new ClientScreenDrawer( clientScreen );
-		
-		/*
-		 *  gives the clients button the ability to switch to the client composite
-		 */
+		SwitchScreen.switchContent( clientScreen );
 		bClients.addSelectionListener( new SelectionAdapter()
 		{
 			@Override
 			public void widgetSelected( SelectionEvent event )
 			{
-				contentLayout.topControl = clientScreen;
-				content.layout();
+				Composite clientScreen = SwitchScreen.getContentContainer();
+				ClientScreenDrawer csd = new ClientScreenDrawer( clientScreen );
+				SwitchScreen.switchContent( clientScreen );
 			}
 		});
 		
 		
 		/*
-		 *  draws the service screen
+		 * draws the service screen
 		 */
-		final Composite serviceScreen = new Composite( content, SWT.None );
-		serviceScreen.setLayout( new FillLayout() );
+		Composite serviceScreen = SwitchScreen.getContentContainer();
 		ServiceScreenDrawer ssd = new ServiceScreenDrawer( serviceScreen );
-		
-		/*
-		 *  gives the clients button the ability to switch to the client composite
-		 */
+		SwitchScreen.switchContent( serviceScreen );
 		bServices.addSelectionListener( new SelectionAdapter()
 		{
 			@Override
 			public void widgetSelected( SelectionEvent event )
 			{
-				contentLayout.topControl = serviceScreen;
-				content.layout();
+				Composite serviceScreen = SwitchScreen.getContentContainer();
+				ServiceScreenDrawer ssd = new ServiceScreenDrawer( serviceScreen );
+				SwitchScreen.switchContent( serviceScreen );
 			}
 		});
 		
 		
 		/*
-		 *  draws the login screen
+		 * draws the login screen
 		 */
-		final Composite loginScreen = new Composite( content, SWT.None );
-		loginScreen.setLayout( new FillLayout() );
+		Composite loginScreen = SwitchScreen.getContentContainer();
 		LoginDrawer ld = new LoginDrawer( loginScreen );
-		
-		/*
-		 *  gives the login button the ability to switch to the client composite
-		 */
+		SwitchScreen.switchContent( loginScreen );
 		bLogin.addSelectionListener( new SelectionAdapter()
 		{
 			@Override
 			public void widgetSelected( SelectionEvent event )
 			{
-				contentLayout.topControl = loginScreen;
-				content.layout();
+				Composite loginScreen = SwitchScreen.getContentContainer();
+				LoginDrawer ld = new LoginDrawer( loginScreen );
+				SwitchScreen.switchContent( loginScreen );
 			}
 		});
+		
+		
+		backStack.clear();
 		
 		/*
 		 *  exits the program
@@ -159,10 +171,6 @@ public class SwitchScreen {
 		shell.open();
 		shell.layout();
 		
-		contentLayout.topControl = loginScreen;
-		content.layout();
-		
-		
 		while ( ! shell.isDisposed() ) {
 			if ( ! display.readAndDispatch() ) {
 				display.sleep();
@@ -170,6 +178,41 @@ public class SwitchScreen {
 		}
 		
 		// System.out.println( "END." );
+	}
+	
+	
+	
+	/*
+	 * provide a container for new content
+	 */
+	/* PACKAGE */ static Composite getContentContainer() {
+		Composite container = new Composite( content, SWT.None );
+		container.setLayout( new FillLayout() );
+		
+		return container;
+	}
+	
+	/*
+	 * switch content with container
+	 */
+	/* PACKAGE */ static void switchContent( Composite container ) {
+		if ( contentLayout.topControl != null )	backStack.push( ( Composite ) contentLayout.topControl );
+			
+		contentLayout.topControl = container;
+		content.layout();
+	}
+	
+	
+	/*
+	 * Back button functionality
+	 */
+	private static void switchBack() {
+		if ( ! backStack.isEmpty() ) {
+			Composite lastContainer = backStack.pop();
+		
+			contentLayout.topControl = lastContainer;
+			content.layout();
+		}
 	}
 	
 	/*

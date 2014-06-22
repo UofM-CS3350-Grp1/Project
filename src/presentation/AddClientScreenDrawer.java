@@ -229,11 +229,16 @@ public class AddClientScreenDrawer
 	 */
 	protected void goBackToClientScreen()
 	{
+		Composite clientScreen = SwitchScreen.getContentContainer();
+		new ClientScreenDrawer( clientScreen );
+		SwitchScreen.switchContent( clientScreen );
+		/*
 		Composite clientScreen = new Composite( SwitchScreen.content, SWT.None );
 		clientScreen.setLayout( new FillLayout() );
 		ClientScreenDrawer acsd = new ClientScreenDrawer( clientScreen );
 		SwitchScreen.contentLayout.topControl = clientScreen;
 		SwitchScreen.content.layout();
+		*/
 	}
 	
 	/**
