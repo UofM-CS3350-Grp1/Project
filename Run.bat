@@ -2,6 +2,6 @@
 
 call setClasspath
 echo Running program...
-java presentation.HomeScreen
+java presentation.SwitchScreen
 
 pause
