@@ -39,10 +39,9 @@ public class UpdateClientScreenDrawer extends AddClientScreenDrawer
 	 * Creates a client given the data supplied on the form
 	 * @return True if the client was created
 	 */
-	protected boolean processActionButton()
+	protected void processActionButton()
 	{		
 		ClientStatus status = null;
-		boolean processed = false;
 		
 		if (isFormDataValid())
 		{
@@ -59,11 +58,9 @@ public class UpdateClientScreenDrawer extends AddClientScreenDrawer
 
 			if(processClient.updateClient(client))
 			{	
-				processed = true;
+				goBackToClientScreen();
 			}
 		}
-		
-		return processed;
 	}		
 	
 	/**
@@ -75,7 +72,7 @@ public class UpdateClientScreenDrawer extends AddClientScreenDrawer
 		txtClientName.setText(client.getName());
 		txtBusinessName.setText(client.getBusinessName());
 		txtAddress.setText(client.getAddress());
-		txtEmail.setText(client.getAddress());
+		txtEmail.setText(client.getEmail().toString());
 		
 		txtPhoneNumberA.setText(client.getPhoneNumber().getAreaCode());
 		txtPhoneNumberB.setText(client.getPhoneNumber().getPrefix());

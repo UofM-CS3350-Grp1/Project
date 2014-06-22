@@ -66,7 +66,7 @@ public class ClientScreenDrawer extends BaseStorableScreenDrawer
 	{
 		Composite addClientScreen = new Composite( SwitchScreen.content, SWT.None );
 		addClientScreen.setLayout( new FillLayout() );
-		AddClientScreenDrawer acsd = new AddClientScreenDrawer( addClientScreen );
+		new AddClientScreenDrawer( addClientScreen );
 		SwitchScreen.contentLayout.topControl = addClientScreen;
 		SwitchScreen.content.layout();
 	}
@@ -84,11 +84,9 @@ public class ClientScreenDrawer extends BaseStorableScreenDrawer
 			client = processClient.getClientByID(Integer.parseInt(table.getItem(selectedIndex).getText(0)));
 			if(client != null)
 			{
-				//TODO Open the edit client composite and supply it with the client to edit
 				Composite editClientScreen = new Composite( SwitchScreen.content, SWT.None );
 				editClientScreen.setLayout( new FillLayout() );
-				AddClientScreenDrawer acsd = new AddClientScreenDrawer( editClientScreen );
-				acsd.fillFields( client );
+				new UpdateClientScreenDrawer(editClientScreen, client);
 				SwitchScreen.contentLayout.topControl = editClientScreen;
 				SwitchScreen.content.layout();
 			}

@@ -224,33 +224,11 @@ public class AddClientScreenDrawer
 		});
 	}
 	
-	
-	/* LEAVE BLANK */ void fillFields( final Client client ) {
-		assert ( client != null );
-		if ( client != null ) {
-			txtClientName.setText( client.getName() );
-			txtBusinessName.setText( client.getBusinessName() );
-			txtAddress.setText( client.getAddress() );
-			txtEmail.setText( ( client.getEmail() ).getEmail() );
-			txtPhoneNumberA.setText( ( client.getPhoneNumber() ).getAreaCode() );
-			txtPhoneNumberB.setText( ( client.getPhoneNumber() ).getPrefix() );
-			txtPhoneNumberC.setText( ( client.getPhoneNumber() ).getLineNumber() );
-			
-			if ( ( client.getStatus() ) == ClientStatus.Active ) {
-				btnPotential.setSelection( false );
-				btnActive.setSelection( true );
-			}
-			else if ( ( client.getStatus() ) == ClientStatus.Potential ) {
-				btnPotential.setSelection( true );
-				btnActive.setSelection( false );
-			}
-		}
-	}
-
-	
+	/**
+	 * Go back to the client screen
+	 */
 	protected void goBackToClientScreen()
 	{
-		//TODO Go back to the client screen
 		Composite clientScreen = new Composite( SwitchScreen.content, SWT.None );
 		clientScreen.setLayout( new FillLayout() );
 		ClientScreenDrawer acsd = new ClientScreenDrawer( clientScreen );
@@ -262,7 +240,7 @@ public class AddClientScreenDrawer
 	 * Creates a client given the data supplied on the form
 	 * @return True if the client was created
 	 */
-	protected boolean processActionButton()
+	protected void processActionButton()
 	{
 		Client client = null;
 		
@@ -288,8 +266,6 @@ public class AddClientScreenDrawer
 				client = null;
 			}
 		}
-		
-		return (client != null);
 	}	
 	
 	/**
