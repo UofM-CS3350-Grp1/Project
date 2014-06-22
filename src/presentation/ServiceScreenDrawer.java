@@ -3,6 +3,7 @@ package presentation;
 import objects.Service;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
@@ -19,11 +20,13 @@ public class ServiceScreenDrawer extends BaseStorableScreenDrawer
 	private static final String[] tableColumnNames = { "ID", "Title", "Description", "Rate", "Type" };
 	private static final int[] tableWidths = { 0, 150, 250, 100, 150 };
 	private ProcessService processService;
+	TableItem item;
 	
 	/*
 	 * Call the constructor with a shell's main component as <container>
 	 * and it will be added to that component;
 	 */
+	
 	public ServiceScreenDrawer( Composite container )
 	{
 		super(container);
@@ -40,7 +43,6 @@ public class ServiceScreenDrawer extends BaseStorableScreenDrawer
 	protected void populateTable()
 	{
 		Service service = null;
-		TableItem item;
 		
 		table.removeAll();
 		
@@ -87,11 +89,38 @@ public class ServiceScreenDrawer extends BaseStorableScreenDrawer
 	}
 	
 	/**
-	 * View the selected service through one of the analysis windows
+	 * View the selected service
 	 */
 	protected void viewSelectedItem()
 	{
-		//TODO Open the service analysis screen
+		int selectedIndex = table.getSelectionIndex();
+		int index, id;
+		Composite viewServicePerformance;
+		Service service;
+
+		if(selectedIndex != -1)
+		{
+			try
+			{
+				//Extract the service ID from the table
+				id = Integer.parseInt(table.getItem(selectedIndex).getText(0));
+				service = processService.getServiceByID(id);
+				
+				if(service != null)
+				{
+					//Open the service performance tracking screen
+					viewServicePerformance = new Composite(SwitchScreen.getContent(), SWT.None);
+					viewServicePerformance.setLayout(new FillLayout());
+					new PerformanceServiceScreenDrawer(viewServicePerformance, service);
+					SwitchScreen.setcontentLayoutTopControl(viewServicePerformance);
+					SwitchScreen.getContent().layout();
+				}
+			}
+			catch(NumberFormatException nfe) 
+			{
+				System.out.println(nfe);
+			}
+		}
 	}
 	
 	/**
