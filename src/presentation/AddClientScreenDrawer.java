@@ -45,6 +45,7 @@ public class AddClientScreenDrawer
 	public AddClientScreenDrawer(Composite container)
 	{
 		composite = new Composite(container, SWT.BORDER);
+		processClient = new ProcessClient();
 		
 		// units = grid columns
 		final int TEXT_WIDTH = 7;
@@ -259,6 +260,7 @@ public class AddClientScreenDrawer
 			}
 			catch (Exception e) 
 			{
+				e.printStackTrace();
 				client = null;
 			}
 		}

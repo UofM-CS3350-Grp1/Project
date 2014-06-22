@@ -34,6 +34,13 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Clients -> New Client -> Add Goes Back To ClientScreen
+Date: 6/22
+Assigned to: Dell
+Status: Completed
+Duration: 15 minutes
+Description:	Fixed a null pointer exception that stopped it from creating clients
+
 Task: Testing
 Date: 6/22, 4:30am
 Assigned to: Tim
