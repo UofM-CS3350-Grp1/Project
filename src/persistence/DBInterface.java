@@ -21,7 +21,7 @@ public class DBInterface
 	{
 		if(dbName != null)
 		{
-			this.parser = new DBParser();
+			this.parser = null;
 			this.dbName = dbName;
 			this.mainDB = new DBController(dbName);
 		}
@@ -29,6 +29,7 @@ public class DBInterface
 	
 	public void connect()
 	{
+		this.parser = new DBParser(this);
 		this.mainDB.connect();
 	}
 	
@@ -52,23 +53,30 @@ public class DBInterface
 		ArrayList<String> conditions = new ArrayList<String>();
 		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
 		
-		conditions.add("ROW_ID");
-		conditions.add("= ");
-		conditions.add(""+id+"");
-		
-		clauses.add(conditions);
-		
-		returnValue  = this.mainDB.query("SERVICES", clauses);
-		
-		storage = parser.parseServices(returnValue);
-		
-		if(storage.size() != 1)
+		if(id > 0)
 		{
-			return null;
+			conditions.add("ROW_ID");
+			conditions.add("= ");
+			conditions.add(""+id+"");
+			
+			clauses.add(conditions);
+			
+			returnValue  = this.mainDB.query("SERVICES", clauses);
+			
+			storage = parser.parseServices(returnValue);
+			
+			if(storage.size() != 1)
+			{
+				return null;
+			}
+			else
+			{
+				return storage.get(0);
+			}
 		}
 		else
 		{
-			return storage.get(0);
+			return null;
 		}
 	}
 	
@@ -85,6 +93,7 @@ public class DBInterface
 		ArrayList<Service> storage = new ArrayList<Service>();
 		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
 		ArrayList<String> conditions = new ArrayList<String>();
+		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
 		
 		conditions.add("TITLE");
 		conditions.add("= ");
@@ -92,7 +101,9 @@ public class DBInterface
 		
 		clauses.add(conditions);
 		
-		storage = this.mainDB.queryServices(clauses);
+		returnValue  = this.mainDB.query("SERVICES", clauses);
+		
+		storage = parser.parseServices(returnValue);
 		
 		if(storage.size() == 0)
 		{
@@ -117,22 +128,33 @@ public class DBInterface
 		ArrayList<Client> storage = new ArrayList<Client>();
 		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
 		ArrayList<String> conditions = new ArrayList<String>();
+		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
 		
-		conditions.add("ROW_ID");
-		conditions.add("= ");
-		conditions.add(""+id+"");
 		
-		clauses.add(conditions);
-		
-		storage = this.mainDB.queryClients(clauses);
-		
-		if(storage.size() != 1)
+		if(id > 0)
 		{
-			return null;
+			conditions.add("ROW_ID");
+			conditions.add("= ");
+			conditions.add(""+id+"");
+			
+			clauses.add(conditions);
+			
+			returnValue  = this.mainDB.query("CLIENTS", clauses);
+			
+			storage = parser.parseClients(returnValue);
+			
+			if(storage.size() != 1)
+			{
+				return null;
+			}
+			else
+			{
+				return storage.get(0);
+			}
 		}
 		else
 		{
-			return storage.get(0);
+			return null;
 		}
 	}
 	
@@ -185,22 +207,32 @@ public class DBInterface
 		ArrayList<Contract> storage = new ArrayList<Contract>();
 		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
 		ArrayList<String> conditions = new ArrayList<String>();
+		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
 		
-		conditions.add("ROW_ID");
-		conditions.add("= ");
-		conditions.add(""+id+"");
-		
-		clauses.add(conditions);
-		
-		storage = this.mainDB.queryContracts(clauses);
-		
-		if(storage.size() != 1)
+		if(id > 0)
 		{
-			return null;
+			conditions.add("ROW_ID");
+			conditions.add("= ");
+			conditions.add(""+id+"");
+			
+			clauses.add(conditions);
+			
+			returnValue  = this.mainDB.query("CONTRACTS", clauses);
+			
+			storage = parser.parseContracts(returnValue);
+			
+			if(storage.size() != 1)
+			{
+				return null;
+			}
+			else
+			{
+				return storage.get(0);
+			}
 		}
 		else
 		{
-			return storage.get(0);
+			return null;
 		}
 	}
 	
@@ -236,42 +268,75 @@ public class DBInterface
 		}
 	}
 	
-	/**
-	 * GETTRACKEDFEATUREFROMPARENT()
-	 * 
-	 * @param element Object with that can handle tackable features.
-	 * @return - Array list containing the tracked features associated with this object otherise null
-	 */
 	
-	public ArrayList<TrackedFeature> getTrackedFeaturesFromParent(Trackable element)
+	public TrackedFeature getTrackedFeatureByID(int id)
 	{
 		ArrayList<TrackedFeature> storage = new ArrayList<TrackedFeature>();
 		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
 		ArrayList<String> conditions = new ArrayList<String>();
+		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
 		
-		if(element instanceof Service)
+		if(id > 0)
 		{
-			conditions.add("SERVICE_ID");
+			conditions.add("ROW_ID");
 			conditions.add("= ");
-			conditions.add("'"+element.getID()+"'");
+			conditions.add(""+id+"");
+			
+			clauses.add(conditions);
+			
+			returnValue  = this.mainDB.query("FEATURE", clauses);
+			
+			storage = parser.parseFeatures(returnValue);
+			
+			if(storage.size() != 1)
+			{
+				return null;
+			}
+			else
+			{
+				return storage.get(0);
+			}
 		}
 		else
-		{
-			conditions.add("CLIENT_ID");
-			conditions.add("= ");
-			conditions.add("'"+element.getID()+"'");
-		}
-		clauses.add(conditions);
-		storage = this.mainDB.queryTrackedFeatures(clauses);
-		
-		if(storage.size() == 0)
 		{
 			return null;
 		}
+		
+	}
+	
+	public FeatureHistory getFeatureHistoryByID(int id)
+	{
+		ArrayList<FeatureHistory> storage = new ArrayList<FeatureHistory>();
+		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+		ArrayList<String> conditions = new ArrayList<String>();
+		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+		
+		if(id > 0)
+		{
+			conditions.add("ROW_ID");
+			conditions.add("= ");
+			conditions.add(""+id+"");
+			
+			clauses.add(conditions);
+			
+			returnValue  = this.mainDB.query("FEATURE_HISTORY", clauses);
+			
+			storage = parser.parseFeatureHistories(returnValue);
+			
+			if(storage.size() != 1)
+			{
+				return null;
+			}
+			else
+			{
+				return storage.get(0);
+			}
+		}
 		else
 		{
-			return storage;
+			return null;
 		}
+		
 	}
 	
 	/**
@@ -287,6 +352,7 @@ public class DBInterface
 		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
 		ArrayList<String> conditions1 = new ArrayList<String>();
 		ArrayList<String> conditions2 = new ArrayList<String>();
+		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
 		
 		if(element instanceof Service)
 		{
@@ -307,7 +373,9 @@ public class DBInterface
 		conditions2.add("= ");
 		conditions2.add("feature.getID()");
 		clauses.add(conditions2);
-		//storage = this.mainDB.queryFeatureHistory(clauses);
+		returnValue = this.mainDB.query("FEATURE_HISTORY",clauses);
+		
+		storage = parser.parseFeatureHistories(returnValue);
 		
 		if(storage.size() == 0)
 		{
@@ -382,7 +450,27 @@ public class DBInterface
 	
 	public ArrayList<Client> dumpClients()
 	{
-		return null;
+		ArrayList<Client> storage = new ArrayList<Client>();
+		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+		ArrayList<String> conditions = new ArrayList<String>();
+		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+		
+		conditions.add("ALL");
+		
+		clauses.add(conditions);
+		
+		returnValue  = this.mainDB.query("CLIENTS", clauses);
+		
+		storage = parser.parseClients(returnValue);
+		
+		if(storage.size() == 0)
+		{
+			return null;
+		}
+		else
+		{
+			return storage;
+		}
 	}
 
 	/**DUMPSERVICES()
@@ -391,9 +479,29 @@ public class DBInterface
 	 * 
 	 */
 
-	ArrayList<Service> dumpServices()
+	public ArrayList<Service> dumpServices()
 	{
-		return null;
+		ArrayList<Service> storage = new ArrayList<Service>();
+		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+		ArrayList<String> conditions = new ArrayList<String>();
+		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+		
+		conditions.add("ALL");
+		
+		clauses.add(conditions);
+		
+		returnValue  = this.mainDB.query("SERVICES", clauses);
+		
+		storage = parser.parseServices(returnValue);
+		
+		if(storage.size() == 0)
+		{
+			return null;
+		}
+		else
+		{
+			return storage;
+		}
 	}
 	
 	/**DUMPCONTRACTS()
@@ -404,7 +512,27 @@ public class DBInterface
 	
 	public ArrayList<Contract> dumpContracts()
 	{
-		return null;
+		ArrayList<Contract> storage = new ArrayList<Contract>();
+		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+		ArrayList<String> conditions = new ArrayList<String>();
+		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+		
+		conditions.add("ALL");
+		
+		clauses.add(conditions);
+		
+		returnValue  = this.mainDB.query("CONTRACTS", clauses);
+		
+		storage = parser.parseContracts(returnValue);
+		
+		if(storage.size() == 0)
+		{
+			return null;
+		}
+		else
+		{
+			return storage;
+		}
 	}
 	
 	/**

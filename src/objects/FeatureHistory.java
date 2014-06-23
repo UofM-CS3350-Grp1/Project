@@ -13,7 +13,6 @@ public class FeatureHistory implements Storable
 	private final String DATE_FORMAT = "yyyy-MM-dd";	//The string date representation
 	
 	private TrackedFeature feature;		//The tracked feature this history object is for
-	private Trackable trackedClient;	//The client that the history is for, null if none
 	private Trackable trackedService;	//The service that the history is for, null if none
 	private double value;				//Value/ performance metric of feature
 	private SimpleDateFormat sdf;
@@ -31,12 +30,12 @@ public class FeatureHistory implements Storable
 	 * @param date			 The period
 	 * @throws IllegalArgumentException
 	 */
-	public FeatureHistory(TrackedFeature feature, Trackable trackedClient, Trackable trackedService, double value, Date date) throws IllegalArgumentException
+	public FeatureHistory(TrackedFeature feature, Trackable trackedService, double value, Date date) throws IllegalArgumentException
 	{
 		if(feature != null && trackedService != null && date != null)
 		{
 			this.feature = feature;
-			this.trackedClient = trackedClient;
+
 			this.trackedService = trackedService;
 			this.value = value;
 			this.date = date;
@@ -61,12 +60,11 @@ public class FeatureHistory implements Storable
 	 * @param notes 		 Additional documentation for the record
 	 * @throws IllegalArgumentException
 	 */
-	public FeatureHistory(TrackedFeature feature, Trackable trackedClient, Trackable trackedService, double value, Date date, String notes) throws IllegalArgumentException
+	public FeatureHistory(TrackedFeature feature, Trackable trackedService, double value, Date date, String notes) throws IllegalArgumentException
 	{
 		if(feature != null && trackedService != null && date != null)
 		{
 			this.feature = feature;
-			this.trackedClient = trackedClient;
 			this.trackedService = trackedService;
 			this.value = value;
 			this.date = date;
@@ -93,12 +91,11 @@ public class FeatureHistory implements Storable
 	 * @throws IllegalArgumentException
 	 */
 	
-	public FeatureHistory(TrackedFeature feature, Trackable trackedClient, Trackable trackedService, double value, Date date, String notes, int id) throws IllegalArgumentException
+	public FeatureHistory(TrackedFeature feature, Trackable trackedService, double value, Date date, String notes, int id) throws IllegalArgumentException
 	{
 		if(feature != null && trackedService != null && date != null)
 		{
 			this.feature = feature;
-			this.trackedClient = trackedClient;
 			this.trackedService = trackedService;
 			this.value = value;
 			this.date = date;
@@ -201,14 +198,6 @@ public class FeatureHistory implements Storable
 	}
 	
 	/**
-	 * @return The trackedService
-	 */
-	public Trackable getTrackedClient() 
-	{
-		return trackedClient;
-	}
-
-	/**
 	 * @param trackedService The trackedService to set
 	 */
 	public void setTrackedService(Trackable trackedService)
@@ -227,11 +216,6 @@ public class FeatureHistory implements Storable
 			index.add(""+this.getFeature().getID());
 		else
 			index.add(""+(-1));
-		
-		if(this.trackedClient == null)
-			index.add(""+(-1));
-		else
-			index.add(""+this.getTrackedClient().getID());
 		
 		if(this.trackedService == null)
 			index.add(""+(-1));

@@ -10,6 +10,7 @@ public class TrackedFeature implements Storable
 {
 	private String featureName;			//Name of the feature to track
 	private String notes;				//Notes related to the feature
+
 	private int id;
 	private String tableName;
 	

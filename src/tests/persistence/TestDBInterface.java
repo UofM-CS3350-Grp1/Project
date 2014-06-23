@@ -18,7 +18,20 @@ public class TestDBInterface {
 		DBInterface mainFace = new DBInterface("Test");
 		mainFace.connect();
 		
-		assertNotNull("Basic query implementation for services", mainFace.getServiceByID(1));
+		assertNotNull("Basic ID implementation for services", mainFace.getServiceByID(1));
+		assertNotNull("Basic ID implementation for clients", mainFace.getClientByID(2));
+		assertNotNull("Basic ID implementation for contracts", mainFace.getContractByID(3));
+		assertNotNull("Basic ID implementation for feature history", mainFace.getFeatureHistoryByID(1));
+		assertNotNull("Basic ID implementation for tracked feature", mainFace.getTrackedFeatureByID(1));
+		
+		
+		assertNotNull("Name query implementation for service", mainFace.getServicesByTitle("SERVICE_1"));
+		
+		//assertNotNull("Feature history retrieval by parent", mainFace.getFeatureHistoryFromParent(mainFace.get));
+		
+		assertNotNull("Table dump, Services", mainFace.dumpServices());
+		assertNotNull("Table dump, Contracts", mainFace.dumpContracts());
+		assertNotNull("Table dump, Clients", mainFace.dumpClients());
 		
 		mainFace.disconnect();
 		
