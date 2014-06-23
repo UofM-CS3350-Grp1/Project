@@ -106,23 +106,18 @@ public class TestDBInterface {
 	{
 		DBInterface mainFace = new DBInterface("Test");
 		mainFace.connect();
+	
+		assertFalse("FeatreHistory null Insert", mainFace.insert(null));
+		assertFalse("TrackedFeature null Insert", mainFace.insert(null));
 		
 		FeatureHistory newHistory = new FeatureHistory(mainFace.getTrackedFeatureByID(1), mainFace.getClientByID(2), 2.0, new Date(), "blahblahblah");
 		TrackedFeature newTracking = new TrackedFeature("BobLoblawsLawBlog", "Lobslawbombs");
-		assertTrue("FeatreHistory Insert", mainFace.insert(newHistory));
-		assertTrue("TrackedFeature Insert", mainFace.insert(newTracking));
 		
-		newHistory = mainFace.getFeatureHistoryByID(4);
-		newTracking = mainFace.getTrackedFeatureByID(4);
+		assertFalse("FeatureHistory update on non-existant index", mainFace.update(newHistory));
+		assertFalse("TrackedFeature update on non-existant index", mainFace.update(newTracking));
 		
-		newHistory.setNotes("NOT blahblahblah");
-		newTracking.setNotes("Notlobbinglawbombs");
-		
-		assertTrue("FeatureHistory update", mainFace.update(newHistory));
-		assertTrue("TrackedFeature update", mainFace.update(newTracking));
-		
-		assertTrue("FeatureHistory drop", mainFace.drop(newHistory));
-		assertTrue("Trackedfeature drop", mainFace.drop(newTracking));
+		assertFalse("FeatureHistory drop on non-existant index", mainFace.drop(newHistory));
+		assertFalse("Trackedfeature drop on non-existant index", mainFace.drop(newTracking));
 
 		mainFace.disconnect();
 	}

@@ -11,6 +11,7 @@ import tests.objects.PhoneNumberTest;
 import tests.objects.ServiceTest;
 import tests.objects.TrackedFeatureTest;
 import tests.persistence.TestDBController;
+import tests.persistence.TestDBInterface;
 
 @RunWith(Suite.class)
 @SuiteClasses(
@@ -21,7 +22,8 @@ import tests.persistence.TestDBController;
 			EmailTest.class,
 			PhoneNumberTest.class,
 			TrackedFeatureTest.class,
-			TestDBController.class
+			TestDBController.class,
+			TestDBInterface.class
 		})
 public class TestAll
 { }
