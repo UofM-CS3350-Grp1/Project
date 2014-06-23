@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import objects.*;
 import persistence.DBController;
+import persistence.DBInterface;
 
 public class TestDBController {
 
@@ -18,76 +19,14 @@ public class TestDBController {
 
 		assertNotNull("Controller is null.",controller);
 	}
-	
-	@Test
-	public void testQueries1()
-	{
-		DBController controller = new DBController("Test");
-		ArrayList<String> clauses = new ArrayList<String>();
-		ArrayList<String> clauses2 = new ArrayList<String>();
-		ArrayList<String> clauses3 = new ArrayList<String>();
-		ArrayList<String> clauses4 = new ArrayList<String>();
-		ArrayList<ArrayList<String>> conditions = new ArrayList<ArrayList<String>>();
-		ArrayList<ArrayList<String>> conditions2 = new ArrayList<ArrayList<String>>();
-		ArrayList<ArrayList<String>> conditions3 = new ArrayList<ArrayList<String>>();
-		ArrayList<ArrayList<String>> conditions4 = new ArrayList<ArrayList<String>>();
-		
-		Client samp = new Client(234, "Joe Doe", new PhoneNumber("2135552222"), new Email("joedoe@gmail.com"), "223 Main St.", "Joes Business", 1);
-		
-		clauses.add("ROW_ID");
-		clauses.add("=");
-		clauses.add("1");
-		conditions.add(clauses);
-		
-		clauses2.add("ALL");
-		conditions2.add(clauses2);
-		
-		clauses3.add("");
-		conditions3.add(clauses3);
-		
-		clauses4.add(null);
-		conditions4.add(clauses4);
 
-		controller.connect();
-		
-		assertNotNull("BlindSQL -> Null", controller.blindQuery("SELECT * FROM CLIENTS"));
-		assertTrue("BlindSQL -> Not Array List", controller.blindQuery("SELECT * FROM CLIENTS") instanceof ArrayList<?>);
-		
-		/*System.out.println();
-		System.out.println();
-		assertNotNull("Test a basic query", controller.query(samp.getTableName(), conditions2));
-		ArrayList<ArrayList<String>> holder = controller.query(samp.getTableName(), conditions2);
-		System.out.println();
-		System.out.println();
-		*/
-		
-		assertNotNull("Contracts -> Can't Run Basic Query", controller.queryContracts(conditions));
-		assertNotNull("Services -> Can't Run Basic Query", controller.queryServices(conditions));
-		assertNotNull("Clients -> Can't Run Basic Query", controller.queryClients(conditions));
-		
-		assertNotNull("Contracts -> Can't Run All Query", controller.queryContracts(conditions2));
-		assertNotNull("Services -> Can't Run All Query", controller.queryServices(conditions2));
-		assertNotNull("Clients -> Can't Run All Query", controller.queryClients(conditions2));
-
-		assertNull("Contracts -> Not returning null on null.", controller.queryContracts(null));
-		assertNull("Services -> Not returning null on null", controller.queryServices(null));
-		assertNull("Clients -> Not returning null on null", controller.queryClients(null));
-		
-		assertNull("Contracts -> Not returning null on empty strings.", controller.queryContracts(conditions3));
-		assertNull("Services -> Not returning null on empty strings", controller.queryServices(conditions3));
-		assertNull("Clients -> Not returning null on empty strings", controller.queryClients(conditions3));
-		
-		assertNull("Contracts -> Not returning null on interior null array.", controller.queryContracts(conditions4));
-		assertNull("Services -> Not returning null on interior null array", controller.queryServices(conditions4));
-		assertNull("Clients -> Not returning null on interior null array", controller.queryClients(conditions4));
-		
-		controller.disconnect();
-	}
 	
 	@Test
 	public void testModify1()
 	{
-		DBController controller = new DBController("Test");
+		DBInterface iFace = new DBInterface("Test");
+		iFace.connect();
+		DBController controller = iFace.getController();
 		
 		Client clientTest = new Client(234, "Joe Doe", new PhoneNumber("2135552222"), new Email("joedoe@gmail.com"), "223 Main St.", "Joes Business", 1);
 		ArrayList<String> clauses = new ArrayList<String>();
@@ -105,7 +44,7 @@ public class TestDBController {
 		assertFalse("Controller believed it could insert into an inexistant tale.", controller.insert("", clientTest) != -1);
 		assertFalse("Controller believed it could insert a null object.", controller.update("CLIENTS", null) == true);
 		
-		clientTest = controller.queryClients(conditions).get(0);
+		clientTest = iFace.getClientByID(4);
 		assertTrue("Controller failed to update and has returned false.", controller.update("CLIENTS", clientTest));
 		assertFalse("Controller believed it could update a null table.", controller.update(null, clientTest) == true);
 		assertFalse("Controller believed it could update a null object.", controller.update("CLIENTS", null) == true);

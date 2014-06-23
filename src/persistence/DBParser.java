@@ -61,7 +61,7 @@ public class DBParser
 		return output;
 	}
 	
-	public static ArrayList<Contract> parseContracts(ArrayList<ArrayList<String>> input)
+	public ArrayList<Contract> parseContracts(ArrayList<ArrayList<String>> input)
 	{
 		
 		ArrayList<Contract> output = new ArrayList<Contract>();
@@ -126,9 +126,6 @@ public class DBParser
 					input.get(i).get(5),
 					Integer.parseInt(input.get(i).get(0))
 					);
-			System.out.println(item);
-
-			
 			output.add(item);
 		}
 		

@@ -7,13 +7,14 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import objects.*;
+import objects.Client.ClientStatus;
 import persistence.DBController;
 import persistence.DBInterface;
 
 public class TestDBInterface {
 
 	@Test
-	public void testRetrieval() 
+	public void testValidRetrieval() 
 	{
 		DBInterface mainFace = new DBInterface("Test");
 		mainFace.connect();
@@ -24,10 +25,14 @@ public class TestDBInterface {
 		assertNotNull("Basic ID implementation for feature history", mainFace.getFeatureHistoryByID(1));
 		assertNotNull("Basic ID implementation for tracked feature", mainFace.getTrackedFeatureByID(1));
 		
-		
 		assertNotNull("Name query implementation for service", mainFace.getServicesByTitle("SERVICE_1"));
+		assertNotNull("Contracts by business test", mainFace.getContractsByBusiness("Business 2"));
+		assertNotNull("Clients by Ststus test", mainFace.getClientsByStatus(ClientStatus.Active));
 		
-		assertNotNull("Feature history retrieval by parent", mainFace.getFeatureHistoryFromParent(mainFace.getClientByID(1), mainFace.getTrackedFeatureByID(1)));
+		assertNotNull("Feature history retrieval by client", mainFace.getFeatureHistoryFromParent(mainFace.getClientByID(1), mainFace.getTrackedFeatureByID(1)));
+		assertNotNull("Feature history retrieval by service", mainFace.getFeatureHistoryFromParent(mainFace.getServiceByID(2), mainFace.getTrackedFeatureByID(2)));
+		
+		assertNotNull("Feature by type", mainFace.getTrackedFeatureByTitle("Page Hits"));
 		
 		assertNotNull("Table dump, Services", mainFace.dumpServices());
 		assertNotNull("Table dump, Contracts", mainFace.dumpContracts());
