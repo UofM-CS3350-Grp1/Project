@@ -1,6 +1,9 @@
 package presentation;
 
+import javax.swing.JOptionPane;
+
 import objects.Service;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -11,7 +14,9 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+
 import business.ProcessService;
+
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
 
@@ -142,7 +147,7 @@ public class AddServiceScreenDrawer
 		}
 		catch(Exception e)
 		{
-			//Do nothing, invalid data 
+			JOptionPane.showMessageDialog(null, "Error creating new service");
 		}
 	}
 	
@@ -151,7 +156,9 @@ public class AddServiceScreenDrawer
 	 */
 	protected void goBackToServiceScreen()
 	{
-		//TODO Go back to service screen
+		Composite serviceScreen = SwitchScreen.getContentContainer();
+		ServiceScreenDrawer ssd = new ServiceScreenDrawer( serviceScreen );
+		SwitchScreen.switchContent( serviceScreen );
 	}
 	
 	/**

@@ -90,7 +90,9 @@ public class ServiceScreenDrawer extends BaseStorableScreenDrawer
 			service = processService.getServiceByID(Integer.parseInt(table.getItem(selectedIndex).getText(0)));
 			if(service != null)
 			{
-				//TODO Open the edit service composite and supply it with the service to edit
+				Composite editServiceScreen = SwitchScreen.getContentContainer();
+				new UpdateServiceScreenDrawer( editServiceScreen, service );
+				SwitchScreen.switchContent( editServiceScreen );
 			}
 		}
 	}
