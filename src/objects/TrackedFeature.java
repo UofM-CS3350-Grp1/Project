@@ -46,6 +46,7 @@ public class TrackedFeature implements Storable
 			this.id = -1;
 			this.featureName = featureName;
 			this.notes = notes;
+			this.tableName = "FEATURE";
 		}
 		else
 		{
@@ -77,15 +78,10 @@ public class TrackedFeature implements Storable
 	
 	public int getID()
 	{
-		// TODO Auto-generated method stub
 		return this.id;
 	}
 
-	public ArrayList<String> toIndex() 
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 	
 	/**
 	 * @return The name of the tracked feature
@@ -123,6 +119,17 @@ public class TrackedFeature implements Storable
 		assert (notes != null);
 		if(notes != null)
 			this.notes = notes;
+	}
+	
+	public ArrayList<String> toIndex() 
+	{
+		ArrayList<String> index = new ArrayList<String>();
+		
+		index.add(""+this.id);
+		index.add(this.featureName);
+		index.add(this.notes);
+		
+		return index;
 	}
 	
 	/**GETTABLENAME()

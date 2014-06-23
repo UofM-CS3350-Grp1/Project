@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import objects.*;
 import objects.Client.ClientStatus;
@@ -42,6 +43,88 @@ public class TestDBInterface {
 		
 		mainFace.disconnect();
 		
+	}
+	
+	@Test
+	public void testInvalidRetreval()
+	{
+		DBInterface mainFace = new DBInterface("Test");
+		mainFace.connect();
+		
+		assertNull("Basic ID MAX implementation for services", mainFace.getServiceByID(Integer.MAX_VALUE));
+		assertNull("Basic ID MAX implementation for clients", mainFace.getClientByID(Integer.MAX_VALUE));
+		assertNull("Basic ID MAX implementation for contracts", mainFace.getContractByID(Integer.MAX_VALUE));
+		assertNull("Basic ID MAX implementation for feature history", mainFace.getFeatureHistoryByID(Integer.MAX_VALUE));
+		assertNull("Basic ID MAX implementation for tracked feature", mainFace.getTrackedFeatureByID(Integer.MAX_VALUE));
+		
+		assertNull("Basic ID -1 implementation for services", mainFace.getServiceByID(-1));
+		assertNull("Basic ID -1 implementation for clients", mainFace.getClientByID(-1));
+		assertNull("Basic ID -1 implementation for contracts", mainFace.getContractByID(-1));
+		assertNull("Basic ID -1 implementation for feature history", mainFace.getFeatureHistoryByID(-1));
+		assertNull("Basic ID -1 implementation for tracked feature", mainFace.getTrackedFeatureByID(-1));
+		
+		assertNull("Name gibbersih for service", mainFace.getServicesByTitle("asfdsfs"));
+		assertNull("Contracts by gibberish", mainFace.getContractsByBusiness("jbiw29"));
+		assertNull("Clients by null status", mainFace.getClientsByStatus(null));
+		
+		assertNull("Feature history retrieval by negative client", mainFace.getFeatureHistoryFromParent(mainFace.getClientByID(-11), mainFace.getTrackedFeatureByID(1)));
+		assertNull("Feature history retrieval by negative service", mainFace.getFeatureHistoryFromParent(mainFace.getServiceByID(-22), mainFace.getTrackedFeatureByID(2)));
+			
+		assertNull("Feature by gibberish", mainFace.getTrackedFeatureByTitle("FHQWAGADS"));
+		
+		mainFace.disconnect();
+	}
+	
+	@Test
+	public void testValidInsertUpdateDelete()
+	{
+		DBInterface mainFace = new DBInterface("Test");
+		mainFace.connect();
+		
+		FeatureHistory newHistory = new FeatureHistory(mainFace.getTrackedFeatureByID(1), mainFace.getClientByID(2), 2.0, new Date(), "blahblahblah");
+		TrackedFeature newTracking = new TrackedFeature("BobLoblawsLawBlog", "Lobslawbombs");
+		assertTrue("FeatreHistory Insert", mainFace.insert(newHistory));
+		assertTrue("TrackedFeature Insert", mainFace.insert(newTracking));
+		
+		newHistory = mainFace.getFeatureHistoryByID(4);
+		newTracking = mainFace.getTrackedFeatureByID(4);
+		
+		newHistory.setNotes("NOT blahblahblah");
+		newTracking.setNotes("Notlobbinglawbombs");
+		
+		assertTrue("FeatureHistory update", mainFace.update(newHistory));
+		assertTrue("TrackedFeature update", mainFace.update(newTracking));
+		
+		assertTrue("FeatureHistory drop", mainFace.drop(newHistory));
+		assertTrue("Trackedfeature drop", mainFace.drop(newTracking));
+
+		mainFace.disconnect();
+	}
+	
+	@Test
+	public void testInvalidInsertUpdateDelete()
+	{
+		DBInterface mainFace = new DBInterface("Test");
+		mainFace.connect();
+		
+		FeatureHistory newHistory = new FeatureHistory(mainFace.getTrackedFeatureByID(1), mainFace.getClientByID(2), 2.0, new Date(), "blahblahblah");
+		TrackedFeature newTracking = new TrackedFeature("BobLoblawsLawBlog", "Lobslawbombs");
+		assertTrue("FeatreHistory Insert", mainFace.insert(newHistory));
+		assertTrue("TrackedFeature Insert", mainFace.insert(newTracking));
+		
+		newHistory = mainFace.getFeatureHistoryByID(4);
+		newTracking = mainFace.getTrackedFeatureByID(4);
+		
+		newHistory.setNotes("NOT blahblahblah");
+		newTracking.setNotes("Notlobbinglawbombs");
+		
+		assertTrue("FeatureHistory update", mainFace.update(newHistory));
+		assertTrue("TrackedFeature update", mainFace.update(newTracking));
+		
+		assertTrue("FeatureHistory drop", mainFace.drop(newHistory));
+		assertTrue("Trackedfeature drop", mainFace.drop(newTracking));
+
+		mainFace.disconnect();
 	}
 
 }

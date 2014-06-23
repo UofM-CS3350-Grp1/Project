@@ -289,26 +289,36 @@ public class DBInterface
 		ArrayList<Client> storage = new ArrayList<Client>();
 		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
 		ArrayList<String> conditions = new ArrayList<String>();
-		int val = 0;
-		
-		if(status == ClientStatus.Active)
-			val = 1;
-		
-		conditions.add("IS_ACTIVE");
-		conditions.add("= ");
-		conditions.add("'"+val+"'");
-		
-		clauses.add(conditions);
-		
-		storage = this.mainDB.queryClients(clauses);
-		
-		if(storage.size() == 0)
+		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+		if(status != null)
 		{
-			return null;
+			int val = 0;
+			
+			if(status == ClientStatus.Active)
+				val = 1;
+			
+			conditions.add("IS_ACTIVE");
+			conditions.add("= ");
+			conditions.add("'"+val+"'");
+			
+			clauses.add(conditions);
+			
+			returnValue = this.mainDB.query("CLIENTS",clauses);
+			
+			storage = this.parser.parseClients(returnValue);
+			
+			if(storage.size() == 0)
+			{
+				return null;
+			}
+			else
+			{
+				return storage;
+			}
 		}
 		else
 		{
-			return storage;
+			return null;
 		}
 	}
 	
@@ -325,6 +335,7 @@ public class DBInterface
 		ArrayList<Contract> storage = new ArrayList<Contract>();
 		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
 		ArrayList<String> conditions = new ArrayList<String>();
+		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
 		
 		conditions.add("BUSINESS_NAME");
 		conditions.add("= ");
@@ -332,7 +343,9 @@ public class DBInterface
 		
 		clauses.add(conditions);
 		
-		storage = this.mainDB.queryContracts(clauses);
+		returnValue = this.mainDB.query("CONTRACTS", clauses);
+		
+		storage = this.parser.parseContracts(returnValue);
 		
 		if(storage.size() == 0)
 		{
@@ -361,36 +374,43 @@ public class DBInterface
 		ArrayList<String> conditions2 = new ArrayList<String>();
 		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
 		
-		if(element instanceof Service)
+		if(element != null && feature != null)
 		{
-			conditions1.add("SERVICE_ID");
-			conditions1.add("= ");
-			conditions1.add("'"+element.getID()+"'");
+			if(element instanceof Service)
+			{
+				conditions1.add("SERVICE_ID");
+				conditions1.add("= ");
+				conditions1.add("'"+element.getID()+"'");
+				
+				clauses.add(conditions1);
+			}
+			else
+			{
+				conditions1.add("CLIENT_ID");
+				conditions1.add("= ");
+				conditions1.add("'"+element.getID()+"'");
+				clauses.add(conditions1);
+			}
+			conditions2.add(" FEATURE_ID");
+			conditions2.add("= ");
+			conditions2.add("'"+feature.getID()+"'");
+			clauses.add(conditions2);
+			returnValue = this.mainDB.query("FEATURE_HISTORY",clauses);
 			
-			clauses.add(conditions1);
+			storage = parser.parseFeatureHistories(returnValue);
+			
+			if(storage.size() == 0)
+			{
+				return null;
+			}
+			else
+			{
+				return storage;
+			}
 		}
 		else
-		{
-			conditions1.add("CLIENT_ID");
-			conditions1.add("= ");
-			conditions1.add("'"+element.getID()+"'");
-			clauses.add(conditions1);
-		}
-		conditions2.add(" FEATURE_ID");
-		conditions2.add("= ");
-		conditions2.add("'"+feature.getID()+"'");
-		clauses.add(conditions2);
-		returnValue = this.mainDB.query("FEATURE_HISTORY",clauses);
-		
-		storage = parser.parseFeatureHistories(returnValue);
-		
-		if(storage.size() == 0)
 		{
 			return null;
-		}
-		else
-		{
-			return storage;
 		}
 	}
 	
@@ -435,16 +455,24 @@ public class DBInterface
 	 * @param element Storable to insert
 	 */
 	
-	public void insert(Storable element)
+	public boolean insert(Storable element)
 	{
+		boolean output = false;
+		int feedback = -1;
+		
 		if(element.getTableName().compareTo("") != 0 && element.getTableName() != null)
 		{
-			mainDB.insert(element.getTableName(), element);
+			feedback = mainDB.insert(element.getTableName(), element);
 		}
 		else
 		{
 			System.out.println("Invalid input for INSERT statement.");
 		}
+		
+		if(feedback != -1)
+			output = true;
+
+		return output;
 	}
 	
 	/**
@@ -453,16 +481,20 @@ public class DBInterface
 	 * @param element Storable to update
 	 */
 	
-	public void update(Storable element)
+	public boolean update(Storable element)
 	{
+		boolean output = false;
+		
 		if(element.getTableName().compareTo("") != 0 && element.getTableName() != null)
 		{
-			mainDB.update(element.getTableName(), element);
+			output = mainDB.update(element.getTableName(), element);
 		}
 		else
 		{
 			System.out.println("Invalid input for UPDATE statement.");
 		}
+		
+		return output;
 	}
 	
 	/**
@@ -471,16 +503,20 @@ public class DBInterface
 	 * @param element Storable to drop
 	 */
 	
-	public void drop(Storable element)
+	public boolean drop(Storable element)
 	{
+		boolean output = false;
+		
 		if(element.getTableName().compareTo("") != 0 && element.getTableName() != null)
 		{
-			mainDB.drop(element.getTableName(), element.getID());
+			output = mainDB.drop(element.getTableName(), element.getID());
 		}
 		else
 		{
 			System.out.println("Invalid input for DROP statement.");
 		}
+		
+		return output;
 	}
 	
 	

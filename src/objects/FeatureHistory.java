@@ -211,21 +211,23 @@ public class FeatureHistory implements Storable
 	{
 		ArrayList<String> index = new ArrayList<String>();
 		index.add(""+this.id);
+		index.add(""+this.getFeature().getID());
 		
-		if(this.getFeature() != null)
-			index.add(""+this.getFeature().getID());
+		if(this.trackedService instanceof Client)
+		{
+			index.add(""+trackedService.getID());
+			index.add(""+(-1)+"");
+		}
 		else
-			index.add(""+(-1));
-		
-		if(this.trackedService == null)
-			index.add(""+(-1));
-		else
-			index.add(""+this.getTrackedService().getID());
-		
+		{
+			index.add(""+(-1)+"");
+			index.add(""+trackedService.getID());
+		}
 		index.add(this.sdf.format(date));
 		index.add(this.notes);
+		index.add(""+this.value);
 		
-		return null;
+		return index;
 	}
 	
 	/**GETTABLENAME()

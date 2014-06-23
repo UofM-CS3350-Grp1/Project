@@ -194,7 +194,7 @@ public class StubDBInterface extends DBInterface
 	 * @param element
 	 */
 	
-	public void insert(Storable element)
+	public boolean insert(Storable element)
 	{
 		if(element instanceof Client)
 		{
@@ -212,6 +212,8 @@ public class StubDBInterface extends DBInterface
 		{
 			System.out.println("Invalid input for INSERT statement.");
 		}
+		
+		return false;
 	}
 	
 	/**
@@ -224,8 +226,9 @@ public class StubDBInterface extends DBInterface
 	 * @param element
 	 */
 	
-	public void update(Storable element)
+	public boolean update(Storable element)
 	{
+		return false;
 		//Does Nothing.
 	}
 	
@@ -235,7 +238,7 @@ public class StubDBInterface extends DBInterface
 	 * @param element
 	 */
 	
-	public void drop(Storable element)
+	public boolean drop(Storable element)
 	{
 		boolean breakloop = false;
 		if(element instanceof Client)
@@ -281,6 +284,7 @@ public class StubDBInterface extends DBInterface
 		{
 			System.out.println("Invalid input for DROP statement.");
 		}
+		return false;
 	}
 	
 	/**DUMPCLIENTS()
