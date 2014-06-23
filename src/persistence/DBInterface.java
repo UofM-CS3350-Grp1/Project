@@ -171,6 +171,14 @@ public class DBInterface
 		}
 	}
 	
+	/**
+	 * 	GETFEATUREHISTORYBYID()
+	 * 
+	 *  @param	int id	-	ID to search for
+	 *  
+	 *  @return	FeatureHistory	-	FeatureHistory specified by ID, null if no match
+	 */	
+	
 	public FeatureHistory getFeatureHistoryByID(int id)
 	{
 		ArrayList<FeatureHistory> storage = new ArrayList<FeatureHistory>();
@@ -205,6 +213,14 @@ public class DBInterface
 		}
 		
 	}
+	
+	/**
+	 * 	GETTRACKEDFEATUREBYID()
+	 * 
+	 *  @param	int id	-	ID to search for
+	 *  
+	 *  @return	TrackedFeature	-	TrackedFeature specified by ID, null if no match
+	 */	
 	
 	public TrackedFeature getTrackedFeatureByID(int id)
 	{
@@ -362,7 +378,7 @@ public class DBInterface
 	/**
 	 * GETFEATUREHISTORYFROMPARENT()
 	 * 
-	 * @param element Object with that can handle tackable features.
+	 * @param element Object with that can handle trackable features.
 	 * @return - Array list containing the tracked features history items associated with this object otherise null
 	 */
 	
@@ -413,6 +429,14 @@ public class DBInterface
 			return null;
 		}
 	}
+	
+	/**
+	 * 	GETTRACKEDFEATUREBYTITLE()
+	 * 
+	 *  @param	String type	-	Title to search for
+	 *  
+	 *  @return	TrackedFeature	-	Tracked Feature specified by ID, null if no match
+	 */	
 	
 	public TrackedFeature getTrackedFeatureByTitle(String type)
 	{

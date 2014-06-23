@@ -34,6 +34,17 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Refactor DBMS Controller, Back End History/Feature-Tracking Implementation & Testing
+Date: 6/22 11:27pm
+Status: Completed
+Duration: 3 hours
+Description:	Redundant code removed from controller
+				Controller is now fully generic, parsing
+				moved to separate class.
+				Interface passes current Valid/Invalid tests.
+				Table/Index methods added to objects.
+
+
 
 Task: Contract tab - view, edit, create, cancel
 Date: 6/22 9:20
