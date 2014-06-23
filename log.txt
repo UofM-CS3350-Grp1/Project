@@ -34,6 +34,21 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+
+Task: Contract tab - view, edit, create, cancel
+Date: 6/22 9:20
+Assigned to: Jason
+Status: in progress
+Duration: 2hrs
+Description:	Viewing is done. Working on the rest
+
+Task: Services - edit, view, create
+Date: 6/22 4:00
+Assigned to: Jason
+Status: in progress
+Duration: 2hrs
+Description: finished the composite screens and buttons. Needs a bit more to save work.
+
 Task: Password Text Hidden
 Date: 6/22 4:14
 Assigned to: Dell
