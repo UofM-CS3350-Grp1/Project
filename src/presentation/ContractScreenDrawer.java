@@ -22,7 +22,7 @@ import business.ProcessContract;
 public class ContractScreenDrawer extends BaseStorableScreenDrawer
 {
 	private static final String[] tableColumnNames = { "Contract ID", "Client", "Status", "Value", "Signed Date" };
-	private static final int[] tableWidths = { 150, 150, 150, 150, 200 };
+	private static final int[] tableWidths = { 0, 150, 150, 150, 200 };
 	private ProcessContract processContract;
 	private ArrayList<Contract> contracts;
 	
