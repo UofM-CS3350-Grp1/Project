@@ -28,7 +28,7 @@ public abstract class BaseStorableScreenDrawer
 	protected Button btnUpdate;
 	protected Button btnDelete;
 	protected Button btnAdd;
-	private Button btnView;
+	protected Button btnView;
 	
 	/*
 	 * Call the constructor with a shell's main component as <container>
