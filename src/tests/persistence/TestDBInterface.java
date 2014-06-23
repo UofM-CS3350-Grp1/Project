@@ -27,11 +27,13 @@ public class TestDBInterface {
 		
 		assertNotNull("Name query implementation for service", mainFace.getServicesByTitle("SERVICE_1"));
 		
-		//assertNotNull("Feature history retrieval by parent", mainFace.getFeatureHistoryFromParent(mainFace.get));
+		assertNotNull("Feature history retrieval by parent", mainFace.getFeatureHistoryFromParent(mainFace.getClientByID(1), mainFace.getTrackedFeatureByID(1)));
 		
 		assertNotNull("Table dump, Services", mainFace.dumpServices());
 		assertNotNull("Table dump, Contracts", mainFace.dumpContracts());
 		assertNotNull("Table dump, Clients", mainFace.dumpClients());
+		assertNotNull("Table dump, Features", mainFace.dumpTrackedFeatures());
+		assertNotNull("Table dump, Histories", mainFace.dumpFeatureHistory());
 		
 		mainFace.disconnect();
 		

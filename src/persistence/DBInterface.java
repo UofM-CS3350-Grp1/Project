@@ -80,6 +80,41 @@ public class DBInterface
 		}
 	}
 	
+	public FeatureHistory getFeatureHistoryByID(int id)
+	{
+		ArrayList<FeatureHistory> storage = new ArrayList<FeatureHistory>();
+		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+		ArrayList<String> conditions = new ArrayList<String>();
+		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+		
+		if(id > 0)
+		{
+			conditions.add("ROW_ID");
+			conditions.add("= ");
+			conditions.add(""+id+"");
+			
+			clauses.add(conditions);
+			
+			returnValue  = this.mainDB.query("FEATURE_HISTORY", clauses);
+			
+			storage = parser.parseFeatureHistories(returnValue);
+			
+			if(storage.size() != 1)
+			{
+				return null;
+			}
+			else
+			{
+				return storage.get(0);
+			}
+		}
+		else
+		{
+			return null;
+		}
+		
+	}
+	
 	/**
 	 * 	GETSERVICEBYTITLE()
 	 * 
@@ -304,40 +339,7 @@ public class DBInterface
 		
 	}
 	
-	public FeatureHistory getFeatureHistoryByID(int id)
-	{
-		ArrayList<FeatureHistory> storage = new ArrayList<FeatureHistory>();
-		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
-		ArrayList<String> conditions = new ArrayList<String>();
-		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
-		
-		if(id > 0)
-		{
-			conditions.add("ROW_ID");
-			conditions.add("= ");
-			conditions.add(""+id+"");
-			
-			clauses.add(conditions);
-			
-			returnValue  = this.mainDB.query("FEATURE_HISTORY", clauses);
-			
-			storage = parser.parseFeatureHistories(returnValue);
-			
-			if(storage.size() != 1)
-			{
-				return null;
-			}
-			else
-			{
-				return storage.get(0);
-			}
-		}
-		else
-		{
-			return null;
-		}
-		
-	}
+
 	
 	/**
 	 * GETFEATUREHISTORYFROMPARENT()
@@ -524,6 +526,68 @@ public class DBInterface
 		returnValue  = this.mainDB.query("CONTRACTS", clauses);
 		
 		storage = parser.parseContracts(returnValue);
+		
+		if(storage.size() == 0)
+		{
+			return null;
+		}
+		else
+		{
+			return storage;
+		}
+	}
+	
+	/**DUMPTRACKEDFEATURES()
+	 * 
+	 * Returns all tracked features on the DBMS;
+	 * 
+	 */
+	
+	public ArrayList<TrackedFeature> dumpTrackedFeatures()
+	{
+		ArrayList<TrackedFeature> storage = new ArrayList<TrackedFeature>();
+		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+		ArrayList<String> conditions = new ArrayList<String>();
+		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+		
+		conditions.add("ALL");
+		
+		clauses.add(conditions);
+		
+		returnValue  = this.mainDB.query("FEATURE", clauses);
+		
+		storage = parser.parseFeatures(returnValue);
+		
+		if(storage.size() == 0)
+		{
+			return null;
+		}
+		else
+		{
+			return storage;
+		}
+	}
+	
+	/**DUMPFEATUREHISTORY()
+	 * 
+	 * Returns all tracked features on the DBMS;
+	 * 
+	 */
+	
+	public ArrayList<FeatureHistory> dumpFeatureHistory()
+	{
+		ArrayList<FeatureHistory> storage = new ArrayList<FeatureHistory>();
+		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+		ArrayList<String> conditions = new ArrayList<String>();
+		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+		
+		conditions.add("ALL");
+		
+		clauses.add(conditions);
+		
+		returnValue  = this.mainDB.query("FEATURE_HISTORY", clauses);
+		
+		storage = parser.parseFeatureHistories(returnValue);
 		
 		if(storage.size() == 0)
 		{
