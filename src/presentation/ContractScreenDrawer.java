@@ -43,7 +43,7 @@ public class ContractScreenDrawer extends BaseStorableScreenDrawer
 	}	
 	
 	/**
-	 * Populates the table with the client data
+	 * Populates the table with the contract data
 	 */
 	protected void populateTable()
 	{
@@ -58,7 +58,6 @@ public class ContractScreenDrawer extends BaseStorableScreenDrawer
 		contracts = processContract.getContracts();
 		Iterator it = contracts.iterator();
 		
-		//Populate our clients
 		while(it.hasNext())
 		{
 			contract = (Contract) it.next();
