@@ -22,7 +22,7 @@ import java.util.Deque;
 import java.util.ArrayDeque;
 
 public class SwitchScreen {
-	private static final int WIN_WIDTH = 640;
+	private static final int WIN_WIDTH = 680;
 	private static final int WIN_HEIGHT = 480;
 	private static final String WIN_TEXT = "Buzzin' Digital Marketing";
 	
@@ -43,7 +43,7 @@ public class SwitchScreen {
 		/*
 		 * Create the navigation bar
 		 */
-		final int NUM_NAV_BUTTONS = 7;
+		final int NUM_NAV_BUTTONS = 8;
 		Composite navBar = new Composite( shell, SWT.BORDER );
 		GridLayout navLayout = new GridLayout();
 		navLayout.numColumns = NUM_NAV_BUTTONS;
@@ -64,7 +64,10 @@ public class SwitchScreen {
 
 		Button bClients = new Button( navBar, SWT.FLAT );
 		tuneNavButton( bClients, "CLIENTS" );
-		
+
+		Button bContract = new Button( navBar, SWT.FLAT );
+		tuneNavButton( bContract, "CONTRACTS" );
+
 		Button bServices = new Button( navBar, SWT.FLAT );
 		tuneNavButton( bServices, "SERVICES" );
 		
@@ -97,7 +100,23 @@ public class SwitchScreen {
 		content.setLayoutData( contentFormatter );
 		contentLayout = new StackLayout(); // allows switching between composites
 		content.setLayout( contentLayout );
-		
+
+		/*
+		 *  draws the contracts screen
+		 */
+		Composite contractScreen = SwitchScreen.getContentContainer();
+		SwitchScreen.switchContent( contractScreen );
+		bContract.addSelectionListener( new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected( SelectionEvent event )
+			{
+				Composite contractScreen = SwitchScreen.getContentContainer();
+				ContractScreenDrawer conSD = new ContractScreenDrawer( contractScreen );
+				SwitchScreen.switchContent( contractScreen );
+			}
+		});
+
 		/*
 		 *  draws the client screen
 		 */
