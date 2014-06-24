@@ -7,16 +7,14 @@ import java.util.Iterator;
 import objects.Client;
 import objects.Contract;
 import objects.Service;
-import persistence.StubDBInterface;
 
 /**
  * Performs the contract related processing between the GUI
  * component and the Database
  * Same format as ProcessClient.java for consistency
  */
-public class ProcessContract 
+public class ProcessContract extends ProcessStorable
 {	
-	private StubDBInterface database;
 	private ArrayList<Contract> contracts;
 	
 	/**
@@ -24,7 +22,8 @@ public class ProcessContract
 	 */
 	public ProcessContract()
 	{
-		database = new StubDBInterface("dbName");
+		super();
+		//database = new DBInterface("dbName");
 		contracts = null;
 	}
 	
@@ -35,14 +34,14 @@ public class ProcessContract
 	 */
 	public boolean insertContract(Contract contract)
 	{
-		boolean wasCreated = false;
-		
+		boolean wasCreated = insert(contract);
+		/*
 		assert (contract != null);
 		if(contract != null)
 		{
 			database.insert(contract);
 			wasCreated = true;
-		}
+		}*/
 		
 		return wasCreated;
 	}
@@ -52,6 +51,7 @@ public class ProcessContract
 	 */
 	public Contract getContractByID(int id)
 	{
+		database.connect();
 		return database.getContractByID(id);
 	}
 	
@@ -60,7 +60,9 @@ public class ProcessContract
 	 */
 	public Client getContractClient(Contract contract)
 	{
+		database.connect();
 		ArrayList<Client> list = database.dumpClients();
+		database.disconnect();
 		Iterator it = list.iterator();
 		Client result = null;
 		Client temp = null;
@@ -82,14 +84,14 @@ public class ProcessContract
 	 */
 	public boolean updateContract(Contract contract)
 	{
-		boolean wasUpdated = false;
-		
+		boolean wasUpdated = update(contract);
+		/*
 		assert (contract != null);
 		if(contract != null)
 		{
 			database.update(contract);
 			wasUpdated = true;
-		}
+		}*/
 		
 		return wasUpdated;
 	}
@@ -106,7 +108,9 @@ public class ProcessContract
 		assert (contract != null);
 		if(contract != null)
 		{
+			database.connect();
 			database.drop(contract);
+			database.disconnect();
 			wasDeleted = true;
 		}
 		
@@ -119,7 +123,9 @@ public class ProcessContract
 	 */
 	public ArrayList<Contract> getContracts()
 	{
+		database.connect();
 		contracts = database.dumpContracts();
+		database.disconnect();
 		return contracts;
 	}
 
@@ -135,13 +141,45 @@ public class ProcessContract
 	}
 	
 	/*
+	 * Add services to this contract
+	 */
+	public void setServices(Contract contract, ArrayList<Service> services)
+	{
+		contract.addServices(services);
+		database.connect();
+		database.update(contract);
+		database.disconnect();
+	}
+	
+	/*
 	 * returns the number of services in this contract
 	 */
 	public int getNumberOfServices(Contract contract)
 	{
+		int result = 0;
 		ArrayList<Service> services = null;
+		services = contract.getServices();
+		
+		result = services.size();
+		
+		/*
+		ArrayList<Service> services = null;
+		database.connect();
 		services = database.dumpServices();
-		int result = services.size();
+		database.disconnect();
+		
+		Iterator it = services.iterator();
+		Service temp = null;
+		
+		while(it.hasNext())
+		{
+			temp = (Service) it.next();
+			if(contract.getServices().)
+			{
+				result++;
+			}
+		}*/
+		
 		return result;
 	}
 	
@@ -151,7 +189,9 @@ public class ProcessContract
 	public double getTotalContractsValue()
 	{
 		double result = 0;
+		database.connect();
 		contracts = database.dumpContracts();
+		database.disconnect();
 		Contract temp = null;
 		Iterator<Contract> it = contracts.iterator();
 		
@@ -171,7 +211,9 @@ public class ProcessContract
 	public int getNumContractsBetween(Date start, Date end)
 	{
 		int result = 0;
+		database.connect();
 		contracts = database.dumpContracts();
+		database.disconnect();
 		Contract temp = null;
 		Iterator<Contract> it = contracts.iterator();
 		
@@ -194,7 +236,9 @@ public class ProcessContract
 	public double getValueOfContractsBetween(Date start, Date end)
 	{
 		double result = 0;
+		database.connect();
 		contracts = database.dumpContracts();
+		database.disconnect();
 		Contract temp = null;
 		Iterator<Contract> it = contracts.iterator();
 		

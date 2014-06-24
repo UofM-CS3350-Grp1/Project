@@ -119,15 +119,25 @@ public class Contract implements Storable
 	/*
 	 * returns the list of services assigned to this contract
 	 */
-	public ArrayList<Service> getServices(){
+	public ArrayList<Service> getServices()
+	{
 		return services;
 	}
 	
 	/*
 	 * Assign a list of services to this contract
 	 */
-	public void addServices(ArrayList<Service> services){
+	public void addServices(ArrayList<Service> services)
+	{
 		this.services = services;
+	}
+	
+	/*
+	 * Remove services from contract
+	 */
+	public void removeService(Service service)
+	{
+		this.services.remove(service);
 	}
 
 	/**

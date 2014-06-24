@@ -1,7 +1,10 @@
 package presentation;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
+
+import javax.swing.JOptionPane;
 
 import objects.Client;
 import objects.Contract;
@@ -123,7 +126,7 @@ public class UpdateContractScreenDrawer {
 		contractTable.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		contractTable.setLinesVisible(true);
 		contractTable.setHeaderVisible(true);
-		contractTable.setBounds(330, 108, 335, 204);
+		contractTable.setBounds(330, 108, 334, 204);
 
 		tableColumn_2 = new TableColumn(contractTable, SWT.NONE);
 		tableColumn_2.setWidth(110);
@@ -142,6 +145,12 @@ public class UpdateContractScreenDrawer {
 		btnCancel.setText("Cancel");
 		
 		Button btnUpdate = new Button(composite, SWT.NONE);
+		btnUpdate.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				processActionButton();
+			}
+		});
 		btnUpdate.setBounds(123, 318, 75, 25);
 		btnUpdate.setText("Update");
 		
@@ -175,7 +184,35 @@ public class UpdateContractScreenDrawer {
 		populateServiceFields();
 		populateServiceTable();
 	}
+
+	/**
+	 * Creates a service given the data supplied on the form
+	 */
+	protected void processActionButton()
+	{
+		//contract.removeService(service);
+		try
+		{
+			if(processContract.updateContract(contract))
+			{
+				goBackToContractScreen();
+			}
+		}
+		catch(Exception e)
+		{
+			JOptionPane.showMessageDialog(null, "Error creating new contract");
+		}
+	}
 	
+	/**
+	 * Goes back to the contract screen
+	 */
+	protected void goBackToContractScreen()
+	{
+		Composite contractScreen = SwitchScreen.getContentContainer();
+		ContractScreenDrawer csd = new ContractScreenDrawer( contractScreen );
+		SwitchScreen.switchContent( contractScreen );
+	}
 	
 	/*
 	 * populates the the left table with all available services
@@ -235,7 +272,7 @@ public class UpdateContractScreenDrawer {
 			item = new TableItem(contractTable, SWT.NULL);
 
 			item.setText(0, serviceTable.getItem(selectedIndex).getText());
-			item.setText(1, serviceTable.getItem(selectedIndex).getText());
+			item.setText(1, String.valueOf(service.getRate()));
 			item.setText(2, service.getDescription());
 
 			serviceTable.remove(selectedIndex);
@@ -254,7 +291,7 @@ public class UpdateContractScreenDrawer {
 			item = new TableItem(serviceTable, SWT.NULL);
 
 			item.setText(0, contractTable.getItem(selectedIndex).getText());
-			item.setText(1, serviceTable.getItem(selectedIndex).getText());
+			item.setText(1, contractTable.getItem(selectedIndex).getText());
 
 			contractTable.remove(selectedIndex);
 		}

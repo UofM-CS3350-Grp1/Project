@@ -281,11 +281,6 @@ public class ContractAnalysisScreenDrawer
 		servicesTable.setHeaderVisible(true);
 		servicesTable.setLinesVisible(true);
 				
-		/*chartComposite = new ChartComposite(composite, SWT.HORIZONTAL);
-		GridData gd_chartComposite = new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1);
-		gd_chartComposite.heightHint = 85;
-		chartComposite.setLayoutData(gd_chartComposite);	*/
-				
 		populateClientData();
 		populateServiceData();
 		populateContractData();
@@ -296,7 +291,7 @@ public class ContractAnalysisScreenDrawer
 	}
 	
 	/**
-	 * Fills in the capitalized fields with the contract data
+	 * Fills in the fields with the contract data
 	 */
 	private void populateContractData()
 	{
@@ -312,7 +307,7 @@ public class ContractAnalysisScreenDrawer
 	}
 	
 	/**
-	 * Fills in the capitalized fields with the client data
+	 * Fills in the fields with the client data
 	 */
 	private void populateClientData()
 	{
@@ -330,11 +325,7 @@ public class ContractAnalysisScreenDrawer
 	 * Populates the services table with the client's services
 	 */
 	private void populateServiceData()
-	{
-		//TODO Get all services that the client is using
-		//TODO Pull the financial data for the most recent period - Revenue and Expenses
-		
-		//TEMPORARY TEST DATA
+	{		
 		TableItem item;
 		TableColumn column;
 		Service service;
@@ -348,18 +339,23 @@ public class ContractAnalysisScreenDrawer
 			column.setWidth(widths[i]);
 		}
 		
-		//Hide the ID field because the user does not need to see
-		//it. It is simply an internal helper to find the associated object.
 		column = servicesTable.getColumn(0);
 		column.setResizable(false);
 		/*
-		for(int i = 0; i < processContract.getNumberOfServices(contract); i++)
+		 * this bottom part needs fixing
+		 */
+		/*
+		int total = processContract.getNumberOfServices(contract);
+		if(total>0)
 		{
-			item = new TableItem(servicesTable, SWT.NULL);
-			service = processService.getServiceByID(i);
-			
-			item.setText(0, service.getID() + "");
-			item.setText(1, service.getTitle());
+			for(int i = 0; i < total; i++)
+			{
+				item = new TableItem(servicesTable, SWT.NULL);
+				service = processService.getServiceByID(i);
+				
+				item.setText(0, service.getID() + "");
+				item.setText(1, service.getTitle());
+			}
 		}*/
 	}
 }

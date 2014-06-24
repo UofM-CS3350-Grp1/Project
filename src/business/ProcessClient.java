@@ -76,4 +76,17 @@ public class ProcessClient extends ProcessStorable
 		
 		return client;
 	}
+	
+	/*
+	 * Returns the number of clients
+	 */
+	public int getNumberOfClients()
+	{
+		ArrayList<Client> clientList = null;
+		
+		database.connect();
+		clientList = database.dumpClients();
+		database.disconnect();
+		return clientList.size();
+	}
 }

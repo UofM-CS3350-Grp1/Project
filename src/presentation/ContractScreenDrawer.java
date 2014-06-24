@@ -27,8 +27,7 @@ public class ContractScreenDrawer extends BaseStorableScreenDrawer
 	private ArrayList<Contract> contracts;
 	
 	/*
-	 * Call the constructor with a shell's main component as <container>
-	 * and it will be added to that component;
+	 * Call the constructor 
 	 */
 	public ContractScreenDrawer( Composite container )
 	{
@@ -56,6 +55,7 @@ public class ContractScreenDrawer extends BaseStorableScreenDrawer
 			processContract = new ProcessContract();
 		
 		contracts = processContract.getContracts();
+
 		Iterator it = contracts.iterator();
 		
 		while(it.hasNext())
@@ -88,7 +88,7 @@ public class ContractScreenDrawer extends BaseStorableScreenDrawer
 	protected void addNew() 
 	{
 		Composite addContractScreen = SwitchScreen.getContentContainer();
-		new AddContractScreenDrawer( addContractScreen );
+		new AddContractScreenDrawer2( addContractScreen );
 		SwitchScreen.switchContent( addContractScreen );
 	}
 
@@ -158,7 +158,38 @@ public class ContractScreenDrawer extends BaseStorableScreenDrawer
 	@Override
 	protected void deleteSelectedItem() 
 	{
+		int selectedIndex = table.getSelectionIndex();
+		MessageBox dialog;
+		int buttonID;
+		Contract contract;
+		TableItem selectedItem;
 		
+		if(selectedIndex != -1)
+		{
+			selectedItem = table.getItem(selectedIndex);
+			
+			//Ensure that the user actually wants to delete the item
+			dialog = new MessageBox(new Shell(), SWT.ICON_WARNING | SWT.YES | SWT.NO);
+			dialog.setText("Confirmation");
+			dialog.setMessage("Are you sure you want to delete " + selectedItem.getText(1) + "?");
+			
+			buttonID = dialog.open();
+			switch(buttonID)
+			{
+				case SWT.YES:
+					contract = processContract.getContractByID(Integer.parseInt(selectedItem.getText(0)));
+					
+					if(contract != null)
+						processContract.delete(contract);
+					
+					table.remove(selectedIndex);
+					
+					break;
+					
+				case SWT.NO:
+					break;
+			}
+		}
 	}
 	
 }
