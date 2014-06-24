@@ -35,7 +35,11 @@ public class ProcessClient extends ProcessStorable
 		
 		assert (id >= 0);
 		if(id >= 0)
+		{
+			database.connect();
 			client = database.getClientByID(id);
+			database.disconnect();
+		}
 		
 		return client;
 	}
@@ -50,7 +54,9 @@ public class ProcessClient extends ProcessStorable
 		
 		if(clients == null)
 		{
+			database.connect();
 			clients = database.dumpClients();
+			database.disconnect();
 			
 			if(clients.size() > 0)
 			{

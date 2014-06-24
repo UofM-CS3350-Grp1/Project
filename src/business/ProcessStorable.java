@@ -6,14 +6,14 @@ import persistence.StubDBInterface;
 
 public class ProcessStorable
 {
-	protected StubDBInterface database;
+	protected DBInterface database;
 	
 	/**
 	 * Create a new storable object processor
 	 */
 	public ProcessStorable()
 	{
-		database = new StubDBInterface(DBInterface.DATABASE_NAME);
+		database = new DBInterface(DBInterface.DATABASE_NAME);
 	}
 	
 	/**

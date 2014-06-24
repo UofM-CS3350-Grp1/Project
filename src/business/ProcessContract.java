@@ -30,7 +30,9 @@ public class ProcessContract extends ProcessStorable
 	 */
 	public ArrayList<Contract> getContracts()
 	{
+		database.connect();
 		contracts = database.dumpContracts();
+		database.disconnect();
 		return contracts;
 	}
 
@@ -51,7 +53,7 @@ public class ProcessContract extends ProcessStorable
 	public double getTotalContractsValue()
 	{
 		double result = 0;
-		contracts = database.dumpContracts();
+		contracts = getContracts();
 		Contract temp = null;
 		Iterator<Contract> it = contracts.iterator();
 		
