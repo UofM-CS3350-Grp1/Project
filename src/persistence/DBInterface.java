@@ -269,82 +269,103 @@ public class DBInterface
 	
 	public ArrayList<Service> getServicesByTitle(String name)
 	{
-		ArrayList<Service> storage = new ArrayList<Service>();
-		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
-		ArrayList<String> conditions = new ArrayList<String>();
-		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
-		
-		conditions.add("TITLE");
-		conditions.add("= ");
-		conditions.add("'"+name+"'");
-		
-		clauses.add(conditions);
-		
-		returnValue  = this.mainDB.query("SERVICES", clauses);
-		
-		storage = parser.parseServices(returnValue);
-		
-		if(storage.size() == 0)
+		if(name != null && !name.isEmpty() && name.compareTo("") != 0)
 		{
-			return null;
+			ArrayList<Service> storage = new ArrayList<Service>();
+			ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+			ArrayList<String> conditions = new ArrayList<String>();
+			ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+			
+			conditions.add("TITLE");
+			conditions.add("= ");
+			conditions.add("'"+name+"'");
+			
+			clauses.add(conditions);
+			
+			returnValue  = this.mainDB.query("SERVICES", clauses);
+			
+			storage = parser.parseServices(returnValue);
+			
+			if(storage.size() == 0)
+			{
+				return null;
+			}
+			else
+			{
+				return storage;
+			}
 		}
 		else
 		{
-			return storage;
+			return null;
 		}
 	}
 	
 	public ArrayList<Service> getServiceByContract(Contract input)
 	{
-		ArrayList<Service> storage = new ArrayList<Service>();
-		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
-		ArrayList<String> conditions = new ArrayList<String>();
-		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
-		
-		conditions.add("CONTRACT_ID");
-		conditions.add("= ");
-		conditions.add("'"+input.getID()+"'");
-		
-		clauses.add(conditions);
-		
-		returnValue  = this.mainDB.query("SERVICES", clauses);
-		
-		storage = parser.parseServices(returnValue);
-		
-		if(storage.size() == 0)
+		if(input != null)
 		{
-			return null;
+			ArrayList<Service> storage = new ArrayList<Service>();
+			ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+			ArrayList<String> conditions = new ArrayList<String>();
+			ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+			
+			conditions.add("CONTRACT_ID");
+			conditions.add("= ");
+			conditions.add("'"+input.getID()+"'");
+			
+			clauses.add(conditions);
+			
+			returnValue  = this.mainDB.query("SERVICES", clauses);
+			
+			storage = parser.parseServices(returnValue);
+			
+			if(storage.size() == 0)
+			{
+				return null;
+			}
+			else
+			{
+				return storage;
+			}
 		}
 		else
 		{
-			return storage;
+			return null;
 		}
 	}
 	
 	public ArrayList<Service> getServiceByClient(Client input)
 	{
-		ArrayList<Service> storage = new ArrayList<Service>();
-		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
-		ArrayList<String> conditions = new ArrayList<String>();
-		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
-		
-		conditions.add("CLIENT_ID");
-		conditions.add("= ");
-		conditions.add("'"+input.getID()+"'");
-		
-		clauses.add(conditions);
-		
-		returnValue  = this.mainDB.query("SERVICES", clauses);
-		
-		storage = parser.parseServices(returnValue);
-		
-		if(storage.size() == 0)
+		if(input != null)
 		{
-			return null;
+			ArrayList<Service> storage = new ArrayList<Service>();
+			ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+			ArrayList<String> conditions = new ArrayList<String>();
+			ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+			
+			conditions.add("CLIENT_ID");
+			conditions.add("= ");
+			conditions.add("'"+input.getID()+"'");
+			
+			clauses.add(conditions);
+			
+			returnValue  = this.mainDB.query("SERVICES", clauses);
+			
+			storage = parser.parseServices(returnValue);
+			
+			if(storage.size() == 0)
+			{
+				return null;
+			}
+			else
+			{
+				return storage;
+			}
 		}
 		else
 		{
-			return storage;
+			return null;
 		}
 	}
 	
@@ -404,28 +425,35 @@ public class DBInterface
 	
 	public ArrayList<Contract> getContractsByBusiness(String business)
 	{
-		ArrayList<Contract> storage = new ArrayList<Contract>();
-		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
-		ArrayList<String> conditions = new ArrayList<String>();
-		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
-		
-		conditions.add("BUSINESS_NAME");
-		conditions.add("= ");
-		conditions.add("'"+business+"'");
-		
-		clauses.add(conditions);
-		
-		returnValue = this.mainDB.query("CONTRACTS", clauses);
-		
-		storage = this.parser.parseContracts(returnValue);
-		
-		if(storage.size() == 0)
+		if(business != null && !business.isEmpty() && business.compareTo("") != 0)
 		{
-			return null;
+			ArrayList<Contract> storage = new ArrayList<Contract>();
+			ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+			ArrayList<String> conditions = new ArrayList<String>();
+			ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+			
+			conditions.add("BUSINESS_NAME");
+			conditions.add("= ");
+			conditions.add("'"+business+"'");
+			
+			clauses.add(conditions);
+			
+			returnValue = this.mainDB.query("CONTRACTS", clauses);
+			
+			storage = this.parser.parseContracts(returnValue);
+			
+			if(storage.size() == 0)
+			{
+				return null;
+			}
+			else
+			{
+				return storage;
+			}
 		}
 		else
 		{
-			return storage;
+			return null;
 		}
 	}
 	
