@@ -139,19 +139,13 @@ public class DBParser
 		
 		for(int i = 0; i < input.size(); i++)
 		{
-			try
-			{
+			
 			item = new TrackedFeature(
 					input.get(i).get(1),
 					input.get(i).get(2),
 					Integer.parseInt(input.get(i).get(0))
 					);
-			}
-			catch(Exception e)
-			{
-				e.printStackTrace();
-			}
-			
+
 			output.add(item);
 		}
 		
