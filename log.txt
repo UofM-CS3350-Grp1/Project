@@ -34,6 +34,13 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Update Client and Service ScreenDrawers button text
+Date: 6/23 8:10pm
+Status: Completed
+Duration: 15 minutes
+Description: Changed the button text to match which composite we are in
+
+
 Task: Update ClientAnalysisScreenDrawer
 Date: 6/23 8:00pm
 Status: Completed

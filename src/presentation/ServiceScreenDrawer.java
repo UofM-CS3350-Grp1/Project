@@ -30,8 +30,11 @@ public class ServiceScreenDrawer extends BaseStorableScreenDrawer
 	public ServiceScreenDrawer( Composite container )
 	{
 		super(container);
-		
+
 		btnAdd.setText("New Service");
+		btnUpdate.setText("Edit Service");;
+		btnDelete.setText("Cancel Service");
+		btnView.setText("View Service");
 		
 		if(processService == null)
 			processService = new ProcessService();	    
