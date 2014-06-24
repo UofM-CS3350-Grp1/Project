@@ -17,7 +17,7 @@ public class TestDBInterface {
 	@Test
 	public void testValidRetrieval() 
 	{
-		DBInterface mainFace = new DBInterface("Test");
+		DBInterface mainFace = new DBInterface("MainDB");
 		mainFace.connect();
 		
 		assertNotNull("Basic ID implementation for services", mainFace.getServiceByID(1));
@@ -48,7 +48,7 @@ public class TestDBInterface {
 	@Test
 	public void testInvalidRetreval()
 	{
-		DBInterface mainFace = new DBInterface("Test");
+		DBInterface mainFace = new DBInterface("MainDB");
 		mainFace.connect();
 		
 		assertNull("Basic ID MAX implementation for services", mainFace.getServiceByID(Integer.MAX_VALUE));
@@ -78,7 +78,7 @@ public class TestDBInterface {
 	@Test
 	public void testValidInsertUpdateDelete()
 	{
-		DBInterface mainFace = new DBInterface("Test");
+		DBInterface mainFace = new DBInterface("MainDB");
 		mainFace.connect();
 		
 		FeatureHistory newHistory = new FeatureHistory(mainFace.getTrackedFeatureByID(1), mainFace.getClientByID(2), 2.0, new Date(), "blahblahblah");
@@ -104,7 +104,7 @@ public class TestDBInterface {
 	@Test
 	public void testInvalidInsertUpdateDelete()
 	{
-		DBInterface mainFace = new DBInterface("Test");
+		DBInterface mainFace = new DBInterface("MainDB");
 		mainFace.connect();
 	
 		assertFalse("FeatreHistory null Insert", mainFace.insert(null));

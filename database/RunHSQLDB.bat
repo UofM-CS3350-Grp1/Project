@@ -4,6 +4,6 @@ set CLASSPATH=.;..\lib\hsqldb.jar;%CLASSPATH%
 
 @echo on
 
-java org.hsqldb.util.DatabaseManagerSwing -url "jdbc:hsqldb:Test"
+java org.hsqldb.util.DatabaseManagerSwing -url "jdbc:hsqldb:MainDB"
 
 pause
