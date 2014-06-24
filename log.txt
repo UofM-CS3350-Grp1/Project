@@ -34,6 +34,13 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: SERVICES -> Edit Service -> Cancel Now Works
+Date: 6/23
+Assigne to: Dell
+Status: Completed
+Duration: 20 mins
+Description:	The above steps now lead back to the services selection screen
+
 Task: SERVICES -> View Service -> Back Now Works
 Date: 6/23
 Assigned to: Dell
