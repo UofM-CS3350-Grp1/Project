@@ -257,6 +257,8 @@ public class SwitchScreen {
 		GridLayout shellLayout = new GridLayout();
 		shellLayout.numColumns = 1;
 		srcShell.setLayout( shellLayout );
+		
+		srcShell.setMinimumSize( WIN_WIDTH, WIN_HEIGHT);
 	}
 	
 	/*
