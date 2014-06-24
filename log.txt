@@ -34,6 +34,13 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Convert PerformanceServiceScreenDrawer to a scrollable composite
+Date: 6/23 8:20pm
+Status: Completed
+Duration: 15 minutes
+Description: Converted PerformanceServiceScreenDrawer to a scrollable composite
+
+
 Task: Update Client and Service ScreenDrawers button text
 Date: 6/23 8:10pm
 Status: Completed
@@ -49,7 +56,7 @@ Description: Updated the composite so that you could resize it without the label
 				This was done by anchoring them to the left edge of the composite
 
 
-Task: Remove Homescreen
+Task: Remove Homescreen button
 Date: 6/23 7:50pm
 Status: Completed
 Duration: 10 minutes

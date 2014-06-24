@@ -11,7 +11,9 @@ import org.eclipse.swt.layout.GridData;
 import org.jfree.experimental.chart.swt.ChartComposite;
 
 import business.GenerateLineGraph;
+
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
@@ -20,6 +22,7 @@ import org.eclipse.swt.events.SelectionEvent;
  */
 public class PerformanceServiceScreenDrawer 
 {
+	private ScrolledComposite scrollComposite;
 	private Composite composite;
 	private Service service;
 	private Label lblTypeData;
@@ -41,8 +44,12 @@ public class PerformanceServiceScreenDrawer
 	 */
 	public PerformanceServiceScreenDrawer(Composite container, Service service) throws IllegalArgumentException 
 	{
-		composite = new Composite( container, SWT.None );
+		scrollComposite = new ScrolledComposite(container, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
+		
+		composite = new Composite( scrollComposite , SWT.None );
 		composite.setLayout(new GridLayout(1, false));
+		
+		scrollComposite.setContent(composite);
 		
 		assert (service != null);
 		if(service != null)
@@ -59,7 +66,6 @@ public class PerformanceServiceScreenDrawer
 		serviceDataComposite.setLayoutData(gd_serviceDataComposite);
 		
 		lblServiceNameData = new Label(serviceDataComposite, SWT.NONE);
-		lblServiceNameData.setAlignment(SWT.CENTER);
 		GridData gd_lblServiceName = new GridData(SWT.FILL, SWT.CENTER, false, false, 4, 1);
 		gd_lblServiceName.widthHint = 214;
 		lblServiceNameData.setLayoutData(gd_lblServiceName);
@@ -122,13 +128,17 @@ public class PerformanceServiceScreenDrawer
 				goBackToPreviousScreen();
 			}
 		});
-		GridData gd_btnBack = new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1);
+		GridData gd_btnBack = new GridData(SWT.LEFT, SWT.LEFT, false, false, 1, 1);
 		gd_btnBack.widthHint = 79;
 		btnBack.setLayoutData(gd_btnBack);
 		btnBack.setText("Back");
 		
 		populateServiceData();
 		generateCharts();
+		
+		scrollComposite.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+		scrollComposite.setExpandHorizontal(true);
+		scrollComposite.setExpandVertical(true);
 	}
 	
 	/**
