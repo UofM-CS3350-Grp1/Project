@@ -34,6 +34,13 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: CLIENTS -> View Client -> New Service Now Works
+Date: 6/23
+Assigned to: Dell
+Status: Completed
+Duration: 15 minutes
+Description:	The above steps now lead to the new service screen
+
 Task: Remove getContent in SwitchScreen
 Date: 6/23
 Assigned to: Dell
