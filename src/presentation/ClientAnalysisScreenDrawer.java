@@ -76,7 +76,6 @@ public class ClientAnalysisScreenDrawer
 		clientDataComposite.setLayoutData(gd_clientDataComposite);
 		
 		lblClientNameData = new Label(clientDataComposite, SWT.NONE);
-		lblClientNameData.setAlignment(SWT.CENTER);
 		lblClientNameData.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 5, 1));
 		lblClientNameData.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.BOLD));
 		lblClientNameData.setText("CLIENT_NAME");
@@ -155,7 +154,6 @@ public class ClientAnalysisScreenDrawer
 		serviceDataComposite.setLayoutData(gd_serviceDataComposite);
 		
 		Label lblServices = new Label(serviceDataComposite, SWT.NONE);
-		lblServices.setAlignment(SWT.CENTER);
 		lblServices.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		lblServices.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.BOLD));
 		lblServices.setText("Services");
@@ -166,6 +164,7 @@ public class ClientAnalysisScreenDrawer
 		servicesTable.setLinesVisible(true);
 		
 		btnViewSelected = new Button(serviceDataComposite, SWT.NONE);
+		btnViewSelected.setAlignment(SWT.CENTER);
 		btnViewSelected.addSelectionListener(new SelectionAdapter()
 		{
 			@Override
@@ -174,7 +173,7 @@ public class ClientAnalysisScreenDrawer
 				viewSelected();
 			}
 		});
-		btnViewSelected.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
+		btnViewSelected.setLayoutData(new GridData(SWT.LEFT, SWT.LEFT, false, false, 1, 1));
 		btnViewSelected.setText("View Selected");
 		new Label(composite, SWT.NONE);
 		
@@ -185,7 +184,6 @@ public class ClientAnalysisScreenDrawer
 		performanceComposite.setLayoutData(gd_performanceComposite);
 		
 		Label lblPerformance = new Label(performanceComposite, SWT.NONE);
-		lblPerformance.setAlignment(SWT.CENTER);
 		lblPerformance.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.BOLD));
 		GridData gd_lblPerformance = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
 		gd_lblPerformance.widthHint = 471;

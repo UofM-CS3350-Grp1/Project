@@ -34,6 +34,14 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Update ClientAnalysisScreenDrawer
+Date: 6/23 8:00pm
+Status: Completed
+Duration: 20 minutes
+Description: Updated the composite so that you could resize it without the labels and a button ending up in strange locations.
+				This was done by anchoring them to the left edge of the composite
+
+
 Task: Remove Homescreen
 Date: 6/23 7:50pm
 Status: Completed
