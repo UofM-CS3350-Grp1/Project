@@ -185,6 +185,7 @@ public class AddContractScreenDrawer2
 	 * creates contract
 	 * issue: not saving/attaching services to contract
 	 */
+	@SuppressWarnings("null")
 	private void createContract()
 	{
 		double value = 0;
@@ -203,16 +204,23 @@ public class AddContractScreenDrawer2
 		processContract.insert(contract);
 		
 		int totalNumServices = table_1.getItemCount();
-		ArrayList<Service> services = null;
+		ArrayList<Service> services = new ArrayList<Service>();;
+		Service service = null;
 		int id = 0;
 		
 		for(int i=0; i<totalNumServices; i++)
 		{
 			id = Integer.parseInt(table_1.getItem(i).getText());
-			services.add(processService.getServiceByID(id));
+			ProcessService processService = new ProcessService();
+			service = processService.getServiceByID(id);
+			if(service!=null)
+			{
+				services.add(i, service);
+			}
 		}
 		
 		processContract.setServices(contract, services);
+		processContract.update(contract);
 		
 		backToContractsScreen();
 	}

@@ -158,6 +158,8 @@ public class ProcessContract extends ProcessStorable
 	{
 		int result = 0;
 		ArrayList<Service> services = null;
+		database.connect();
+		database.disconnect();
 		services = contract.getServices();
 		
 		result = services.size();
