@@ -47,6 +47,7 @@ public class ClientAnalysisScreenDrawer
 	
 	private ProcessService processService;
 	private Button btnViewSelected;
+	private Composite serviceButtonComposite;
 	
 	/**
 	 * Creates a new client analysis screen
@@ -149,7 +150,7 @@ public class ClientAnalysisScreenDrawer
 		Composite serviceDataComposite = new Composite(composite, SWT.NONE);
 		serviceDataComposite.setLayout(new GridLayout(1, false));
 		GridData gd_serviceDataComposite = new GridData(GridData.FILL_BOTH);
-		gd_serviceDataComposite.heightHint = 220;
+		gd_serviceDataComposite.heightHint = 273;
 		gd_serviceDataComposite.widthHint = 319;
 		serviceDataComposite.setLayoutData(gd_serviceDataComposite);
 		
@@ -159,11 +160,20 @@ public class ClientAnalysisScreenDrawer
 		lblServices.setText("Services");
 		
 		servicesTable = new Table(serviceDataComposite, SWT.BORDER | SWT.FULL_SELECTION | SWT.V_SCROLL | SWT.H_SCROLL);
-		servicesTable.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		GridData gd_servicesTable = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
+		gd_servicesTable.heightHint = 200;
+		servicesTable.setLayoutData(gd_servicesTable);
 		servicesTable.setHeaderVisible(true);
 		servicesTable.setLinesVisible(true);
 		
-		btnViewSelected = new Button(serviceDataComposite, SWT.NONE);
+		serviceButtonComposite = new Composite(serviceDataComposite, SWT.NONE);
+		GridData gd_serviceButtonComposite = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
+		gd_serviceButtonComposite.heightHint = 44;
+		gd_serviceButtonComposite.widthHint = 215;
+		serviceButtonComposite.setLayoutData(gd_serviceButtonComposite);
+		
+		btnViewSelected = new Button(serviceButtonComposite, SWT.NONE);
+		btnViewSelected.setBounds(191, 0, 93, 35);
 		btnViewSelected.setAlignment(SWT.CENTER);
 		btnViewSelected.addSelectionListener(new SelectionAdapter()
 		{
@@ -173,8 +183,31 @@ public class ClientAnalysisScreenDrawer
 				viewSelected();
 			}
 		});
-		btnViewSelected.setLayoutData(new GridData(SWT.LEFT, SWT.LEFT, false, false, 1, 1));
-		btnViewSelected.setText("View Selected");
+		btnViewSelected.setText("View Service");
+		
+		Button btnNewService = new Button(serviceButtonComposite, SWT.NONE);
+		btnNewService.addSelectionListener(new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected(SelectionEvent arg0)
+			{
+				addService();
+			}
+		});
+		btnNewService.setBounds(92, 0, 93, 35);
+		btnNewService.setText("New Service");
+		
+		Button btnCancelService = new Button(serviceButtonComposite, SWT.NONE);
+		btnCancelService.addSelectionListener(new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected(SelectionEvent arg0) 
+			{
+				removeService();
+			}
+		});
+		btnCancelService.setBounds(290, 0, 93, 35);
+		btnCancelService.setText("Cancel Service");
 		new Label(composite, SWT.NONE);
 		
 		Composite performanceComposite = new Composite(composite, SWT.NONE);
@@ -294,5 +327,21 @@ public class ClientAnalysisScreenDrawer
 				System.out.println(nfe);
 			}
 		}
+	}
+	
+	/**
+	 * Adds a service to the client
+	 */
+	private void addService()
+	{
+		//TODO Add service to a client
+	}
+	
+	/**
+	 * Removes a service from the client
+	 */
+	private void removeService()
+	{
+		//TODO Remove service from a client
 	}
 }
