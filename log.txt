@@ -45,7 +45,7 @@ Addressed concerns for storage of certain data in objects, and database usage.
 --------------
 
 
--------------------------ITERAITION 1 FEEDBACK RECEIVED HERE--------------------------------------
+-------------------------ITERATION 1 FEEDBACK RECEIVED HERE---------------------------------------
 
 
 
