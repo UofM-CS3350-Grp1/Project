@@ -335,6 +335,9 @@ public class ClientAnalysisScreenDrawer
 	private void addService()
 	{
 		//TODO Add service to a client
+		Composite newServiceScreen = SwitchScreen.getContentContainer();
+		new AddServiceScreenDrawer( newServiceScreen );
+		SwitchScreen.switchContent( newServiceScreen );
 	}
 	
 	/**

@@ -34,8 +34,43 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Shell Now Has a Minimum Size
+Date: 6/24
+Assigned to: Dell
+Status: Completed
+Duration: 15 mins
+Description:	Figured it was a good idea to have a minimum size
+
+Task: SERVICES -> Edit Service -> Cancel Now Works
+Date: 6/24
+Assigned to: Dell
+Status: Completed
+Duration: 20 mins
+Description:	The above steps now lead back to the services selection screen
+
+Task: SERVICES -> View Service -> Back Now Works
+Date: 6/24
+Assigned to: Dell
+Status: Completed
+Duration: 15 mins
+Description:	The above steps now lead back to the services selection screen
+
+Task: CONTRACTS -> Edit Contract -> Cancel Now Works
+Date: 6/24
+Assigned to: Dell
+Status: Completed
+Duration: 25 mins
+Description:	The above steps now lead back to the contract selection screen
+
+Task: CLIENTS -> View Client -> New Service Now Works
+Date: 6/24
+Assigned to: Dell
+Status: Completed
+Duration: 15 minutes
+Description:	The above steps now lead to the new service screen
+
 Task: Remove getContent in SwitchScreen
-Date: 6/23
+Date: 6/24
 Assigned to: Dell
 Status: Completed
 Duration: 5 minutes

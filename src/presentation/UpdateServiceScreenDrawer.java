@@ -60,5 +60,8 @@ public class UpdateServiceScreenDrawer extends AddServiceScreenDrawer
 	protected void goBackToServiceScreen()
 	{
 		//TODO Go back to service screen
+		Composite serviceScreen = SwitchScreen.getContentContainer();
+		new ServiceScreenDrawer( serviceScreen );
+		SwitchScreen.switchContent( serviceScreen );
 	}
 }

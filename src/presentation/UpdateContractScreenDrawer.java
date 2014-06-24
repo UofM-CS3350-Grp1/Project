@@ -143,6 +143,16 @@ public class UpdateContractScreenDrawer {
 		Button btnCancel = new Button(composite, SWT.NONE);
 		btnCancel.setBounds(295, 318, 75, 25);
 		btnCancel.setText("Cancel");
+		btnCancel.addSelectionListener( new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected( SelectionEvent event )
+			{
+				Composite contractScreenDrawer = SwitchScreen.getContentContainer();
+				new ContractScreenDrawer( contractScreenDrawer );
+				SwitchScreen.switchContent( contractScreenDrawer );
+			}
+		});
 		
 		Button btnUpdate = new Button(composite, SWT.NONE);
 		btnUpdate.addSelectionListener(new SelectionAdapter() {
