@@ -1,0 +1,534 @@
+Tim, June 23:
+
+Hey guys,
+
+Since ProcessClient, ProcessStorable, etc. are basically the same would anyone object to having a single ProcessStorable class to handle insertion, deletion, updating and a couple of iterators?
+It would require a couple of tweaks to the database structure through. The only real change would be to use getTableName() to drive the query in more generic findByID() style methods.
+
+Cheers,
+Tim
+
+----------
+Karl, June 23:
+
+Hey guys we just got our feedback for iteration 1. iteration 2 requires that we fix any issues found in iteration 1 so here are the problems that were found:
+
+
+- You should have submitted the development tasks estimation time along with the actual time it took, NOT only the actual time presented in the log
+- Your DBInterface should be an abstract class that is extended by your stub db now and real db in the next iteration.
+- No test cases have been implemented for the business logic (for classes in the business package)
+
+You can see the full feedback on D2L. Total mark: 18.5/20 
+
+----------
+Adrian, June 23:
+
+Sorry that should be on a *per-class basis not a per-model basis.
+
+----------
+Adrian, June 23:
+
+I can offer some feedback regarding the back end side of things.
+
+1) You are correct in your assumption about the DB interface. There are potentially two ways we could go about it.
+    a) Instantiate it at the top level and leave the connection open until the program closes.
+    b) Instantiate it on a per-model basis, and close it when we no longer need it.
+
+There's problems with both methods, the first leaves it running and requires that you pass the interface object to all methods that need it. However the alternative runs into problems wherein you will get an ugly error when you try and connect if you forget to explicitly disconnect it in a previous method.
+
+I will provide a more final name for the database today, we are currently using one called "Test". Tables are ready for contract/client/service insertion/update/delete and I have done some testing on TrackedFeatures and FeatureHistories as well, though any changes to those objects from this point on will subsequently need to be reflected in the table. Please let me know if the interface is missing a query you would like to see implemented.
+
+Hopefully that alleviates some confusion.
+
+----------
+Karl, June 23:
+
+I'll try to answer as many of these questions as I can:
+
+Contract generation status: We need a few things here:
+1) A base contract. This would be used to create all contracts, and would be comprised of a header and a footer. The client needs a way to submit his own header and footer text (I was thinking a large text field in the settings menu).
+2) Services contract stubs. Just a large text field in the add/edit service menu
+3) Adding services to base. Two lists, all services list on the left, add/delete button in the middle, services list on the right.
+4) Change dates/fees. After contract is put together, need to update the fees and dates for each of the services, and possibly the base.
+5) Parsing contract. Needs to go through the contract and substitute symbols for values of the dates/fees/client name.
+6) Output contract. output to docx, pdf, or even txt. Provide a standard window to save in the file system.
+7) Save contract in program, and allow editing. This may be difficult and I would consider it as optional.
+
+
+Home Screen: Having a dedicated home screen seems pointless. I think the best option would have it default to the login when the program opens, and once logged in switch to the client screen.
+
+
+Login System: Seeing as we have limited time (especially this week) I think the login should only allow for a single user to authenticate so that only the client can access the program. Supporting multiple users that may or may not exist is a waste of effort and is not programming for only what is needed (part of Agile). Logging out should just return the user to the login screen.
+
+
+Settings: I was thinking change password, update base contract, "are you sure you want to do x" toggles, and possibly others. For this iteration we can remove the button and come back to it for iteration 3.
+
+
+Client info: mainly what you have: all client info, services, client performance
+
+
+Service info: Basically just the sum of the service performance for all clients. This can be displayed as a number or percentage for now, if we can switch it to graphs later that would be a bonus.
+
+
+Database: Not too sure about the current status of the tables, I'm not very familiar with databases so I wouldn't know. Some of the objects for the contract may need to be updated based on some of the details in the contract generation status.
+
+
+UI: Some buttons don't have a UI built for them yet. Also we don't have a place for a logo, and increasing the program width stretches the top menu bar. Any titles should be anchored to the top and left to allow for resizing. We have time allocated to UI in the final iteration so for now stubs are fine.
+
+
+A couple other things:
+1) RestoreDB.bat is still a stub, this is a requirement for iteration 2 so it needs to be working. I still can't get my Java working properly so I cannot do this part.
+2) From iteration 2: "Make sure the problems pointed out in the feedback of your iteration 1 have been fixed". Good thing we've received feedback from iteration 1... I'm guessing this is going to be last minute so try and get as many things that we currently have functional ASAP so that we can fix any feedback issues.
+
+
+We should probably have another meeting before class tomorrow so that we can clarify any other concerns further.
+
+----------
+Tim, June 23:
+
+Hey guys,
+
+How is the project coming along?
+
+I have a few issues/ concerns/ questions regarding some of the things that are still outstanding.
+
+General:
+What is the status of the contract generation?
+
+What is going to go on the home screen?
+Are we going to do anything with the log in system?
+Should we be able to login in with the indicated information (admin, password) and have a log out screen?
+
+What settings do we need for the setting screen?
+If we don't need anything then we should remove it as we don't need to confuse the user.
+For the purposes of this project can we please use the agreed upon coding style (at a minimum it is correct when uploaded).
+Client related:
+What information do we need to see when we click on the client page's view client?
+I have the basic information contained within the client itself so far
+I will be adding generic service performance a little later on encompassing all of the client's service data
+I have the list of services that the client is using (Note dummy data still)
+Service related:
+
+What information will be needed when showing a service?
+
+Again all of the basic information currently is displayed
+From my understanding, clicking a service will display all of the information irrespective of client in the graphs (if this is incorrect please let me know)
+Contract related:
+
+We need to get the contract feature working as we cannot push it back again.
+
+My recommendation is to put the existing contract files up on a NEW branch. This way others can help get it done.
+
+Concern: The date fields
+
+Do we need to return the date objects or will simply returning a string suffice?
+If we need a date object please ensure that it is never null
+
+
+Database related:
+
+What is the name of the database that we are using?
+
+Are the tables created and ready for insertion for contract, service, client, etc.?
+
+I'm guessing that we create a database object with the table name,  connect when we need data from the database and disconnect when done?
+
+
+
+General UI:
+
+There are some button hookups that are not yet implemented/ stubbed
+
+
+
+If I missed anything please let everyone know.
+
+
+
+Cheers,
+
+Tim
+
+----------
+Jason, June 16:
+
+Additional info from our customer:
+
+1) The client information looks good. 
+
+2)  Only thing I would consider adding is "Date of Contract" or somewhere for me to indicate to myself when the signing occurred as well as a "preferred implementation date" or somewhere I can put when they'd like to be up by.
+
+3)  I only have a logo which I will have sent to you in the next day or so.
+
+4) This is a difficult category because each business will be tracked in a different way depending on the industry and services they require.  There should be a "Increase in following" tracker, a "increase in interaction" tracker, and a "increase in traffic" tracker.  Then It would be nice to have a text box or some place where I can add additional notes or create a new tracking option for each job
+
+----------
+Jason, June 16:
+
+I sent an email to our customer last week thursday after our meeting with the info that we would need from him. Im expecting a response today, so we should be good for tomorrows meeting. Also, Derek and me are doing the 2nd video interview/project presentation today afternoon, so thatll be ready as well.
+Jason​
+
+----------
+Karl, June 16:
+
+I worked on the UI this weekend. I ended up throwing it out a few times as there were some things I couldn't get working. The current version is non functional so I haven't pushed it up yet. I'll try to get the other windows ported into composites tonight or tomorrow so everyone can see it. The design is not polished at all and I'll need to rework the shell window some more still.
+
+If we get some good info from the client can we meet up about half an hour before class tomorrow to discuss it?
+
+I'm not sure about the specific data we need for the performance and financial tracking. From what I understand is the customer would like to get the same results using our program as he does with cpower, so for anything that we need he should be able to tell us. For the. Clients I would assume revenue and profit, but I'm not sure how he distinguishes the effect that each service has on a client. Maybe ask about what information the clients send him.
+
+----------
+Derek, June 15:
+
+Jason and I are meeting with the customer tomorrow to gather some more info (and maybe give him a preview of the system so far?).  What else do we want to capture for the next iteration?  Anyone have anything they want to add to the list?
+
+- for performance tracking what kind of data will we need to store for both the clients and the services?
+- what will we need for financial tracking?
+
+----------
+Tim, June 15:
+
+Hey guys,
+
+How is the new composite based UI coming along?
+
+I am curious as to what information we need for the performance history and tracking.
+
+For performance tracking what kind of data will we need to store for both the clients and the services? Similarly what will we need for financial tracking? 
+
+I am imaging that the services will track things like revenue, expenses and a time period. In this case how much detail are we going to capture? For example are expenses going to include taxes, operating costs, etc. or are we simply tracking one big expense value? For clients I'm guessing that we are evaluating them based on the services they offer?
+
+Thanks,
+Tim
+
+----------
+Derek, June 8:
+
+Ok cool, yep crystal clear. The RunTests.bat file is uploaded, but there are some errors. Does anyone mind getting a second set of eyes on it? I put instructions in the README file.
+
+----------
+Tim, June 8:
+
+Hey,
+
+All the tests are run from the RunTest file. The main function calls the AllTests class to run the tests.
+
+All of the test classes should be added to the list in the @suite { } portion of AllTests.java
+
+All you'll have to call is RunTests.java.
+
+Note: I don't have the project in front of me so hopefully my description is relatively clear.
+
+Cheers, 
+Tim
+
+----------
+Derek, June 8:
+
+Got the compile.bat file working, and Run.bat for main program.  Working on the RunTests.bat
+
+Questions for Tim and Adrian RE: testing:
+- is RunTests.java the main file that needs to be called (or are there others as well)?
+- are the DB tests included / if not, what else all needs to be called to include DB testing?
+
+
+----------
+Derek, June 8:
+
+
+I have no strong preference as to the coding style.  I'm fine with whatever the majority vote is.
+
+I'm working on the scripts today.  I'm having problems compiling via command line trying to get it to recognize the location of the libraries, but I'll get it worked out.
+
+----------
+Tim, June 8:
+
+Hey guys,
+
+How is everyone's portion of the project coming along?
+
+I was looking through the Iteration 1 requirements and we're missing a few things:
+1. We need to agree on a common coding style and modify our existing code to match that style. Since the most common style includes brackets on their own line and block comments using the Javadoc format ( /** */ ), I feel we should stick to this. If anyone has a problem with this please let me know and the style will be determined by the majority of votes. If I hear nothing back in this regard, I'll convert the inconsistent styles to the most common one later today.
+2. On the log file if everyone can fill in the duration portion of all of their updates (if you haven't already) that would be awesome.
+3. We still need the compile, run and run with test scripts
+
+If there is anything else outstanding that I missed please let us know.
+
+Cheers,
+Tim
+
+----------
+Adrian, June 4:
+
+How I was thinking of storing this:
+
+Type(Unchanged)     =>       VARCHAR
+Rate_Base                  =>       FLOAT
+Rate_Secondary       =>        FLOAT          (NULL = 0)
+Rate_By_Base           =>       VARCHAR   (month/monthly/lead/session/etc.)
+Rate_By_Secondary =>       VARCHAR   (monthly/etc.) (NULLABLLE)
+Lifespan                      =>       VARCHAR    (year/month/per request)
+
+If this is flexible enough, I'll tweak the "DBMS" end of things. If someone wants to change the object that's fine, otherwise I'll probably do it sometime after work today/tomorrow.
+
+As always, if you have another implementation you'd like to try yourself, if there's something here you'd like me to change, or if this just plain smells, please let me know and I'll hold off.
+
+Thanks,
+Adrian
+
+----------
+Jason, June 3:
+
+Data collection for services:
+
+1) Websites, $400/each (base), $10/monthly, service goes by year
+2) Social media, $200/month (base), service goes by month
+3) Ads, $200/month (base), service goes by month
+4) Telemarketing, $20/lead, service goes by month
+5) Marketing training, $150/session, on a request basis
+
+these are the ones up now, but as more services come in I will forward them. As for the time frames at the end, those just refer to the minimum lifespan of each, for example a website would need to be signed off for atleast a year, where as telemarketing the client has the opportunity to go with one month at a time. The budgets are subject to change since our customer is doing research on current quotes for these types of services.
+Jason
+
+----------
+Jason, May 27:
+
+Some generic info that our customer will need to record in BDM (i will be getting in touch with him to see what else he would need):
+Customer info: name, phone, email, address, biz name
+Contract info: contract#, biz name, details, $ amount, contract lifetime (month/year/etc)
+Services info: title, description, $ rate
+
+*i believe the best way to implement contract/client info is to separate the details from signed contracts from the customer info, and have the contract objects reside in the customer object. There could be a better way though.
+
+I will forward more info once i here back from our customer.
+Jason
+
+----------
+Adrian, May 24:
+
+Hey,
+
+Sorry about that Karl, I remember getting it early but must have spaced out and forgot to add it for whatever reason. You should be in the owners group now.
+
+1. I'll try out SourceTree tomorrow.
+
+2. For the short term the logfile seems adequate, though I'm guessing that could become fairly convoluted by the end of the project.
+
+3. I agree with this in general and would be fine with working in tandem on most projects. I just wanted to get started sooner then later so I was looking for things I can do without knowing the explicit data sets, so a generic db interface was a no brainer. We need to know what to put in our stub models ASAP though, so even just a basic list of things that we would need to have for clients/services would be enough to get started. Email is definitely a bit too slow for this project, we need to either set up a schedule or find a more immediate method of updating the project.
+
+4. My suggestion for JUnit would be to designate testing responsibilities to people separate from the areas they're working on. It would add another fresh pair of eyes to everyone's work and ensure everyone was aware of what the other members of the team were doing. It would also allow us to all be working broadly on various portions of the project while minimizing the amount of toe-stepping that could occur otherwise. Just a thought though, feel free to tell me if I'm sounding way off base.
+
+At either rate I'm going to try to start putting some really basic structural stuff tomorrow if I don't hear back from anyone (Directory Structure/Simple Models/etc.) and push it to the test repo. Again, its mostly just with the intention of getting the ball rolling, I do think we need to arrange a meeting with our group to discuss how we intend to tackle this and a meeting with the client to get a more exact picture of what data they're looking to store.
+
+Let me know if you agree/disagree. All in all though, I'm fine with whatever as long as we start making some visible progress soon.
+
+----------
+Karl, May 24:
+
+Adrian I still need access to the repository, my username is dierckek in case you missed my email a couple days ago.
+
+
+A few things before this project gets rolling:
+
+1. Using Git with SourceTree.
+
+During my first work term we used SourceTree as a GUI for Git. I find it much easier to use than the build-in Git commands in eclipse. While you don't need to use it (since GitHub stores everything, not sourcetree), I strongly recommend it to everybody.
+
+SourceTree can be downloaded from here: http://www.sourcetreeapp.com/
+
+The easiest way to set it up is to first import the project from GitHub into eclipse. This is all done through the eclipse IDE. Once you have cloned the repository into your eclipse workspace, simply open up SourceTree, click "Add Repository" (the button looks like a stack of three disks with a plus symbol in the bottom left-hand corner), switch to the "Add Working Copy" tab and set the path to the project stored in your workspace. You should then be able to see all of the changes to the repository in a nice flowchart form.
+
+To use push files to the repository from SourceTree you have to do a couple things. If you have used Git before this might be familiar to you. First you must do some change to a file on your local branch. Then, in SourceTree you can see the changes that have been made by clicking on the file under the "Working Copy Changes" section. If you are happy with the changes, click "Stage File". click "Commit" in the top left to commit all of the staged files. Be sure to describe the changes that you have made so that everyone doesn't need to look at each individual change to see the purpose of the commit. Once files have been committed, their changes have been saved. Next you must push the committed files to the repository so that everyone else can access them. You may have to do a pull if somebody else has done a push. When you do a pull you may get merge conflicts which can either be resolved within SourceTree or by doing it manually. After doing a pull, push the changes to the branch that you have been working on.
+
+Try doing a push to the test repository to make sure everything works. Push often so that multiple people aren't writing functions to do the same thing.
+
+
+
+2. We need a better way to track what we're doing/what needs to be done than using email.
+
+I tried looking into a program called redmine to track our work process, however it seemed very difficult to set up and I believe it would require a server to run on. I have used JIRA in the past, but I don't know how to set it up and it costs $10 per month to use. For now what we could do is create a log text document in the repository and update it as we go. an example of an entry would look something like this:
+
+Date: 05/24 6:49
+Task: adding clients to stub database
+Assigned to: none (change to yourself if you being working on this task)
+Status: In progress (or not in progress, or completed + time spent)
+Description: implement the code to add clients to the stub database. Remember to build it in such a way that it could be easily changed to the built in database once that is implemented.
+
+
+This is just an initial thought, If anyone has a better idea or alternative please let us know.
+
+
+
+3. Assigning detailed user stories to people is not an Agile mindset.
+
+If we were taking a waterfall based approach, then each person could be assigned a task that doesn't have any back-end implemented yet because they know what the end product is going to look like. We don't have that. We should be working on everything as a team, like how Jason suggested multiple people working on the contract creation. The problem is we can't really do much on the contract creation until we know what the stub database will look like (it doesn't have to be finished, but if people are pushing their changes often we will have a general picture of the end result). There are also some concerns I have about file types in the contract creation which is why we need a better way to communicate rather than email (although this specific example probably requires a discussion and additional research). The bottom line is we need to get some of the back end, even if it's not working, into Git so that everyone can work on it.
+
+
+
+4. JUnit
+
+Last thing, we need to implement JUnit testing for this iteration. The project says that he will be giving examples on how to use it in class but just keep in mind that this will need to be done.
+
+
+Anyways, that was my rant. Feel free to add to this or disagree with everything.
+
+----------
+Jason, May 24:
+
+I can def take care of data collecting for services/clients. I could also work on the business logic for client/services objects. Contract creation weve estimated at 6 days, so maybe for those who havent called a story yet could maybe team up and tackle that together since its a bit bigger than the rest?
+
+----------
+Adrian, May 23:
+
+Yeah, I do believe that it would have to come first. My preference would be to work on the Database Controller or on the Stub UI. However if someone else is particularly interested in working on them I have no problem developing/testing any of the other components as well.
+
+----------
+Derek, May 23:
+
+I just noticed that everything I said there is pretty much summed up in "Data Collection for Services/Clients".  I nominate Jason for that since he will probably be our customer point of contact :)
+
+Should that perhaps be 'High' priority since we need that data to use in our models?
+
+----------
+Derek, May 23:
+
+I was thinking I could grab "Create Stub Data Models for Objects".
+
+There's probably some info we need from the customer before we start getting too in depth.  After everyone grabs their tasks I was thinking we should compile a list of information each of us needs and then reach out to the customer somehow and get what we need to proceed.  Wouldn't necessarily have to be an in person meeting, but would be easiest for clarity.
+
+
+----------
+Adrian, May 23:
+
+Also, has anyone been thinking about what user stories they'd be interested in working on?
+
+----------
+Adrian, May 23:
+
+Sorry for the delay guys I was in meetings all morning.
+
+So far I've added Dell, Jason, Tim, and Derek to the owners group. I'm just waiting on Karl at this time. You should all have full access and be able to create/pull/push/edit repositories as needed. Let me know if anything is behaving strangely and I'll look into it.
+
+----------
+Tim, May 22:
+
+Hey,
+
+I sent the vision statement to my Aunt last night, but she was without internet to check her email and trying to read and edit a document over the phone proved difficult. So if anyone has time to make some of the proposed changes to the document and re-upload the PDF before the deadline that would be awesome.
+
+Cheers, 
+Tim
+
+----------
+Derek, May 21:
+
+Ok so here is the first (and possibly final?) draft of the video.  Feedback is welcome.  The transitions looked smoother as I was editing it, but that probably doesn't matter much.  It came in at 4:56 and 112 MB.  It ends a little abruptly, but there's no better way of doing it.  Check it out:
+
+https://www.dropbox.com/s/je1z6kcx2cvvuol/Meeting_Summary.avi
+
+----------
+Derek, May 21:
+
+Hey,
+
+So to recap what Karl said, and reading the requirements I agree with his interpretation, we basically submit everything we have in 1 pdf:  Title page, vision statement, big user stories for all iterations, and detailed user stories for the first iteration, and then the video file.  I threw everything together and saved it as a pdf.  If everyone's cool with the latest version of the vision statement from Tim, take a look at the attached pdf and let me know if that's good for the submission.
+
+I'm just working on the video.  I tested out the video editor I plan to use and exporting as AVI and it's working well.  I just need to cut it together now.  There will be a significant loss in video quality but I doubt he will care if it's not HD.  I'm guessing it'll end up being around a little under 100 MB.  I'll share it out as soon as I'm done.
+
+----------
+Tim, May 21:
+
+Hey,
+
+Here is the revised revised version of the Vision Statement.
+
+Cheers, 
+Tim
+
+----------
+Karl, May 21:
+
+Just a reminder about what we need to submit:
+
+1 PDF document where the first page contains the project name, group number (#1), and all of our names. The vision statement should follow and needs to fit on 1 page. Then the Big user stories and then the Detailed user stories. 
+
+The video must be less than 5 minutes and in an AVI format (Format Factory can convert video files).
+
+Also I cannot see the updated vision statement from Jason, maybe it's because I just switched to myumanitoba and now my email isn't working properly (which is why I didn't want to switch in the first place). But based on Tim's revision I think the first line should be changed by either removing the initial "The", or by changing it to "The Buzzin' Digital Marketing (BDM) system will..."
+
+----------
+Jason, May 20:
+
+Hey Guys,
+heres the revise Vision Statement. I made the changes that Tim marked off, so it should be more understandable now.
+
+----------
+Tim, May 20:
+
+Hey,
+
+I made some revisions to the vision statement. The red text represents changes I made, the blue text represents things that do not make sense to me at all and the highlighted BDM phrases are not clear whether the software or the client's company is being referred to.
+
+When you guys are finished with the document could you send me the final copy? I'll give it a look and get a second opinion on it.
+
+Cheers,
+Tim
+
+----------
+Adrian, May 20:
+
+Hey, these are my quick notes from the video
+
+----------
+Derek, May 20:
+
+​First part:
+
+https://www.dropbox.com/s/en85b6ozh0jhwu1/P5190206.MP4
+
+----------
+Jason, May 19:
+
+Here is the vision statement. If theres any changes or anything needed we can do that tomorrow before/after class as well.
+
+----------
+Derek, May 19:
+
+Here is the second part.  It's only 3 min. 
+
+https://www.dropbox.com/s/912q8mfpnd584jn/P5190207.MP4
+
+The first part is just under 25min (1.6 GB) and is still uploading.
+
+----------
+Jason, May 19:
+
+Hey guys,
+
+Derek and myself just finished up with our meeting with the customer. Derek will be uploading the video tonight and sending us the link. I will be working on a rough copy of the vision document tonight. I was thinking if everyone could watch the recording then everyone would be kinda up to speed, and we can meet up tomorrow either before the SE class and review/alter the first document for submission, and run it by the instructor after class. If anyone is not available before class (say at 11am) please let us know either by email or text (faster) and we can change the time. Our customer will not be available at all on wednesday, so incase we need to make any alterations to the video (if we need to do another meeting incase we forgot something when doing the interview) it would need to be done tomorrow.
+
+Jason
+
+----------
+Derek, May 19:
+
+The videos are uploading right now, I'll get you guys the links as soon as they're ready.
+
+I can come early to meet up tomorrow before class, although I'm on campus all afternoon until my evening class at 7pm already, so my preference would be to meet up after class, but I'm down to meet whenever everyone else wants.
+
+----------
+Derek, May 19:
+
+Ah ok cool, no problem. Yep, just say when and where.
+
+----------
+Jason, May 19:
+
+Hey Derek sorry I didnt get back earlier. No we are meeting him tonight since he went to brandon for the weekend. I believe we'll meet at around 6 or so tonight. Are you available at that time?
+
+----------
+Derek, May 18:
+
+Hey Jason,
+
+I forget, was the customer meeting supposed to be today (Sunday afternoon)?  If you sent me something I may have missed it.  I'm still available to meet up today, and also tomorrow if you weren't able to schedule something.  I do have to work on Monday, but should be able to duck out for a bit no problem.
