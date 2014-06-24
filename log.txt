@@ -34,6 +34,13 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Remove Settings button
+Date: 6/23 8:40pm
+Status: Completed
+Duration: 10 minutes
+Description: As there is no settings to control currently, the settings button is useless.
+
+
 Task: Convert PerformanceServiceScreenDrawer to a scrollable composite
 Date: 6/23 8:20pm
 Status: Completed
