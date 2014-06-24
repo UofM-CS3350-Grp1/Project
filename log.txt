@@ -34,6 +34,32 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+
+Task: Contract tab - edit contract
+Date: 6/24 2:00am
+Assigned to: Jason
+Status: in progress
+Duration: 2hrs
+Description:	will create abstract base class for contract editting/creation and extend it
+
+Task: Contract tab - view is close to completed
+Date: 6/23 9:00pm
+Assigned to: Jason
+Status: in progress
+Duration: 5hrs
+Description:	Needed: listing of services for contracts
+                        bug in passing contract to viewing screen from main contract screen
+                        DBInterface needs an additional query method
+                        DB needs additional fields for contracts
+                        
+Task: Contract tab - delete contract
+Date: 6/22 9:20
+Assigned to: Jason
+Status: completed
+Duration: 10min
+Description:	this is only for testing purposes. The final release of the application will probably
+                only have the option to change the contract status (terminated or cancelled)
+
 Task: Shell Now Has a Minimum Size
 Date: 6/24
 Assigned to: Dell
@@ -125,12 +151,13 @@ Description:	Redundant code removed from controller
 
 
 
-Task: Contract tab - view, edit, create, cancel
+Task: Contract tab - create contract
 Date: 6/22 9:20
 Assigned to: Jason
 Status: in progress
-Duration: 2hrs
-Description:	Viewing is done. Working on the rest
+Duration: 8hrs
+Description:	Create completed. Ran into a bunch of issues with eclipse/git again
+
 
 Task: Services - edit, view, create
 Date: 6/22 4:00
