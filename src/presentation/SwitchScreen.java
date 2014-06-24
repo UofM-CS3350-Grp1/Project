@@ -274,10 +274,16 @@ public class SwitchScreen {
 
 
 
+	/*
+	 * DON'T DO THIS; THE SCREEN CAN'T BE REGISTERED
+	 * AND BACK BUTTON WILL NOT WORK WITH THE SCREEN
+	 */
+	/*
 	public static Composite getContent() {
 		// TODO Auto-generated method stub
 		return content;
 	}
+	*/
 
 
 

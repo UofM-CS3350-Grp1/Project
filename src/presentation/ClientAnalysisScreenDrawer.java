@@ -284,11 +284,9 @@ public class ClientAnalysisScreenDrawer
 				if(service != null)
 				{
 					//Open the service performance tracking screen
-					viewServicePerformance = new Composite(SwitchScreen.getContent(), SWT.None);
-					viewServicePerformance.setLayout(new FillLayout());
-					new PerformanceServiceScreenDrawer(viewServicePerformance, service);
-					SwitchScreen.setcontentLayoutTopControl(viewServicePerformance);
-					SwitchScreen.getContent().layout();
+					viewServicePerformance = SwitchScreen.getContentContainer();
+					new PerformanceServiceScreenDrawer( viewServicePerformance, service );
+					SwitchScreen.switchContent( viewServicePerformance );
 				}
 			}
 			catch(NumberFormatException nfe) 

@@ -73,11 +73,9 @@ public class ServiceScreenDrawer extends BaseStorableScreenDrawer
 		Composite addNewService;
 		Service service = null;
 
-		addNewService = new Composite(SwitchScreen.getContent(), SWT.None);
-		addNewService.setLayout(new FillLayout());
-		new AddServiceScreenDrawer(addNewService);
-		SwitchScreen.setcontentLayoutTopControl(addNewService);
-		SwitchScreen.getContent().layout();
+		addNewService = SwitchScreen.getContentContainer();
+		new AddServiceScreenDrawer( addNewService );
+		SwitchScreen.switchContent( addNewService );
 	}
 	
 	/**
@@ -120,11 +118,9 @@ public class ServiceScreenDrawer extends BaseStorableScreenDrawer
 				
 				if(service != null)
 				{
-					viewService = new Composite(SwitchScreen.getContent(), SWT.None);
-					viewService.setLayout(new FillLayout());
-					new PerformanceServiceScreenDrawer(viewService, service);
-					SwitchScreen.setcontentLayoutTopControl(viewService);
-					SwitchScreen.getContent().layout();
+					viewService = SwitchScreen.getContentContainer();
+					new PerformanceServiceScreenDrawer( viewService, service );
+					SwitchScreen.switchContent( viewService );
 				}
 			}
 			catch(NumberFormatException nfe) 

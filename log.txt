@@ -34,6 +34,14 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Remove getContent in SwitchScreen
+Date: 6/23
+Assigned to: Dell
+Status: Completed
+Duration: 5 minutes
+Description:	Use the getContentContainer and switchContent methods
+				- this allows the back button to store traversed pages
+
 Task: Remove Settings button
 Date: 6/23 8:40pm
 Status: Completed
