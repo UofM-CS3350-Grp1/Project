@@ -26,6 +26,9 @@ import business.ProcessService;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.DateTime;
+import org.eclipse.swt.widgets.Combo;
 
 public class UpdateContractScreenDrawer {
 
@@ -38,13 +41,8 @@ public class UpdateContractScreenDrawer {
 	private TableColumn tableColumn_3;
 	private TableColumn tableColumn_4;
 	private TableItem item;
-
-	private Label lblStatus;
-	private Label lblStatusData;
 	private Label lblEnd;
-	private Label lblEndData;
 	private Label lblSigned;
-	private Label lblSignedData;
 	private Label lblClient;
 	private Label lblClientData;
 	private Label lblValueData;
@@ -56,7 +54,13 @@ public class UpdateContractScreenDrawer {
 	private ProcessClient processClient;
 	private ProcessService processService;
 	private Label lblAvailableServices;
-	private Label lblContractServices;
+	private Text inputDetails;
+	private Label label;
+	private Label label_1;
+	private DateTime startDate;
+	private DateTime endDate;
+	private Label label_2;
+	private Combo combo;
 	
 	public UpdateContractScreenDrawer(Composite container, Contract contract, Client client)
 	{
@@ -65,42 +69,30 @@ public class UpdateContractScreenDrawer {
 		
 		composite = new Composite(container, SWT.BORDER);
 		
-		lblStatus = new Label(composite, SWT.NONE);
-		lblStatus.setBounds(299, 10, 55, 15);
-		lblStatus.setText("Status:");
-		
-		lblStatusData = new Label(composite, SWT.NONE);
-		lblStatusData.setBounds(390, 10, 55, 15);
-		lblStatusData.setText("New Label");
-		
 		lblEnd = new Label(composite, SWT.NONE);
-		lblEnd.setBounds(299, 31, 55, 15);
+		lblEnd.setBounds(272, 49, 55, 15);
 		lblEnd.setText("End date:");
 		
-		lblEndData = new Label(composite, SWT.NONE);
-		lblEndData.setBounds(390, 31, 55, 15);
-		lblEndData.setText("New Label");
-		
 		lblSigned = new Label(composite, SWT.NONE);
-		lblSigned.setBounds(299, 52, 73, 15);
-		lblSigned.setText("Signed Date:");
-		
-		lblSignedData = new Label(composite, SWT.NONE);
-		lblSignedData.setBounds(390, 52, 55, 15);
-		lblSignedData.setText("New Label");
+		lblSigned.setBounds(270, 19, 57, 15);
+		lblSigned.setText("Start Date:");
 		
 		serviceTable = new Table(composite, SWT.BORDER | SWT.FULL_SELECTION);
 		serviceTable.setLinesVisible(true);
 		serviceTable.setHeaderVisible(true);
-		serviceTable.setBounds(10, 108, 165, 204);
+		serviceTable.setBounds(22, 108, 286, 204);
 		
 		tableColumn = new TableColumn(serviceTable, SWT.NONE);
 		tableColumn.setWidth(110);
 		tableColumn.setText("Service");
 		
 		tableColumn_1 = new TableColumn(serviceTable, SWT.NONE);
-		tableColumn_1.setWidth(50);
+		tableColumn_1.setWidth(70);
 		tableColumn_1.setText("Rate");
+		
+		tableColumn_1 = new TableColumn(serviceTable, SWT.NONE);
+		tableColumn_1.setWidth(100);
+		tableColumn_1.setText("Category");
 		
 		Button button = new Button(composite, SWT.NONE);
 		button.addSelectionListener(new SelectionAdapter() {
@@ -110,7 +102,7 @@ public class UpdateContractScreenDrawer {
 			}
 		});
 		button.setText("ADD >>");
-		button.setBounds(217, 145, 75, 25);
+		button.setBounds(338, 146, 75, 25);
 		
 		Button button_1 = new Button(composite, SWT.NONE);
 		button_1.addSelectionListener(new SelectionAdapter() {
@@ -120,28 +112,32 @@ public class UpdateContractScreenDrawer {
 			}
 		});
 		button_1.setText("<< REMOVE");
-		button_1.setBounds(217, 224, 75, 25);
+		button_1.setBounds(338, 225, 75, 25);
 		
 		contractTable = new Table(composite, SWT.BORDER | SWT.FULL_SELECTION);
 		contractTable.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		contractTable.setLinesVisible(true);
 		contractTable.setHeaderVisible(true);
-		contractTable.setBounds(330, 108, 334, 204);
+		contractTable.setBounds(443, 108, 446, 204);
 
 		tableColumn_2 = new TableColumn(contractTable, SWT.NONE);
 		tableColumn_2.setWidth(110);
 		tableColumn_2.setText("Service");
 
 		tableColumn_3 = new TableColumn(contractTable, SWT.NONE);
-		tableColumn_3.setWidth(60);
+		tableColumn_3.setWidth(70);
 		tableColumn_3.setText("Rate");
+
+		tableColumn_3 = new TableColumn(contractTable, SWT.NONE);
+		tableColumn_3.setWidth(100);
+		tableColumn_3.setText("Category");
 
 		tableColumn_4 = new TableColumn(contractTable, SWT.NONE);
 		tableColumn_4.setWidth(160);
 		tableColumn_4.setText("Details");
 		
 		Button btnCancel = new Button(composite, SWT.NONE);
-		btnCancel.setBounds(295, 318, 75, 25);
+		btnCancel.setBounds(483, 517, 75, 25);
 		btnCancel.setText("Cancel");
 		btnCancel.addSelectionListener( new SelectionAdapter()
 		{
@@ -161,33 +157,57 @@ public class UpdateContractScreenDrawer {
 				processActionButton();
 			}
 		});
-		btnUpdate.setBounds(123, 318, 75, 25);
+		btnUpdate.setBounds(311, 517, 75, 25);
 		btnUpdate.setText("Update");
 		
 		lblClient = new Label(composite, SWT.NONE);
-		lblClient.setBounds(22, 10, 55, 15);
+		lblClient.setBounds(22, 19, 55, 15);
 		lblClient.setText("Client:");
 		
 
 		lblClientData = new Label(composite, SWT.NONE);
-		lblClientData.setBounds(105, 10, 165, 15);
+		lblClientData.setBounds(105, 19, 140, 15);
 		lblClientData.setText("New Label");
 		
 		Label lblValue = new Label(composite, SWT.NONE);
-		lblValue.setBounds(22, 31, 55, 15);
+		lblValue.setBounds(487, 19, 44, 15);
 		lblValue.setText("Value:");
 		
 		lblValueData = new Label(composite, SWT.NONE);
-		lblValueData.setBounds(105, 31, 55, 15);
+		lblValueData.setBounds(548, 19, 55, 15);
 		lblValueData.setText("New Label");
 		
 		lblAvailableServices = new Label(composite, SWT.NONE);
 		lblAvailableServices.setBounds(44, 87, 103, 15);
 		lblAvailableServices.setText("Available Services");
 		
-		lblContractServices = new Label(composite, SWT.NONE);
-		lblContractServices.setBounds(441, 87, 103, 15);
-		lblContractServices.setText("Contract Services");
+		inputDetails = new Text(composite, SWT.BORDER);
+		inputDetails.setBounds(22, 359, 867, 142);
+		
+		label = new Label(composite, SWT.NONE);
+		label.setText("Additional details");
+		label.setBounds(54, 338, 103, 15);
+		
+		label_1 = new Label(composite, SWT.NONE);
+		label_1.setText("Services on the contract");
+		label_1.setBounds(465, 87, 135, 15);
+		
+		startDate = new DateTime(composite, SWT.BORDER);
+		startDate.setBounds(333, 10, 80, 24);
+		
+		endDate = new DateTime(composite, SWT.BORDER);
+		endDate.setBounds(333, 40, 80, 24);
+		
+		label_2 = new Label(composite, SWT.NONE);
+		label_2.setText("Status");
+		label_2.setBounds(23, 44, 55, 15);
+		
+		combo = new Combo(composite, SWT.READ_ONLY);
+		combo.setBounds(108, 41, 90, 23);
+		combo.add("Pending");
+		combo.add("Signed");
+		combo.add("Cancelled");
+		combo.add("Terminated");
 
 		populateContractFields();
 		populateContractTable();
@@ -314,9 +334,6 @@ public class UpdateContractScreenDrawer {
 	{
 		//lblClientNameData.setText(client.getBusinessName());
 		lblValueData.setText(String.valueOf(contract.getValue()));
-		lblStatusData.setText("NULL");
-		lblEndData.setText("NULL");
-		lblSignedData.setText("NULL");
 	}
 	
 	/*
