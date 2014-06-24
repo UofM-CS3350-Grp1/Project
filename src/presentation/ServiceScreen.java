@@ -250,7 +250,7 @@ public class ServiceScreen
 			switch(selection)
 			{
 				case Add://add new
-					if(processService.insertService(service))
+					if(processService.insert(service))
 					{
 						services.add(service);
 						list.add(service.getTitle());
@@ -258,7 +258,7 @@ public class ServiceScreen
 					break;
 					
 				case Update://edit					
-					if(processService.updateService(service))
+					if(processService.update(service))
 					{
 						index = services.indexOf(service);
 						if(index != -1)
@@ -269,7 +269,7 @@ public class ServiceScreen
 					break;
 					
 				case Delete://delete										
-					if(processService.deleteService(service))
+					if(processService.delete(service))
 					{
 						index = services.indexOf(service);
 						

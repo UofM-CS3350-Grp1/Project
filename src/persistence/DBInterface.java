@@ -13,6 +13,8 @@ import objects.Client.ClientStatus;
 
 public class DBInterface 
 {
+	public static final String DATABASE_NAME = "MainDB";
+	
 	private DBController mainDB;
 	private String dbName;
 	private DBParser parser;

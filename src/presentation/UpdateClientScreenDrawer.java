@@ -58,7 +58,7 @@ public class UpdateClientScreenDrawer extends AddClientScreenDrawer
 				client.setBusinessName(txtBusinessName.getText());
 				client.setStatus(status);	
 	
-				if(processClient.updateClient(client))
+				if(processClient.update(client))
 				{	
 					goBackToClientScreen();
 				}

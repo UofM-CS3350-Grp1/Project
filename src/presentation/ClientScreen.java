@@ -301,7 +301,7 @@ public class ClientScreen
 				if(selectedIndex != -1)
 				{
 					//Delete the client
-					if(processClient.deleteClient(currentClient))
+					if(processClient.delete(currentClient))
 					{
 						//Remove the clients from our client list
 						clients.remove(selectedIndex);
@@ -487,7 +487,7 @@ public class ClientScreen
 									new Email(txtEmail.getText()), txtAddress.getText(), txtBusinessName.getText(), status);
 				
 				//For now we will use the client list above
-				if(processClient.insertClient(client))
+				if(processClient.insert(client))
 				{
 					clients.add(client);
 					index = clients.indexOf(client);
@@ -537,7 +537,7 @@ public class ClientScreen
 					client.setBusinessName(txtBusinessName.getText());
 					client.setStatus(status);	
 
-					if(processClient.updateClient(client))
+					if(processClient.update(client))
 					{						
 						//For now we will use the client list above
 						listClients.setItem(index, client.getName() + " - " + client.getBusinessName());

@@ -142,7 +142,7 @@ public class AddServiceScreenDrawer
 		try
 		{
 			service = new Service(svcName.getText(), svcDescription.getText(), Double.parseDouble(rateAmount.getText()), svcType.getText());
-			if(processService.insertService(service))
+			if(processService.insert(service))
 				goBackToServiceScreen();
 		}
 		catch(Exception e)

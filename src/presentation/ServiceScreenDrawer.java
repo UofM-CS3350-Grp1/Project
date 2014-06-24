@@ -161,7 +161,7 @@ public class ServiceScreenDrawer extends BaseStorableScreenDrawer
 					service = processService.getServiceByID(Integer.parseInt(selectedItem.getText(0)));
 					
 					if(service != null)
-						processService.deleteService(service);
+						processService.delete(service);
 					
 					table.remove(selectedIndex);
 					

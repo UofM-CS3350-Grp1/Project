@@ -174,7 +174,7 @@ public class ClientScreenDrawer extends BaseStorableScreenDrawer
 					client = processClient.getClientByID(Integer.parseInt(selectedItem.getText(0)));
 					
 					if(client != null)
-						processClient.deleteClient(client);
+						processClient.delete(client);
 					
 					table.remove(selectedIndex);
 					

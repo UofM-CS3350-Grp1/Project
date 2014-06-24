@@ -3,15 +3,13 @@ package business;
 import java.util.ArrayList;
 
 import objects.Client;
-import persistence.StubDBInterface;
 
 /**
  * Performs the client related processing between the GUI
  * component and the Database
  */
-public class ProcessClient
+public class ProcessClient extends ProcessStorable
 {
-	private StubDBInterface database;
 	private ArrayList<Client> clients;
 	private int clientIndex = 0;
 		
@@ -20,66 +18,10 @@ public class ProcessClient
 	 */
 	public ProcessClient()
 	{
-		database = new StubDBInterface("dbName");
+		super();
+		
 		clients = null;
 		clientIndex = 0;
-	}
-	
-	/**
-	 * Creates a new client
-	 * @param client The client
-	 * @return True if the client was added
-	 */
-	public boolean insertClient(Client client)
-	{
-		boolean wasCreated = false;
-		
-		assert (client != null);
-		if(client != null)
-		{
-			database.insert(client);
-			wasCreated = true;
-		}
-		
-		return wasCreated;
-	}
-	
-	/**
-	 * Updates a client
-	 * @param client The client
-	 * @return True if the client was updated
-	 */
-	public boolean updateClient(Client client)
-	{
-		boolean wasUpdated = false;
-		
-		assert (client != null);
-		if(client != null)
-		{
-			database.update(client);
-			wasUpdated = true;
-		}
-		
-		return wasUpdated;
-	}
-	
-	/**
-	 * Deletes a client
-	 * @param client The client
-	 * @return True if the client was deleted
-	 */
-	public boolean deleteClient(Client client)
-	{
-		boolean wasDeleted = false;
-		
-		assert (client != null);
-		if(client != null)
-		{
-			database.drop(client);
-			wasDeleted = true;
-		}
-		
-		return wasDeleted;
 	}
 	
 	/**

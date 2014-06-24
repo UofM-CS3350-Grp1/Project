@@ -103,7 +103,7 @@ public class AddTrackableFeatureDrawer
 		{
 			feature = new TrackedFeature(txtName.getText(), txtNotes.getText());
 			
-			if(processAddFeature.addFeature(feature))
+			if(processAddFeature.insert(feature))
 				backToPreviousScreen();
 		}
 		catch(Exception e) {}	

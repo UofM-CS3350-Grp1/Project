@@ -54,7 +54,7 @@ public class AddFeatureHistoryDrawer extends BaseFeatureHistoryDrawer
 			
 			history = new FeatureHistory(feature, trackedService, Integer.parseInt(txtValue.getText()), date, txtNotes.getText());
 			
-			if(processFeatureHistory.addFeatureHistory(history))
+			if(processFeatureHistory.insert(history))
 				backToPreviousScreen();
 		}
 		catch(Exception e) {}	

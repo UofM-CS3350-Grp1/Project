@@ -6,16 +6,14 @@ import java.util.Iterator;
 
 import objects.Contract;
 import objects.Service;
-import persistence.StubDBInterface;
 
 /**
  * Performs the contract related processing between the GUI
  * component and the Database
  * Same format as ProcessClient.java for consistency
  */
-public class ProcessContract 
+public class ProcessContract extends ProcessStorable
 {	
-	private StubDBInterface database;
 	private ArrayList<Contract> contracts;
 	
 	/**
@@ -23,65 +21,7 @@ public class ProcessContract
 	 */
 	public ProcessContract()
 	{
-		database = new StubDBInterface("dbName");
 		contracts = null;
-	}
-	
-	/**
-	 * Inserts a new contract to the database
-	 * @param contract
-	 * @return True if the contract was inserted successfully
-	 */
-	public boolean insertContract(Contract contract)
-	{
-		boolean wasCreated = false;
-		
-		assert (contract != null);
-		if(contract != null)
-		{
-			database.insert(contract);
-			wasCreated = true;
-		}
-		
-		return wasCreated;
-	}
-
-	/**
-	 * Updates a contract
-	 * @param contract
-	 * @return True if the contract was updated
-	 */
-	public boolean updateContract(Contract contract)
-	{
-		boolean wasUpdated = false;
-		
-		assert (contract != null);
-		if(contract != null)
-		{
-			database.update(contract);
-			wasUpdated = true;
-		}
-		
-		return wasUpdated;
-	}
-
-	/**
-	 * Deletes a contract
-	 * @param contract
-	 * @return True if the contract was deleted
-	 */
-	public boolean deleteContract(Contract contract)
-	{
-		boolean wasDeleted = false;
-		
-		assert (contract != null);
-		if(contract != null)
-		{
-			database.drop(contract);
-			wasDeleted = true;
-		}
-		
-		return wasDeleted;
 	}
 
 	/**

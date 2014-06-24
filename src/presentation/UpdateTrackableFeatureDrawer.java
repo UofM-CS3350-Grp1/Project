@@ -39,7 +39,7 @@ public class UpdateTrackableFeatureDrawer extends AddTrackableFeatureDrawer
 			feature.setFeatureName(txtName.getText());
 			feature.setNotes(txtNotes.getText());
 			
-			if(processAddFeature.updateFeature(feature))
+			if(processAddFeature.update(feature))
 				backToPreviousScreen();
 		}
 	}

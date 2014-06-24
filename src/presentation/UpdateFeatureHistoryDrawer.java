@@ -53,7 +53,7 @@ public class UpdateFeatureHistoryDrawer extends BaseFeatureHistoryDrawer
 			history.setDate(date);
 			history.setNotes(txtNotes.getText());
 			
-			if(processFeatureHistory.updateFeatureHistory(history))
+			if(processFeatureHistory.update(history))
 				backToPreviousScreen();	
 		}
 		catch(Exception e) {}	

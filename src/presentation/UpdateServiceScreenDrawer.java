@@ -51,7 +51,7 @@ public class UpdateServiceScreenDrawer extends AddServiceScreenDrawer
 		service.setRate(Double.parseDouble(rateAmount.getText()));
 		service.setType(svcType.getText());
 		
-		processService.updateService(service);
+		processService.update(service);
 	}
 	
 	/**

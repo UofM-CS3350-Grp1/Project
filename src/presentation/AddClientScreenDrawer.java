@@ -260,7 +260,7 @@ public class AddClientScreenDrawer
 				client = new Client(txtClientName.getText(), new PhoneNumber(txtPhoneNumberA.getText() + txtPhoneNumberB.getText() + txtPhoneNumberC.getText()), 
 						new Email(txtEmail.getText()), txtAddress.getText(), txtBusinessName.getText(), status);
 				
-				if (processClient.insertClient(client))
+				if (processClient.insert(client))
 				{					
 					goBackToClientScreen();
 				}
