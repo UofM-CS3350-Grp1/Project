@@ -4,16 +4,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
+import objects.Client;
 import objects.Contract;
 import objects.Service;
+import persistence.StubDBInterface;
 
 /**
  * Performs the contract related processing between the GUI
  * component and the Database
  * Same format as ProcessClient.java for consistency
  */
-public class ProcessContract extends ProcessStorable
+public class ProcessContract 
 {	
+	private StubDBInterface database;
 	private ArrayList<Contract> contracts;
 	
 	/**
@@ -21,7 +24,93 @@ public class ProcessContract extends ProcessStorable
 	 */
 	public ProcessContract()
 	{
+		database = new StubDBInterface("dbName");
 		contracts = null;
+	}
+	
+	/**
+	 * Inserts a new contract to the database
+	 * @param contract
+	 * @return True if the contract was inserted successfully
+	 */
+	public boolean insertContract(Contract contract)
+	{
+		boolean wasCreated = false;
+		
+		assert (contract != null);
+		if(contract != null)
+		{
+			database.insert(contract);
+			wasCreated = true;
+		}
+		
+		return wasCreated;
+	}
+	
+	/*
+	 * Returns the contract id
+	 */
+	public Contract getContractByID(int id)
+	{
+		return database.getContractByID(id);
+	}
+	
+	/*
+	 * returns the client that signed this contract
+	 */
+	public Client getContractClient(Contract contract)
+	{
+		ArrayList<Client> list = database.dumpClients();
+		Iterator it = list.iterator();
+		Client result = null;
+		Client temp = null;
+		while(it.hasNext())
+		{
+			temp = (Client) it.next();
+			if(temp.getID()==contract.getID())
+			{
+				result = temp;
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * Updates a contract
+	 * @param contract
+	 * @return True if the contract was updated
+	 */
+	public boolean updateContract(Contract contract)
+	{
+		boolean wasUpdated = false;
+		
+		assert (contract != null);
+		if(contract != null)
+		{
+			database.update(contract);
+			wasUpdated = true;
+		}
+		
+		return wasUpdated;
+	}
+
+	/**
+	 * Deletes a contract
+	 * @param contract
+	 * @return True if the contract was deleted
+	 */
+	public boolean deleteContract(Contract contract)
+	{
+		boolean wasDeleted = false;
+		
+		assert (contract != null);
+		if(contract != null)
+		{
+			database.drop(contract);
+			wasDeleted = true;
+		}
+		
+		return wasDeleted;
 	}
 
 	/**
@@ -30,9 +119,7 @@ public class ProcessContract extends ProcessStorable
 	 */
 	public ArrayList<Contract> getContracts()
 	{
-		database.connect();
 		contracts = database.dumpContracts();
-		database.disconnect();
 		return contracts;
 	}
 
@@ -47,13 +134,24 @@ public class ProcessContract extends ProcessStorable
 		return result;
 	}
 	
+	/*
+	 * returns the number of services in this contract
+	 */
+	public int getNumberOfServices(Contract contract)
+	{
+		ArrayList<Service> services = null;
+		services = database.dumpServices();
+		int result = services.size();
+		return result;
+	}
+	
 	/**
 	 * @return the dollar amount of all contracts collectively
 	 */
 	public double getTotalContractsValue()
 	{
 		double result = 0;
-		contracts = getContracts();
+		contracts = database.dumpContracts();
 		Contract temp = null;
 		Iterator<Contract> it = contracts.iterator();
 		
