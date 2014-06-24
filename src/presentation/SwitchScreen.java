@@ -43,14 +43,13 @@ public class SwitchScreen {
 		/*
 		 * Create the navigation bar
 		 */
-		final int NUM_NAV_BUTTONS = 6;
+		final int NUM_NAV_BUTTONS = 7;
 		Composite navBar = new Composite( shell, SWT.BORDER );
 		GridLayout navLayout = new GridLayout();
 		navLayout.numColumns = NUM_NAV_BUTTONS;
 		navLayout.makeColumnsEqualWidth = true;
 		navBar.setLayout( navLayout );
-		GridData navData = new GridData( GridData.FILL_HORIZONTAL ); // expand to shell width
-		navBar.setLayoutData( navData );
+		navBar.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ) );
 		
 		/*
 		 * adds the buttons to the nav bar; more than six will cause it to overflow
@@ -67,6 +66,9 @@ public class SwitchScreen {
 
 		Button bServices = new Button( navBar, SWT.FLAT );
 		tuneNavButton( bServices, "SERVICES" );
+		
+		Button bFeatures = new Button( navBar, SWT.FLAT );
+		tuneNavButton( bFeatures, "FEATURES" );
 		
 		Button bLogin = new Button( navBar, SWT.FLAT );
 		tuneNavButton( bLogin, "LOG IN" );
@@ -90,8 +92,7 @@ public class SwitchScreen {
 		 * create the switching composite
 		 */
 		content = new Composite( shell, SWT.BORDER  );
-		GridData contentFormatter = new GridData( GridData.FILL_BOTH ); // expands the composite
-		content.setLayoutData( contentFormatter );
+		content.setLayoutData( new GridData( GridData.FILL_BOTH ) );
 		contentLayout = new StackLayout(); // allows switching between composites
 		content.setLayout( contentLayout );
 
@@ -143,6 +144,23 @@ public class SwitchScreen {
 				Composite serviceScreen = SwitchScreen.getContentContainer();
 				ServiceScreenDrawer ssd = new ServiceScreenDrawer( serviceScreen );
 				SwitchScreen.switchContent( serviceScreen );
+			}
+		});
+		
+		/*
+		 * draws the feature screen
+		 */
+		Composite featuresScreen = SwitchScreen.getContentContainer();
+		TrackableFeatureScreenDrawer tfsd = new TrackableFeatureScreenDrawer( featuresScreen );
+		SwitchScreen.switchContent( featuresScreen );
+		bFeatures.addSelectionListener( new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected( SelectionEvent event )
+			{
+				Composite featuresScreen = SwitchScreen.getContentContainer();
+				TrackableFeatureScreenDrawer tfsd = new TrackableFeatureScreenDrawer( featuresScreen );
+				SwitchScreen.switchContent( featuresScreen );
 			}
 		});
 		

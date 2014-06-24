@@ -37,7 +37,7 @@ public class ProcessAddFeature extends ProcessStorable
 			features = database.dumpTrackedFeatures();
 			database.disconnect();
 			
-			if(features.size() > 0)
+			if(features != null && features.size() > 0)
 			{
 				feature = features.get(0);
 				featureIndex = 1;

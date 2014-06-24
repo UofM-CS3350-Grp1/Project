@@ -56,7 +56,7 @@ public class AddTrackableFeatureDrawer
 		lblNotes.setText( "Additional Details" );
 		new Label(composite, SWT.NONE);
 		
-		Text txtNotes = new Text( composite, SWT.BORDER );
+		txtNotes = new Text( composite, SWT.BORDER );
 		gd_txtNotes = new GridData( GridData.FILL_BOTH );
 		gd_txtNotes.horizontalSpan = 2;
 		txtNotes.setLayoutData( gd_txtNotes );		
@@ -114,6 +114,8 @@ public class AddTrackableFeatureDrawer
 	 */
 	protected void backToPreviousScreen()
 	{
-		//TODO Go back to previous screen
+		Composite featureScreen = SwitchScreen.getContentContainer();
+		new TrackableFeatureScreenDrawer( featureScreen );
+		SwitchScreen.switchContent( featureScreen );
 	}
 }
