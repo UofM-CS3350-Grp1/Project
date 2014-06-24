@@ -35,6 +35,20 @@ TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 
+
+
+--------------
+Meeting Summary
+Date: 06/24
+Discussed feddback from iteration 1. Talked about what the requirements that were left to finish for iteration 2.
+Addressed concerns for storage of certain data in objects, and database usage.
+--------------
+
+
+-------------------------ITERAITION 1 FEEDBACK RECEIVED HERE--------------------------------------
+
+
+
 Task: Contract tab - edit contract
 Date: 6/24 2:00am
 Assigned to: Jason
