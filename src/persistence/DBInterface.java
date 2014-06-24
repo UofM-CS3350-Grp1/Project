@@ -294,6 +294,60 @@ public class DBInterface
 		}
 	}
 	
+	public ArrayList<Service> getServiceByContract(Contract input)
+	{
+		ArrayList<Service> storage = new ArrayList<Service>();
+		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+		ArrayList<String> conditions = new ArrayList<String>();
+		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+		
+		conditions.add("CONTRACT_ID");
+		conditions.add("= ");
+		conditions.add("'"+input.getID()+"'");
+		
+		clauses.add(conditions);
+		
+		returnValue  = this.mainDB.query("SERVICES", clauses);
+		
+		storage = parser.parseServices(returnValue);
+		
+		if(storage.size() == 0)
+		{
+			return null;
+		}
+		else
+		{
+			return storage;
+		}
+	}
+	
+	public ArrayList<Service> getServiceByClient(Client input)
+	{
+		ArrayList<Service> storage = new ArrayList<Service>();
+		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+		ArrayList<String> conditions = new ArrayList<String>();
+		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+		
+		conditions.add("CLIENT_ID");
+		conditions.add("= ");
+		conditions.add("'"+input.getID()+"'");
+		
+		clauses.add(conditions);
+		
+		returnValue  = this.mainDB.query("SERVICES", clauses);
+		
+		storage = parser.parseServices(returnValue);
+		
+		if(storage.size() == 0)
+		{
+			return null;
+		}
+		else
+		{
+			return storage;
+		}
+	}
+	
 	/**
 	 * 	GETCLIENTSBYSTATUS()
 	 * 

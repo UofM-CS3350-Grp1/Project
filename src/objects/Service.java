@@ -12,6 +12,8 @@ public class Service implements Storable, Trackable
 	private String type;			// General type of service, could be used for reinstantiating a subclass.
 	private double rate;			// Rate at which this service is charged.
 	private int id;					// Unique Row ID of service.
+	private int clientID;			// Client owning this service.
+	private int contractID;			// COntract this service is attached to.
 	private String tableName;
 		
 	/**
@@ -33,6 +35,8 @@ public class Service implements Storable, Trackable
 			this.rate = rate;
 			this.id = id;
 			this.type = type;
+			this.clientID = -1;
+			this.contractID = -1;
 			this.tableName = "SERVICES";
 		}
 		else
@@ -63,13 +67,48 @@ public class Service implements Storable, Trackable
 			this.id = 0;
 			this.type = type;
 			this.tableName = "SERVICES";
+			this.clientID = -1;
+			this.contractID = -1;
 		}
 		else
 		{
 			// Reject objects with undefined names or invalid ID's
 			throw new IllegalArgumentException();
 		}
-	}		
+	}
+	
+	/**
+	 * Creates a new service
+	 * Business Logic constructor, used if a new service is created within the program
+	 *  
+	 * @param id The ID of the service
+	 * @param title The service title
+	 * @param description The description of the service
+	 * @param rate The rate of the service
+	 * @param type The type of service
+	 * @param ClientID associated with service.
+	 * @param ContractID associated with service.
+	 * @throws IllegalArgumentException
+	 */
+	public Service(int id, String title, String description, double rate, String type, int clientID, int contractID) throws IllegalArgumentException
+	{		
+		if(title != null && !title.isEmpty() && id >= 0 && clientID >= 0 && contractID >= 0&& description != null && rate >= 0 && type != null && !type.isEmpty()) 
+		{
+			this.title = title;
+			this.description = description;
+			this.rate = rate;
+			this.id = id;
+			this.type = type;
+			this.tableName = "SERVICES";
+			this.clientID = clientID;
+			this.contractID = contractID;
+		}
+		else
+		{
+			// Reject objects with undefined names or invalid ID's
+			throw new IllegalArgumentException();
+		}
+	}
 	
 	//-------------
 	//	GETTERS
@@ -164,6 +203,29 @@ public class Service implements Storable, Trackable
 	}
 	
 	/**
+	 * Sets the service id
+	 * @param type The service type
+	 */
+	public void setClientID(int id)
+	{
+		assert (id >= 1);
+		if(id >= 1)
+			this.clientID = id;
+	}
+	
+	/**
+	 * Sets the service id
+	 * @param type The service type
+	 */
+	public void setContractID(int id)
+	{
+		assert (id >= 1);
+		if(id >= 1)
+			this.contractID = id;
+	}
+	
+	
+	/**
 	 * Currently inactive, under normal conditions will perform either
 	 * an INSERT or an UPDATE call to DBMS.
 	 */	
@@ -187,7 +249,9 @@ public class Service implements Storable, Trackable
 		index.add(this.description);
 		index.add(String.format("%.2f", this.rate));
 		index.add(this.type);
-			
+		index.add(""+this.clientID);
+		index.add(""+this.contractID);
+		
 		return index;
 	}
 	

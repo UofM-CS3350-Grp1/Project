@@ -29,7 +29,9 @@ public class DBParser
 					input.get(i).get(1),
 					input.get(i).get(2),
 					Double.parseDouble(input.get(i).get(3)),
-					input.get(i).get(4)
+					input.get(i).get(4),
+					Integer.parseInt(input.get(i).get(5)),
+					Integer.parseInt(input.get(i).get(6))
 					);
 			
 			output.add(item);

@@ -30,6 +30,9 @@ public class TestDBInterface {
 		assertNotNull("Contracts by business test", mainFace.getContractsByBusiness("Business 2"));
 		assertNotNull("Clients by Ststus test", mainFace.getClientsByStatus(ClientStatus.Active));
 		
+		assertNotNull("Get Service by Contract", mainFace.getServiceByContract(mainFace.getContractByID(1)));
+		assertNotNull("Get Service by Client", mainFace.getServiceByClient(mainFace.getClientByID(1)));
+		
 		assertNotNull("Feature history retrieval by client", mainFace.getFeatureHistoryFromParent(mainFace.getClientByID(1), mainFace.getTrackedFeatureByID(1)));
 		assertNotNull("Feature history retrieval by service", mainFace.getFeatureHistoryFromParent(mainFace.getServiceByID(2), mainFace.getTrackedFeatureByID(2)));
 		
@@ -81,7 +84,8 @@ public class TestDBInterface {
 		DBInterface mainFace = new DBInterface("MainDB");
 		mainFace.connect();
 		
-		FeatureHistory newHistory = new FeatureHistory(mainFace.getTrackedFeatureByID(1), mainFace.getClientByID(2), 2.0, new Date(), "blahblahblah");
+		FeatureHistory newHistory = null;
+		newHistory = new FeatureHistory(mainFace.getTrackedFeatureByID(1), mainFace.getClientByID(2), 2.0, new Date(), "blahblahblah");
 		TrackedFeature newTracking = new TrackedFeature("BobLoblawsLawBlog", "Lobslawbombs");
 		assertTrue("FeatreHistory Insert", mainFace.insert(newHistory));
 		assertTrue("TrackedFeature Insert", mainFace.insert(newTracking));
