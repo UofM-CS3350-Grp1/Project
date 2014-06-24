@@ -22,7 +22,7 @@ import business.ProcessContract;
 public class ContractScreenDrawer extends BaseStorableScreenDrawer
 {
 	private static final String[] tableColumnNames = { "Contract ID", "Client", "Status", "Value", "Signed Date" };
-	private static final int[] tableWidths = { 0, 150, 150, 150, 200 };
+	private static final int[] tableWidths = { 150, 150, 150, 150, 200 };
 	private ProcessContract processContract;
 	private ArrayList<Contract> contracts;
 	
@@ -87,19 +87,72 @@ public class ContractScreenDrawer extends BaseStorableScreenDrawer
 	@Override
 	protected void addNew() 
 	{
-		
+		Composite addContractScreen = SwitchScreen.getContentContainer();
+		new AddContractScreenDrawer( addContractScreen );
+		SwitchScreen.switchContent( addContractScreen );
 	}
 
 	@Override
 	protected void editSelectedItem() 
 	{
+		int index, id;
+		Composite updateContractScreen;
+		Client client;
+		Contract contract;
+		ProcessClient processClient;
 		
+		if((index = table.getSelectionIndex()) != -1)
+		{
+			try
+			{
+				id = Integer.parseInt(table.getItem(index).getText(0));
+				contract = processContract.getContractByID(id);
+				client = processContract.getContractClient(contract);
+				
+				if(client != null && contract != null)
+				{
+					updateContractScreen = SwitchScreen.getContentContainer();
+					new UpdateContractScreenDrawer( updateContractScreen, contract, client );
+					SwitchScreen.switchContent( updateContractScreen );
+				}
+			}
+			catch(NumberFormatException nfe)
+			{
+				System.out.println(nfe);
+			}
+		}
 	}
 
 	@Override
 	protected void viewSelectedItem() 
 	{
+		int index, id;
+		Composite analysisScreen;
+		Client client;
+		Contract contract;
+		ProcessClient processClient;
 		
+		if((index = table.getSelectionIndex()) != -1)
+		{
+			try
+			{
+				//Extract the service ID from the table
+				id = Integer.parseInt(table.getItem(index).getText(0));
+				contract = processContract.getContractByID(id);
+				client = processContract.getContractClient(contract);
+				
+				if(client != null && contract != null)
+				{
+					analysisScreen = SwitchScreen.getContentContainer();
+					new ContractAnalysisScreenDrawer( analysisScreen, contract, client );
+					SwitchScreen.switchContent( analysisScreen );
+				}
+			}
+			catch(NumberFormatException nfe)
+			{
+				System.out.println(nfe);
+			}
+		}
 	}
 
 	@Override
