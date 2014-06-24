@@ -34,6 +34,13 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Remove Homescreen
+Date: 6/23 7:50pm
+Status: Completed
+Duration: 10 minutes
+Description: Removing the home screen as there does not seem to be a reason to have one. Could be added back if we find a need for it.
+
+
 Task: Refactor DBMS Controller, Back End History/Feature-Tracking Implementation & Testing
 Date: 6/22 11:27pm
 Status: Completed

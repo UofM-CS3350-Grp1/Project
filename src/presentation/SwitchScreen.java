@@ -43,7 +43,7 @@ public class SwitchScreen {
 		/*
 		 * Create the navigation bar
 		 */
-		final int NUM_NAV_BUTTONS = 8;
+		final int NUM_NAV_BUTTONS = 7;
 		Composite navBar = new Composite( shell, SWT.BORDER );
 		GridLayout navLayout = new GridLayout();
 		navLayout.numColumns = NUM_NAV_BUTTONS;
@@ -58,9 +58,6 @@ public class SwitchScreen {
 		 */
 		Button bBack = new Button( navBar, SWT.FLAT );
 		tuneNavButton( bBack, "BACK" );
-		
-		Button bHome = new Button( navBar, SWT.FLAT );
-		tuneNavButton( bHome, "HOME" );
 
 		Button bClients = new Button( navBar, SWT.FLAT );
 		tuneNavButton( bClients, "CLIENTS" );
