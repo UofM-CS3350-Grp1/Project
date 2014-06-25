@@ -32,6 +32,14 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Client tracking services and features
+Date: 6/24, 11:30pm
+Assigned to: Tim
+Status: In progress.
+Duration: 1 hour
+Description:	Added the ability for clients to select the services they want to use.
+				Squashed a few potential bugs.
+
 
 Task: Back End Client/Service Tracking Implementation & Testing / Bugfixing
 Date: 6/24 ~2:30pm-~10:30pm
@@ -60,6 +68,10 @@ Duration: 2hrs
 Description:	- added additional fields to services to be able to differenciate between them
                 - added the additional details textarea
                 - adding/removing services works perfectly now
+                
+Planned Task: Add services to clients
+Planned dev duration: 1.5 hrs
+Assigned to: Tim
       
 Planned Task: finish create contract tab
 Planned dev duration: 3hrs
