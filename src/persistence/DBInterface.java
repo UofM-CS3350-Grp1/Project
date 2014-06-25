@@ -551,7 +551,7 @@ public class DBInterface
 				errorMessage("FEATURE HSTORY", "A NULL TRACKED FEATURE OBJECT\n", "INSTANTIATE A TRCKED FEATURE OBJECT");
 			}
 			
-			if(element != null && element.getID() < 0 && ERROR_LOGGING == 1)
+			if(element != null && element.getID() <= 0 && ERROR_LOGGING == 1)
 			{
 				errorMessage("FEATURE HISTORY", "A TRACKABLE OBJECT THAT HAS NOT BEEN INSERTED INTO DMBS\n", "INSERT THE TRACKABLE OBJECT");
 			}
