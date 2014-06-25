@@ -21,8 +21,6 @@ import business.ProcessClient;
 import business.ProcessContract;
 import business.ProcessService;
 
-
-
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -193,11 +191,11 @@ public class ContractAnalysisScreenDrawer
 		lblEnd = new Label(contractDataComposite, SWT.NONE);
 		lblEnd.setText("End date:");
 		
-				lblEndData = new Label(contractDataComposite, SWT.NONE);
-				GridData gd_lblEndData = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
-				gd_lblEndData.widthHint = 162;
-				lblEndData.setLayoutData(gd_lblEndData);
-				lblEndData.setText("END");
+		lblEndData = new Label(contractDataComposite, SWT.NONE);
+		GridData gd_lblEndData = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
+		gd_lblEndData.widthHint = 162;
+		lblEndData.setLayoutData(gd_lblEndData);
+		lblEndData.setText("END");
 		new Label(contractDataComposite, SWT.NONE);
 		new Label(contractDataComposite, SWT.NONE);
 		new Label(contractDataComposite, SWT.NONE);
@@ -252,12 +250,12 @@ public class ContractAnalysisScreenDrawer
 		
 		lblEmail_1 = new Label(contractDataComposite, SWT.NONE);
 		lblEmail_1.setText("Email:");
-		
-				lblEmailData = new Label(contractDataComposite, SWT.NONE);
-				GridData gd_lblEmailData = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
-				gd_lblEmailData.widthHint = 162;
-				lblEmailData.setLayoutData(gd_lblEmailData);
-				lblEmailData.setText("EMAIL");
+
+		lblEmailData = new Label(contractDataComposite, SWT.NONE);
+		GridData gd_lblEmailData = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
+		gd_lblEmailData.widthHint = 162;
+		lblEmailData.setLayoutData(gd_lblEmailData);
+		lblEmailData.setText("EMAIL");
 		new Label(contractDataComposite, SWT.NONE);
 		new Label(contractDataComposite, SWT.NONE);
 		new Label(contractDataComposite, SWT.NONE);
@@ -277,11 +275,11 @@ public class ContractAnalysisScreenDrawer
 		lblPhone = new Label(contractDataComposite, SWT.NONE);
 		lblPhone.setText("Phone#:");
 		
-				lblPhoneNumberData = new Label(contractDataComposite, SWT.NONE);
-				GridData gd_lblPhoneNumberData = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
-				gd_lblPhoneNumberData.widthHint = 162;
-				lblPhoneNumberData.setLayoutData(gd_lblPhoneNumberData);
-				lblPhoneNumberData.setText("PHONE_NUMBER");
+		lblPhoneNumberData = new Label(contractDataComposite, SWT.NONE);
+		GridData gd_lblPhoneNumberData = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
+		gd_lblPhoneNumberData.widthHint = 162;
+		lblPhoneNumberData.setLayoutData(gd_lblPhoneNumberData);
+		lblPhoneNumberData.setText("PHONE_NUMBER");
 		new Label(contractDataComposite, SWT.NONE);
 		new Label(contractDataComposite, SWT.NONE);
 		new Label(contractDataComposite, SWT.NONE);
@@ -300,88 +298,94 @@ public class ContractAnalysisScreenDrawer
 		lblPhone_1 = new Label(contractDataComposite, SWT.NONE);
 		lblPhone_1.setText("Phone#:");
 		
-			lblPhoneNumberData2 = new Label(contractDataComposite, SWT.NONE);
-			GridData gd_lblPhoneNumberData2 = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
-			gd_lblPhoneNumberData2.widthHint = 162;
-			lblPhoneNumberData2.setLayoutData(gd_lblPhoneNumberData2);
-			lblPhoneNumberData2.setText("PHONE_NUMBER");
+		lblPhoneNumberData2 = new Label(contractDataComposite, SWT.NONE);
+		GridData gd_lblPhoneNumberData2 = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
+		gd_lblPhoneNumberData2.widthHint = 162;
+		lblPhoneNumberData2.setLayoutData(gd_lblPhoneNumberData2);
+		lblPhoneNumberData2.setText("PHONE_NUMBER");
 		new Label(contractDataComposite, SWT.NONE);
 		new Label(contractDataComposite, SWT.NONE);
 		new Label(contractDataComposite, SWT.NONE);
 		new Label(contractDataComposite, SWT.NONE);
-										new Label(contractDataComposite, SWT.NONE);
-										new Label(contractDataComposite, SWT.NONE);
-										new Label(contractDataComposite, SWT.NONE);
-										new Label(contractDataComposite, SWT.NONE);
-										new Label(contractDataComposite, SWT.NONE);
-										new Label(contractDataComposite, SWT.NONE);
-										new Label(contractDataComposite, SWT.NONE);
-										new Label(contractDataComposite, SWT.NONE);
-										new Label(contractDataComposite, SWT.NONE);
-										
-										lblDetails = new Label(contractDataComposite, SWT.NONE);
-										lblDetails.setText("Details");
-										new Label(contractDataComposite, SWT.NONE);
-										new Label(contractDataComposite, SWT.NONE);
-										new Label(contractDataComposite, SWT.NONE);
-										new Label(contractDataComposite, SWT.NONE);
-										new Label(contractDataComposite, SWT.NONE);
-										new Label(contractDataComposite, SWT.NONE);
-										new Label(contractDataComposite, SWT.NONE);
-										new Label(contractDataComposite, SWT.NONE);
-										
-										detailsData = new Text(contractDataComposite, SWT.BORDER | SWT.READ_ONLY);
-										GridData gd_detailsData = new GridData(SWT.FILL, SWT.CENTER, true, false, 9, 1);
-										gd_detailsData.heightHint = 78;
-										detailsData.setLayoutData(gd_detailsData);
-										
-										lblServicesInThis = new Label(contractDataComposite, SWT.NONE);
-										lblServicesInThis.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));
-										lblServicesInThis.setText("Services in this contract");
-										new Label(contractDataComposite, SWT.NONE);
-										new Label(contractDataComposite, SWT.NONE);
-										new Label(contractDataComposite, SWT.NONE);
-										new Label(contractDataComposite, SWT.NONE);
-										new Label(contractDataComposite, SWT.NONE);
-										new Label(contractDataComposite, SWT.NONE);
-										new Label(contractDataComposite, SWT.NONE);
-										
-										servicesTable = new Table(contractDataComposite, SWT.BORDER | SWT.FULL_SELECTION | SWT.V_SCROLL | SWT.H_SCROLL);
-										GridData gd_servicesTable = new GridData(SWT.FILL, SWT.TOP, true, false, 9, 1);
-										gd_servicesTable.widthHint = 628;
-										gd_servicesTable.heightHint = 142;
-										servicesTable.setLayoutData(gd_servicesTable);
-										servicesTable.setHeaderVisible(true);
-										servicesTable.setLinesVisible(true);
-										
-												TableColumn tableColumn_1 = new TableColumn(servicesTable, SWT.NONE);
-												tableColumn_1.setWidth(150);
-												tableColumn_1.setText("Service");
-												
-														TableColumn tableColumn_2 = new TableColumn(servicesTable, SWT.NONE);
-														tableColumn_2.setWidth(70);
-														tableColumn_2.setText("Rate");
-														
-																TableColumn tableColumn_3 = new TableColumn(servicesTable, SWT.NONE);
-																tableColumn_3.setWidth(100);
-																tableColumn_3.setText("Category");
-																
-																		TableColumn tableColumn_4 = new TableColumn(servicesTable, SWT.NONE);
-																		tableColumn_4.setWidth(300);
-																		tableColumn_4.setText("Details");
-																		new Label(contractDataComposite, SWT.NONE);
-																		new Label(contractDataComposite, SWT.NONE);
-																		
-																		btnPrint = new Button(contractDataComposite, SWT.NONE);
-																		btnPrint.setText("PRINT");
-																		new Label(contractDataComposite, SWT.NONE);
-																		
-																		btnSave = new Button(contractDataComposite, SWT.NONE);
-																		btnSave.setText("SAVE");
-																		new Label(contractDataComposite, SWT.NONE);
-																		new Label(contractDataComposite, SWT.NONE);
-																		new Label(contractDataComposite, SWT.NONE);
-																		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		
+		lblDetails = new Label(contractDataComposite, SWT.NONE);
+		lblDetails.setText("Details");
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		
+		detailsData = new Text(contractDataComposite, SWT.BORDER | SWT.READ_ONLY);
+		GridData gd_detailsData = new GridData(SWT.FILL, SWT.CENTER, true, false, 9, 1);
+		gd_detailsData.heightHint = 78;
+		detailsData.setLayoutData(gd_detailsData);
+		
+		lblServicesInThis = new Label(contractDataComposite, SWT.NONE);
+		lblServicesInThis.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));
+		lblServicesInThis.setText("Services in this contract");
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		
+		servicesTable = new Table(contractDataComposite, SWT.BORDER | SWT.FULL_SELECTION | SWT.V_SCROLL | SWT.H_SCROLL);
+		GridData gd_servicesTable = new GridData(SWT.FILL, SWT.TOP, true, false, 9, 1);
+		gd_servicesTable.widthHint = 628;
+		gd_servicesTable.heightHint = 142;
+		servicesTable.setLayoutData(gd_servicesTable);
+		servicesTable.setHeaderVisible(true);
+		servicesTable.setLinesVisible(true);
+		
+		TableColumn tableColumn_1 = new TableColumn(servicesTable, SWT.NONE);
+		tableColumn_1.setWidth(150);
+		tableColumn_1.setText("Service");
+		
+		TableColumn tableColumn_2 = new TableColumn(servicesTable, SWT.NONE);
+		tableColumn_2.setWidth(70);
+		tableColumn_2.setText("Rate");
+		
+		TableColumn tableColumn_3 = new TableColumn(servicesTable, SWT.NONE);
+		tableColumn_3.setWidth(100);
+		tableColumn_3.setText("Category");
+		
+		TableColumn tableColumn_4 = new TableColumn(servicesTable, SWT.NONE);
+		tableColumn_4.setWidth(300);
+		tableColumn_4.setText("Details");
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		
+		btnPrint = new Button(contractDataComposite, SWT.NONE);
+		btnPrint.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				createContractPDF();
+			}
+		});
+		btnPrint.setText("PRINT");
+		new Label(contractDataComposite, SWT.NONE);
+		
+		btnSave = new Button(contractDataComposite, SWT.NONE);
+		btnSave.setText("SAVE");
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
 		
 		populateClientData();
 		populateServiceData();
@@ -390,6 +394,14 @@ public class ContractAnalysisScreenDrawer
 		composite.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		composite.setExpandHorizontal(true);
 		composite.setExpandVertical(true);*/
+	}
+	
+	/*
+	 * creates, saves and prints contract PDF
+	 */
+	public void createContractPDF()
+	{
+		//Document doc = new Document();
 	}
 	
 	/**

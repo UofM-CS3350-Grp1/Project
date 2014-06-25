@@ -81,6 +81,10 @@ public class UpdateContractScreenDrawer {
 		serviceTable.setLinesVisible(true);
 		serviceTable.setHeaderVisible(true);
 		serviceTable.setBounds(22, 108, 286, 204);
+
+		tableColumn = new TableColumn(serviceTable, SWT.NONE);
+		tableColumn.setWidth(0);
+		tableColumn.setText("ID");
 		
 		tableColumn = new TableColumn(serviceTable, SWT.NONE);
 		tableColumn.setWidth(110);
@@ -119,6 +123,10 @@ public class UpdateContractScreenDrawer {
 		contractTable.setLinesVisible(true);
 		contractTable.setHeaderVisible(true);
 		contractTable.setBounds(443, 108, 446, 204);
+
+		tableColumn_2 = new TableColumn(contractTable, SWT.NONE);
+		tableColumn_2.setWidth(0);
+		tableColumn_2.setText("ID");
 
 		tableColumn_2 = new TableColumn(contractTable, SWT.NONE);
 		tableColumn_2.setWidth(110);
@@ -261,9 +269,11 @@ public class UpdateContractScreenDrawer {
 		while((service = processService.getNextService()) != null)
 		{
 			item = new TableItem(serviceTable, SWT.NULL);
-			
-			item.setText(0, service.getTitle());
-			item.setText(1, service.getRate() + "");
+
+			item.setText(0, String.valueOf(service.getID()));
+			item.setText(1, service.getTitle());
+			item.setText(2, service.getRate() + "");
+			item.setText(3, service.getType());
 		}
 	}
 	
@@ -296,14 +306,19 @@ public class UpdateContractScreenDrawer {
 	public void addSelectedItem()
 	{
 		int selectedIndex = serviceTable.getSelectionIndex();
-		Service service = processService.getServiceByID(selectedIndex);
+		
 		if(selectedIndex != -1)
 		{
+			TableItem select = serviceTable.getItem(selectedIndex);
+			int x = Integer.parseInt(select.getText(0));
+			Service service = processService.getServiceByID(x);
 			item = new TableItem(contractTable, SWT.NULL);
 
-			item.setText(0, serviceTable.getItem(selectedIndex).getText());
-			item.setText(1, String.valueOf(service.getRate()));
-			item.setText(2, service.getDescription());
+			item.setText(0, String.valueOf(service.getID()));
+			item.setText(1, service.getTitle());
+			item.setText(2, String.valueOf(service.getRate()));
+			item.setText(3, service.getType());
+			item.setText(4, service.getDescription());
 
 			serviceTable.remove(selectedIndex);
 		}
@@ -315,13 +330,19 @@ public class UpdateContractScreenDrawer {
 	public void removeSelectedItem()
 	{
 		int selectedIndex = contractTable.getSelectionIndex();
-
+		
 		if(selectedIndex != -1)
 		{
+			TableItem select = contractTable.getItem(selectedIndex);
+			int x = Integer.parseInt(select.getText(0));
+			Service service = processService.getServiceByID(x);
+
 			item = new TableItem(serviceTable, SWT.NULL);
 
-			item.setText(0, contractTable.getItem(selectedIndex).getText());
-			item.setText(1, contractTable.getItem(selectedIndex).getText());
+			item.setText(0, String.valueOf(service.getID()));
+			item.setText(1, service.getTitle());
+			item.setText(2, String.valueOf(service.getRate()));
+			item.setText(3, service.getType());
 
 			contractTable.remove(selectedIndex);
 		}

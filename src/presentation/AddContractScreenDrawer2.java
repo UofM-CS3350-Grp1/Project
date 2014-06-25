@@ -257,12 +257,12 @@ public class AddContractScreenDrawer2
 	private void addSelectedItem() 
 	{
 		int selectedIndex = table.getSelectionIndex();
-		int id = Integer.parseInt(table.getItem(selectedIndex).getText());
-		ProcessService processService = new ProcessService();
-		Service service = processService.getServiceByID(id);
-
+		
 		if(selectedIndex != -1)
 		{
+			TableItem select = table.getItem(selectedIndex);
+			int x = Integer.parseInt(select.getText(0));
+			Service service = processService.getServiceByID(x);
 			item = new TableItem(table_1, SWT.NULL);
 
 			item.setText(0, String.valueOf(service.getID()));
@@ -281,17 +281,19 @@ public class AddContractScreenDrawer2
 	private void removeSelectedItem() 
 	{
 		int selectedIndex = table_1.getSelectionIndex();
-		int id = Integer.parseInt(table_1.getItem(selectedIndex).getText());
-		ProcessService processService = new ProcessService();
-		Service service = processService.getServiceByID(id);
-
+		
 		if(selectedIndex != -1)
 		{
+			TableItem select = table_1.getItem(selectedIndex);
+			int x = Integer.parseInt(select.getText(0));
+			Service service = processService.getServiceByID(x);
+
 			item = new TableItem(table, SWT.NULL);
 
 			item.setText(0, String.valueOf(service.getID()));
 			item.setText(1, service.getTitle());
 			item.setText(2, String.valueOf(service.getRate()));
+			item.setText(3, service.getType());
 
 			table_1.remove(selectedIndex);
 		}
@@ -307,7 +309,9 @@ public class AddContractScreenDrawer2
 		table.removeAll();
 		
 		if(processService == null)
+		{
 			processService = new ProcessService();
+		}
 		
 		while((service = processService.getNextService()) != null)
 		{
@@ -316,6 +320,7 @@ public class AddContractScreenDrawer2
 			item.setText(0, String.valueOf(service.getID()));
 			item.setText(1, service.getTitle());
 			item.setText(2, service.getRate() + "");
+			item.setText(3, service.getType());
 		}
 		
 	}
