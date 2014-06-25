@@ -47,7 +47,21 @@ Addressed concerns for storage of certain data in objects, and database usage.
 
 -------------------------ITERATION 1 FEEDBACK RECEIVED HERE---------------------------------------
 
+Task: Contract tab - view contract
+Date: 6/24 7:00pm
+Assigned to: Jason
+Status: in progress
+Duration: 30min
+Description:	fixed bug that prevented/mixed up contract views
 
+Task: Contract tab - create contract
+Date: 6/24 4:00pm
+Assigned to: Jason
+Status: in progress
+Duration: 2hrs
+Description:	- added additional fields to services to be able to differenciate between them
+                - added the additional details textarea
+                - adding/removing services works perfectly now
 
 Task: Contract tab - edit contract
 Date: 6/24 2:00am
