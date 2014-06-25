@@ -208,8 +208,8 @@ public class Service implements Storable, Trackable
 	 */
 	public void setClientID(int id)
 	{
-		assert (id >= 1);
-		if(id >= 1)
+		assert (id >= 0);
+		if(id >= 0)
 			this.clientID = id;
 	}
 	
@@ -219,8 +219,8 @@ public class Service implements Storable, Trackable
 	 */
 	public void setContractID(int id)
 	{
-		assert (id >= 1);
-		if(id >= 1)
+		assert (id >= 0);
+		if(id >= 0)
 			this.contractID = id;
 	}
 	

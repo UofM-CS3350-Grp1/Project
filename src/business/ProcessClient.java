@@ -134,7 +134,7 @@ public class ProcessClient extends ProcessStorable
 		{
 			database.connect();
 			
-			service.setClientID(-1);
+			service.setClientID(0);
 			removed = database.update(service);
 			
 			database.disconnect();
