@@ -62,7 +62,7 @@ public class DBInterface
 		ArrayList<String> conditions = new ArrayList<String>();
 		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
 		
-		if(id > 0)
+		if(id >= 0)
 		{
 			conditions.add("ROW_ID");
 			conditions.add("= ");
@@ -105,7 +105,7 @@ public class DBInterface
 		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
 		
 		
-		if(id > 0)
+		if(id >= 0)
 		{
 			conditions.add("ROW_ID");
 			conditions.add("= ");
@@ -147,7 +147,7 @@ public class DBInterface
 		ArrayList<String> conditions = new ArrayList<String>();
 		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
 		
-		if(id > 0)
+		if(id >= 0)
 		{
 			conditions.add("ROW_ID");
 			conditions.add("= ");
@@ -189,7 +189,7 @@ public class DBInterface
 		ArrayList<String> conditions = new ArrayList<String>();
 		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
 		
-		if(id > 0)
+		if(id >= 0)
 		{
 			conditions.add("ROW_ID");
 			conditions.add("= ");
@@ -232,7 +232,7 @@ public class DBInterface
 		ArrayList<String> conditions = new ArrayList<String>();
 		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
 		
-		if(id > 0)
+		if(id >= 0)
 		{
 			conditions.add("ROW_ID");
 			conditions.add("= ");
@@ -308,7 +308,7 @@ public class DBInterface
 	
 	public ArrayList<Service> getServiceByContract(Contract input)
 	{
-		if(input != null && input.getID() > 0)
+		if(input != null && input.getID() >= 0)
 		{
 			ArrayList<Service> storage = new ArrayList<Service>();
 			ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
@@ -336,7 +336,7 @@ public class DBInterface
 		}
 		else
 		{
-			if(input != null && input.getID() <= 0 && ERROR_LOGGING == 1)
+			if(input != null && input.getID() < 0 && ERROR_LOGGING == 1)
 			{
 				errorMessage("SERVICE", "A CONTRACT OBJECT THAT HAS NOT BEEN INSERTED INTO DMBS\n", "INSERT THE CONTRACT OBJECT");
 			}
@@ -351,7 +351,7 @@ public class DBInterface
 	
 	public ArrayList<Service> getServiceByClient(Client input)
 	{
-		if(input != null && input.getID() > 0)
+		if(input != null && input.getID() >= 0)
 		{
 			ArrayList<Service> storage = new ArrayList<Service>();
 			ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
@@ -379,7 +379,7 @@ public class DBInterface
 		}
 		else
 		{	
-			if(input != null && input.getID() <= 0 && ERROR_LOGGING == 1)
+			if(input != null && input.getID() < 0 && ERROR_LOGGING == 1)
 			{
 				errorMessage("SERVICE", "A CLIENT OBJECT THAT HAS NOT BEEN INSERTED INTO DMBS\n", "INSERT THE CLIENT OBJECT");
 			}
@@ -505,7 +505,7 @@ public class DBInterface
 		ArrayList<String> conditions2 = new ArrayList<String>();
 		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
 		
-		if(element != null && feature != null && element.getID() > 0 && feature.getID() > 0)
+		if(element != null && feature != null && element.getID() >= 0 && feature.getID() >= 0)
 		{
 			if(element instanceof Service)
 			{
@@ -551,12 +551,12 @@ public class DBInterface
 				errorMessage("FEATURE HSTORY", "A NULL TRACKED FEATURE OBJECT\n", "INSTANTIATE A TRCKED FEATURE OBJECT");
 			}
 			
-			if(element != null && element.getID() <= 0 && ERROR_LOGGING == 1)
+			if(element != null && element.getID() < 0 && ERROR_LOGGING == 1)
 			{
 				errorMessage("FEATURE HISTORY", "A TRACKABLE OBJECT THAT HAS NOT BEEN INSERTED INTO DMBS\n", "INSERT THE TRACKABLE OBJECT");
 			}
 			
-			if(feature != null && feature.getID() <= 0 && ERROR_LOGGING == 1)
+			if(feature != null && feature.getID() < 0 && ERROR_LOGGING == 1)
 			{
 				errorMessage("FEATURE HISTORY", "A TRACKED FEATURE OBJECT THAT HAS NOT BEEN INSERTED INTO DMBS\n", "INSERT THE TRACKED FEATURE OBJECT");
 			}
@@ -629,7 +629,8 @@ public class DBInterface
 		}
 		else
 		{
-			System.out.println("Invalid input for INSERT statement.");
+			if(ERROR_LOGGING == 1)
+				System.out.println("Invalid input for INSERT statement.");
 		}
 		
 		if(feedback != -1)
@@ -654,7 +655,8 @@ public class DBInterface
 		}
 		else
 		{
-			System.out.println("Invalid input for UPDATE statement.");
+			if(ERROR_LOGGING == 1)
+				System.out.println("Invalid input for UPDATE statement.");
 		}
 		
 		return output;
@@ -676,7 +678,8 @@ public class DBInterface
 		}
 		else
 		{
-			System.out.println("Invalid input for DROP statement.");
+			if(ERROR_LOGGING == 1)
+				System.out.println("Invalid input for DROP statement.");
 		}
 		
 		return output;

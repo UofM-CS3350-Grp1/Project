@@ -54,6 +54,10 @@ public class TestDBInterface {
 		DBInterface mainFace = new DBInterface("CacheDB");
 		mainFace.connect();
 		
+		Contract badContract = new Contract("NAME", "DETAILS", 3.1, new Date());
+		Client badClient = new Client("NAME", new PhoneNumber("2222222222"), new Email("stuff@stuff.com"), "ADDR", "BNAME", ClientStatus.Active);
+		Service badService = new Service("TITLE", "DESCRIP", 4.1, "TYPE");
+		
 		assertNull("Basic ID MAX implementation for services", mainFace.getServiceByID(Integer.MAX_VALUE));
 		assertNull("Basic ID MAX implementation for clients", mainFace.getClientByID(Integer.MAX_VALUE));
 		assertNull("Basic ID MAX implementation for contracts", mainFace.getContractByID(Integer.MAX_VALUE));
@@ -70,9 +74,18 @@ public class TestDBInterface {
 		assertNull("Contracts by gibberish", mainFace.getContractsByBusiness("jbiw29"));
 		assertNull("Clients by null status", mainFace.getClientsByStatus(null));
 		
-		assertNull("Feature history retrieval by negative client", mainFace.getFeatureHistoryFromParent(mainFace.getClientByID(-11), mainFace.getTrackedFeatureByID(1)));
-		assertNull("Feature history retrieval by negative service", mainFace.getFeatureHistoryFromParent(mainFace.getServiceByID(-22), mainFace.getTrackedFeatureByID(2)));
-			
+		assertNull("Get Service by null Contract", mainFace.getServiceByContract(null));
+		assertNull("Get Service by null Client", mainFace.getServiceByClient(null));
+		
+		assertNull("Get Service by uninserted Contract", mainFace.getServiceByContract(badContract));
+		assertNull("Get Service by uninserted Client", mainFace.getServiceByClient(badClient));
+		
+		assertNull("Feature history retrieval by negative/null client", mainFace.getFeatureHistoryFromParent(mainFace.getClientByID(-11), mainFace.getTrackedFeatureByID(1)));
+		assertNull("Feature history retrieval by negative/null service", mainFace.getFeatureHistoryFromParent(mainFace.getServiceByID(-22), mainFace.getTrackedFeatureByID(2)));
+		
+		assertNull("Feature history retrieval by uninserted client", mainFace.getFeatureHistoryFromParent(badClient, mainFace.getTrackedFeatureByID(1)));
+		assertNull("Feature history retrieval by uninserted service", mainFace.getFeatureHistoryFromParent(badService, mainFace.getTrackedFeatureByID(2)));
+		
 		assertNull("Feature by gibberish", mainFace.getTrackedFeatureByTitle("FHQWAGADS"));
 		
 		mainFace.disconnect();
