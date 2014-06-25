@@ -18,6 +18,7 @@ public class DBInterface
 	private DBController mainDB;
 	private String dbName;
 	private DBParser parser;
+	private final int ERROR_LOGGING = 1; //1 to enable 0 to disable.
 	
 	public DBInterface(String dbName)
 	{
@@ -297,13 +298,17 @@ public class DBInterface
 		}
 		else
 		{
+			if((name == null || name.isEmpty() || name.compareTo("") == 0) && ERROR_LOGGING == 1)
+			{
+				errorMessage("SERVICE", "INVALID TITLE STRING", "PROVIDE VALID STRING");
+			}
 			return null;
 		}
 	}
 	
 	public ArrayList<Service> getServiceByContract(Contract input)
 	{
-		if(input != null)
+		if(input != null && input.getID() > 0)
 		{
 			ArrayList<Service> storage = new ArrayList<Service>();
 			ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
@@ -331,13 +336,22 @@ public class DBInterface
 		}
 		else
 		{
+			if(input != null && input.getID() <= 0 && ERROR_LOGGING == 1)
+			{
+				errorMessage("SERVICE", "A CONTRACT OBJECT THAT HAS NOT BEEN INSERTED INTO DMBS\n", "INSERT THE CONTRACT OBJECT");
+			}
+			
+			if(input == null && ERROR_LOGGING == 1)
+			{
+				errorMessage("SERVICE", "A NULL CONTRACT OBJECT\n", "INSTANTIATE A CONTRACT OBJECT");
+			}
 			return null;
 		}
 	}
 	
 	public ArrayList<Service> getServiceByClient(Client input)
 	{
-		if(input != null)
+		if(input != null && input.getID() > 0)
 		{
 			ArrayList<Service> storage = new ArrayList<Service>();
 			ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
@@ -364,7 +378,16 @@ public class DBInterface
 			}
 		}
 		else
-		{
+		{	
+			if(input != null && input.getID() <= 0 && ERROR_LOGGING == 1)
+			{
+				errorMessage("SERVICE", "A CLIENT OBJECT THAT HAS NOT BEEN INSERTED INTO DMBS\n", "INSERT THE CLIENT OBJECT");
+			}
+			
+			if(input == null && ERROR_LOGGING == 1)
+			{
+				errorMessage("SERVICE", "A NULL CLIENT OBJECT\n", "INSTANTIATE A CLIENT OBJECT");
+			}
 			return null;
 		}
 	}
@@ -411,6 +434,10 @@ public class DBInterface
 		}
 		else
 		{
+			if(status == null && ERROR_LOGGING == 1)
+			{
+				errorMessage("CLIENT", "A NULL STATUS", "UPDATE STATUS");
+			}
 			return null;
 		}
 	}
@@ -453,6 +480,10 @@ public class DBInterface
 		}
 		else
 		{
+			if((business == null || business.isEmpty() || business.compareTo("") == 0) && ERROR_LOGGING == 1)
+			{
+				errorMessage("CONTRACT", "AN INVALID BUSINESS STRING", "UPDATE STRING");
+			}
 			return null;
 		}
 	}
@@ -474,7 +505,7 @@ public class DBInterface
 		ArrayList<String> conditions2 = new ArrayList<String>();
 		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
 		
-		if(element != null && feature != null)
+		if(element != null && feature != null && element.getID() > 0 && feature.getID() > 0)
 		{
 			if(element instanceof Service)
 			{
@@ -510,6 +541,26 @@ public class DBInterface
 		}
 		else
 		{
+			if(element == null && ERROR_LOGGING == 1)
+			{
+				errorMessage("FEATURE HSTORY", "A NULL TRACKABLE OBJECT\n", "INSTANTIATE A TRACKABLE OBJECT");
+			}
+			
+			if(feature == null && ERROR_LOGGING == 1)
+			{
+				errorMessage("FEATURE HSTORY", "A NULL TRACKED FEATURE OBJECT\n", "INSTANTIATE A TRCKED FEATURE OBJECT");
+			}
+			
+			if(element != null && element.getID() < 0 && ERROR_LOGGING == 1)
+			{
+				errorMessage("FEATURE HISTORY", "A TRACKABLE OBJECT THAT HAS NOT BEEN INSERTED INTO DMBS\n", "INSERT THE TRACKABLE OBJECT");
+			}
+			
+			if(feature != null && feature.getID() <= 0 && ERROR_LOGGING == 1)
+			{
+				errorMessage("FEATURE HISTORY", "A TRACKED FEATURE OBJECT THAT HAS NOT BEEN INSERTED INTO DMBS\n", "INSERT THE TRACKED FEATURE OBJECT");
+			}
+			
 			return null;
 		}
 	}
@@ -552,6 +603,10 @@ public class DBInterface
 		}
 		else
 		{
+			if((type == null || type.isEmpty() || type.compareTo("") == 0) && ERROR_LOGGING == 1)
+			{
+				errorMessage("CONTRACT", "AN INVALID TITLE STRING", "UPDATE STRING");
+			}
 			return null;
 		}
 		
@@ -818,5 +873,10 @@ public class DBInterface
 		}
 		
 		return output;
+	}
+	
+	public void errorMessage(String retrieve, String invalid, String instruction)
+	{
+		System.out.println("ATTEMPTING TO RETRIEVE "+retrieve+" FROM "+invalid+" PLEASE "+instruction+" AND TRY AGAIN.\n\n");
 	}
 }
