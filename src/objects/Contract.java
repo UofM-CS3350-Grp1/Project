@@ -79,38 +79,7 @@ public class Contract implements Storable
 			throw new IllegalArgumentException();
 		}
 	}
-	
-	/**
-	 * Creates a new contract without a preset number. Used for adding new contracts to DBMS.
-	 * @param contractNumber 	The number of the contract
-	 * @param businessName 	 	The name of the business
-	 * @param details			The details of the contract
-	 * @param value				The amount the contract is worth
-	 * @param period			The period of the contract
-	 * @param startDate
-	 * 
-	 */
-	public Contract(int id, String businessName, String details, double value, Date period, Date startDate, String header, String footer) throws IllegalArgumentException
-	{
-		if(contractNumber >= 0 && businessName != null && !businessName.isEmpty() && details != null && !details.isEmpty() && value >= 0 && period != null)
-		{
-			this.contractNumber = id;
-			this.businessName = businessName;
-			this.details = details;
-			this.value = value;
-			this.period = period;
-			this.sdf = new SimpleDateFormat(DATE_FORMAT);
-			this.services = null;
-//			this.startDate = startDate;
-//			this.footer = footer;
-//			this.header = header;
-			this.tableName = "CONTRACTS";
-		}
-		else
-		{
-			throw new IllegalArgumentException();
-		}
-	}
+
 	
 	/*********************************************************
 	 * 				Accessors and Mutators
