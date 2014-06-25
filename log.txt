@@ -29,11 +29,20 @@ TODO(Jason):
 
 			
 TODO(Adrian):
-		- Familiarize myself with GUI structure.
-		- Modify SERVICES table/model to reflect changes in new client data.
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+
+Task: Back End Client/Service Tracking Implementation & Testing / Bugfixing
+Date: 6/24 ~2:30pm-~10:30pm
+Assigned to: Adrian
+Status: In progress.
+Duration: 1-2hrs.
+Description: 	Moved keys for CLIENT/CONTRACT into service Table
+				Added CAHCED table implementation due to memory ceiling bug wiping tables
+				during more extensive testing.
+				Added error logging to interface, set ERROR_LOGGING == 0 to disable.
+				Added more interface tests.
 
 
 Task: Contract tab - view contract

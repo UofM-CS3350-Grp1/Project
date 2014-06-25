@@ -1,4 +1,11 @@
 
+############################################################################
+###ATTENTION: 	Please switch your interface controllers to the new CachedDB
+###	table as a bug has been found (full table wipe) when exceeding the limit
+### of HSQLDB memory. Thanks.											
+############################################################################
+
+
 Repository URL: https://github.com/UofM-CS3350-Grp1/Project
 
 
