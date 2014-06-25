@@ -130,22 +130,25 @@ public class ContractScreenDrawer extends BaseStorableScreenDrawer
 		Composite analysisScreen;
 		Client client;
 		Contract contract;
-		ProcessClient processClient;
+		ProcessClient processClient = new ProcessClient();
+		ProcessContract processContract = new ProcessContract();
 		
 		if((index = table.getSelectionIndex()) != -1)
 		{
 			try
 			{
-				//Extract the service ID from the table
-				id = Integer.parseInt(table.getItem(index).getText(0));
-				contract = processContract.getContractByID(id);
-				client = processContract.getContractClient(contract);
+				TableItem select = table.getItem(index);
+				int x = Integer.parseInt(select.getText(0));
+				contract = processContract.getContractByID(x);
+				client = processContract.getContractClient(contract);				
 				
 				if(client != null && contract != null)
 				{
 					analysisScreen = SwitchScreen.getContentContainer();
 					new ContractAnalysisScreenDrawer( analysisScreen, contract, client );
 					SwitchScreen.switchContent( analysisScreen );
+				}else{
+					System.out.println("error");
 				}
 			}
 			catch(NumberFormatException nfe)
