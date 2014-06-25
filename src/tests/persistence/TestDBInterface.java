@@ -26,17 +26,11 @@ public class TestDBInterface {
 		assertNotNull("Basic ID implementation for feature history", mainFace.getFeatureHistoryByID(1));
 		assertNotNull("Basic ID implementation for tracked feature", mainFace.getTrackedFeatureByID(1));
 		
-		assertNotNull("Name query implementation for service", mainFace.getServicesByTitle("SERVICE_1"));
-		assertNotNull("Contracts by business test", mainFace.getContractsByBusiness("Business 2"));
-		assertNotNull("Clients by Ststus test", mainFace.getClientsByStatus(ClientStatus.Active));
-		
 		assertNotNull("Get Service by Contract", mainFace.getServiceByContract(mainFace.getContractByID(1)));
 		assertNotNull("Get Service by Client", mainFace.getServiceByClient(mainFace.getClientByID(1)));
 		
 		assertNotNull("Feature history retrieval by client", mainFace.getFeatureHistoryFromParent(mainFace.getClientByID(1), mainFace.getTrackedFeatureByID(1)));
 		assertNotNull("Feature history retrieval by service", mainFace.getFeatureHistoryFromParent(mainFace.getServiceByID(2), mainFace.getTrackedFeatureByID(2)));
-		
-		assertNotNull("Feature by type", mainFace.getTrackedFeatureByTitle("Page Hits"));
 		
 		assertNotNull("Table dump, Services", mainFace.dumpServices());
 		assertNotNull("Table dump, Contracts", mainFace.dumpContracts());
@@ -70,10 +64,6 @@ public class TestDBInterface {
 		assertNull("Basic ID -1 implementation for feature history", mainFace.getFeatureHistoryByID(-1));
 		assertNull("Basic ID -1 implementation for tracked feature", mainFace.getTrackedFeatureByID(-1));
 		
-		assertNull("Name gibbersih for service", mainFace.getServicesByTitle("asfdsfs"));
-		assertNull("Contracts by gibberish", mainFace.getContractsByBusiness("jbiw29"));
-		assertNull("Clients by null status", mainFace.getClientsByStatus(null));
-		
 		assertNull("Get Service by null Contract", mainFace.getServiceByContract(null));
 		assertNull("Get Service by null Client", mainFace.getServiceByClient(null));
 		
@@ -85,8 +75,6 @@ public class TestDBInterface {
 		
 		assertNull("Feature history retrieval by uninserted client", mainFace.getFeatureHistoryFromParent(badClient, mainFace.getTrackedFeatureByID(1)));
 		assertNull("Feature history retrieval by uninserted service", mainFace.getFeatureHistoryFromParent(badService, mainFace.getTrackedFeatureByID(2)));
-		
-		assertNull("Feature by gibberish", mainFace.getTrackedFeatureByTitle("FHQWAGADS"));
 		
 		mainFace.disconnect();
 	}

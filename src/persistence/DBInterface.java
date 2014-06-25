@@ -260,52 +260,6 @@ public class DBInterface
 		
 	}
 	
-	/**
-	 * 	GETSERVICEBYTITLE()
-	 * 
-	 *  @param	int id	-	ID to search for
-	 *  
-	 *  @return	Service	-	Service specified by ID, null if no match
-	 */
-	
-	public ArrayList<Service> getServicesByTitle(String name)
-	{
-		if(name != null && !name.isEmpty() && name.compareTo("") != 0)
-		{
-			ArrayList<Service> storage = new ArrayList<Service>();
-			ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
-			ArrayList<String> conditions = new ArrayList<String>();
-			ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
-			
-			conditions.add("TITLE");
-			conditions.add("= ");
-			conditions.add("'"+name+"'");
-			
-			clauses.add(conditions);
-			
-			returnValue  = this.mainDB.query("SERVICES", clauses);
-			
-			storage = parser.parseServices(returnValue);
-			
-			if(storage.size() == 0)
-			{
-				return null;
-			}
-			else
-			{
-				return storage;
-			}
-		}
-		else
-		{
-			if((name == null || name.isEmpty() || name.compareTo("") == 0) && ERROR_LOGGING == 1)
-			{
-				errorMessage("SERVICE", "INVALID TITLE STRING", "PROVIDE VALID STRING");
-			}
-			return null;
-		}
-	}
-	
 	public ArrayList<Service> getServiceByContract(Contract input)
 	{
 		if(input != null && input.getID() >= 0)
@@ -337,14 +291,11 @@ public class DBInterface
 		else
 		{
 			if(input != null && input.getID() < 0 && ERROR_LOGGING == 1)
-			{
 				errorMessage("SERVICE", "A CONTRACT OBJECT THAT HAS NOT BEEN INSERTED INTO DMBS\n", "INSERT THE CONTRACT OBJECT");
-			}
 			
 			if(input == null && ERROR_LOGGING == 1)
-			{
 				errorMessage("SERVICE", "A NULL CONTRACT OBJECT\n", "INSTANTIATE A CONTRACT OBJECT");
-			}
+			
 			return null;
 		}
 	}
@@ -380,115 +331,14 @@ public class DBInterface
 		else
 		{	
 			if(input != null && input.getID() < 0 && ERROR_LOGGING == 1)
-			{
 				errorMessage("SERVICE", "A CLIENT OBJECT THAT HAS NOT BEEN INSERTED INTO DMBS\n", "INSERT THE CLIENT OBJECT");
-			}
 			
 			if(input == null && ERROR_LOGGING == 1)
-			{
 				errorMessage("SERVICE", "A NULL CLIENT OBJECT\n", "INSTANTIATE A CLIENT OBJECT");
-			}
-			return null;
-		}
-	}
-	
-	/**
-	 * 	GETCLIENTSBYSTATUS()
-	 * 
-	 *  @param	ClientStatus status	-	Status to search for
-	 *  
-	 *  @return	Clients	-	ArrayList of Clients matching Status, null if no match
-	 */
-	
-	public ArrayList<Client> getClientsByStatus(ClientStatus status)
-	{
-		ArrayList<Client> storage = new ArrayList<Client>();
-		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
-		ArrayList<String> conditions = new ArrayList<String>();
-		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
-		if(status != null)
-		{
-			int val = 0;
-			
-			if(status == ClientStatus.Active)
-				val = 1;
-			
-			conditions.add("IS_ACTIVE");
-			conditions.add("= ");
-			conditions.add("'"+val+"'");
-			
-			clauses.add(conditions);
-			
-			returnValue = this.mainDB.query("CLIENTS",clauses);
-			
-			storage = this.parser.parseClients(returnValue);
-			
-			if(storage.size() == 0)
-			{
-				return null;
-			}
-			else
-			{
-				return storage;
-			}
-		}
-		else
-		{
-			if(status == null && ERROR_LOGGING == 1)
-			{
-				errorMessage("CLIENT", "A NULL STATUS", "UPDATE STATUS");
-			}
-			return null;
-		}
-	}
-	
-	/**
-	 * 	GETCONTRACTSBYBUSINESS()
-	 * 
-	 *  @param	String business	-	Business name to search for
-	 *  
-	 *  @return	Contracts	-	ArrayList of Contacts matching Business, null if no match
-	 */
-	
-	public ArrayList<Contract> getContractsByBusiness(String business)
-	{
-		if(business != null && !business.isEmpty() && business.compareTo("") != 0)
-		{
-			ArrayList<Contract> storage = new ArrayList<Contract>();
-			ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
-			ArrayList<String> conditions = new ArrayList<String>();
-			ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
-			
-			conditions.add("BUSINESS_NAME");
-			conditions.add("= ");
-			conditions.add("'"+business+"'");
-			
-			clauses.add(conditions);
-			
-			returnValue = this.mainDB.query("CONTRACTS", clauses);
-			
-			storage = this.parser.parseContracts(returnValue);
-			
-			if(storage.size() == 0)
-			{
-				return null;
-			}
-			else
-			{
-				return storage;
-			}
-		}
-		else
-		{
-			if((business == null || business.isEmpty() || business.compareTo("") == 0) && ERROR_LOGGING == 1)
-			{
-				errorMessage("CONTRACT", "AN INVALID BUSINESS STRING", "UPDATE STRING");
-			}
-			return null;
-		}
-	}
-	
 
+			return null;
+		}
+	}
 	
 	/**
 	 * GETFEATUREHISTORYFROMPARENT()
@@ -542,75 +392,26 @@ public class DBInterface
 		else
 		{
 			if(element == null && ERROR_LOGGING == 1)
-			{
 				errorMessage("FEATURE HSTORY", "A NULL TRACKABLE OBJECT\n", "INSTANTIATE A TRACKABLE OBJECT");
-			}
+
 			
 			if(feature == null && ERROR_LOGGING == 1)
-			{
 				errorMessage("FEATURE HSTORY", "A NULL TRACKED FEATURE OBJECT\n", "INSTANTIATE A TRCKED FEATURE OBJECT");
-			}
+
 			
 			if(element != null && element.getID() < 0 && ERROR_LOGGING == 1)
-			{
 				errorMessage("FEATURE HISTORY", "A TRACKABLE OBJECT THAT HAS NOT BEEN INSERTED INTO DMBS\n", "INSERT THE TRACKABLE OBJECT");
-			}
+
 			
 			if(feature != null && feature.getID() < 0 && ERROR_LOGGING == 1)
-			{
 				errorMessage("FEATURE HISTORY", "A TRACKED FEATURE OBJECT THAT HAS NOT BEEN INSERTED INTO DMBS\n", "INSERT THE TRACKED FEATURE OBJECT");
-			}
+
 			
 			return null;
 		}
 	}
 	
-	/**
-	 * 	GETTRACKEDFEATUREBYTITLE()
-	 * 
-	 *  @param	String type	-	Title to search for
-	 *  
-	 *  @return	TrackedFeature	-	Tracked Feature specified by ID, null if no match
-	 */	
-	
-	public TrackedFeature getTrackedFeatureByTitle(String type)
-	{
-		ArrayList<TrackedFeature> storage = new ArrayList<TrackedFeature>();
-		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
-		ArrayList<String> conditions = new ArrayList<String>();
-		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
-		
-		if(type != null && !type.isEmpty() && type.compareTo("") != 0)
-		{
-			conditions.add("TITLE");
-			conditions.add("= ");
-			conditions.add("'"+type+"'");
-			
-			clauses.add(conditions);
-			
-			returnValue  = this.mainDB.query("FEATURE", clauses);
-			
-			storage = parser.parseFeatures(returnValue);
-			
-			if(storage.size() != 1)
-			{
-				return null;
-			}
-			else
-			{
-				return storage.get(0);
-			}
-		}
-		else
-		{
-			if((type == null || type.isEmpty() || type.compareTo("") == 0) && ERROR_LOGGING == 1)
-			{
-				errorMessage("CONTRACT", "AN INVALID TITLE STRING", "UPDATE STRING");
-			}
-			return null;
-		}
-		
-	}
+
 
 	/**
 	 * INSERT()

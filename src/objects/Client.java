@@ -58,18 +58,6 @@ public class Client implements Storable, Trackable
 		}
 	}
 	
-	/*
-	 * Database Constructor:
-	 * Exact copy of previous constructor 
-	 * 
-	 * <Q>:	Right now I'm looking at storing ClientStatus as a 0/1 variable on the DBMS
-	 * 		and doing the type check in the constructor.Do you have an alternate 
-	 * 		implementation you'd prefer?
-	 * 
-	 * <A>:	If you wish to store the status as a 0/ 1 variable we need to ensure that
-	 * 		the enumerated type is set to that and that the associated values won't 
-	 * 		change if more states are added.
-	 */
 	
 	/**
 	 * Creates a new client 
