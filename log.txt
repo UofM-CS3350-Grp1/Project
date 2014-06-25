@@ -36,17 +36,6 @@ TODO(Adrian):
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 
 
-
---------------
-Meeting Summary
-Date: 06/24
-Discussed feddback from iteration 1. Talked about what the requirements that were left to finish for iteration 2.
-Addressed concerns for storage of certain data in objects, and database usage.
---------------
-
-
--------------------------ITERATION 1 FEEDBACK RECEIVED HERE---------------------------------------
-
 Task: Contract tab - view contract
 Date: 6/24 7:00pm
 Assigned to: Jason
@@ -62,6 +51,37 @@ Duration: 2hrs
 Description:	- added additional fields to services to be able to differenciate between them
                 - added the additional details textarea
                 - adding/removing services works perfectly now
+      
+Planned Task: finish create contract tab
+Planned dev duration: 3hrs
+Assigned to: Jason
+      
+Planned Task: finish view contract tab
+Planned dev duration: 1.5hrs
+Assigned to: Jason
+
+Planned Task: finish edit contract tab
+Planned dev duration: 3hrs
+Assigned to: Jason
+      
+                
+-------
+Development plan/schedule (this is required is what i heard; let me know if the format should be changed)
+Planned Task: task
+Planned dev duration: hrs
+Assigned to: Jason
+-------
+
+--------------
+Meeting Summary
+Date: 06/24
+Discussed feddback from iteration 1. Talked about what the requirements that were left to finish for iteration 2.
+Addressed concerns for storage of certain data in objects, and database usage.
+--------------
+
+
+-------------------------ITERATION 1 FEEDBACK RECEIVED HERE---------------------------------------
+
 
 Task: Contract tab - edit contract
 Date: 6/24 2:00am
