@@ -38,7 +38,7 @@ public class ProcessService extends ProcessStorable
 			services = database.dumpServices();
 			database.disconnect();
 			
-			if(services.size() > 0)
+			if(services != null && services.size() > 0)
 			{
 				service = services.get(0);
 				serviceIndex = 1;

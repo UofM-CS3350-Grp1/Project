@@ -37,7 +37,7 @@ public class ProcessFeatureHistory extends ProcessStorable
 			histories = database.dumpFeatureHistory();
 			database.disconnect();
 			
-			if(histories.size() > 0)
+			if(histories != null && histories.size() > 0)
 			{
 				history = histories.get(0);
 				histIndex = 1;
