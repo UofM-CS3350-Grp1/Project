@@ -5,6 +5,8 @@ import objects.Service;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -14,6 +16,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.widgets.Table;
+
+import business.ProcessClient;
 import business.ProcessService;
 
 import org.eclipse.swt.widgets.Button;
@@ -33,6 +37,9 @@ import org.eclipse.swt.events.SelectionEvent;
  */
 public class ClientAnalysisScreenDrawer
 {
+	private final String[] serviceNames = { "ID", "Service" };
+	private final int[] serviceWidths = { 0, 300 };
+	
 	private ScrolledComposite scrollComposite;
 	private Composite composite;
 	private Table servicesTable;
@@ -46,6 +53,7 @@ public class ClientAnalysisScreenDrawer
 	private Label lblStatusData;
 	
 	private ProcessService processService;
+	private ProcessClient processClient;
 	private Button btnViewSelected;
 	private Composite serviceButtonComposite;
 	
@@ -68,6 +76,7 @@ public class ClientAnalysisScreenDrawer
 			throw new IllegalArgumentException();
 		
 		processService = new ProcessService();
+		processClient  = new ProcessClient();
 		
 		Composite clientDataComposite = new Composite(composite, SWT.NONE);
 		clientDataComposite.setLayout(new GridLayout(5, false));
@@ -255,21 +264,15 @@ public class ClientAnalysisScreenDrawer
 	 */
 	private void populateServiceData()
 	{
-		//TODO Get all services that the client is using
-		//TODO Pull the financial data for the most recent period - Revenue and Expenses
-		
-		//TEMPORARY TEST DATA
 		TableItem item;
 		TableColumn column;
-		Service service;
-		final String[] names = { "ID", "Service" };
-		final int[] widths = { 0, 300 };
+		Service service;		
 		
-		for(int i = 0; i < 2; i++)
+		for(int i = 0; i < serviceNames.length; i++)
 		{
 			column = new TableColumn(servicesTable, SWT.NULL);
-			column.setText(names[i]);
-			column.setWidth(widths[i]);
+			column.setText(serviceNames[i]);
+			column.setWidth(serviceWidths[i]);
 		}
 		
 		//Hide the ID field because the user does not need to see
@@ -277,10 +280,9 @@ public class ClientAnalysisScreenDrawer
 		column = servicesTable.getColumn(0);
 		column.setResizable(false);
 		
-		for(int i = 1; i <= 3; i++)
+		while((service = processClient.getNextClientService(client)) != null)
 		{
 			item = new TableItem(servicesTable, SWT.NULL);
-			service = processService.getServiceByID(i);
 			
 			item.setText(0, service.getID() + "");
 			item.setText(1, service.getTitle());
@@ -334,10 +336,9 @@ public class ClientAnalysisScreenDrawer
 	 */
 	private void addService()
 	{
-		//TODO Add service to a client
-		Composite newServiceScreen = SwitchScreen.getContentContainer();
-		new AddServiceScreenDrawer( newServiceScreen );
-		SwitchScreen.switchContent( newServiceScreen );
+		Composite addClientService = SwitchScreen.getContentContainer();
+		new AddClientServiceScreenDrawer(addClientService, client);
+		SwitchScreen.switchContent(addClientService);		
 	}
 	
 	/**
@@ -345,6 +346,37 @@ public class ClientAnalysisScreenDrawer
 	 */
 	private void removeService()
 	{
-		//TODO Remove service from a client
+		int selectedIndex = servicesTable.getSelectionIndex();
+		MessageBox dialog;
+		int buttonID;
+		Service service;
+		TableItem selectedItem;
+		
+		if(selectedIndex != -1)
+		{
+			selectedItem = servicesTable.getItem(selectedIndex);
+			
+			//Ensure that the user actually wants to delete the item
+			dialog = new MessageBox(new Shell(), SWT.ICON_WARNING | SWT.YES | SWT.NO);
+			dialog.setText("Confirmation");
+			dialog.setMessage("Are you sure you want to delete " + selectedItem.getText(1) + "?");
+			
+			buttonID = dialog.open();
+			switch(buttonID)
+			{
+				case SWT.YES:
+					service = processService.getServiceByID(Integer.parseInt(selectedItem.getText(0)));
+					
+					if(service != null)
+						processClient.removeServiceFromClient(service);
+					
+					servicesTable.remove(selectedIndex);
+					
+					break;
+					
+				case SWT.NO:
+					break;
+			}
+		}
 	}
 }
