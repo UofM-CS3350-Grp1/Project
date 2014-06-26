@@ -176,7 +176,7 @@ public class ContractScreenDrawer extends BaseStorableScreenDrawer
 			//Ensure that the user actually wants to delete the item
 			dialog = new MessageBox(new Shell(), SWT.ICON_WARNING | SWT.YES | SWT.NO);
 			dialog.setText("Confirmation");
-			dialog.setMessage("Are you sure you want to delete " + selectedItem.getText(1) + "?");
+			dialog.setMessage("Are you sure you want to delete contract ID #" + selectedItem.getText(0) + "?");
 			
 			buttonID = dialog.open();
 			switch(buttonID)
