@@ -33,6 +33,17 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Back End ervice/Feature/Tracking Implemetation, Testing, Correspondence ,and Refactoring
+Date: 6/25
+Assigned to: Adrian
+Status: In progress
+Duration: 5.5 hours
+Description:	Implemented queries.
+				Added validation layer to objects maintaining references to other tables.
+				Added to test classes.
+				Restructured DBMS/Repopulated tables.
+				
+
 Task: Client tracking services and features
 Date: 6/24, 11:30pm
 Assigned to: Tim
@@ -69,6 +80,10 @@ Duration: 2hrs
 Description:	- added additional fields to services to be able to differenciate between them
                 - added the additional details textarea
                 - adding/removing services works perfectly now
+       
+Planned Task: Refactor & Maintain DB, Query Implementations as Needed
+Planned dev duration: 3-6 hours
+Assigned to: Adrian       
                 
 Planned Task: Add services to clients
 Planned dev duration: 1.5 hrs
