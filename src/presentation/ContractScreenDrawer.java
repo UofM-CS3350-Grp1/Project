@@ -88,7 +88,7 @@ public class ContractScreenDrawer extends BaseStorableScreenDrawer
 	protected void addNew() 
 	{
 		Composite addContractScreen = SwitchScreen.getContentContainer();
-		new AddContractScreenDrawer2( addContractScreen );
+		new AddContractScreenDrawer( addContractScreen );
 		SwitchScreen.switchContent( addContractScreen );
 	}
 
