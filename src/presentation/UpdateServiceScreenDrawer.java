@@ -11,7 +11,7 @@ public class UpdateServiceScreenDrawer extends AddServiceScreenDrawer
 {
 	private Service service;
 
-	/*
+	/**
 	 * Call the constructor with a shell's main component as <container>
 	 * and it will be added to that component;
 	 */
@@ -59,7 +59,6 @@ public class UpdateServiceScreenDrawer extends AddServiceScreenDrawer
 	 */
 	protected void goBackToServiceScreen()
 	{
-		//TODO Go back to service screen
 		Composite serviceScreen = SwitchScreen.getContentContainer();
 		new ServiceScreenDrawer( serviceScreen );
 		SwitchScreen.switchContent( serviceScreen );

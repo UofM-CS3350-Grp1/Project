@@ -20,6 +20,9 @@ import org.eclipse.wb.swt.SWTResourceManager;
 
 import business.ProcessAddFeature;
 
+/**
+ * Responsible for drawing the features table 
+ */
 public class TrackFeaturesTableDrawer
 {
 	private static final String[] featureNames = { "ID", "Feature Name" };
@@ -30,6 +33,12 @@ public class TrackFeaturesTableDrawer
 	private Service service;
 	private ProcessAddFeature processFeature;
 	
+	/**
+	 * Creates a new features table drawer
+	 * @param composite	The parent composite
+	 * @param service	The service to draw features for
+	 * @throws IllegalArgumentException
+	 */
 	public TrackFeaturesTableDrawer(Composite composite, Service service) throws IllegalArgumentException
 	{
 		Composite featureDataComposite = new Composite(composite, SWT.NONE);

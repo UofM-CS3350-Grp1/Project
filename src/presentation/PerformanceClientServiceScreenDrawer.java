@@ -5,6 +5,10 @@ import objects.Service;
 
 import org.eclipse.swt.widgets.Composite;
 
+/**
+ * Manages the drawing of the performance screen related to a client and
+ * their services.
+ */
 public class PerformanceClientServiceScreenDrawer extends PerformanceServiceScreenDrawer
 {
 	private Client client;

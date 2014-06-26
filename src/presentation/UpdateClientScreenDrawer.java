@@ -1,12 +1,18 @@
 package presentation;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
 
 import objects.Client;
 import objects.Email;
 import objects.PhoneNumber;
 import objects.Client.ClientStatus;
 
+/**
+ * Allows for editing a client's data
+ */
 public class UpdateClientScreenDrawer extends AddClientScreenDrawer
 {
 	private Client client = null;
@@ -42,6 +48,7 @@ public class UpdateClientScreenDrawer extends AddClientScreenDrawer
 	protected void processActionButton()
 	{		
 		ClientStatus status = null;
+		MessageBox dialog;
 		
 		if (isFormDataValid())
 		{
@@ -65,7 +72,10 @@ public class UpdateClientScreenDrawer extends AddClientScreenDrawer
 			}
 			catch(IllegalArgumentException iae)
 			{
-				//Invalid data. Notify user
+				dialog = new MessageBox(new Shell(), SWT.ERROR | SWT.OK);
+				dialog.setText("Could not update client");
+				dialog.setMessage("Could not update the client. Please check the data and try again.");
+				dialog.open();
 			}
 		}
 	}		

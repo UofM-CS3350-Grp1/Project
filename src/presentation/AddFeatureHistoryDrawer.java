@@ -8,7 +8,10 @@ import objects.FeatureHistory;
 import objects.Service;
 import objects.TrackedFeature;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
 
 /**
  * Manages the adding of data for features at a given time period
@@ -48,6 +51,7 @@ public class AddFeatureHistoryDrawer extends BaseFeatureHistoryDrawer
 		FeatureHistory history;
 		Date date;
 		SimpleDateFormat formatter;
+		MessageBox dialog;
 
 		try
 		{
@@ -59,7 +63,13 @@ public class AddFeatureHistoryDrawer extends BaseFeatureHistoryDrawer
 			if(processFeatureHistory.insert(history))
 				backToPreviousScreen();
 		}
-		catch(Exception e) { }	
+		catch(Exception e)
+		{
+			dialog = new MessageBox(new Shell(), SWT.ERROR | SWT.OK);
+			dialog.setText("Could not add history");
+			dialog.setMessage("Could not add a new record. Please check the data and try again.");
+			dialog.open();
+		}	
 	}
 
 	/**

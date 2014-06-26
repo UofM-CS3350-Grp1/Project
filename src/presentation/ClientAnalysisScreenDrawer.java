@@ -10,7 +10,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.custom.ScrolledComposite;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.layout.GridData;
@@ -23,12 +22,6 @@ import business.ProcessService;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-
-/*
- * To Do:
- * 	List services related to the client
- * 	Generate performance reports based on all services
- */
 
 /**
  * Responsible for drawing the detailed client information including all of the
@@ -229,12 +222,7 @@ public class ClientAnalysisScreenDrawer
 		gd_lblPerformance.widthHint = 471;
 		lblPerformance.setLayoutData(gd_lblPerformance);
 		lblPerformance.setText("Performance");
-		
-		/*chartComposite = new ChartComposite(composite, SWT.HORIZONTAL);
-		GridData gd_chartComposite = new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1);
-		gd_chartComposite.heightHint = 85;
-		chartComposite.setLayoutData(gd_chartComposite);	*/
-				
+						
 		populateClientData();
 		populateServiceData();
 		generateReports();

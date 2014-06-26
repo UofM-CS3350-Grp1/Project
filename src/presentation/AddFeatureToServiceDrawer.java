@@ -15,6 +15,9 @@ import org.eclipse.swt.widgets.Label;
 
 import business.ProcessAddFeature;
 
+/**
+ * Draws the interface to add features to services
+ */
 public class AddFeatureToServiceDrawer
 {
 	private Composite composite;

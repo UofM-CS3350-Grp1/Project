@@ -7,7 +7,10 @@ import objects.Client;
 import objects.FeatureHistory;
 import objects.Service;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
 /**
  * Manages the adding of data for features at a given time period
  */
@@ -45,6 +48,7 @@ public class UpdateFeatureHistoryDrawer extends BaseFeatureHistoryDrawer
 	{
 		Date date;
 		SimpleDateFormat formatter;
+		MessageBox dialog;
 		
 		try
 		{
@@ -58,7 +62,13 @@ public class UpdateFeatureHistoryDrawer extends BaseFeatureHistoryDrawer
 			if(processFeatureHistory.update(history))
 				backToPreviousScreen();	
 		}
-		catch(Exception e) {}	
+		catch(Exception e)
+		{
+			dialog = new MessageBox(new Shell(), SWT.ERROR | SWT.OK);
+			dialog.setText("Could not update history");
+			dialog.setMessage("Could not update history. Please check the data and try again.");
+			dialog.open();
+		}	
 	}
 	
 	/**

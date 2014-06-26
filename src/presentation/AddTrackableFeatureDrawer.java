@@ -6,6 +6,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
@@ -14,6 +16,10 @@ import org.eclipse.swt.events.SelectionEvent;
 
 import business.ProcessAddFeature;
 
+/**
+ * Responsible for drawing the add feature interface. Allows users
+ * to add features that they wish to track.
+ */
 public class AddTrackableFeatureDrawer
 {
 	protected Composite composite;	
@@ -98,6 +104,7 @@ public class AddTrackableFeatureDrawer
 	protected void processActionButton()
 	{
 		TrackedFeature feature;
+		MessageBox dialog;
 		
 		try
 		{
@@ -106,7 +113,13 @@ public class AddTrackableFeatureDrawer
 			if(processAddFeature.insert(feature))
 				backToPreviousScreen();
 		}
-		catch(Exception e) {}	
+		catch(Exception e) 
+		{
+			dialog = new MessageBox(new Shell(), SWT.ERROR | SWT.OK);
+			dialog.setText("Could not add feature");
+			dialog.setMessage("Could not add a new feature. Please check the data and try again.");
+			dialog.open();
+		}	
 	}
 	
 	/**

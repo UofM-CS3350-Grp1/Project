@@ -4,6 +4,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
@@ -19,7 +21,11 @@ import objects.Email;
 import objects.PhoneNumber;
 import objects.Client.ClientStatus;
 import business.ProcessClient;
+import business.ValidateTextbox;
 
+/**
+ * Draws the composite responsible for adding a new client
+ */
 public class AddClientScreenDrawer
 {
 	protected Composite composite;
@@ -125,7 +131,7 @@ public class AddClientScreenDrawer
 		{
 			public void verifyText(VerifyEvent event)
 			{
-				verifyNumericTextbox(event, PhoneNumber.AREA_CODE_LENGTH);
+				ValidateTextbox.verifyNumericTextbox(event, PhoneNumber.AREA_CODE_LENGTH);
 			}
 		});
 		
@@ -140,7 +146,7 @@ public class AddClientScreenDrawer
 		{
 			public void verifyText(VerifyEvent event)
 			{
-				verifyNumericTextbox(event, PhoneNumber.PREFIX_CODE_LENGTH);
+				ValidateTextbox.verifyNumericTextbox(event, PhoneNumber.PREFIX_CODE_LENGTH);
 			}
 		});
 		
@@ -152,10 +158,9 @@ public class AddClientScreenDrawer
 		{
 			public void verifyText(VerifyEvent event)
 			{
-				verifyNumericTextbox(event, PhoneNumber.LINE_NUMBER_CODE);
+				ValidateTextbox.verifyNumericTextbox(event, PhoneNumber.LINE_NUMBER_CODE);
 			}
-		});
-		
+		});		
 		
 		/*
 		 *  client status
@@ -232,13 +237,6 @@ public class AddClientScreenDrawer
 		Composite clientScreen = SwitchScreen.getContentContainer();
 		new ClientScreenDrawer( clientScreen );
 		SwitchScreen.switchContent( clientScreen );
-		/*
-		Composite clientScreen = new Composite( SwitchScreen.content, SWT.None );
-		clientScreen.setLayout( new FillLayout() );
-		ClientScreenDrawer acsd = new ClientScreenDrawer( clientScreen );
-		SwitchScreen.contentLayout.topControl = clientScreen;
-		SwitchScreen.content.layout();
-		*/
 	}
 	
 	/**
@@ -248,6 +246,7 @@ public class AddClientScreenDrawer
 	protected void processActionButton()
 	{
 		Client client = null;
+		MessageBox dialog;
 		
 		if (isFormDataValid())
 		{
@@ -268,9 +267,11 @@ public class AddClientScreenDrawer
 				}
 			}
 			catch (Exception e) 
-			{
-				e.printStackTrace();
-				client = null;
+			{				
+				dialog = new MessageBox(new Shell(), SWT.ERROR | SWT.OK);
+				dialog.setText("Could not add client");
+				dialog.setMessage("Could not add a new client. Please check the data and try again.");
+				dialog.open();
 			}
 		}
 	}	
@@ -294,33 +295,4 @@ public class AddClientScreenDrawer
 		
 		return isValid;
 	}	
-	
-	/**
-	 * Validates a textbox event to ensure that its textbox is only numeric
-	 * @param event The textbox event to validate
-	 * @param maxLength	The maximum length of the numeric string
-	 */
-	protected void verifyNumericTextbox(VerifyEvent event, int maxLength)
-	{
-		Text text;
-		boolean valid = false;
-		
-		assert (event != null);
-		if(event != null)
-		{
-			text = (Text) event.widget;
-			
-			if(text != null && maxLength > 0)
-			{
-				//Check if the textbox is numeric
-				if(event.character == SWT.BS || event.keyCode == SWT.ARROW_LEFT || event.keyCode == SWT.ARROW_RIGHT || 
-						event.keyCode == SWT.DEL || event.keyCode == SWT.NULL)
-					valid = true;
-				else if(Character.isDigit(event.character) && text.getText().length() < maxLength)
-					valid = true;
-				
-				event.doit = valid;
-			}
-		}
-	}
 }

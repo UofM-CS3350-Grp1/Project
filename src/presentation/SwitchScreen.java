@@ -5,10 +5,8 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Widget;
-import org.eclipse.swt.layout.GridData; //
-import org.eclipse.swt.layout.GridLayout; //
-import org.eclipse.swt.layout.RowLayout; //
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.StackLayout;
@@ -198,10 +196,7 @@ public class SwitchScreen
 				((Control) event.getSource()).getShell().dispose();
 			}
 		});
-		
-		
-		
-		
+				
 		shell.open();
 		shell.layout();
 		
@@ -216,7 +211,7 @@ public class SwitchScreen
 	
 	
 	
-	/*
+	/**
 	 * provide a container for new content
 	 */
 	/* PACKAGE */ static Composite getContentContainer()
@@ -227,7 +222,7 @@ public class SwitchScreen
 		return container;
 	}
 	
-	/*
+	/**
 	 * switch content with container
 	 */
 	/* PACKAGE */ static void switchContent( Composite container )
@@ -240,7 +235,7 @@ public class SwitchScreen
 	}
 	
 	
-	/*
+	/**
 	 * Back button functionality
 	 */
 	private static void switchBack()
@@ -254,7 +249,7 @@ public class SwitchScreen
 		}
 	}
 	
-	/*
+	/**
 	 * all your shell tweaking needs should go here
 	 */
 	private static void initShell( Shell srcShell )
@@ -269,7 +264,7 @@ public class SwitchScreen
 		srcShell.setMinimumSize( WIN_WIDTH, WIN_HEIGHT);
 	}
 	
-	/*
+	/**
 	 * all your button tweaking needs for the nav bar should go here
 	 */
 	private static void tuneNavButton( Button navButton, String label )
@@ -283,21 +278,11 @@ public class SwitchScreen
 		navButton.setLayoutData( navButtonData );
 	}
 
-
-
-	/*
-	 * DON'T DO THIS; THE SCREEN CAN'T BE REGISTERED
-	 * AND BACK BUTTON WILL NOT WORK WITH THE SCREEN
+	/**
+	 * Set the active composite
+	 * @param viewServicePerformance	The composite to set
+	 * @return The new top control
 	 */
-	/*
-	public static Composite getContent() {
-		// TODO Auto-generated method stub
-		return content;
-	}
-	*/
-
-
-
 	public static Object setcontentLayoutTopControl(Composite viewServicePerformance)
 	{
 		return contentLayout.topControl = viewServicePerformance;

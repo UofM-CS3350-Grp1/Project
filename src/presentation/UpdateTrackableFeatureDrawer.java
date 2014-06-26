@@ -3,6 +3,9 @@ package presentation;
 import objects.TrackedFeature;
 import org.eclipse.swt.widgets.Composite;
 
+/**
+ * Responsible for drawing the update interface for features
+ */
 public class UpdateTrackableFeatureDrawer extends AddTrackableFeatureDrawer
 {
 	private TrackedFeature feature;

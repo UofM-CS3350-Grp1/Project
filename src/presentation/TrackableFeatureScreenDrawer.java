@@ -10,13 +10,17 @@ import org.eclipse.swt.widgets.TableItem;
 
 import business.ProcessAddFeature;
 
+/**
+ * Responsible for drawing the features screen. This is for any feature that
+ * a service wants to track.
+ */
 public class TrackableFeatureScreenDrawer extends BaseStorableScreenDrawer
 {
 	private static final String[] tableColumnNames = { "ID", "Feature Name", "Notes" };
 	private static final int[] tableWidths = { 0, 150, 300 };
 	private ProcessAddFeature processFeature;
 	
-	/*
+	/**
 	 * Call the constructor with a shell's main component as <container>
 	 * and it will be added to that component;
 	 */

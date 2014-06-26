@@ -25,9 +25,11 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.DateTime;
 
+/**
+ * Handles the drawing and adding of contracts
+ */
 public class AddContractScreenDrawer 
 {
-
 	protected Composite composite;
 
 	protected ProcessClient processClient;
@@ -43,6 +45,10 @@ public class AddContractScreenDrawer
 	private Text inputDetails;
 	private DateTime startData;
 	
+	/**
+	 * Create a new contract drawer
+	 * @param container The parent composite
+	 */
 	public AddContractScreenDrawer(Composite container) 
 	{
 		composite = new Composite(container, SWT.BORDER);
@@ -94,9 +100,11 @@ public class AddContractScreenDrawer
 		tableColumn4.setText("Details");
 		
 		Button btnAdd = new Button(composite, SWT.NONE);
-		btnAdd.addSelectionListener(new SelectionAdapter() {
+		btnAdd.addSelectionListener(new SelectionAdapter() 
+		{
 			@Override
-			public void widgetSelected(SelectionEvent arg0) {
+			public void widgetSelected(SelectionEvent arg0) 
+			{
 				addSelectedItem();
 			}
 		});
@@ -104,9 +112,11 @@ public class AddContractScreenDrawer
 		btnAdd.setText("ADD >>");
 		
 		Button button = new Button(composite, SWT.NONE);
-		button.addSelectionListener(new SelectionAdapter() {
+		button.addSelectionListener(new SelectionAdapter()
+		{
 			@Override
-			public void widgetSelected(SelectionEvent arg0) {
+			public void widgetSelected(SelectionEvent arg0)
+			{
 				removeSelectedItem();
 			}
 		});
@@ -161,9 +171,11 @@ public class AddContractScreenDrawer
 		inputDetails.setBounds(24, 361, 867, 142);
 		
 		Button btnCreate = new Button(composite, SWT.NONE);
-		btnCreate.addSelectionListener(new SelectionAdapter() {
+		btnCreate.addSelectionListener(new SelectionAdapter()
+		{
 			@Override
-			public void widgetSelected(SelectionEvent arg0) {
+			public void widgetSelected(SelectionEvent arg0)
+			{
 				createContract();
 			}
 		});
@@ -187,21 +199,18 @@ public class AddContractScreenDrawer
 		
 		//fills the dropdown with client business names
 		Client client = null;
-		int i = 0;
 		while((client = processClient.getNextClient()) != null)
 		{
 			combo.add(client.getBusinessName());
-			i++;
 		}
 		
 		populateTable();
 	}
 	
-	/*
+	/**
 	 * creates contract
 	 * issue: not saving/attaching services to contract
 	 */
-	@SuppressWarnings("null")
 	private void createContract()
 	{
 		double value = 0;
@@ -229,7 +238,7 @@ public class AddContractScreenDrawer
 			id = Integer.parseInt(table_1.getItem(i).getText());
 			ProcessService processService = new ProcessService();
 			service = processService.getServiceByID(id);
-			if(service!=null)
+			if(service != null)
 			{
 				services.add(i, service);
 			}
@@ -241,7 +250,7 @@ public class AddContractScreenDrawer
 		backToContractsScreen();
 	}
 	
-	/*
+	/**
 	 * after successfully creating contract, go back to main contract page
 	 */
 	private void backToContractsScreen()
@@ -251,7 +260,7 @@ public class AddContractScreenDrawer
 		SwitchScreen.switchContent( contractScreen );
 	}
 
-	/*
+	/**
 	 * adds a service to the contract
 	 */
 	private void addSelectedItem() 
@@ -263,19 +272,23 @@ public class AddContractScreenDrawer
 			TableItem select = table.getItem(selectedIndex);
 			int x = Integer.parseInt(select.getText(0));
 			Service service = processService.getServiceByID(x);
-			item = new TableItem(table_1, SWT.NULL);
-
-			item.setText(0, String.valueOf(service.getID()));
-			item.setText(1, service.getTitle());
-			item.setText(2, String.valueOf(service.getRate()));
-			item.setText(3, service.getType());
-			item.setText(4, service.getDescription());
-
-			table.remove(selectedIndex);
+			
+			if(service != null)
+			{
+				item = new TableItem(table_1, SWT.NULL);
+	
+				item.setText(0, String.valueOf(service.getID()));
+				item.setText(1, service.getTitle());
+				item.setText(2, String.valueOf(service.getRate()));
+				item.setText(3, service.getType());
+				item.setText(4, service.getDescription());
+	
+				table.remove(selectedIndex);
+			}
 		}
 	}
 
-	/*
+	/**
 	 * removes a service from the contract
 	 */
 	private void removeSelectedItem() 
@@ -288,18 +301,21 @@ public class AddContractScreenDrawer
 			int x = Integer.parseInt(select.getText(0));
 			Service service = processService.getServiceByID(x);
 
-			item = new TableItem(table, SWT.NULL);
-
-			item.setText(0, String.valueOf(service.getID()));
-			item.setText(1, service.getTitle());
-			item.setText(2, String.valueOf(service.getRate()));
-			item.setText(3, service.getType());
-
-			table_1.remove(selectedIndex);
+			if(service != null)
+			{
+				item = new TableItem(table, SWT.NULL);
+	
+				item.setText(0, String.valueOf(service.getID()));
+				item.setText(1, service.getTitle());
+				item.setText(2, String.valueOf(service.getRate()));
+				item.setText(3, service.getType());
+	
+				table_1.remove(selectedIndex);
+			}
 		}
 	}
 
-	/*
+	/**
 	 * populates the services table with all existing services
 	 */
 	protected void populateTable() 

@@ -3,7 +3,6 @@ package presentation;
 import objects.Service;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
@@ -20,13 +19,12 @@ public class ServiceScreenDrawer extends BaseStorableScreenDrawer
 	private static final String[] tableColumnNames = { "ID", "Title", "Description", "Rate", "Type" };
 	private static final int[] tableWidths = { 0, 150, 250, 100, 150 };
 	private ProcessService processService;
-	TableItem item;
+	private TableItem item;
 	
-	/*
+	/**
 	 * Call the constructor with a shell's main component as <container>
 	 * and it will be added to that component;
-	 */
-	
+	 */	
 	public ServiceScreenDrawer( Composite container )
 	{
 		super(container);
@@ -70,10 +68,7 @@ public class ServiceScreenDrawer extends BaseStorableScreenDrawer
 	 */
 	protected void addNew()
 	{
-		Composite addNewService;
-		Service service = null;
-
-		addNewService = SwitchScreen.getContentContainer();
+		Composite addNewService = SwitchScreen.getContentContainer();
 		new AddServiceScreenDrawer( addNewService );
 		SwitchScreen.switchContent( addNewService );
 	}
@@ -104,7 +99,7 @@ public class ServiceScreenDrawer extends BaseStorableScreenDrawer
 	protected void viewSelectedItem()
 	{
 		int selectedIndex = table.getSelectionIndex();
-		int index, id;
+		int id;
 		Composite viewService;
 		Service service;
 

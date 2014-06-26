@@ -8,14 +8,16 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Button;
 
-public class LoginDrawer {
+public class LoginDrawer 
+{
 	private Composite composite;
 	
-	/*
+	/**
 	 * Call the constructor with a shell's main component as <container>
 	 * and it will be added to that component;
 	 */
-	public LoginDrawer( Composite container ) {
+	public LoginDrawer( Composite container ) 
+	{
 		composite = new Composite( container, SWT.None );
 		
 		// units = grid columns

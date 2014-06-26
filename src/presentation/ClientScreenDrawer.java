@@ -7,7 +7,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
 import objects.Client;
 import business.ProcessClient;
-import org.eclipse.swt.layout.FillLayout;
 
 /**
  * Draws the beautiful client screen
@@ -72,13 +71,6 @@ public class ClientScreenDrawer extends BaseStorableScreenDrawer
 		Composite addClientScreen = SwitchScreen.getContentContainer();
 		new AddClientScreenDrawer( addClientScreen );
 		SwitchScreen.switchContent( addClientScreen );
-		/*
-		Composite addClientScreen = new Composite( SwitchScreen.content, SWT.None );
-		addClientScreen.setLayout( new FillLayout() );
-		new AddClientScreenDrawer( addClientScreen );
-		SwitchScreen.contentLayout.topControl = addClientScreen;
-		SwitchScreen.content.layout();
-		*/
 	}
 	
 	/**
@@ -97,13 +89,6 @@ public class ClientScreenDrawer extends BaseStorableScreenDrawer
 				Composite editClientScreen = SwitchScreen.getContentContainer();
 				new UpdateClientScreenDrawer( editClientScreen, client );
 				SwitchScreen.switchContent( editClientScreen );
-				/*
-				Composite editClientScreen = new Composite( SwitchScreen.content, SWT.None );
-				editClientScreen.setLayout( new FillLayout() );
-				new UpdateClientScreenDrawer(editClientScreen, client);
-				SwitchScreen.contentLayout.topControl = editClientScreen;
-				SwitchScreen.content.layout();
-				*/
 			}
 		}
 	}
@@ -127,17 +112,10 @@ public class ClientScreenDrawer extends BaseStorableScreenDrawer
 				
 				if(client != null)
 				{
+					//Open the client performance tracking screen
 					analysisScreen = SwitchScreen.getContentContainer();
 					new ClientAnalysisScreenDrawer( analysisScreen, client );
 					SwitchScreen.switchContent( analysisScreen );
-					/*
-					//Open the client performance tracking screen
-					analysisScreen = new Composite(SwitchScreen.content, SWT.None);
-					analysisScreen.setLayout(new FillLayout());
-					new ClientAnalysisScreenDrawer(analysisScreen, client);
-					SwitchScreen.contentLayout.topControl = analysisScreen;
-					SwitchScreen.content.layout();
-					*/
 				}
 			}
 			catch(NumberFormatException nfe)

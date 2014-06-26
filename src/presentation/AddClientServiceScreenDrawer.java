@@ -16,6 +16,10 @@ import org.eclipse.swt.events.SelectionEvent;
 import business.ProcessClient;
 import business.ProcessService;
 
+/**
+ * Draws the composite and handles the tasks associated with adding a service
+ * to a given client
+ */
 public class AddClientServiceScreenDrawer
 {
 	private Composite composite;

@@ -20,7 +20,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
 /**
- * Draws all of the relative information for a given service
+ * Draws all of the relative performance information for a given service
  */
 public class PerformanceServiceScreenDrawer 
 {
@@ -39,7 +39,6 @@ public class PerformanceServiceScreenDrawer
 	private GenerateGraph graphGenerator;
 	private ProcessAddFeature processFeature;
 	private Button btnBack;
-	private Composite featuresComposite;
 	
 	/**
 	 * Creates a new performance screen for a service
