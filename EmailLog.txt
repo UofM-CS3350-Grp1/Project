@@ -1,3 +1,76 @@
+----------
+Karl, June 26:
+
+Since we didn't have a meeting today as planned, I created some revised user stories for the next iteration. I also include the changes made below them which are supposed to be included in the handin.
+
+
+Adrian, can you make the user story cards look pretty again please
+
+
+big stories
+	cut simplistic UI, it's redundant
+	cut multiple user/franchising, as agile programming is implementing what is needed right now
+
+	keep analytics
+
+	add Contract manipulation
+		user needs to be able to change variables for dates and price for a given contract during creation, and possibly allow editing
+		6 days
+		priority high
+
+	add Secure login
+		need to be able to login securely and change login credentials
+		2 days
+		high priority
+
+detailed stories
+	analytics history tracking
+		same as iteration 2 stories except for tracking the program/business' performance
+		2 days
+		high priority		
+	analytics performance tracking	
+		same as iteration 2 stories except for tracking the program/business' performance
+		2 days
+		high priority
+	edit info during contract creation
+		needs to be able to change date and prices for each service in a contract during creation
+		5 days
+		high priority
+	edit contract after creation
+		needs to edit a contracts date and prices after it has been created
+		3 days
+		medium priority
+	change my password and security question
+		needs the ability to set a password and security question/answer, and change them later
+		2 days
+		medium priority
+
+
+Deviations from previous plan were as follows:
+	- The Simplistic UI big user story as removed. It was determined to be redundant and design of the UI should always be as simplistic as possible.
+	- The Multiple Users/Franchising big user story was also removed. As per Agile design, we decided to include features that were needed now, not features that may or may not be used in the future.
+	- The Contract Creation detailed user story was found to be more complicated than was expected. We have split it into separate parts. The basic creation and storage is currently implemented, however we have moved some additional manipulation of certain aspects of the contract to iteration 3
+
+
+
+
+
+
+Tim is going to do the handin, these are what needs to be included. You can also read the iteration 2 document on D2L if you want more info
+
+
+handin
+	Tag as "Iter2"
+
+	project folder (can get from the releases area on github after tagging)
+	copy of log.txt
+	copy of readme.txt
+	iteration 2 big and detailed user stories (can get from D2l iteration 1 files)
+	iteration 3 big and detailed user stories (Adrian should be making the cards from info provided above)
+	list of changes from iteration 2 (in the info above, should be put into a pdf)
+
+
+----------
 Tim, June 23:
 
 Hey guys,
