@@ -19,6 +19,9 @@ Run:
 
 Run tests:
 	run RunUnitTests.bat
+		- Once tests are completed run RestoreDB.bat in the /databases to restore
+		  tables, as rows may be inserted/updated/deleted that would invalidate 
+		  future tests.
 
 
 This is the Buzzin' Digital Marketing software development project.
