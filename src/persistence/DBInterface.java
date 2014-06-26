@@ -430,8 +430,8 @@ public class DBInterface
 		}
 		else
 		{
-			if(ERROR_LOGGING == 1)
-				System.out.println("Invalid input for INSERT statement.");
+			if(ERROR_LOGGING == 1 && !element.isInsertable())
+				System.out.println("THE TARGET ELEMENT IS NOT INSERTABLE\n PLEASE ENSURE MINIMUM SECONDARY KEY VARAIABLES ARE INSTANTIATED");
 		}
 		
 		if(feedback != -1)
@@ -456,8 +456,8 @@ public class DBInterface
 		}
 		else
 		{
-			if(ERROR_LOGGING == 1)
-				System.out.println("Invalid input for UPDATE statement.");
+			if(ERROR_LOGGING == 1 && !element.isInsertable())
+				System.out.println("THE TARGET ELEMENT IS NOT UPDATABLE\n PLEASE ENSURE MINIMUM SECONDARY KEY VARAIABLES ARE INSTANTIATED");
 		}
 		
 		return output;
