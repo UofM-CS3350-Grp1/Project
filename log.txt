@@ -33,6 +33,14 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Client performance tracking 
+Date: 6/26, 2:30am
+Assigned to: Tim
+Status: In progress.
+Duration: 15 hours
+Description:	Added graph to central client performance screen to show general service performance.
+
+
 Task: Refactoring and clean up
 Date: 6/26, 1:30am
 Assigned to: Tim
