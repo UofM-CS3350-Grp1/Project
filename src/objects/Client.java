@@ -26,7 +26,7 @@ public class Client implements Storable, Trackable
 	private String businessName; 
 	private ClientStatus status;
 	private String tableName;
-
+	
 	/**
 	 * Creates a new client 
 	 * @param id The ID of the client

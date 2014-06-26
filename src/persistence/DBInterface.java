@@ -731,17 +731,61 @@ public class DBInterface
 	}
 	
 	/**
-	 * BLINDSQLQUERY();
-	 *
-	 * Runs a query against the DBMS and returns an arrayList of strings
-	 *
-	 * @param sql
-	 * @return
-	 */
+	 * 	IDEXISTS()
+	 * 
+	 *  @param	int id	-	ID to search for
+	 *  
+	 *  @return	Boolean		If this ID already exists on the DBMS
+	 */	
 	
-	public ArrayList<String> blindSQLQuery(String sql)
+	public boolean idExists(Storable storableTemplate)
 	{
-		ArrayList<String> output = this.mainDB.blindQuery(sql);
+		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+		ArrayList<String> conditions = new ArrayList<String>();
+		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+		boolean output = false;
+		
+		if(storableTemplate != null && storableTemplate.getID() >= 0)
+		{
+			conditions.add("ROW_ID");
+			conditions.add("= ");
+			conditions.add(""+storableTemplate.getID()+"");
+			
+			clauses.add(conditions);
+			
+			returnValue  = this.mainDB.query(storableTemplate.getTableName(), clauses);
+			
+			if(returnValue.size() >= 1)
+			{
+				output = true;
+			}
+
+		}
+		
+		return output;
+	}
+	
+	/**
+	 * 	batchMerge()
+	 * 
+	 *  @param	ArrayList<Storable>	-	Bulk Storable to insert into DBMS
+	 *  
+	 *  @return	Boolean					If insert completed successfully.
+	 */	
+	
+	public boolean batchMerge(ArrayList<Storable> batch)
+	{
+		boolean output = true;
+		for(int i = 0; i < batch.size() && output; i++)
+		{
+			if(idExists(batch.get(i)))
+				output = update(batch.get(i));
+			else
+			{
+				output = insert(batch.get(i));
+			}
+		}
+		
 		return output;
 	}
 	
@@ -771,4 +815,5 @@ public class DBInterface
 	{
 		System.out.println("ATTEMPTING TO RETRIEVE "+retrieve+" FROM "+invalid+" PLEASE "+instruction+" AND TRY AGAIN.\n\n");
 	}
+	
 }

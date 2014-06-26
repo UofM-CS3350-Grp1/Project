@@ -33,8 +33,7 @@ public class TestDBInterface
 		
 		assertNotNull("Feature history retrieval by client", mainFace.getFeatureHistoryFromParent(mainFace.getClientByID(1), mainFace.getTrackedFeatureByID(1)));
 		assertNotNull("Feature history retrieval by service", mainFace.getFeatureHistoryFromParent(mainFace.getServiceByID(2), mainFace.getTrackedFeatureByID(2)));
-		//assertNotNull("Tracked features by service", mainFace.getTrackedFeaturesByService(mainFace.getServiceByID(2)));
-		ArrayList<TrackedFeature> test =  mainFace.getTrackedFeaturesByService(mainFace.getServiceByID(2));
+		assertNotNull("Tracked features by service", mainFace.getTrackedFeaturesByService(mainFace.getServiceByID(2)));
 		
 		assertNotNull("Table dump, Services", mainFace.dumpServices());
 		assertNotNull("Table dump, Contracts", mainFace.dumpContracts());
@@ -146,6 +145,47 @@ public class TestDBInterface
 		assertFalse("FeatureHistory drop on non-existant index", mainFace.drop(newHistory));
 		assertFalse("Trackedfeature drop on non-existant index", mainFace.drop(newTracking));
 
+		mainFace.disconnect();
+	}
+	
+	@Test
+	public void testValidBulkInsert()
+	{
+		DBInterface mainFace = new DBInterface("CacheDB");
+		mainFace.connect();
+		
+		ArrayList<Storable> conList = new ArrayList<Storable>();
+		ArrayList<Storable> serList = new ArrayList<Storable>();
+		ArrayList<Storable> traList = new ArrayList<Storable>();
+		ArrayList<Storable> feaList = new ArrayList<Storable>();
+		ArrayList<Storable> cliList = new ArrayList<Storable>();
+		
+		//updateList
+		for(int i = 0; i < 5; i++)
+		{
+			conList.add(mainFace.getContractByID(3));
+			serList.add(mainFace.getServiceByID(3));
+			traList.add(mainFace.getTrackedFeatureByID(2));
+			feaList.add(mainFace.getTrackedFeatureByID(4));
+			cliList.add(mainFace.getClientByID(2));
+		}
+		
+		//insertList
+		for(int i = 0; i < 5; i++)
+		{
+			conList.add(new Contract(500+i, "TESTBUSINESS", "NODETAILS", 4.1, new Date()));
+			serList.add(new Service(500+i,"shhad", "dasdsh", 4.33, "sdad", 4, 2));
+			traList.add(new TrackedFeature("NAME", "NOTES", 500 + i, 3));
+			feaList.add(new FeatureHistory(mainFace.getTrackedFeatureByID(1), mainFace.getClientByID(1), 22.1, new Date(), "NKJDS", 500 +i));
+			cliList.add(new Client(500+i, "NAME", new PhoneNumber("2222222222"), new Email("cat@catcat.com"), "ADDR", "NAME", 1));
+		}
+		
+		assertNotNull(mainFace.batchMerge(conList));
+		assertNotNull(mainFace.batchMerge(serList));
+		assertNotNull(mainFace.batchMerge(traList));
+		assertNotNull(mainFace.batchMerge(feaList));
+		assertNotNull(mainFace.batchMerge(cliList));
+		
 		mainFace.disconnect();
 	}
 
