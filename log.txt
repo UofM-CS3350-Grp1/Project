@@ -37,8 +37,10 @@ Task: Refactoring and clean up
 Date: 6/26, 1:30am
 Assigned to: Tim
 Status: In progress.
-Duration: 10 minutes
+Duration: 45 minutes
 Description:	Removed dead classes.
+				Enforced coding style.
+				Added generic error messages to insertion and update scripts.
 								
 				
 Task: Client and service performance tracking services and features
