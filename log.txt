@@ -33,6 +33,24 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Refactoring and clean up
+Date: 6/26, 1:30am
+Assigned to: Tim
+Status: In progress.
+Duration: 10 minutes
+Description:	Removed dead classes.
+								
+				
+Task: Client and service performance tracking services and features
+Date: 6/26, 1:30am
+Assigned to: Tim
+Status: In progress.
+Duration: 3 hours
+Description:	Added the ability to add/ remove history for features.
+				Refactoring of common methods.
+				Added more in terms of graph data processing.
+
+
 Task: Client and service performance tracking services and features
 Date: 6/25, 11:30pm
 Assigned to: Tim
