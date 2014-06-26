@@ -9,24 +9,8 @@ echo Setting class path...
 call setClasspath
 
 echo.
-echo Compiling src\objects\*.java
-javac -d bin\ -cp %classpath% src\objects\*.java
-
-echo.
-echo Compiling src\persistence\*.java
-javac -d bin\ -cp %classpath% src\persistence\*.java
-
-echo.
-echo Compiling src\business\*.java
-javac -d bin\ -cp %classpath% src\business\*.java
-
-echo.
-echo Compiling src\org\eclipse\wb\swt\*.java
-javac -d bin\ -cp %classpath% src\org\eclipse\wb\swt\*.java
-
-echo.
-echo Compiling src\presentation\*.java
-javac -d bin\ -cp %classpath% src\presentation\*.java
+echo Compiling project source...
+javac -d bin\ -cp %classpath% src\objects\*.java src\persistence\*.java src\business\*.java src\org\eclipse\wb\swt\*.java src\presentation\*.java
 
 echo.
 echo Compiling src\tests\objects\*.java
