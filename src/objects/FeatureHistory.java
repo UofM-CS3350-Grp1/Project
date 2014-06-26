@@ -239,5 +239,10 @@ public class FeatureHistory implements Storable
 	{
 		return this.tableName;
 	}
+	
+	public boolean isInsertable() 
+	{
+		return true;		
+	}
 
 }

@@ -143,9 +143,10 @@ public class DBParser
 		{
 			
 			item = new TrackedFeature(
-					input.get(i).get(1),
 					input.get(i).get(2),
-					Integer.parseInt(input.get(i).get(0))
+					input.get(i).get(3),
+					Integer.parseInt(input.get(i).get(0)),
+					Integer.parseInt(input.get(i).get(1))
 					);
 
 			output.add(item);

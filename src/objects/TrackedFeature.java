@@ -11,6 +11,7 @@ public class TrackedFeature implements Storable
 	private String featureName;			//Name of the feature to track
 	private String notes;				//Notes related to the feature
 	private int id;
+	private int serviceKey;
 	private String tableName;
 	
 	/**
@@ -23,6 +24,7 @@ public class TrackedFeature implements Storable
 		if(featureName != null && !featureName.isEmpty())
 		{
 			this.id = -1;
+			this.serviceKey = -1;
 			this.featureName = featureName;
 			this.notes = "";
 			this.tableName = "FEATURE";
@@ -43,7 +45,8 @@ public class TrackedFeature implements Storable
 	{
 		if(featureName != null && !featureName.isEmpty() && notes != null)
 		{
-			this.id = -1;
+			this.serviceKey = 0;
+			this.id = 0;
 			this.featureName = featureName;
 			this.notes = notes;
 			this.tableName = "FEATURE";
@@ -61,10 +64,11 @@ public class TrackedFeature implements Storable
 	 * @param id			The unique id of this feature
 	 * @throws IllegalArgumentException
 	 */
-	public TrackedFeature(String featureName, String notes, int id) throws IllegalArgumentException
+	public TrackedFeature(String featureName, String notes, int id, int serviceKey) throws IllegalArgumentException
 	{
-		if(featureName != null && !featureName.isEmpty() && notes != null && id >= 0)
+		if(featureName != null && !featureName.isEmpty() && notes != null && id >= 0 && serviceKey >= 0)
 		{
+			this.serviceKey = serviceKey;
 			this.id = id;
 			this.featureName = featureName;
 			this.notes = notes;
@@ -121,11 +125,25 @@ public class TrackedFeature implements Storable
 			this.notes = notes;
 	}
 	
+	int getServiceKey()
+	{
+		return this.serviceKey;
+	}
+	
+	void setServiceKey( int key)
+	{
+		if(key >= 0)
+			this.serviceKey = key;
+	}
+	
+
+	
 	public ArrayList<String> toIndex() 
 	{
 		ArrayList<String> index = new ArrayList<String>();
 		
 		index.add(""+this.id);
+		index.add(""+this.serviceKey);
 		index.add(this.featureName);
 		index.add(this.notes);
 		
@@ -140,6 +158,18 @@ public class TrackedFeature implements Storable
 	public String getTableName()
 	{
 		return this.tableName;
+	}
+
+	public boolean isInsertable() 
+	{
+		boolean output = true;
+		
+		if(this.serviceKey < 0)
+		{
+			output = false;
+		}
+		
+		return output;		
 	}
 	
 }

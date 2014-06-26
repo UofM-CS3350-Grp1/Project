@@ -424,7 +424,7 @@ public class DBInterface
 		boolean output = false;
 		int feedback = -1;
 		
-		if(element != null && element.getTableName().compareTo("") != 0 && element.getTableName() != null)
+		if(element != null && element.getTableName().compareTo("") != 0 && element.getTableName() != null && element.isInsertable())
 		{
 			feedback = mainDB.insert(element.getTableName(), element);
 		}
@@ -450,7 +450,7 @@ public class DBInterface
 	{
 		boolean output = false;
 		
-		if(element != null && element.getTableName().compareTo("") != 0 && element.getTableName() != null)
+		if(element != null && element.getTableName().compareTo("") != 0 && element.getTableName() != null && element.isInsertable())
 		{
 			output = mainDB.update(element.getTableName(), element);
 		}

@@ -35,8 +35,8 @@ public class Service implements Storable, Trackable
 			this.rate = rate;
 			this.id = id;
 			this.type = type;
-			this.clientID = -1;
-			this.contractID = -1;
+			this.clientID = 0;
+			this.contractID = 0;
 			this.tableName = "SERVICES";
 		}
 		else
@@ -67,8 +67,8 @@ public class Service implements Storable, Trackable
 			this.id = 0;
 			this.type = type;
 			this.tableName = "SERVICES";
-			this.clientID = -1;
-			this.contractID = -1;
+			this.clientID = 0;
+			this.contractID = 0;
 		}
 		else
 		{
@@ -92,7 +92,7 @@ public class Service implements Storable, Trackable
 	 */
 	public Service(int id, String title, String description, double rate, String type, int clientID, int contractID) throws IllegalArgumentException
 	{		
-		if(title != null && !title.isEmpty() && id >= 0 && clientID >= 0 && contractID >= 0&& description != null && rate >= 0 && type != null && !type.isEmpty()) 
+		if(title != null && !title.isEmpty() && id >= 0 && (clientID >= 0 || contractID >= 0) && description != null && rate >= 0 && type != null && !type.isEmpty()) 
 		{
 			this.title = title;
 			this.description = description;
@@ -255,33 +255,6 @@ public class Service implements Storable, Trackable
 		return index;
 	}
 	
-	/**
-	 * 
-	 * NEW TOINDEX()
-	 * 
-	 * This can be moved in once the new service model has been implmented.
-	 * 
-	 */
-	
-	/*
-	public ArrayList<String> toIndex()
-	{
-		ArrayList<String> index = new ArrayList<String>();
-		
-		index.add(this.id+"");
-		index.add(this.title);
-		index.add(this.description);
-		index.add(String.format("%.2f", this.rate));
-		index.add(this.payPeriod);
-		index.add(String.format("%.2f", this.secondaryRate));
-		index.add(this.secondPayPeriod);
-		index.add(this.serviceRenewal);
-		index.add(this.type);
-			
-		return index;
-	}
-	*/
-	
 	/**GETTABLENAME()
 	 * 
 	 * Returns the table name of this object.
@@ -302,5 +275,17 @@ public class Service implements Storable, Trackable
 				", Rate: " + this.rate + 
 				", Id: " + this.id +
 				", Type: " + this.type +")";
+	}
+	
+	public boolean isInsertable() 
+	{
+		boolean output = true;
+		
+		if(this.contractID < 0 && this.clientID < 0)
+		{
+			output = false;
+		}
+		
+		return output;		
 	}
 }

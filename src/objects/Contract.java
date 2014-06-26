@@ -251,4 +251,9 @@ public class Contract implements Storable
 	{
 		return this.tableName;
 	}
+	
+	public boolean isInsertable() 
+	{
+		return true;		
+	}
 }

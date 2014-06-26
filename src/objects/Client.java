@@ -259,4 +259,9 @@ public class Client implements Storable, Trackable
 				", Business Name: " + this.businessName +
 				", Client Status: " + (this.status == ClientStatus.Active ? "Active" : "Potential")+  ")";
 	}
+	
+	public boolean isInsertable() 
+	{
+		return true;		
+	}
 }
