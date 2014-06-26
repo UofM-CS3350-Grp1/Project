@@ -140,7 +140,9 @@ public class ContractScreenDrawer extends BaseStorableScreenDrawer
 				TableItem select = table.getItem(index);
 				int x = Integer.parseInt(select.getText(0));
 				contract = processContract.getContractByID(x);
-				client = processContract.getContractClient(contract);				
+				client = processContract.getContractClient(contract);		
+				if(client==null) System.out.println("Client is null");
+				if(contract==null) System.out.println("Contract is null");
 				
 				if(client != null && contract != null)
 				{

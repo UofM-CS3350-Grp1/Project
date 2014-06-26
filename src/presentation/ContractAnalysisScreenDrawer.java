@@ -1,5 +1,8 @@
 package presentation;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import objects.Client;
 import objects.Contract;
 import objects.Service;
@@ -391,6 +394,14 @@ public class ContractAnalysisScreenDrawer
 		
 		btnSave = new Button(buttonComposite, SWT.NONE);
 		btnSave.setText("Save");
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
+		new Label(contractDataComposite, SWT.NONE);
 
 		
 		populateClientData();
@@ -450,33 +461,45 @@ public class ContractAnalysisScreenDrawer
 		TableItem item;
 		TableColumn column;
 		Service service;
-		final String[] names = { "ID", "Service" };
-		final int[] widths = { 0, 300 };
+
+		ProcessService processService = new ProcessService();
+		ArrayList<Service> serviceList = new ArrayList<Service>();
 		
-		for(int i = 0; i < 2; i++)
+		while((service = processService.getNextService())!=null)
 		{
-			column = new TableColumn(servicesTable, SWT.NULL);
-			column.setText(names[i]);
-			column.setWidth(widths[i]);
-		}
-		
-		column = servicesTable.getColumn(0);
-		column.setResizable(false);
-		/*
-		 * this bottom part needs fixing
-		 */
-		/*
-		int total = processContract.getNumberOfServices(contract);
-		if(total>0)
-		{
-			for(int i = 0; i < total; i++)
+			if(service.getContractID()==contract.getID())
 			{
+				System.out.println("Service FOUND");
 				item = new TableItem(servicesTable, SWT.NULL);
-				service = processService.getServiceByID(i);
-				
-				item.setText(0, service.getID() + "");
-				item.setText(1, service.getTitle());
+				item.setText(0, service.getTitle());
+				item.setText(1, String.valueOf(service.getRate()));
+				item.setText(2, service.getType());
+				item.setText(3, service.getDescription());
 			}
-		}*/
+			System.out.println("Service NOT FOUND");
+		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

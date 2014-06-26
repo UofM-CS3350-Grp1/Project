@@ -47,6 +47,45 @@ public class ProcessContract extends ProcessStorable
 	}
 	
 	/*
+	 * return unused unique contract number
+	 */
+	public int getUnusedContractID()
+	{
+		int result = 0;
+		ArrayList<Contract> contractList = new ArrayList<Contract>();
+		database.connect();
+		contractList = database.dumpContracts();
+		database.disconnect();
+		ProcessContract processContract = new ProcessContract();
+		
+		Contract temp = null;
+		
+		boolean found = false;
+		boolean used = false;
+		while(!found)
+		{
+			result++;
+			used=false;
+			Iterator it = contractList.iterator();
+			while(it.hasNext() && !used)
+			{
+				temp = (Contract)it.next();
+				if(temp.getID()==result)
+				{
+					used=true;
+				}
+			}
+			if(!used)
+			{
+				found = true;
+			}
+			
+		}
+		
+		return result;
+	}
+	
+	/*
 	 * Returns the contract id
 	 */
 	public Contract getContractByID(int id)

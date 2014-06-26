@@ -215,37 +215,40 @@ public class AddContractScreenDrawer
 	{
 		double value = 0;
 		int items = table_1.getItemCount();
+		ProcessService processService = null;
+		Service newService = null;
 		
 		for(int i=0; i<items; i++)
 		{
-			value += (double)Integer.parseInt(table_1.getItem(i).getText());
+			int z = (table_1.getItem(i).getText(2)).length()-2;
+			value += (double)Integer.parseInt((table_1.getItem(i).getText(2)).substring(0, z));
 		}
-		
+
+		ProcessContract processContract = new ProcessContract();
+		int newID = processContract.getUnusedContractID();
 		Contract contract = null;
 		Date date = new Date();
-		contract = new Contract(combo.getText(), inputDetails.getText(), value, date); //Date-DateTime issue
+		contract = new Contract(newID, combo.getText(), inputDetails.getText(), value, date); //Date-DateTime issue
 		
-		ProcessContract processContract = new ProcessContract();
 		processContract.insert(contract);
 		
 		int totalNumServices = table_1.getItemCount();
-		ArrayList<Service> services = new ArrayList<Service>();;
 		Service service = null;
 		int id = 0;
-		
+
 		for(int i=0; i<totalNumServices; i++)
 		{
-			id = Integer.parseInt(table_1.getItem(i).getText());
-			ProcessService processService = new ProcessService();
+			id = Integer.parseInt(table_1.getItem(i).getText(0));
+			processService = new ProcessService();
 			service = processService.getServiceByID(id);
-			if(service != null)
-			{
-				services.add(i, service);
-			}
+
+			
+			newService = new Service(service.getTitle(), service.getDescription(), service.getRate(), service.getType());
+			int cID = contract.getID();
+			newService.setContractID(cID);
+			System.out.println("Service added was "+service.getID()+", "+service.getTitle()+", "+service.getDescription());
+			processService.insert(newService);
 		}
-		
-		processContract.setServices(contract, services);
-		processContract.update(contract);
 		
 		backToContractsScreen();
 	}
@@ -275,6 +278,7 @@ public class AddContractScreenDrawer
 			
 			if(service != null)
 			{
+				System.out.println("Inserted service was: "+service.getID()+", "+service.getTitle()+", "+service.getDescription());
 				item = new TableItem(table_1, SWT.NULL);
 	
 				item.setText(0, String.valueOf(service.getID()));

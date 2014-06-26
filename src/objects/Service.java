@@ -215,6 +215,14 @@ public class Service implements Storable, Trackable
 			this.clientID = id;
 	}
 	
+	/*
+	 * return the client id
+	 */
+	public int getClientID()
+	{
+		return clientID;
+	}
+	
 	/**
 	 * @return Gets the client associated with this service, null if no client
 	 */
@@ -232,6 +240,13 @@ public class Service implements Storable, Trackable
 		assert (id >= 0);
 		if(id >= 0)
 			this.contractID = id;
+	}
+	
+	/*
+	 * returns the contract ID
+	 */
+	public int getContractID(){
+		return contractID;
 	}
 	
 	
