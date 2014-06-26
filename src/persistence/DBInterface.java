@@ -18,7 +18,7 @@ public class DBInterface
 	private DBController mainDB;
 	private String dbName;
 	private DBParser parser;
-	private final int ERROR_LOGGING = 1; //1 to enable 0 to disable.
+	private final int ERROR_LOGGING = 0; //1 to enable 0 to disable.
 	
 	public DBInterface(String dbName)
 	{
