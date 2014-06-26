@@ -261,6 +261,56 @@ public class DBInterface
 	}
 	
 	/**
+	 * 	GETCONTRACTSBYBUSINESS()
+	 * 
+	 *  @param	String business	-	Business name to search for
+	 *  
+	 *  @return	Contracts	-	ArrayList of Contacts matching Business, null if no match
+	 */
+	
+	public ArrayList<Contract> getContractsByBusiness(String business)
+	{
+		ArrayList<Contract> storage = new ArrayList<Contract>();
+		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+		ArrayList<String> conditions = new ArrayList<String>();
+		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+		
+		
+		if(business != null && !business.isEmpty())
+		{
+			
+			conditions.add("BUSINESS_NAME");
+			conditions.add("= ");
+			conditions.add("'"+business+"'");
+			
+			clauses.add(conditions);
+			
+			returnValue  = this.mainDB.query("CONTRACTS", clauses);
+			
+			storage = parser.parseContracts(returnValue);
+				
+			if(storage.size() == 0)
+			{
+				return null;
+			}
+			else
+			{
+				return storage;
+			}	
+		}
+		else
+		{
+			if(business == null && ERROR_LOGGING == 1)
+				errorMessage("CONTRACT", "A BUSINESS NAME STRING THAT IS NULL\n", "PASS A VALID STRING");
+			
+			if(business != null && business.isEmpty() && ERROR_LOGGING == 1)
+				errorMessage("CONTRACT", "A BUSINESS NAME STRING THAT IS EMPTY\n", "POPULATE STRING");
+			
+			return null;
+		}
+	}
+	
+	/**
 	 * 	GETTRACKEDFEATUREBYID()
 	 * 
 	 *  @param	int id	-	ID to search for
