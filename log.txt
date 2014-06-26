@@ -8,13 +8,14 @@ Task:
 Date: MM/DD, time
 Assigned to: none
 Status: inactive
+Estimated Duration:
 Duration:
 Description:
 
 
 
 
-Iteration 2:
+Iteration 3:
 TODO(Dell):
 
 TODO(Timothy):
@@ -23,7 +24,7 @@ TODO(Derek):
 		
 
 TODO(Karl):
-		- Refactor Stub UI into single window application
+		
 
 TODO(Jason):
 
@@ -96,7 +97,7 @@ Assigned to: Jason
 --------------
 Meeting Summary
 Date: 06/24
-Discussed feddback from iteration 1. Talked about what the requirements that were left to finish for iteration 2.
+Discussed feedback from iteration 1. Talked about what the requirements that were left to finish for iteration 2.
 Addressed concerns for storage of certain data in objects, and database usage.
 --------------
 
