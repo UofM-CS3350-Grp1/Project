@@ -182,6 +182,8 @@ public class PerformanceServiceScreenDrawer
 			gd_chartComposite.heightHint = CHART_HEIGHT;
 			chartComp.setLayoutData(gd_chartComposite);
 			
+			//Populate the history data table 
+			//new HistoryTableDrawer(composite, service, feature);			
 		}
 	}
 	

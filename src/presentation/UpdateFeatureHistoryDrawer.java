@@ -3,7 +3,9 @@ package presentation;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import objects.Client;
 import objects.FeatureHistory;
+import objects.Service;
 
 import org.eclipse.swt.widgets.Composite;
 /**
@@ -71,5 +73,25 @@ public class UpdateFeatureHistoryDrawer extends BaseFeatureHistoryDrawer
 			dateTime.setDate(history.getDate().getYear(), history.getDate().getMonth(), history.getDate().getDay());
 			txtNotes.setText(history.getNotes());
 		}
+	}
+	
+	/**
+	 * Go back to the screen we were at previously
+	 */
+	protected void backToPreviousScreen() 
+	{
+		Service service = (Service) history.getTrackedService();
+		Client client;
+		
+		if(service != null)
+		{
+			client = service.getAssociatedClient();
+			if(client != null)
+			{
+				Composite servicePerformanceScreen = SwitchScreen.getContentContainer();
+				new PerformanceClientServiceScreenDrawer(servicePerformanceScreen, client, service);
+				SwitchScreen.switchContent(servicePerformanceScreen);
+			}
+		}		
 	}
 }

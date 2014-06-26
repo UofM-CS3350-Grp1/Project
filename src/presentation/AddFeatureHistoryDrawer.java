@@ -3,9 +3,11 @@ package presentation;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import objects.Client;
 import objects.FeatureHistory;
-import objects.Trackable;
+import objects.Service;
 import objects.TrackedFeature;
+
 import org.eclipse.swt.widgets.Composite;
 
 /**
@@ -14,7 +16,7 @@ import org.eclipse.swt.widgets.Composite;
 public class AddFeatureHistoryDrawer extends BaseFeatureHistoryDrawer
 {	
 	private TrackedFeature feature;
-	private Trackable trackedService;
+	private Service trackedService;
 	
 	/**
 	 * Adds a given tracked feature
@@ -24,7 +26,7 @@ public class AddFeatureHistoryDrawer extends BaseFeatureHistoryDrawer
 	 * 
 	 * NOTE: You cannot edit the structure of the FeatureWindow unless editing the Base
 	 */
-	public AddFeatureHistoryDrawer(Composite container, TrackedFeature feature, Trackable trackedService) throws IllegalArgumentException
+	public AddFeatureHistoryDrawer(Composite container, TrackedFeature feature, Service trackedService) throws IllegalArgumentException
 	{
 		super(container);
 		
@@ -46,7 +48,7 @@ public class AddFeatureHistoryDrawer extends BaseFeatureHistoryDrawer
 		FeatureHistory history;
 		Date date;
 		SimpleDateFormat formatter;
-		
+
 		try
 		{
 			formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -57,6 +59,21 @@ public class AddFeatureHistoryDrawer extends BaseFeatureHistoryDrawer
 			if(processFeatureHistory.insert(history))
 				backToPreviousScreen();
 		}
-		catch(Exception e) {}	
+		catch(Exception e) { }	
+	}
+
+	/**
+	 * Go back to the screen we were at previously
+	 */
+	protected void backToPreviousScreen() 
+	{
+		Client client = trackedService.getAssociatedClient();
+		
+		if(client != null)
+		{
+			Composite servicePerformanceScreen = SwitchScreen.getContentContainer();
+			new PerformanceClientServiceScreenDrawer(servicePerformanceScreen, client, trackedService);
+			SwitchScreen.switchContent(servicePerformanceScreen);
+		}		
 	}
 }

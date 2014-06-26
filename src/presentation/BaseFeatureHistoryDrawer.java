@@ -1,6 +1,8 @@
 package presentation;
 
 import business.ProcessFeatureHistory;
+import business.ValidateTextbox;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -11,6 +13,8 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.DateTime;
+import org.eclipse.swt.events.VerifyListener;
+import org.eclipse.swt.events.VerifyEvent;
 
 
 /**
@@ -49,6 +53,13 @@ public abstract class BaseFeatureHistoryDrawer
 		lblValue.setText("Value");
 		
 		txtValue = new Text(composite, SWT.BORDER);
+		txtValue.addVerifyListener(new VerifyListener() 
+		{
+			public void verifyText(VerifyEvent event) 
+			{
+				ValidateTextbox.verifyMonetaryValue(event);
+			}
+		});
 		txtValue.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
 		lblDatePeriod = new Label(composite, SWT.NONE);
@@ -62,7 +73,7 @@ public abstract class BaseFeatureHistoryDrawer
 		lblNotes.setText( "Additional Details" );
 		new Label(composite, SWT.NONE);
 		
-		Text txtNotes = new Text( composite, SWT.BORDER );
+		txtNotes = new Text( composite, SWT.BORDER | SWT.MULTI );
 		gd_txtNotes = new GridData( GridData.FILL_BOTH );
 		gd_txtNotes.horizontalSpan = 2;
 		txtNotes.setLayoutData( gd_txtNotes );		
@@ -106,8 +117,5 @@ public abstract class BaseFeatureHistoryDrawer
 	/**
 	 * Go back to the previous screen
 	 */
-	protected void backToPreviousScreen()
-	{
-		//TODO Go back to previous screen
-	}
+	protected abstract void backToPreviousScreen();
 }
