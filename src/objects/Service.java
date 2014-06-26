@@ -2,6 +2,8 @@ package objects;
 
 import java.util.ArrayList;
 
+import business.ProcessClient;
+
 /**
  * Base class for services
  */
@@ -211,6 +213,14 @@ public class Service implements Storable, Trackable
 		assert (id >= 0);
 		if(id >= 0)
 			this.clientID = id;
+	}
+	
+	/**
+	 * @return Gets the client associated with this service, null if no client
+	 */
+	public Client getAssociatedClient()
+	{
+		return (new ProcessClient()).getClientByID(clientID);
 	}
 	
 	/**
