@@ -430,7 +430,7 @@ public class DBInterface
 		}
 		else
 		{
-			if(ERROR_LOGGING == 1 && !element.isInsertable())
+			if(ERROR_LOGGING == 1 && element != null && !element.isInsertable())
 				System.out.println("THE TARGET ELEMENT IS NOT INSERTABLE\n PLEASE ENSURE MINIMUM SECONDARY KEY VARAIABLES ARE INSTANTIATED");
 		}
 		
@@ -456,7 +456,7 @@ public class DBInterface
 		}
 		else
 		{
-			if(ERROR_LOGGING == 1 && !element.isInsertable())
+			if(ERROR_LOGGING == 1 && element != null && !element.isInsertable())
 				System.out.println("THE TARGET ELEMENT IS NOT UPDATABLE\n PLEASE ENSURE MINIMUM SECONDARY KEY VARAIABLES ARE INSTANTIATED");
 		}
 		
