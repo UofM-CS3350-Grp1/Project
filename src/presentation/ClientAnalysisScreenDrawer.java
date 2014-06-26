@@ -318,8 +318,8 @@ public class ClientAnalysisScreenDrawer
 				{
 					//Open the service performance tracking screen
 					viewServicePerformance = SwitchScreen.getContentContainer();
-					new PerformanceServiceScreenDrawer( viewServicePerformance, service );
-					SwitchScreen.switchContent( viewServicePerformance );
+					new PerformanceClientServiceScreenDrawer(viewServicePerformance, client, service);
+					SwitchScreen.switchContent(viewServicePerformance);
 				}
 			}
 			catch(NumberFormatException nfe) 

@@ -198,9 +198,8 @@ public class PerformanceServiceScreenDrawer
 	/**
 	 * Go back to the previous screen
 	 */
-	private void goBackToPreviousScreen()
+	protected void goBackToPreviousScreen()
 	{
-		//TODO Go back a screen
 		Composite serviceScreen = SwitchScreen.getContentContainer();
 		new ServiceScreenDrawer( serviceScreen );
 		SwitchScreen.switchContent( serviceScreen );
