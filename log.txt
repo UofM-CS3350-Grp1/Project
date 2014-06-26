@@ -43,6 +43,15 @@ Testing:
 ------------------------------------------------------------------
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+
+Task: Contract tab - creating contracts
+Date: 6/26 2:00pm
+Assigned to: Jason
+Status: completed
+Duration: 6hrs
+Description:	- completed twice. On the first time everything got overwritten accidently.
+                - services can now be added to contracts
+
 Task: Client performance tracking 
 Date: 6/26, 2:30am
 Assigned to: Tim
@@ -70,6 +79,13 @@ Description:	Added the ability to add/ remove history for features.
 				Refactoring of common methods.
 				Added more in terms of graph data processing.
 
+
+Task: Contract tab - view contract
+Date: 6/25 7:00pm
+Assigned to: Jason
+Status: completed
+Duration: 45min
+Description:	added the listing of services for the contracts
 
 Task: Client and service performance tracking services and features
 Date: 6/25, 11:30pm
@@ -149,7 +165,7 @@ Planned Task: finish view contract tab
 Planned dev duration: 1.5hrs
 Assigned to: Jason
 
-Planned Task: finish edit contract tab
+Planned Task: finish edit contract tab (moved to iteration 3)
 Planned dev duration: 3hrs
 Assigned to: Jason
       
