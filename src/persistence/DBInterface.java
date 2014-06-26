@@ -13,7 +13,7 @@ import objects.Client.ClientStatus;
 
 public class DBInterface 
 {
-	public static final String DATABASE_NAME = "MainDB";
+	public static final String DATABASE_NAME = "CacheDB";
 	
 	private DBController mainDB;
 	private String dbName;
@@ -258,6 +258,86 @@ public class DBInterface
 			return null;
 		}
 		
+	}
+	
+	public ArrayList<Service> getTrackedFeaturesByService(Service input)
+	{
+		if(input != null && input.getID() >= 0)
+		{
+			ArrayList<Service> storage = new ArrayList<Service>();
+			ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+			ArrayList<String> conditions = new ArrayList<String>();
+			ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+			
+			conditions.add("SERVICE_ID");
+			conditions.add("= ");
+			conditions.add("'"+input.getID()+"'");
+			
+			clauses.add(conditions);
+			
+			returnValue  = this.mainDB.query("SERVICES", clauses);
+			
+			storage = parser.parseServices(returnValue);
+			
+			if(storage.size() == 0)
+			{
+				return null;
+			}
+			else
+			{
+				return storage;
+			}
+		}
+		else
+		{	
+			if(input != null && input.getID() < 0 && ERROR_LOGGING == 1)
+				errorMessage("SERVICE", "A CLIENT OBJECT THAT HAS NOT BEEN INSERTED INTO DMBS\n", "INSERT THE CLIENT OBJECT");
+			
+			if(input == null && ERROR_LOGGING == 1)
+				errorMessage("SERVICE", "A NULL CLIENT OBJECT\n", "INSTANTIATE A CLIENT OBJECT");
+
+			return null;
+		}
+	}
+	
+	public ArrayList<Service> getServiceByFeature(TrackedFeature input)
+	{
+		if(input != null && input.getID() >= 0)
+		{
+			ArrayList<Service> storage = new ArrayList<Service>();
+			ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+			ArrayList<String> conditions = new ArrayList<String>();
+			ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+			
+			conditions.add("ROW_ID");
+			conditions.add("= ");
+			conditions.add("'"+input.getServiceKey()+"'");
+			
+			clauses.add(conditions);
+			
+			returnValue  = this.mainDB.query("SERVICES", clauses);
+			
+			storage = parser.parseServices(returnValue);
+			
+			if(storage.size() == 0)
+			{
+				return null;
+			}
+			else
+			{
+				return storage;
+			}
+		}
+		else
+		{
+			if(input != null && input.getID() < 0 && ERROR_LOGGING == 1)
+				errorMessage("SERVICE", "A CONTRACT OBJECT THAT HAS NOT BEEN INSERTED INTO DMBS\n", "INSERT THE CONTRACT OBJECT");
+			
+			if(input == null && ERROR_LOGGING == 1)
+				errorMessage("SERVICE", "A NULL CONTRACT OBJECT\n", "INSTANTIATE A CONTRACT OBJECT");
+			
+			return null;
+		}
 	}
 	
 	public ArrayList<Service> getServiceByContract(Contract input)

@@ -29,6 +29,7 @@ public class TestDBInterface
 		
 		assertNotNull("Get Service by Contract", mainFace.getServiceByContract(mainFace.getContractByID(1)));
 		assertNotNull("Get Service by Client", mainFace.getServiceByClient(mainFace.getClientByID(1)));
+		assertNotNull("Get Service By Feature", mainFace.getServiceByFeature(mainFace.getTrackedFeatureByID(1)));
 		
 		assertNotNull("Feature history retrieval by client", mainFace.getFeatureHistoryFromParent(mainFace.getClientByID(1), mainFace.getTrackedFeatureByID(1)));
 		assertNotNull("Feature history retrieval by service", mainFace.getFeatureHistoryFromParent(mainFace.getServiceByID(2), mainFace.getTrackedFeatureByID(2)));
@@ -86,6 +87,21 @@ public class TestDBInterface
 		DBInterface mainFace = new DBInterface("CacheDB");
 		mainFace.connect();
 		
+		Service newService = new Service(80, "TITLE", "DESCRIP", 5.7, "STUFF", -1, 1);
+		
+		assertTrue("Valid service insert with -1 CLIENT, +1 CONTRACT", mainFace.insert(newService));
+		mainFace.drop(mainFace.getServiceByID(14));
+		
+		newService = new Service(80, "TITLE", "DESCRIP", 5.7, "STUFF", 1, -1);
+		
+		assertTrue("Valid service insert with +1 CLIENT, -1 CONTRACT", mainFace.insert(newService));
+		mainFace.drop(mainFace.getServiceByID(14));
+		
+		newService = new Service(80, "TITLE", "DESCRIP", 5.7, "STUFF", 1, 1);
+		
+		assertTrue("Valid service insert with +1 CLIENT, +1 CONTRACT", mainFace.insert(newService));
+		mainFace.drop(mainFace.getServiceByID(14));
+		
 		FeatureHistory newHistory = null;
 		newHistory = new FeatureHistory(mainFace.getTrackedFeatureByID(1), mainFace.getClientByID(2), 2.0, new Date(), "blahblahblah");
 		TrackedFeature newTracking = new TrackedFeature("BobLoblawsLawBlog", "Lobslawbombs", 2, 1);
@@ -93,7 +109,7 @@ public class TestDBInterface
 		assertTrue("TrackedFeature Insert", mainFace.insert(newTracking));
 		
 		newHistory = mainFace.getFeatureHistoryByID(4);
-		newTracking = mainFace.getTrackedFeatureByID(4);
+		newTracking = mainFace.getTrackedFeatureByID(10);
 		
 		newHistory.setNotes("NOT blahblahblah");
 		newTracking.setNotes("Notlobbinglawbombs");
@@ -114,12 +130,13 @@ public class TestDBInterface
 		mainFace.connect();
 	
 		TrackedFeature newTracking = new TrackedFeature("BobLoblawsLawBlog", "Lobslawbombs");
+		Service newService = new Service(1, "TITLE", "DESCRIP", 5.7, "STUFF", -1, 1);
 		
 		assertFalse("FeatreHistory null Insert", mainFace.insert(null));
 		assertFalse("TrackedFeature null Insert", mainFace.insert(null));
 		
 		FeatureHistory newHistory = new FeatureHistory(mainFace.getTrackedFeatureByID(1), mainFace.getClientByID(2), 2.0, new Date(), "blahblahblah");
-		newTracking = new TrackedFeature("BobLoblawsLawBlog", "Lobslawbombs");
+		newTracking = new TrackedFeature("BobLoblawsLawBlog", "Lobslawbombs", Integer.MAX_VALUE, 3);
 		
 		assertFalse("FeatureHistory update on non-existant index", mainFace.update(newHistory));
 		assertFalse("TrackedFeature update on non-existant index", mainFace.update(newTracking));
