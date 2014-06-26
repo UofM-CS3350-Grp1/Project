@@ -7,9 +7,7 @@ import objects.TrackedFeature;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.Plot;
-import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
@@ -40,7 +38,7 @@ public class GenerateGraph
 		JFreeChart chart = null;
 		DefaultPieDataset data;
 		TrackedFeature feature = null;
-		PiePlot plot;
+		Plot plot;
 		
 		assert (service != null);
 		if(service != null)
@@ -55,7 +53,7 @@ public class GenerateGraph
 				
 			//Setup the chart names and axes
 			chart = ChartFactory.createPieChart("Features", data);
-			plot = (PiePlot) chart.getPlot();
+			plot = chart.getPlot();
 			plot.setNoDataMessage("No data available");
 		}		
 		
