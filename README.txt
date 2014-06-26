@@ -1,10 +1,4 @@
 
-############################################################################
-###ATTENTION: 	Please switch your interface controllers to the new CachedDB
-###	table as a bug has been found (full table wipe) when exceeding the limit
-### of HSQLDB memory. Thanks.											
-############################################################################
-
 
 Repository URL: https://github.com/UofM-CS3350-Grp1/Project
 
@@ -32,8 +26,6 @@ This software is designed to manage various clients and services offered by Buzz
 Future releases will also be able to build and store client contracts, and analyze the performance of clients over a given date range.
 
 
-Since this is already on the front page if you have moment to update this with with a  brief summary of what you intend to be working on in the short term it would be greatly appreciated.  
-
 Directory:
 		/src
 			-/business 		-> Business Logic/Controllers.
@@ -44,3 +36,16 @@ Directory:
 			-> Jar files, JUnit, other build essentials.
 		/database
 			-> DBMS implementation, SQL editor
+
+
+Major changes this iteration:
+	Added service creation
+	Added service feature creation
+	Added Contract creation
+	Added History tracking to clients and services
+	Added performance tracking based on the history of clients and services
+	Switched from stub database to a real database
+	Refactored user interface by beraking it up into serveral smaller partitions
+	
+	
+	
