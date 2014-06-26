@@ -7,7 +7,11 @@ import objects.TrackedFeature;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.plot.Plot;
+import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 
 /**
  * Responsible for generating graphs based on clients and services
@@ -15,6 +19,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 public class GenerateGraph
 {
 	private ProcessFeatureHistory processHistory;
+	private ProcessAddFeature processFeature;
 	
 	/**
 	 * Creates a new line graph generator
@@ -22,6 +27,7 @@ public class GenerateGraph
 	public GenerateGraph()
 	{	
 		processHistory = new ProcessFeatureHistory();
+		processFeature = new ProcessAddFeature();
 	}
 	
 	/**
@@ -32,19 +38,25 @@ public class GenerateGraph
 	public JFreeChart GenerateChartForService(Service service)
 	{
 		JFreeChart chart = null;
-		DefaultCategoryDataset data;
+		DefaultPieDataset data;
+		TrackedFeature feature = null;
+		PiePlot plot;
 		
 		assert (service != null);
 		if(service != null)
 		{
-			data = new DefaultCategoryDataset();
+			data = new DefaultPieDataset();
 			
-			//Populate the data in the chart
-			data.addValue(15,  service.getTitle(), "January");
-			data.addValue(30, service.getTitle(), "February");
-			
+			while((feature = processFeature.getNextFeatureForService(service)) != null)
+			{							
+				//Populate the data in the chart
+				data.setValue(service.getTitle(), CalculateFeatureValue.calculateTotalValue(service, feature));
+			}
+				
 			//Setup the chart names and axes
-			chart = ChartFactory.createLineChart(service.getTitle(), "Period", "Revenue", data);
+			chart = ChartFactory.createPieChart("Features", data);
+			plot = (PiePlot) chart.getPlot();
+			plot.setNoDataMessage("No data available");
 		}		
 		
 		return chart;
@@ -61,6 +73,7 @@ public class GenerateGraph
 		JFreeChart chart = null;
 		DefaultCategoryDataset data;
 		FeatureHistory history = null;
+		Plot plot;
 		
 		assert (service != null && feature != null);
 		if(service != null && feature != null)
@@ -76,6 +89,8 @@ public class GenerateGraph
 			
 			//Finally set up the chart with the axis and formatting
 			chart = ChartFactory.createLineChart(feature.getFeatureName(), "Period", feature.getFeatureName(), data);
+			plot = chart.getPlot();
+			plot.setNoDataMessage("No data available");
 		}
 		
 		return chart;
