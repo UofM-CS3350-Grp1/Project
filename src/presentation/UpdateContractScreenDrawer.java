@@ -286,21 +286,23 @@ public class UpdateContractScreenDrawer
 	public void populateContractTable() 
 	{
 		Service service = null;
-		ArrayList<Service> serviceList;
+		ArrayList<Service> serviceList = new ArrayList<Service>();
 		contractTable.removeAll();
-/*
-		serviceList = processContract.getServices(contract);
-		Iterator it = serviceList.iterator();
-		
-		while(it.hasNext())
+		ProcessService processService = new ProcessService();
+		while((service = processService.getNextService())!=null)
 		{
-			service = (Service) it.next();
-			
-			item = new TableItem(contractTable, SWT.NULL);
-			item.setText(0, service.getTitle());
-			//item.setText(1, service.getRate() + "");
+			if(service.getContractID()==contract.getID())
+			{
+				item = new TableItem(contractTable, SWT.NULL);
+				item.setText(0, String.valueOf(service.getID()));
+				item.setText(1, service.getTitle());
+				item.setText(2, String.valueOf(service.getRate()));
+				item.setText(1, service.getType());
+				item.setText(1, service.getDescription());
+			}
 		}
-*/
+		inputDetails.setText(contract.getDetails());
+
 	}
 	
 	/*
