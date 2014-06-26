@@ -34,7 +34,9 @@ import org.eclipse.swt.widgets.Text;
  */
 public class ContractAnalysisScreenDrawer
 {
+	private ScrolledComposite scrollComposite;
 	private Composite composite;
+	private Composite buttonComposite;
 	private Table servicesTable;
 	private Client client;
 	private Contract contract;
@@ -81,10 +83,12 @@ public class ContractAnalysisScreenDrawer
 	 */
 	public ContractAnalysisScreenDrawer(Composite container, Contract contract, Client client) throws IllegalArgumentException 
 	{
-		//composite = new ScrolledComposite(container, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
+		scrollComposite = new ScrolledComposite(container, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
 		
-		composite = new Composite(container, SWT.NONE);
+		composite = new Composite(scrollComposite, SWT.NONE);
 		composite.setLayout(new GridLayout(1, false));	
+		
+		scrollComposite.setContent(composite);
 		
 
 		if(contract != null)
@@ -367,33 +371,35 @@ public class ContractAnalysisScreenDrawer
 		TableColumn tableColumn_4 = new TableColumn(servicesTable, SWT.NONE);
 		tableColumn_4.setWidth(300);
 		tableColumn_4.setText("Details");
-		new Label(contractDataComposite, SWT.NONE);
-		new Label(contractDataComposite, SWT.NONE);
 		
-		btnPrint = new Button(contractDataComposite, SWT.NONE);
+		
+		buttonComposite = new Composite(contractDataComposite, SWT.NONE);
+		buttonComposite.setLayout(new GridLayout(2, false));
+		GridData gd_serviceButtonComposite = new GridData(SWT.FILL, SWT.LEFT, false, false, 1, 1);
+		gd_serviceButtonComposite.heightHint = 44;
+		gd_serviceButtonComposite.widthHint = 215;
+		buttonComposite.setLayoutData(gd_serviceButtonComposite);
+		
+		btnPrint = new Button(buttonComposite, SWT.NONE);
 		btnPrint.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				createContractPDF();
 			}
 		});
-		btnPrint.setText("PRINT");
-		new Label(contractDataComposite, SWT.NONE);
+		btnPrint.setText("Print");
 		
-		btnSave = new Button(contractDataComposite, SWT.NONE);
-		btnSave.setText("SAVE");
-		new Label(contractDataComposite, SWT.NONE);
-		new Label(contractDataComposite, SWT.NONE);
-		new Label(contractDataComposite, SWT.NONE);
-		new Label(contractDataComposite, SWT.NONE);
+		btnSave = new Button(buttonComposite, SWT.NONE);
+		btnSave.setText("Save");
+
 		
 		populateClientData();
 		populateServiceData();
 		populateContractData();
-		/*
-		composite.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
-		composite.setExpandHorizontal(true);
-		composite.setExpandVertical(true);*/
+		
+		scrollComposite.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+		scrollComposite.setExpandHorizontal(true);
+		scrollComposite.setExpandVertical(true);
 	}
 	
 	/*
