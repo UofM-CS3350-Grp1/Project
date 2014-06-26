@@ -19,7 +19,7 @@ Run:
 
 Run tests:
 	run RunUnitTests.bat
-		- Once tests are completed run RestoreDB.bat in the /databases to restore
+		- Once tests are completed run RestoreDB.bat in /databases to restore
 		  tables, as rows may be inserted/updated/deleted that would invalidate 
 		  future tests.
 
