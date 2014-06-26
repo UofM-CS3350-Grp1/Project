@@ -88,14 +88,16 @@ public class Contract implements Storable
 	/*
 	 * set the date when the contract was signed
 	 */
-	public void setSignedDate(Date date){
+	public void setSignedDate(Date date)
+	{
 		this.signedDate = date;
 	}
 	
 	/*
 	 * returns the date the contract was signed
 	 */
-	public Date getSignedDate(){
+	public Date getSignedDate()
+	{
 		return signedDate;
 	}
 	

@@ -10,7 +10,8 @@ import objects.*;
 import persistence.DBController;
 import persistence.DBInterface;
 
-public class TestDBController {
+public class TestDBController
+{
 
 	@Test
 	public void testController1() 

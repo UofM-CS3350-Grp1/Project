@@ -42,17 +42,11 @@ public class ProcessBusinessFinancials
 	public void setCategory(Object obj)
 	{
 		if(obj instanceof Service)
-		{
 			service = (Service)obj;
-		}
 		else if(obj instanceof Contract)
-		{
 			contract = (Contract)obj;
-		}
 		else if(obj instanceof Client)
-		{
 			client = (Client)obj;
-		}
 	}
 	
 	/**
@@ -97,11 +91,11 @@ public class ProcessBusinessFinancials
 			contractList = database.dumpContracts();
 			Iterator it = (Iterator) contractList.iterator();
 			
-			while(it.hasNext()){
+			while(it.hasNext())
+			{
 				contract = (Contract) it.next();
-				if(contract.getBusinessName()==client.getBusinessName()){
+				if(contract.getBusinessName()==client.getBusinessName())
 					result += contract.getValue();
-				}
 			}
 			return result;
 		}
@@ -121,9 +115,7 @@ public class ProcessBusinessFinancials
 				{
 					temp = (Service) it2.next();
 					if(temp.getID()==service.getID())
-					{
 						result += temp.getRate();
-					}
 				}
 			}
 			return result;

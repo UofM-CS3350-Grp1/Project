@@ -21,7 +21,8 @@ import presentation.ServiceScreenDrawer;
 import java.util.Deque;
 import java.util.ArrayDeque;
 
-public class SwitchScreen {
+public class SwitchScreen
+{
 	private static final int WIN_WIDTH = 680;
 	private static final int WIN_HEIGHT = 480;
 	private static final String WIN_TEXT = "Buzzin' Digital Marketing";
@@ -33,7 +34,8 @@ public class SwitchScreen {
 	private static Deque< Composite > backStack;
 	
 	
-	public static void main( String[] args ) {
+	public static void main( String[] args )
+	{
 		backStack = new ArrayDeque< Composite >();
 		
 		Display display = Display.getDefault();
@@ -203,10 +205,10 @@ public class SwitchScreen {
 		shell.open();
 		shell.layout();
 		
-		while ( ! shell.isDisposed() ) {
-			if ( ! display.readAndDispatch() ) {
+		while (!shell.isDisposed())
+		{
+			if (!display.readAndDispatch())
 				display.sleep();
-			}
 		}
 		
 		// System.out.println( "END." );
@@ -217,7 +219,8 @@ public class SwitchScreen {
 	/*
 	 * provide a container for new content
 	 */
-	/* PACKAGE */ static Composite getContentContainer() {
+	/* PACKAGE */ static Composite getContentContainer()
+	{
 		Composite container = new Composite( content, SWT.None );
 		container.setLayout( new FillLayout() );
 		
@@ -227,8 +230,10 @@ public class SwitchScreen {
 	/*
 	 * switch content with container
 	 */
-	/* PACKAGE */ static void switchContent( Composite container ) {
-		if ( contentLayout.topControl != null )	backStack.push( ( Composite ) contentLayout.topControl );
+	/* PACKAGE */ static void switchContent( Composite container )
+	{
+		if ( contentLayout.topControl != null )
+			backStack.push( ( Composite ) contentLayout.topControl );
 			
 		contentLayout.topControl = container;
 		content.layout();
@@ -238,8 +243,10 @@ public class SwitchScreen {
 	/*
 	 * Back button functionality
 	 */
-	private static void switchBack() {
-		if ( ! backStack.isEmpty() ) {
+	private static void switchBack()
+	{
+		if ( ! backStack.isEmpty() )
+		{
 			Composite lastContainer = backStack.pop();
 		
 			contentLayout.topControl = lastContainer;
@@ -250,7 +257,8 @@ public class SwitchScreen {
 	/*
 	 * all your shell tweaking needs should go here
 	 */
-	private static void initShell( Shell srcShell ) {
+	private static void initShell( Shell srcShell )
+	{
 		srcShell.setSize( WIN_WIDTH, WIN_HEIGHT );
 		srcShell.setText( WIN_TEXT );
 		
@@ -264,7 +272,8 @@ public class SwitchScreen {
 	/*
 	 * all your button tweaking needs for the nav bar should go here
 	 */
-	private static void tuneNavButton( Button navButton, String label ) {
+	private static void tuneNavButton( Button navButton, String label )
+	{
 		GridData navButtonData = new GridData( GridData.FILL_HORIZONTAL );
 		navButtonData.heightHint = 50;
 		navButtonData.widthHint = 60;
@@ -289,7 +298,8 @@ public class SwitchScreen {
 
 
 
-	public static Object setcontentLayoutTopControl(Composite viewServicePerformance) {
+	public static Object setcontentLayoutTopControl(Composite viewServicePerformance)
+	{
 		return contentLayout.topControl = viewServicePerformance;
 	}
 }

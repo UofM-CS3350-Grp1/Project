@@ -12,7 +12,8 @@ import objects.Client.ClientStatus;
 import persistence.DBController;
 import persistence.DBInterface;
 
-public class TestDBInterface {
+public class TestDBInterface
+{
 
 	@Test
 	public void testValidRetrieval() 

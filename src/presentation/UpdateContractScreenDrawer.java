@@ -30,8 +30,8 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Combo;
 
-public class UpdateContractScreenDrawer {
-
+public class UpdateContractScreenDrawer
+{
 	protected Composite composite;
 	private Table serviceTable;
 	private Table contractTable;
@@ -99,9 +99,10 @@ public class UpdateContractScreenDrawer {
 		tableColumn_1.setText("Category");
 		
 		Button button = new Button(composite, SWT.NONE);
-		button.addSelectionListener(new SelectionAdapter() {
+		button.addSelectionListener(new SelectionAdapter(){
 			@Override
-			public void widgetSelected(SelectionEvent arg0) {
+			public void widgetSelected(SelectionEvent arg0)
+			{
 				addSelectedItem();
 			}
 		});
@@ -111,7 +112,8 @@ public class UpdateContractScreenDrawer {
 		Button button_1 = new Button(composite, SWT.NONE);
 		button_1.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void widgetSelected(SelectionEvent arg0) {
+			public void widgetSelected(SelectionEvent arg0)
+			{
 				removeSelectedItem();
 			}
 		});
@@ -161,7 +163,8 @@ public class UpdateContractScreenDrawer {
 		Button btnUpdate = new Button(composite, SWT.NONE);
 		btnUpdate.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void widgetSelected(SelectionEvent arg0) {
+			public void widgetSelected(SelectionEvent arg0)
+			{
 				processActionButton();
 			}
 		});
