@@ -11,7 +11,7 @@ import objects.Storable;
 import objects.Contract;
 import objects.Client.ClientStatus;
 
-public class StubDBInterface extends DBInterface
+public class StubDBInterface
 {
 	private String dbName;
 	private ArrayList<Client> clients;
@@ -20,7 +20,6 @@ public class StubDBInterface extends DBInterface
 	
 	public StubDBInterface(String dbName)
 	{
-		super(null);
 		this.dbName = dbName;
 		
 		clients = new ArrayList<Client>();
