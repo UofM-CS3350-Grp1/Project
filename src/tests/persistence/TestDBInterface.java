@@ -163,11 +163,21 @@ public class TestDBInterface
 		//updateList
 		for(int i = 0; i < 5; i++)
 		{
-			conList.add(mainFace.getContractByID(3));
-			serList.add(mainFace.getServiceByID(3));
-			traList.add(mainFace.getTrackedFeatureByID(2));
-			feaList.add(mainFace.getTrackedFeatureByID(4));
-			cliList.add(mainFace.getClientByID(2));
+			Contract conCon = mainFace.getContractByID(3);
+			conCon.setBusinessName("UPDATEDBUSINESS");
+			conList.add(conCon);
+			Service serSer = mainFace.getServiceByID(3);
+			serSer.setDescription("UPDATEDESRIPTION");
+			serList.add(serSer);
+			TrackedFeature traTra = mainFace.getTrackedFeatureByID(2);
+			traTra.setNotes("UPDATENOTTES");
+			traList.add(traTra);
+			FeatureHistory feaFea = mainFace.getFeatureHistoryByID(1);
+			feaFea.setNotes("UPDATENOTES");
+			feaList.add(feaFea);
+			Client cliCli = mainFace.getClientByID(2);
+			cliCli.setName("UPDATENAME");
+			cliList.add(cliCli);
 		}
 		
 		//insertList
