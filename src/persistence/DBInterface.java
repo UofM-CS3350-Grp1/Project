@@ -260,24 +260,32 @@ public class DBInterface
 		
 	}
 	
-	public ArrayList<Service> getTrackedFeaturesByService(Service input)
+	/**
+	 * 	GETTRACKEDFEATUREBYID()
+	 * 
+	 *  @param	int id	-	ID to search for
+	 *  
+	 *  @return	TrackedFeature	-	TrackedFeature specified by ID, null if no match
+	 */	
+	
+	public ArrayList<TrackedFeature> getTrackedFeaturesByService(Service input)
 	{
 		if(input != null && input.getID() >= 0)
 		{
-			ArrayList<Service> storage = new ArrayList<Service>();
+			ArrayList<TrackedFeature> storage = new ArrayList<TrackedFeature>();
 			ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
 			ArrayList<String> conditions = new ArrayList<String>();
 			ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
 			
-			conditions.add("SERVICE_ID");
+			conditions.add("SERVICE_KEY");
 			conditions.add("= ");
 			conditions.add("'"+input.getID()+"'");
 			
 			clauses.add(conditions);
 			
-			returnValue  = this.mainDB.query("SERVICES", clauses);
+			returnValue  = this.mainDB.query("FEATURE", clauses);
 			
-			storage = parser.parseServices(returnValue);
+			storage = parser.parseFeatures(returnValue);
 			
 			if(storage.size() == 0)
 			{
@@ -291,10 +299,10 @@ public class DBInterface
 		else
 		{	
 			if(input != null && input.getID() < 0 && ERROR_LOGGING == 1)
-				errorMessage("SERVICE", "A CLIENT OBJECT THAT HAS NOT BEEN INSERTED INTO DMBS\n", "INSERT THE CLIENT OBJECT");
+				errorMessage("SERVICE", "A SERVICE OBJECT THAT HAS NOT BEEN INSERTED INTO DMBS\n", "INSERT THE SERVICE OBJECT");
 			
 			if(input == null && ERROR_LOGGING == 1)
-				errorMessage("SERVICE", "A NULL CLIENT OBJECT\n", "INSTANTIATE A CLIENT OBJECT");
+				errorMessage("SERVICE", "A NULL SERVICE OBJECT\n", "INSTANTIATE A SERVICE OBJECT");
 
 			return null;
 		}
@@ -331,10 +339,10 @@ public class DBInterface
 		else
 		{
 			if(input != null && input.getID() < 0 && ERROR_LOGGING == 1)
-				errorMessage("SERVICE", "A CONTRACT OBJECT THAT HAS NOT BEEN INSERTED INTO DMBS\n", "INSERT THE CONTRACT OBJECT");
+				errorMessage("SERVICE", "A TRACKED_FEATURE OBJECT THAT HAS NOT BEEN INSERTED INTO DMBS\n", "INSERT THE TRACKED_FEATURE OBJECT");
 			
 			if(input == null && ERROR_LOGGING == 1)
-				errorMessage("SERVICE", "A NULL CONTRACT OBJECT\n", "INSTANTIATE A CONTRACT OBJECT");
+				errorMessage("SERVICE", "A NULL TRACKED_FEATURE OBJECT\n", "INSTANTIATE A CONTRACT OBJECT");
 			
 			return null;
 		}

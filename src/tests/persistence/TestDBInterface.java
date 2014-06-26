@@ -33,6 +33,8 @@ public class TestDBInterface
 		
 		assertNotNull("Feature history retrieval by client", mainFace.getFeatureHistoryFromParent(mainFace.getClientByID(1), mainFace.getTrackedFeatureByID(1)));
 		assertNotNull("Feature history retrieval by service", mainFace.getFeatureHistoryFromParent(mainFace.getServiceByID(2), mainFace.getTrackedFeatureByID(2)));
+		//assertNotNull("Tracked features by service", mainFace.getTrackedFeaturesByService(mainFace.getServiceByID(2)));
+		ArrayList<TrackedFeature> test =  mainFace.getTrackedFeaturesByService(mainFace.getServiceByID(2));
 		
 		assertNotNull("Table dump, Services", mainFace.dumpServices());
 		assertNotNull("Table dump, Contracts", mainFace.dumpContracts());
@@ -109,7 +111,7 @@ public class TestDBInterface
 		assertTrue("TrackedFeature Insert", mainFace.insert(newTracking));
 		
 		newHistory = mainFace.getFeatureHistoryByID(4);
-		newTracking = mainFace.getTrackedFeatureByID(10);
+		newTracking = mainFace.getTrackedFeatureByID(16);
 		
 		newHistory.setNotes("NOT blahblahblah");
 		newTracking.setNotes("Notlobbinglawbombs");
