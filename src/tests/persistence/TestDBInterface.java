@@ -110,7 +110,7 @@ public class TestDBInterface
 		assertTrue("TrackedFeature Insert", mainFace.insert(newTracking));
 		
 		newHistory = mainFace.getFeatureHistoryByID(4);
-		newTracking = mainFace.getTrackedFeatureByID(16);
+		newTracking = mainFace.getTrackedFeatureByID(10);
 		
 		newHistory.setNotes("NOT blahblahblah");
 		newTracking.setNotes("Notlobbinglawbombs");

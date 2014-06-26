@@ -358,6 +358,14 @@ public class DBInterface
 		}
 	}
 	
+	/**
+	 * 	GETSERVICEBYFEATURE()
+	 * 
+	 *  @param	Feature 	- Feature to use to retrieve Service
+	 *  
+	 *  @return	Service	-	Service referenced by feature, null if no ref
+	 */	
+	
 	public Service getServiceByFeature(TrackedFeature input)
 	{
 		if(input != null && input.getID() >= 0)
@@ -398,6 +406,14 @@ public class DBInterface
 		}
 	}
 	
+	/**
+	 * 	GETSERVICEBYCONTRACT()
+	 * 
+	 *  @param	Contract 	- Feature to used to retrieve Services
+	 *  
+	 *  @return	ArrayList<Services>	-	All services referenced by contract, null if no ref
+	 */	
+	
 	public ArrayList<Service> getServiceByContract(Contract input)
 	{
 		if(input != null && input.getID() >= 0)
@@ -437,6 +453,14 @@ public class DBInterface
 			return null;
 		}
 	}
+	
+	/**
+	 * 	GETSERVICEBYCLIENT()
+	 * 
+	 *  @param	Client 	- Client to used to retrieve Services
+	 *  
+	 *  @return	ArrayList<Services>	-	All services referenced by client, null if no ref
+	 */	
 	
 	public ArrayList<Service> getServiceByClient(Client input)
 	{
