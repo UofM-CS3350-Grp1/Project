@@ -85,7 +85,7 @@ Task: Back End ervice/Feature/Tracking Implemetation, Testing, Correspondence ,a
 Date: 6/25
 Assigned to: Adrian
 Status: In progress
-Duration: 5.5 hours
+Duration: 9.5 hours
 Description:	Implemented queries.
 				Added validation layer to objects maintaining references to other tables.
 				Added to test classes.
