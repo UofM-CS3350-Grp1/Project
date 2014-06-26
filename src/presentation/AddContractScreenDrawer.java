@@ -246,7 +246,6 @@ public class AddContractScreenDrawer
 			newService = new Service(service.getTitle(), service.getDescription(), service.getRate(), service.getType());
 			int cID = contract.getID();
 			newService.setContractID(cID);
-			System.out.println("Service added was "+service.getID()+", "+service.getTitle()+", "+service.getDescription());
 			processService.insert(newService);
 		}
 		
@@ -278,7 +277,6 @@ public class AddContractScreenDrawer
 			
 			if(service != null)
 			{
-				System.out.println("Inserted service was: "+service.getID()+", "+service.getTitle()+", "+service.getDescription());
 				item = new TableItem(table_1, SWT.NULL);
 	
 				item.setText(0, String.valueOf(service.getID()));
