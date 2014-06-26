@@ -35,7 +35,7 @@ public class Contract implements Storable
 	 */
 	public Contract(int contractNumber, String businessName, String details, double value, Date period) throws IllegalArgumentException
 	{
-		if(contractNumber >= 0 && businessName != null && !businessName.isEmpty() && details != null && !details.isEmpty() && value >= 0 && period != null)
+		if(contractNumber >= 0 && businessName != null && !businessName.isEmpty() && details != null && value >= 0 && period != null)
 		{
 			this.contractNumber = contractNumber;
 			this.businessName = businessName;
@@ -63,7 +63,7 @@ public class Contract implements Storable
 	 */
 	public Contract(String businessName, String details, double value, Date period) throws IllegalArgumentException
 	{
-		if(contractNumber >= 0 && businessName != null && !businessName.isEmpty() && details != null && !details.isEmpty() && value >= 0 && period != null)
+		if(contractNumber >= 0 && businessName != null && !businessName.isEmpty() && details != null && value >= 0 && period != null)
 		{
 			this.contractNumber = 0;
 			this.businessName = businessName;
