@@ -33,6 +33,16 @@ TODO(Adrian):
 
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Client and service performance tracking services and features
+Date: 6/25, 11:30pm
+Assigned to: Tim
+Status: In progress.
+Duration: 3 hours
+Description:	Added the ability to add/ remove features to/ from services.
+				Fixed up the initial graph view.
+				Initial performance tracking is implemented
+
+
 Task: Back End ervice/Feature/Tracking Implemetation, Testing, Correspondence ,and Refactoring
 Date: 6/25
 Assigned to: Adrian
@@ -80,6 +90,10 @@ Duration: 2hrs
 Description:	- added additional fields to services to be able to differenciate between them
                 - added the additional details textarea
                 - adding/removing services works perfectly now
+       
+Planned Task: Performance tracking feature
+Planned dev duration: 4 - 6 hrs
+Assigned to: Tim
        
 Planned Task: Refactor & Maintain DB, Query Implementations as Needed
 Planned dev duration: 3-6 hours
