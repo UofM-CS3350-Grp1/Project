@@ -3,6 +3,8 @@ package business;
 import java.util.ArrayList;
 
 import objects.FeatureHistory;
+import objects.Trackable;
+import objects.TrackedFeature;
 
 /**
  * Processes the adding, editing and deletion of new feature history
@@ -10,7 +12,9 @@ import objects.FeatureHistory;
 public class ProcessFeatureHistory extends ProcessStorable
 {
 	private ArrayList<FeatureHistory> histories;
-	private int histIndex = 0;
+	private ArrayList<FeatureHistory> featureHistories;
+	private int histIndex;
+	private int featureHistIndex;
 	
 	/**
 	 * Create the Feature adder
@@ -20,7 +24,9 @@ public class ProcessFeatureHistory extends ProcessStorable
 		super();
 		
 		histories = null;
+		featureHistories = null;
 		histIndex = 0;
+		featureHistIndex = 0;
 	}
 		
 	/**
@@ -71,6 +77,41 @@ public class ProcessFeatureHistory extends ProcessStorable
 			database.connect();
 			history = database.getFeatureHistoryByID(id);
 			database.disconnect();
+		}
+		
+		return history;
+	}
+	
+	/**
+	 * Retrieves the history objects for a given feature
+	 * @param service The service to find the history for
+	 * @param feature The feature to get history for
+	 * @return The next history object or null if we have reached the end
+	 */
+	public FeatureHistory getNextHistoryForFeature(Trackable service, TrackedFeature feature)
+	{
+		FeatureHistory history = null;
+		
+		if(histories == null)
+		{
+			database.connect();
+			featureHistories = database.getFeatureHistoryFromParent(service, feature);
+			database.disconnect();
+			
+			if(featureHistories != null && featureHistories.size() > 0)
+			{
+				history = featureHistories.get(0);
+				featureHistIndex = 1;
+			}
+		}
+		else if(featureHistIndex < featureHistories.size())
+		{
+			history = featureHistories.get(featureHistIndex);
+			featureHistIndex++;
+		}
+		else
+		{
+			featureHistories = null;
 		}
 		
 		return history;

@@ -2,8 +2,7 @@ package business;
 
 import java.util.ArrayList;
 
-import objects.FeatureHistory;
-import objects.Trackable;
+import objects.Service;
 import objects.TrackedFeature;
 
 /**
@@ -12,8 +11,8 @@ import objects.TrackedFeature;
 public class ProcessAddFeature extends ProcessStorable
 {
 	private ArrayList<TrackedFeature> features;
-	private ArrayList<FeatureHistory> histories;
-	private int histIndex;
+	private ArrayList<TrackedFeature> serviceFeatures;
+	private int serviceFeatureIndex;
 	private int featureIndex;
 	
 	/**
@@ -24,9 +23,9 @@ public class ProcessAddFeature extends ProcessStorable
 		super();
 		
 		features = null;
-		histories = null;
+		serviceFeatures = null;
+		serviceFeatureIndex = 0;
 		featureIndex = 0;
-		histIndex = 0;
 	}
 		
 	/**
@@ -83,37 +82,41 @@ public class ProcessAddFeature extends ProcessStorable
 	}
 	
 	/**
-	 * Retrieves the history objects for a given feature
-	 * @param service The service to find the history for
-	 * @param feature The feature to get history for
-	 * @return The next history object or null if we have reached the end
+	 * Iterate through the list of features that a service tracks
+	 * @param service The service to look up features for
+	 * @return	The feature if found, null otherwise
 	 */
-	public FeatureHistory getNextHistoryForFeature(Trackable service, TrackedFeature feature)
+	public TrackedFeature getNextFeatureForService(Service service)
 	{
-		FeatureHistory history = null;
+		TrackedFeature feature = null;
 		
-		if(histories == null)
+		assert (service != null);
+		if(service != null)
 		{
-			database.connect();
-			histories = database.getFeatureHistoryFromParent(service, feature);
-			database.disconnect();
-			
-			if(histories != null && histories.size() > 0)
+			if(serviceFeatures == null)
 			{
-				history = histories.get(0);
-				histIndex = 1;
+				database.connect();
+				//NO Database support yet
+				//features = database.getFeaturesFromService(service);
+				database.disconnect();
+				
+				if(features != null && features.size() > 0)
+				{
+					feature = serviceFeatures.get(0);
+					serviceFeatureIndex = 1;
+				}
+			}
+			else if(serviceFeatureIndex < serviceFeatures.size())
+			{
+				feature = serviceFeatures.get(serviceFeatureIndex);
+				serviceFeatureIndex++;
+			}
+			else
+			{
+				serviceFeatures = null;
 			}
 		}
-		else if(histIndex < histories.size())
-		{
-			history = histories.get(histIndex);
-			histIndex++;
-		}
-		else
-		{
-			histories = null;
-		}
 		
-		return history;
+		return feature;
 	}
 }

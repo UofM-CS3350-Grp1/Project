@@ -158,6 +158,14 @@ public class FeatureHistory implements Storable
 	{
 		return date;
 	}
+	
+	/**
+	 * @return The formatted date of the form yyyy-mm-dd
+	 */
+	public String getShortDate()
+	{
+		return sdf.format(date);
+	}
 
 	/**
 	 * Sets the date of the history object

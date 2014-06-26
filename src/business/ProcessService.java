@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import objects.Client;
 import objects.Service;
-import objects.TrackedFeature;
 
 /**
  * Performs the service related processing between the GUI
@@ -13,9 +12,7 @@ import objects.TrackedFeature;
 public class ProcessService extends ProcessStorable
 {
 	private ArrayList<Service> services;
-	private ArrayList<TrackedFeature> features;
 	private int serviceIndex;
-	private int featureIndex;
 		
 	/**
 	 * Creates a client accessor used to create, edit and delete 
@@ -25,9 +22,7 @@ public class ProcessService extends ProcessStorable
 		super();
 		
 		services = null;
-		features = null;
 		serviceIndex = 0;
-		featureIndex = 0;
 	}
 		
 	/**
@@ -114,44 +109,5 @@ public class ProcessService extends ProcessStorable
 		}
 				
 		return service;
-	}
-	
-	/**
-	 * Iterate through the list of features that a service tracks
-	 * @param service The service to look up features for
-	 * @return	The feature if found, null otherwise
-	 */
-	public TrackedFeature getNextTrackedFeature(Service service)
-	{
-		TrackedFeature feature = null;
-		
-		assert (service != null);
-		if(service != null)
-		{
-			if(features == null)
-			{
-				database.connect();
-				//NO Database support yet
-				//features = database.getFeaturesFromService(service);
-				database.disconnect();
-				
-				if(features != null && features.size() > 0)
-				{
-					feature = features.get(0);
-					featureIndex = 1;
-				}
-			}
-			else if(featureIndex < features.size())
-			{
-				feature = features.get(featureIndex);
-				featureIndex++;
-			}
-			else
-			{
-				features = null;
-			}
-		}
-		
-		return feature;
 	}
 }

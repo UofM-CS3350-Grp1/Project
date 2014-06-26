@@ -14,14 +14,14 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class GenerateGraph
 {
-	private ProcessAddFeature processFeature;
+	private ProcessFeatureHistory processHistory;
 	
 	/**
 	 * Creates a new line graph generator
 	 */
 	public GenerateGraph()
 	{	
-		processFeature = new ProcessAddFeature();
+		processHistory = new ProcessFeatureHistory();
 	}
 	
 	/**
@@ -69,9 +69,9 @@ public class GenerateGraph
 			
 			//Populate the data with all of the the history for a service's 
 			//given feature to plot it on a nice graph
-			while((history = processFeature.getNextHistoryForFeature(service, feature)) != null)
+			while((history = processHistory.getNextHistoryForFeature(service, feature)) != null)
 			{
-				data.addValue(history.getValue(), feature.getFeatureName(), history.getDate().toString());
+				data.addValue(history.getValue(), feature.getFeatureName(), history.getShortDate());
 			}
 			
 			//Finally set up the chart with the axis and formatting
