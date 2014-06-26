@@ -125,12 +125,12 @@ public class TrackedFeature implements Storable
 			this.notes = notes;
 	}
 	
-	int getServiceKey()
+	public int getServiceKey()
 	{
 		return this.serviceKey;
 	}
 	
-	void setServiceKey( int key)
+	public void setServiceKey( int key)
 	{
 		if(key >= 0)
 			this.serviceKey = key;
