@@ -31,6 +31,16 @@ TODO(Jason):
 			
 TODO(Adrian):
 
+------------------------------------------------------------------
+General things to polish:
+Login screen currently does nothing of any importance after clicking login. Maybe add something like "Logged in" to the screen.
+
+Testing:
+    We still need testing of some object classes
+    We still need testing of some business classes
+
+    Some tests are also broken...
+------------------------------------------------------------------
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 Task: Client performance tracking 
