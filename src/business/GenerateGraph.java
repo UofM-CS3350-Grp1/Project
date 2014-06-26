@@ -1,5 +1,6 @@
 package business;
 
+import objects.Client;
 import objects.FeatureHistory;
 import objects.Service;
 import objects.Trackable;
@@ -18,6 +19,7 @@ public class GenerateGraph
 {
 	private ProcessFeatureHistory processHistory;
 	private ProcessAddFeature processFeature;
+	private ProcessClient processClient;
 	
 	/**
 	 * Creates a new line graph generator
@@ -26,6 +28,43 @@ public class GenerateGraph
 	{	
 		processHistory = new ProcessFeatureHistory();
 		processFeature = new ProcessAddFeature();
+		processClient = new ProcessClient();
+	}
+	
+	/**
+	 * Generates a chart given the client which will pull all service data
+	 * @param client	The client to use
+	 * @return	A chart of the data
+	 */
+	public JFreeChart GenerateChartForClient(Client client)
+	{
+		JFreeChart chart = null;
+		DefaultPieDataset data;
+		Service service = null;
+		TrackedFeature feature = null;
+		Plot plot;
+		
+		assert (client != null);
+		if(client != null)
+		{
+			data = new DefaultPieDataset();
+			
+			while((service = processClient.getNextClientService(client)) != null)
+			{
+				while((feature = processFeature.getNextFeatureForService(service)) != null)
+				{							
+					//Populate the data in the chart
+					data.setValue(service.getTitle(), CalculateFeatureValue.calculateTotalValue(service, feature));
+				}
+			}
+				
+			//Setup the chart names and axes
+			chart = ChartFactory.createPieChart("Client Services", data);
+			plot = chart.getPlot();
+			plot.setNoDataMessage("No data available");
+		}		
+		
+		return chart;
 	}
 	
 	/**

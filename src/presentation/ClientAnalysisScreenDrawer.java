@@ -16,12 +16,14 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.widgets.Table;
 
+import business.GenerateGraph;
 import business.ProcessClient;
 import business.ProcessService;
 
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.jfree.experimental.chart.swt.ChartComposite;
 
 /**
  * Responsible for drawing the detailed client information including all of the
@@ -280,9 +282,11 @@ public class ClientAnalysisScreenDrawer
 	 */
 	private void generateReports()
 	{
-		//TODO Pull all records of each service
-		//TODO Plot each service financial/ feature history on a line graph
-		//Abstract the building of the reports into some new business layer object
+		GenerateGraph graphGenerator = new GenerateGraph();
+		ChartComposite chartComp = new ChartComposite(composite, SWT.NONE, graphGenerator.GenerateChartForClient(client));
+		GridData gd_chartComposite = new GridData(SWT.FILL, SWT.LEFT, false, false, 1, 1);
+		gd_chartComposite.heightHint = 500;
+		chartComp.setLayoutData(gd_chartComposite);
 	}
 	
 	/**
