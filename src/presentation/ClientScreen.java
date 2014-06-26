@@ -22,6 +22,7 @@ import objects.PhoneNumber;
 import org.eclipse.swt.widgets.List;
 
 import business.ProcessClient;
+import business.ValidateTextbox;
 
 /**
  * Draws the Client information screen
@@ -200,7 +201,7 @@ public class ClientScreen
 		{
 			public void verifyText(VerifyEvent event)
 			{
-				verifyNumericTextbox(event, PhoneNumber.AREA_CODE_LENGTH);
+				ValidateTextbox.verifyNumericTextbox(event, PhoneNumber.AREA_CODE_LENGTH);
 			}
 		});
 		txtPhoneNumberA.setBounds(310, 194, 35, 21);
@@ -221,7 +222,7 @@ public class ClientScreen
 		{
 			public void verifyText(VerifyEvent event)
 			{
-				verifyNumericTextbox(event, PhoneNumber.PREFIX_CODE_LENGTH);
+				ValidateTextbox.verifyNumericTextbox(event, PhoneNumber.PREFIX_CODE_LENGTH);
 			}
 		});
 		txtPhoneNumberB.setBounds(368, 194, 35, 21);
@@ -237,7 +238,7 @@ public class ClientScreen
 		{
 			public void verifyText(VerifyEvent event)
 			{
-				verifyNumericTextbox(event, PhoneNumber.LINE_NUMBER_CODE);
+				ValidateTextbox.verifyNumericTextbox(event, PhoneNumber.LINE_NUMBER_CODE);
 			}
 		});
 		txtPhoneNumberC.setBounds(418, 194, 55, 21);
@@ -547,34 +548,5 @@ public class ClientScreen
 		}
 		
 		return (client != null);
-	}
-	
-	/**
-	 * Validates a textbox event to ensure that its textbox is only numeric
-	 * @param event The textbox event to validate
-	 * @param maxLength	The maximum length of the numeric string
-	 */
-	private void verifyNumericTextbox(VerifyEvent event, int maxLength)
-	{
-		Text text;
-		boolean valid = false;
-		
-		assert (event != null);
-		if(event != null)
-		{
-			text = (Text) event.widget;
-			
-			if(text != null && maxLength > 0)
-			{
-				//Check if the textbox is numeric
-				if(event.character == SWT.BS || event.keyCode == SWT.ARROW_LEFT || event.keyCode == SWT.ARROW_RIGHT || 
-						event.keyCode == SWT.DEL || event.keyCode == SWT.NULL)
-					valid = true;
-				else if(Character.isDigit(event.character) && text.getText().length() < maxLength)
-					valid = true;
-				
-				event.doit = valid;
-			}
-		}
 	}
 }
