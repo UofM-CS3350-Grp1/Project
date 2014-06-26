@@ -300,7 +300,7 @@ public class DBInterface
 		}
 	}
 	
-	public ArrayList<Service> getServiceByFeature(TrackedFeature input)
+	public Service getServiceByFeature(TrackedFeature input)
 	{
 		if(input != null && input.getID() >= 0)
 		{
@@ -319,13 +319,13 @@ public class DBInterface
 			
 			storage = parser.parseServices(returnValue);
 			
-			if(storage.size() == 0)
+			if(storage.size() != 1)
 			{
 				return null;
 			}
 			else
 			{
-				return storage;
+				return storage.get(0);
 			}
 		}
 		else
