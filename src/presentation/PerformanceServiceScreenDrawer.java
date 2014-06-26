@@ -1,6 +1,7 @@
 package presentation;
 
 import objects.Service;
+import objects.TrackedFeature;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
@@ -10,7 +11,9 @@ import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.layout.GridData;
 import org.jfree.experimental.chart.swt.ChartComposite;
 
-import business.GenerateLineGraph;
+import business.GenerateGraph;
+import business.ProcessAddFeature;
+import business.ProcessService;
 
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -33,7 +36,8 @@ public class PerformanceServiceScreenDrawer
 	private Composite chartHolderComposite;
 	private ChartComposite chartComposite;
 	
-	private GenerateLineGraph graphGenerator;
+	private GenerateGraph graphGenerator;
+	private ProcessAddFeature processFeature;
 	private Button btnBack;
 	
 	/**
@@ -57,7 +61,8 @@ public class PerformanceServiceScreenDrawer
 		else
 			throw new IllegalArgumentException();
 		
-		graphGenerator = new GenerateLineGraph();
+		graphGenerator = new GenerateGraph();
+		processFeature = new ProcessAddFeature();
 		
 		Composite serviceDataComposite = new Composite(composite, SWT.NONE);
 		serviceDataComposite.setLayout(new GridLayout(4, false));
@@ -109,12 +114,12 @@ public class PerformanceServiceScreenDrawer
 		lblDescriptionData.setText("DESCRIPTION");
 		new Label(composite, SWT.NONE);
 		
-		chartHolderComposite = new Composite(composite, SWT.NONE);
+		/*chartHolderComposite = new Composite(composite, SWT.NONE);
 		GridData gd_chartHolderComposite = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
 		gd_chartHolderComposite.heightHint = 272;
-		chartHolderComposite.setLayoutData(gd_chartHolderComposite);
+		chartHolderComposite.setLayoutData(gd_chartHolderComposite);*/
 		
-		chartComposite = new ChartComposite(chartHolderComposite, SWT.HORIZONTAL);
+		chartComposite = new ChartComposite(composite, SWT.HORIZONTAL);
 		GridData gd_chartComposite = new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1);
 		gd_chartComposite.heightHint = 85;
 		chartComposite.setLayoutData(gd_chartComposite);	
@@ -162,11 +167,32 @@ public class PerformanceServiceScreenDrawer
 	
 	/**
 	 * Generates the charts for the tracked data to visually show the user
+	 * the performance as it progresses
 	 */
 	private void generateCharts()
 	{
+		TrackedFeature feature = null;
+		ChartComposite chartComp;
+		GridData gd_chartComposite;
+		
+		//Display the general all feature summary
 		chartComposite.setChart(graphGenerator.GenerateChartForService(service));
 		chartComposite.setSize(600, 600);
+		
+		//Display a chart for each tracked feature
+		while((feature = processFeature.getNextFeature()) != null)
+		{
+			//Generate the composite
+			chartComp = new ChartComposite(composite, SWT.HORIZONTAL);
+			gd_chartComposite = new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1);
+			gd_chartComposite.heightHint = 85;
+			chartComp.setLayoutData(gd_chartComposite);
+			
+			//Populate the composite with the chart containing all of the 
+			//data in each feature
+			chartComp.setChart(graphGenerator.GenerateChartForFeature(service, feature));
+			chartComp.setSize(500, 500);
+		}
 	}
 	
 	/**

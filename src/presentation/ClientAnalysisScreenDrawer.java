@@ -312,7 +312,7 @@ public class ClientAnalysisScreenDrawer
 			{
 				//Extract the service ID from the table
 				id = Integer.parseInt(servicesTable.getItem(index).getText(0));
-				service = processService.getServiceByID(id);
+				service = processService.getServiceByClient(id, client);
 				
 				if(service != null)
 				{
