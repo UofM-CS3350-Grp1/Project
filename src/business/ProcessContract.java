@@ -177,7 +177,22 @@ public class ProcessContract extends ProcessStorable
 	public ArrayList<Service> getServices(Contract contract)
 	{
 		ArrayList<Service> result = null;
-		result = contract.getServices();
+		ArrayList<Service> temp = null;
+		database.connect();
+		temp = database.dumpServices();
+		database.disconnect();
+		System.out.println("Searching for services");
+		Iterator it = temp.iterator();
+		Service service = null;
+		while(it.hasNext())
+		{
+			service = (Service) it.next();
+			if(service.getContractID()==contract.getID())
+			{
+				System.out.println("Service found: "+service.getTitle());
+				result.add(service);
+			}
+		}
 		return result;
 	}
 	
