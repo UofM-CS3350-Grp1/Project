@@ -36,4 +36,11 @@ public class PerformanceClientServiceScreenDrawer extends PerformanceServiceScre
 		new ClientAnalysisScreenDrawer(analysisScreen, client);
 		SwitchScreen.switchContent(analysisScreen);
 	}
+	
+	/**
+	 * Draws the table to manipulate the features that a service tracks.
+	 * We do not need this feature in the client version of the window
+	 * since only services should be allowed to edit this information.
+	 */
+	protected void drawTrackFeatureTable() { }
 }

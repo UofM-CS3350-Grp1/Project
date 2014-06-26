@@ -96,11 +96,10 @@ public class ProcessAddFeature extends ProcessStorable
 			if(serviceFeatures == null)
 			{
 				database.connect();
-				//NO Database support yet
-				//features = database.getFeaturesFromService(service);
+				serviceFeatures = database.getTrackedFeaturesByService(service);
 				database.disconnect();
 				
-				if(features != null && features.size() > 0)
+				if(serviceFeatures != null && serviceFeatures.size() > 0)
 				{
 					feature = serviceFeatures.get(0);
 					serviceFeatureIndex = 1;
@@ -118,5 +117,63 @@ public class ProcessAddFeature extends ProcessStorable
 		}
 		
 		return feature;
+	}
+	
+	/**
+	 * Adds a feature to a service
+	 * @param service	The service to add the feature to
+	 * @param feature	The feature to add
+	 * @return	True if added successfully
+	 */
+	public boolean addTrackedFeatureToService(Service service, TrackedFeature feature)
+	{
+		boolean added = false;
+		TrackedFeature temp;
+		
+		assert (service != null && feature != null);
+		if(service != null && feature != null)
+		{
+			database.connect();
+			
+			feature.setServiceKey(service.getID());
+			added = database.insert(feature);
+			
+			database.disconnect();
+		}
+		
+		return added;
+	}
+	
+	/**
+	 * Removes a feature from a service
+	 * @param service	The service to remove the feature from
+	 * @param feature	The feature to remove
+	 * @return	True if removed successfully
+	 */
+	public boolean removeTrackedFeatureFromService(Service service, TrackedFeature feature)
+	{
+		boolean removed = false;
+		ArrayList<TrackedFeature> featuresList;
+		int size;
+		
+		assert (service != null && feature != null);
+		if(service != null && feature != null)
+		{
+			database.connect();			
+			featuresList = database.getTrackedFeaturesByService(service);
+			database.disconnect();
+			
+			if(featuresList != null)
+			{
+				size = featuresList.size();
+				for(int i = 0; i < size && !removed; i++)
+				{
+					if(featuresList.get(i).getID() == feature.getID())
+						removed = database.drop(featuresList.get(i));
+				}
+			}
+		}
+		
+		return removed;
 	}
 }

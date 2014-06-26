@@ -39,6 +39,7 @@ public class PerformanceServiceScreenDrawer
 	private GenerateGraph graphGenerator;
 	private ProcessAddFeature processFeature;
 	private Button btnBack;
+	private Composite featuresComposite;
 	
 	/**
 	 * Creates a new performance screen for a service
@@ -112,7 +113,8 @@ public class PerformanceServiceScreenDrawer
 		gd_lblDescriptionData.heightHint = 60;
 		lblDescriptionData.setLayoutData(gd_lblDescriptionData);
 		lblDescriptionData.setText("DESCRIPTION");
-		new Label(composite, SWT.NONE);
+		
+		drawTrackFeatureTable();
 		
 		populateServiceData();
 		generateCharts();
@@ -191,5 +193,13 @@ public class PerformanceServiceScreenDrawer
 		Composite serviceScreen = SwitchScreen.getContentContainer();
 		new ServiceScreenDrawer( serviceScreen );
 		SwitchScreen.switchContent( serviceScreen );
+	}
+	
+	/**
+	 * Draws the table to manipulate the features that a service tracks
+	 */
+	protected void drawTrackFeatureTable()
+	{
+		new TrackFeaturesTableDrawer(composite, service);
 	}
 }
