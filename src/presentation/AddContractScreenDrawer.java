@@ -73,8 +73,6 @@ public class AddContractScreenDrawer
 		GridData componentTweaker = null;	
 		Label lblBusinessName = new Label(composite, SWT.None);
 		lblBusinessName.setText("Select Business");
-		
-
 
 		Combo combo = new Combo(composite, SWT.READ_ONLY);
 		combo.setLayout(new FillLayout(SWT.VERTICAL));

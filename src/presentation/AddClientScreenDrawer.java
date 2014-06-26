@@ -254,8 +254,10 @@ public class AddClientScreenDrawer
 			ClientStatus status = null;
 			try
 			{
-				if (btnActive.getSelection()) status = ClientStatus.Active;
-				else status = ClientStatus.Potential;
+				if (btnActive.getSelection())
+					status = ClientStatus.Active;
+				else
+					status = ClientStatus.Potential;
 				
 				client = new Client(txtClientName.getText(), new PhoneNumber(txtPhoneNumberA.getText() + txtPhoneNumberB.getText() + txtPhoneNumberC.getText()), 
 						new Email(txtEmail.getText()), txtAddress.getText(), txtBusinessName.getText(), status);
@@ -280,15 +282,17 @@ public class AddClientScreenDrawer
 	 */
 	protected boolean isFormDataValid()
 	{
+		boolean isValid = true;
+
 		// check if the fields have something in them
-		if (txtClientName.getText() == "") return false;
-		if (txtBusinessName.getText() == "") return false;
-		if (txtEmail.getText() == "") return false;
-		if (txtPhoneNumberA.getText() == "") return false;
-		if (txtPhoneNumberB.getText() == "") return false;
-		if (txtPhoneNumberC.getText() == "") return false;
+		isValid = (txtClientName.getText() != "");
+		if (isValid) isValid = (txtBusinessName.getText() != "");
+		if (isValid) isValid = (txtEmail.getText() != "");
+		if (isValid) isValid = (txtPhoneNumberA.getText() != "");
+		if (isValid) isValid = (txtPhoneNumberB.getText() != "");
+		if (isValid) isValid = (txtPhoneNumberC.getText() != "");
 		
-		return true;
+		return isValid;
 	}	
 	
 	/**

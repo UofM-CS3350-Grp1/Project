@@ -147,7 +147,9 @@ public class ContractScreenDrawer extends BaseStorableScreenDrawer
 					analysisScreen = SwitchScreen.getContentContainer();
 					new ContractAnalysisScreenDrawer( analysisScreen, contract, client );
 					SwitchScreen.switchContent( analysisScreen );
-				}else{
+				}
+				else
+				{
 					System.out.println("error");
 				}
 			}
