@@ -13,7 +13,6 @@ import org.jfree.experimental.chart.swt.ChartComposite;
 
 import business.GenerateGraph;
 import business.ProcessAddFeature;
-import business.ProcessService;
 
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -25,6 +24,8 @@ import org.eclipse.swt.events.SelectionEvent;
  */
 public class PerformanceServiceScreenDrawer 
 {
+	private static final int CHART_HEIGHT = 500;			//Height of a chart
+	
 	private ScrolledComposite scrollComposite;
 	private Composite composite;
 	private Service service;
@@ -33,7 +34,6 @@ public class PerformanceServiceScreenDrawer
 	private Label lblServiceNameData;
 	private Label lblDescription;
 	private Label lblDescriptionData;
-	private Composite chartHolderComposite;
 	private ChartComposite chartComposite;
 	
 	private GenerateGraph graphGenerator;
@@ -114,15 +114,8 @@ public class PerformanceServiceScreenDrawer
 		lblDescriptionData.setText("DESCRIPTION");
 		new Label(composite, SWT.NONE);
 		
-		/*chartHolderComposite = new Composite(composite, SWT.NONE);
-		GridData gd_chartHolderComposite = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
-		gd_chartHolderComposite.heightHint = 272;
-		chartHolderComposite.setLayoutData(gd_chartHolderComposite);*/
-		
-		chartComposite = new ChartComposite(composite, SWT.HORIZONTAL);
-		GridData gd_chartComposite = new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1);
-		gd_chartComposite.heightHint = 85;
-		chartComposite.setLayoutData(gd_chartComposite);	
+		populateServiceData();
+		generateCharts();
 		
 		btnBack = new Button(composite, SWT.NONE);
 		btnBack.addSelectionListener(new SelectionAdapter() 
@@ -137,9 +130,6 @@ public class PerformanceServiceScreenDrawer
 		gd_btnBack.widthHint = 79;
 		btnBack.setLayoutData(gd_btnBack);
 		btnBack.setText("Back");
-		
-		populateServiceData();
-		generateCharts();
 		
 		scrollComposite.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		scrollComposite.setExpandHorizontal(true);
@@ -176,22 +166,20 @@ public class PerformanceServiceScreenDrawer
 		GridData gd_chartComposite;
 		
 		//Display the general all feature summary
-		chartComposite.setChart(graphGenerator.GenerateChartForService(service));
-		chartComposite.setSize(600, 600);
+		chartComposite = new ChartComposite(composite, SWT.NONE, graphGenerator.GenerateChartForService(service));
+		gd_chartComposite = new GridData(SWT.FILL, SWT.LEFT, true, false, 1, 1);
+		gd_chartComposite.heightHint = CHART_HEIGHT;
+		chartComposite.setLayoutData(gd_chartComposite);
 		
 		//Display a chart for each tracked feature
 		while((feature = processFeature.getNextFeature()) != null)
 		{
 			//Generate the composite
-			chartComp = new ChartComposite(composite, SWT.HORIZONTAL);
-			gd_chartComposite = new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1);
-			gd_chartComposite.heightHint = 85;
+			chartComp = new ChartComposite(composite, SWT.NONE, graphGenerator.GenerateChartForFeature(service, feature));
+			gd_chartComposite = new GridData(SWT.FILL, SWT.LEFT, false, false, 1, 1);
+			gd_chartComposite.heightHint = CHART_HEIGHT;
 			chartComp.setLayoutData(gd_chartComposite);
 			
-			//Populate the composite with the chart containing all of the 
-			//data in each feature
-			chartComp.setChart(graphGenerator.GenerateChartForFeature(service, feature));
-			chartComp.setSize(500, 500);
 		}
 	}
 	
