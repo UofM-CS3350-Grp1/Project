@@ -176,7 +176,10 @@ public class AddContractScreenDrawer
 			@Override
 			public void widgetSelected(SelectionEvent arg0)
 			{
-				createContract();
+				if(combo.getText()!=null && combo.getText()!="")
+				{
+					createContract();
+				}
 			}
 		});
 		btnCreate.setBounds(307, 525, 75, 25);
