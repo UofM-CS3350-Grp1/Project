@@ -1,7 +1,5 @@
 package presentation;
 
-import java.util.ArrayList;
-
 import objects.Client;
 import objects.Contract;
 import objects.Service;
@@ -17,8 +15,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.widgets.Table;
 
-import business.ProcessClient;
-import business.ProcessContract;
 import business.ProcessService;
 
 import org.eclipse.swt.widgets.Button;
@@ -79,8 +75,7 @@ public class ContractAnalysisScreenDrawer
 		composite = new Composite(scrollComposite, SWT.NONE);
 		composite.setLayout(new GridLayout(1, false));	
 		
-		scrollComposite.setContent(composite);
-		
+		scrollComposite.setContent(composite);		
 
 		if(contract != null)
 			this.contract = contract;

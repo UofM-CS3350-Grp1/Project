@@ -18,6 +18,7 @@ import business.ProcessService;
 
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Label;
@@ -32,6 +33,7 @@ import org.eclipse.swt.widgets.DateTime;
  */
 public class AddContractScreenDrawer 
 {
+	private ScrolledComposite scrollComposite;
 	protected Composite composite;
 
 	protected ProcessClient processClient;
@@ -55,7 +57,10 @@ public class AddContractScreenDrawer
 	 */
 	public AddContractScreenDrawer(Composite container) 
 	{
-		composite = new Composite(container, SWT.BORDER);
+		scrollComposite = new ScrolledComposite(container, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
+		
+		composite = new Composite(scrollComposite, SWT.BORDER);
+		scrollComposite.setContent(composite);
 		
 		table = new Table(composite, SWT.BORDER | SWT.FULL_SELECTION);
 		table.setBounds(24, 112, 284, 204);
@@ -220,6 +225,10 @@ public class AddContractScreenDrawer
 		}
 		
 		populateTable();
+		
+		scrollComposite.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+		scrollComposite.setExpandHorizontal(true);
+		scrollComposite.setExpandVertical(true);
 	}
 	
 	/**
