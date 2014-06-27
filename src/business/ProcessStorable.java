@@ -2,7 +2,6 @@ package business;
 
 import objects.Storable;
 import persistence.DBInterface;
-import persistence.StubDBInterface;
 
 public class ProcessStorable
 {

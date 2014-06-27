@@ -128,7 +128,6 @@ public class ProcessAddFeature extends ProcessStorable
 	public boolean addTrackedFeatureToService(Service service, TrackedFeature feature)
 	{
 		boolean added = false;
-		TrackedFeature temp;
 		
 		assert (service != null && feature != null);
 		if(service != null && feature != null)

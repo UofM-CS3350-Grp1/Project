@@ -4,6 +4,9 @@ import objects.FeatureHistory;
 import objects.Trackable;
 import objects.TrackedFeature;
 
+/**
+ * Computes the total value of features
+ */
 public class CalculateFeatureValue
 {
 	/**
