@@ -7,6 +7,7 @@ import org.junit.runners.Suite.SuiteClasses;
 import tests.objects.ClientTest;
 import tests.objects.ContractTest;
 import tests.objects.EmailTest;
+import tests.objects.FeatureHistoryTest;
 import tests.objects.PhoneNumberTest;
 import tests.objects.ServiceTest;
 import tests.objects.TrackedFeatureTest;
@@ -22,6 +23,7 @@ import tests.persistence.TestDBInterface;
 			EmailTest.class,
 			PhoneNumberTest.class,
 			TrackedFeatureTest.class,
+			FeatureHistoryTest.class,
 			TestDBController.class,
 			TestDBInterface.class
 		})

@@ -62,7 +62,7 @@ public class FeatureHistory implements Storable
 	 */
 	public FeatureHistory(TrackedFeature feature, Trackable trackedService, double value, Date date, String notes) throws IllegalArgumentException
 	{
-		if(feature != null && trackedService != null && date != null)
+		if(feature != null && trackedService != null && date != null && notes != null)
 		{
 			this.feature = feature;
 			this.trackedService = trackedService;
@@ -93,7 +93,7 @@ public class FeatureHistory implements Storable
 	
 	public FeatureHistory(TrackedFeature feature, Trackable trackedService, double value, Date date, String notes, int id) throws IllegalArgumentException
 	{
-		if(feature != null && trackedService != null && date != null)
+		if(feature != null && trackedService != null && date != null && notes != null && id >= 0)
 		{
 			this.feature = feature;
 			this.trackedService = trackedService;
