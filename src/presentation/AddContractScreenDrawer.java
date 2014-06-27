@@ -1,6 +1,6 @@
 package presentation;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import objects.Client;
@@ -22,6 +22,8 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.DateTime;
 
@@ -39,11 +41,13 @@ public class AddContractScreenDrawer
 	private Table table_1;
 	protected TableItem item;
 	private Label label;
+	private Label lblValueData;
 	private Combo combo;
 	private Label lblStart;
 	private Label lblEnd;
 	private Text inputDetails;
 	private DateTime startData;
+	private DateTime endData;
 	
 	/**
 	 * Create a new contract drawer
@@ -152,7 +156,7 @@ public class AddContractScreenDrawer
 		startData = new DateTime(composite, SWT.BORDER);
 		startData.setBounds(368, 10, 80, 24);
 		
-		DateTime endData = new DateTime(composite, SWT.BORDER);
+		endData = new DateTime(composite, SWT.BORDER);
 		endData.setBounds(368, 48, 80, 24);
 		
 		Label lblAvailableServices = new Label(composite, SWT.NONE);
@@ -186,6 +190,14 @@ public class AddContractScreenDrawer
 		btnCreate.setText("CREATE");
 		
 		Button btnCancel = new Button(composite, SWT.NONE);
+		btnCancel.addSelectionListener(new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected(SelectionEvent arg0) 
+			{
+				backToContractsScreen();
+			}
+		});
 		btnCancel.setBounds(433, 525, 75, 25);
 		btnCancel.setText("CANCEL");
 		
@@ -193,10 +205,10 @@ public class AddContractScreenDrawer
 		label_1.setText("Value:");
 		label_1.setBounds(540, 13, 44, 15);
 		
-		Label lblValueData = new Label(composite, SWT.NONE);
-		lblValueData.setText("dollars");
-		lblValueData.setBounds(601, 13, 55, 15);
-		
+		lblValueData = new Label(composite, SWT.NONE);
+		lblValueData.setText(String.format("$%8.2f", 0.00));
+		lblValueData.setBounds(590, 13, 55, 15);
+				
 		processClient = new ProcessClient();
 		processService = new ProcessService();
 		
@@ -216,43 +228,49 @@ public class AddContractScreenDrawer
 	 */
 	private void createContract()
 	{
-		double value = 0;
-		int items = table_1.getItemCount();
+		double value = computeContractValue();
 		ProcessService processService = null;
 		Service newService = null;
-		
-		for(int i=0; i<items; i++)
-		{
-			int z = (table_1.getItem(i).getText(2)).length()-2;
-			value += (double)Integer.parseInt((table_1.getItem(i).getText(2)).substring(0, z));
-		}
+		MessageBox dialog;	
 
 		ProcessContract processContract = new ProcessContract();
 		int newID = processContract.getUnusedContractID();
 		Contract contract = null;
 		Date date = new Date();
-		contract = new Contract(newID, combo.getText(), inputDetails.getText(), value, date); //Date-DateTime issue
-		
-		processContract.insert(contract);
-		
-		int totalNumServices = table_1.getItemCount();
-		Service service = null;
-		int id = 0;
-
-		for(int i=0; i<totalNumServices; i++)
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		try 
 		{
-			id = Integer.parseInt(table_1.getItem(i).getText(0));
-			processService = new ProcessService();
-			service = processService.getServiceByID(id);
-
+			date = formatter.parse(endData.getDay() + "/" + endData.getMonth() + "/" + endData.getYear());
+			contract = new Contract(newID, combo.getText(), inputDetails.getText(), value, date);
 			
-			newService = new Service(service.getTitle(), service.getDescription(), service.getRate(), service.getType());
-			int cID = contract.getID();
-			newService.setContractID(cID);
-			processService.insert(newService);
+			processContract.insert(contract);
+			
+			int totalNumServices = table_1.getItemCount();
+			Service service = null;
+			int id = 0;
+	
+			for(int i=0; i<totalNumServices; i++)
+			{
+				id = Integer.parseInt(table_1.getItem(i).getText(0));
+				processService = new ProcessService();
+				service = processService.getServiceByID(id);
+				
+				newService = new Service(service.getTitle(), service.getDescription(), service.getRate(), service.getType());
+				int cID = contract.getID();
+				newService.setContractID(cID);
+				processService.insert(newService);
+			}
+			
+			backToContractsScreen();
 		}
-		
-		backToContractsScreen();
+		catch(Exception e)
+		{
+			System.out.println(e);
+			dialog = new MessageBox(new Shell(), SWT.ERROR | SWT.OK);
+			dialog.setText("Could not add contract");
+			dialog.setMessage("Could not create a new contract. Please check the data and try again.");
+			dialog.open();
+		}
 	}
 	
 	/**
@@ -289,6 +307,8 @@ public class AddContractScreenDrawer
 				item.setText(4, service.getDescription());
 	
 				table.remove(selectedIndex);
+				
+				lblValueData.setText(String.format("$%8.2f", computeContractValue()));
 			}
 		}
 	}
@@ -342,7 +362,24 @@ public class AddContractScreenDrawer
 			item.setText(1, service.getTitle());
 			item.setText(2, service.getRate() + "");
 			item.setText(3, service.getType());
+		}		
+	}
+	
+	/**
+	 * Computes the value of a contract given the added services
+	 * @return The contract value
+	 */
+	private double computeContractValue()
+	{
+		double value = 0.0;
+		int items = table_1.getItemCount();
+		
+		for(int i=0; i<items; i++)
+		{
+			int z = (table_1.getItem(i).getText(2)).length()-2;
+			value += Double.parseDouble((table_1.getItem(i).getText(2)).substring(0, z));
 		}
 		
+		return value;
 	}
 }
