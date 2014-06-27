@@ -366,6 +366,11 @@ public class ContractAnalysisScreenDrawer
 		populateServiceData();
 		populateContractData();
 		
+		btnPrint.setVisible(false);
+		btnPrint.setEnabled(false);
+		btnSave.setVisible(false);
+		btnSave.setEnabled(false);
+		
 		scrollComposite.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		scrollComposite.setExpandHorizontal(true);
 		scrollComposite.setExpandVertical(true);

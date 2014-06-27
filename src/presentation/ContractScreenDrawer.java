@@ -65,7 +65,7 @@ public class ContractScreenDrawer extends BaseStorableScreenDrawer
 			item.setText(0, contract.getID() + "");
 			item.setText(1, contract.getBusinessName() + "");
 			item.setText(2, "Not specified");
-			item.setText(3, contract.getValue() + "");
+			item.setText(3, String.format("$%8.2f", contract.getValue()));
 			item.setText(4, contract.getFormattedSignedDate());
 		}
 	}

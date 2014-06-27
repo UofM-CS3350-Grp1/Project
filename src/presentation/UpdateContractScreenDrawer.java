@@ -1,6 +1,7 @@
 package presentation;
 
-import javax.swing.JOptionPane;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import objects.Client;
 import objects.Contract;
@@ -9,6 +10,8 @@ import objects.Service;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Button;
@@ -17,6 +20,7 @@ import org.eclipse.swt.widgets.TableItem;
 import business.ProcessContract;
 import business.ProcessService;
 
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -24,8 +28,12 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Combo;
 
+/**
+ * Displays the edit contract window.
+ */
 public class UpdateContractScreenDrawer
 {
+	private ScrolledComposite scrollComposite;
 	protected Composite composite;
 	private Table serviceTable;
 	private Table contractTable;
@@ -43,7 +51,6 @@ public class UpdateContractScreenDrawer
 	
 	private Client client;
 	private Contract contract;
-	private ProcessContract processContract;
 	private ProcessService processService;
 	private Label lblAvailableServices;
 	private Text inputDetails;
@@ -54,12 +61,26 @@ public class UpdateContractScreenDrawer
 	private Label label_2;
 	private Combo combo;
 	
-	public UpdateContractScreenDrawer(Composite container, Contract contract, Client client)
+	/**
+	 * Creates a new update contract window
+	 * @param container	The parent composite
+	 * @param contract	The contract to edit
+	 * @param client	The client to work with
+	 */
+	public UpdateContractScreenDrawer(Composite container, Contract contract, Client client) throws IllegalArgumentException
 	{
-		this.client = client;
-		this.contract = contract;
+		assert (client != null && contract != null);
+		if(client != null && contract != null)
+		{
+			this.client = client;
+			this.contract = contract;
+		}
+		else
+			throw new IllegalArgumentException();
 		
-		composite = new Composite(container, SWT.BORDER);
+		scrollComposite = new ScrolledComposite(container, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
+		composite = new Composite(scrollComposite, SWT.BORDER);
+		scrollComposite.setContent(composite);
 		
 		lblEnd = new Label(composite, SWT.NONE);
 		lblEnd.setBounds(272, 49, 55, 15);
@@ -102,7 +123,8 @@ public class UpdateContractScreenDrawer
 		button.setBounds(338, 146, 75, 25);
 		
 		Button button_1 = new Button(composite, SWT.NONE);
-		button_1.addSelectionListener(new SelectionAdapter() {
+		button_1.addSelectionListener(new SelectionAdapter() 
+		{
 			@Override
 			public void widgetSelected(SelectionEvent arg0)
 			{
@@ -153,7 +175,8 @@ public class UpdateContractScreenDrawer
 		});
 		
 		Button btnUpdate = new Button(composite, SWT.NONE);
-		btnUpdate.addSelectionListener(new SelectionAdapter() {
+		btnUpdate.addSelectionListener(new SelectionAdapter() 
+		{
 			@Override
 			public void widgetSelected(SelectionEvent arg0)
 			{
@@ -216,6 +239,10 @@ public class UpdateContractScreenDrawer
 		populateContractTable();
 		populateServiceFields();
 		populateServiceTable();
+		
+		scrollComposite.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+		scrollComposite.setExpandHorizontal(true);
+		scrollComposite.setExpandVertical(true);
 	}
 
 	/**
@@ -223,16 +250,60 @@ public class UpdateContractScreenDrawer
 	 */
 	protected void processActionButton()
 	{
+		MessageBox dialog;
+		double value = computeContractValue();
+		ProcessService processService = new ProcessService();
+		Service newService = null;
+		Date date;
+		ProcessContract processContract = new ProcessContract();
+		SimpleDateFormat formatter;
+		int cID, id, totalNumServices;
+		Service service = null;
+		
 		try
 		{
+			formatter = new SimpleDateFormat("dd/MM/yyyy");
+			date = formatter.parse(endDate.getDay() + "/" + endDate.getMonth() + "/" + endDate.getYear());
+			
+			//Update the contract's actual data
+			contract.setBusinessName(combo.getText());
+			contract.setDetails(inputDetails.getText());
+			contract.setValue(value);
+			contract.setPeriod(date);
+			
 			if(processContract.update(contract))
-			{
+			{				
+				totalNumServices = serviceTable.getItemCount();	
+
+				//Add/ update the services in the services list
+				for(int i = 0; i < totalNumServices; i++)
+				{
+					id = Integer.parseInt(serviceTable.getItem(i).getText(0));
+					service = processService.getServiceByID(id);
+					
+					if(service != null)
+					{
+						newService = new Service(service.getTitle(), service.getDescription(), service.getRate(), service.getType());
+						cID = contract.getID();
+						newService.setContractID(cID);
+						
+						if(!processService.update(newService))
+						{
+							//The service does not already exist. Add it!
+							processService.insert(newService);
+						}
+					}
+				}
+				
 				goBackToContractScreen();
 			}
 		}
 		catch(Exception e)
 		{
-			JOptionPane.showMessageDialog(null, "Error creating new contract");
+			dialog = new MessageBox(new Shell(), SWT.ERROR | SWT.OK);
+			dialog.setText("Could not update contract");
+			dialog.setMessage("Could not update the contract. Please check the data and try again.");
+			dialog.open();
 		}
 	}
 	
@@ -279,6 +350,7 @@ public class UpdateContractScreenDrawer
 		Service service = null;
 		contractTable.removeAll();
 		ProcessService processService = new ProcessService();
+		
 		while((service = processService.getNextService())!=null)
 		{
 			if(service.getContractID() == contract.getID())
@@ -307,15 +379,20 @@ public class UpdateContractScreenDrawer
 			TableItem select = serviceTable.getItem(selectedIndex);
 			int x = Integer.parseInt(select.getText(0));
 			Service service = processService.getServiceByID(x);
-			item = new TableItem(contractTable, SWT.NULL);
-
-			item.setText(0, String.valueOf(service.getID()));
-			item.setText(1, service.getTitle());
-			item.setText(2, String.valueOf(service.getRate()));
-			item.setText(3, service.getType());
-			item.setText(4, service.getDescription());
-
-			serviceTable.remove(selectedIndex);
+			
+			if(service != null)
+			{
+				item = new TableItem(contractTable, SWT.NULL);
+	
+				item.setText(0, String.valueOf(service.getID()));
+				item.setText(1, service.getTitle());
+				item.setText(2, String.valueOf(service.getRate()));
+				item.setText(3, service.getType());
+				item.setText(4, service.getDescription());
+	
+				serviceTable.remove(selectedIndex);
+				lblValueData.setText(String.format("$%8.2f", computeContractValue()));
+			}
 		}
 	}
 	
@@ -332,14 +409,18 @@ public class UpdateContractScreenDrawer
 			int x = Integer.parseInt(select.getText(0));
 			Service service = processService.getServiceByID(x);
 
-			item = new TableItem(serviceTable, SWT.NULL);
-
-			item.setText(0, String.valueOf(service.getID()));
-			item.setText(1, service.getTitle());
-			item.setText(2, String.valueOf(service.getRate()));
-			item.setText(3, service.getType());
-
-			contractTable.remove(selectedIndex);
+			if(service != null)
+			{
+				item = new TableItem(serviceTable, SWT.NULL);
+	
+				item.setText(0, String.valueOf(service.getID()));
+				item.setText(1, service.getTitle());
+				item.setText(2, String.valueOf(service.getRate()));
+				item.setText(3, service.getType());
+	
+				contractTable.remove(selectedIndex);
+				lblValueData.setText(String.format("$%8.2f", computeContractValue()));
+			}
 		}
 	}
 
@@ -349,7 +430,7 @@ public class UpdateContractScreenDrawer
 	public void populateContractFields()
 	{
 		//lblClientNameData.setText(client.getBusinessName());
-		lblValueData.setText(String.valueOf(contract.getValue()));
+		lblValueData.setText(String.format("$%8.2f", contract.getValue()));
 	}
 	
 	/**
@@ -358,5 +439,23 @@ public class UpdateContractScreenDrawer
 	public void populateServiceFields()
 	{
 		lblClientData.setText(client.getBusinessName());
+	}
+	
+	/**
+	 * Computes the value of a contract given the added services
+	 * @return The contract value
+	 */
+	private double computeContractValue()
+	{
+		double value = 0.0;
+		int items = serviceTable.getItemCount();
+		
+		for(int i=0; i<items; i++)
+		{
+			int z = (serviceTable.getItem(i).getText(2)).length()-2;
+			value += Double.parseDouble((serviceTable.getItem(i).getText(2)).substring(0, z));
+		}
+		
+		return value;
 	}
 }

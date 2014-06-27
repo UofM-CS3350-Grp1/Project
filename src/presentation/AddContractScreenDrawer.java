@@ -345,6 +345,7 @@ public class AddContractScreenDrawer
 				item.setText(3, service.getType());
 	
 				table_1.remove(selectedIndex);
+				lblValueData.setText(String.format("$%8.2f", computeContractValue()));
 			}
 		}
 	}
