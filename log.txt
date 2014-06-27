@@ -13,22 +13,18 @@ Duration:
 Description:
 
 
-
-
 Iteration 3:
+
 TODO(Dell):
 
 TODO(Timothy):
-		
+
 TODO(Derek):
-		
 
 TODO(Karl):
-		
 
 TODO(Jason):
 
-			
 TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
@@ -82,6 +78,14 @@ Duration: 3 hours
 Description:	Added the ability to add/ remove history for features.
 				Refactoring of common methods.
 				Added more in terms of graph data processing.
+
+Task: Enforce consistent coding style
+Date: 06/25, 10:00PM
+Assigned to: Derek
+Status: Ongoing (complete for Iteration 2)
+Estimated Duration: 45 min per iteration
+Duration: 45 min
+Description:	 Refactor formatting to ensure consistency
 
 
 Task: Contract tab - view contract
