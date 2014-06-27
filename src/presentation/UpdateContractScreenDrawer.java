@@ -1,9 +1,5 @@
 package presentation;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-
 import javax.swing.JOptionPane;
 
 import objects.Client;
@@ -12,14 +8,12 @@ import objects.Service;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.TableItem;
 
-import business.ProcessClient;
 import business.ProcessContract;
 import business.ProcessService;
 
@@ -49,9 +43,7 @@ public class UpdateContractScreenDrawer
 	
 	private Client client;
 	private Contract contract;
-	private Service service;
 	private ProcessContract processContract;
-	private ProcessClient processClient;
 	private ProcessService processService;
 	private Label lblAvailableServices;
 	private Text inputDetails;
@@ -231,10 +223,9 @@ public class UpdateContractScreenDrawer
 	 */
 	protected void processActionButton()
 	{
-		//contract.removeService(service);
 		try
 		{
-			if(processContract.updateContract(contract))
+			if(processContract.update(contract))
 			{
 				goBackToContractScreen();
 			}
@@ -251,11 +242,11 @@ public class UpdateContractScreenDrawer
 	protected void goBackToContractScreen()
 	{
 		Composite contractScreen = SwitchScreen.getContentContainer();
-		ContractScreenDrawer csd = new ContractScreenDrawer( contractScreen );
+		new ContractScreenDrawer( contractScreen );
 		SwitchScreen.switchContent( contractScreen );
 	}
 	
-	/*
+	/**
 	 * populates the the left table with all available services
 	 */
 	public void populateServiceTable()
@@ -280,18 +271,17 @@ public class UpdateContractScreenDrawer
 		}
 	}
 	
-	/*
+	/**
 	 * populates the right table with all services currently in the contract
 	 */
 	public void populateContractTable() 
 	{
 		Service service = null;
-		ArrayList<Service> serviceList = new ArrayList<Service>();
 		contractTable.removeAll();
 		ProcessService processService = new ProcessService();
 		while((service = processService.getNextService())!=null)
 		{
-			if(service.getContractID()==contract.getID())
+			if(service.getContractID() == contract.getID())
 			{
 				item = new TableItem(contractTable, SWT.NULL);
 				item.setText(0, String.valueOf(service.getID()));
@@ -301,12 +291,12 @@ public class UpdateContractScreenDrawer
 				item.setText(1, service.getDescription());
 			}
 		}
+		
 		inputDetails.setText(contract.getDetails());
-
 	}
 	
-	/*
-	 * adds the selected service to the contract
+	/**
+	 * Adds the selected service to the contract
 	 */
 	public void addSelectedItem()
 	{
@@ -329,7 +319,7 @@ public class UpdateContractScreenDrawer
 		}
 	}
 	
-	/*
+	/**
 	 * Removes a service from the contract
 	 */
 	public void removeSelectedItem()
@@ -353,7 +343,7 @@ public class UpdateContractScreenDrawer
 		}
 	}
 
-	/*
+	/**
 	 * This populates all of the contract-related fields
 	 */
 	public void populateContractFields()
@@ -362,7 +352,7 @@ public class UpdateContractScreenDrawer
 		lblValueData.setText(String.valueOf(contract.getValue()));
 	}
 	
-	/*
+	/**
 	 * This populates the service fields
 	 */
 	public void populateServiceFields()

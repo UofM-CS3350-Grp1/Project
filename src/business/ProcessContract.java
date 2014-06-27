@@ -23,40 +23,21 @@ public class ProcessContract extends ProcessStorable
 	public ProcessContract()
 	{
 		super();
-		//database = new DBInterface("dbName");
+
 		contracts = null;
 	}
 	
 	/**
-	 * Inserts a new contract to the database
-	 * @param contract
-	 * @return True if the contract was inserted successfully
-	 */
-	public boolean insertContract(Contract contract)
-	{
-		boolean wasCreated = insert(contract);
-		/*
-		assert (contract != null);
-		if(contract != null)
-		{
-			database.insert(contract);
-			wasCreated = true;
-		}*/
-		
-		return wasCreated;
-	}
-	
-	/*
-	 * return unused unique contract number
+	 * @return The next unused contract number
 	 */
 	public int getUnusedContractID()
 	{
 		int result = 0;
 		ArrayList<Contract> contractList = new ArrayList<Contract>();
+		
 		database.connect();
 		contractList = database.dumpContracts();
 		database.disconnect();
-		ProcessContract processContract = new ProcessContract();
 		
 		Contract temp = null;
 		
@@ -66,10 +47,10 @@ public class ProcessContract extends ProcessStorable
 		{
 			result++;
 			used=false;
-			Iterator it = contractList.iterator();
+			Iterator<Contract> it = contractList.iterator();
 			while(it.hasNext() && !used)
 			{
-				temp = (Contract)it.next();
+				temp = it.next();
 				if(temp.getID()==result)
 				{
 					used=true;
@@ -85,77 +66,41 @@ public class ProcessContract extends ProcessStorable
 		return result;
 	}
 	
-	/*
-	 * Returns the contract id
+	/**
+	 * @param id The contract id
+	 * @return Gets the contract of the given ID or null
 	 */
 	public Contract getContractByID(int id)
 	{
 		database.connect();
 		Contract theContract = database.getContractByID(id);
 		database.disconnect();
+		
 		return theContract;
 	}
 	
-	/*
-	 * returns the client that signed this contract
+	/**
+	 * @return The client that signed this contract
 	 */
 	public Client getContractClient(Contract contract)
 	{
 		database.connect();
 		ArrayList<Client> list = database.dumpClients();
 		database.disconnect();
-		Iterator it = list.iterator();
+		
+		Iterator<Client> it = list.iterator();
 		Client result = null;
 		Client temp = null;
+		
 		while(it.hasNext())
 		{
-			temp = (Client) it.next();
+			temp = it.next();
 			if(contract.getBusinessName()==temp.getBusinessName())
 			{
 				result = temp;
 			}
 		}
 		return result;
-	}
-
-	/**
-	 * Updates a contract
-	 * @param contract
-	 * @return True if the contract was updated
-	 */
-	public boolean updateContract(Contract contract)
-	{
-		boolean wasUpdated = update(contract);
-		/*
-		assert (contract != null);
-		if(contract != null)
-		{
-			database.update(contract);
-			wasUpdated = true;
-		}*/
-		
-		return wasUpdated;
-	}
-
-	/**
-	 * Deletes a contract
-	 * @param contract
-	 * @return True if the contract was deleted
-	 */
-	public boolean deleteContract(Contract contract)
-	{
-		boolean wasDeleted = false;
-		
-		assert (contract != null);
-		if(contract != null)
-		{
-			database.connect();
-			database.drop(contract);
-			database.disconnect();
-			wasDeleted = true;
-		}
-		
-		return wasDeleted;
 	}
 
 	/**
@@ -167,6 +112,7 @@ public class ProcessContract extends ProcessStorable
 		database.connect();
 		contracts = database.dumpContracts();
 		database.disconnect();
+		
 		return contracts;
 	}
 
@@ -176,18 +122,21 @@ public class ProcessContract extends ProcessStorable
 	 */
 	public ArrayList<Service> getServices(Contract contract)
 	{
-		ArrayList<Service> result = null;
+		ArrayList<Service> result = new ArrayList<Service>();
 		ArrayList<Service> temp = null;
+		
 		database.connect();
 		temp = database.dumpServices();
 		database.disconnect();
+		
 		System.out.println("Searching for services");
-		Iterator it = temp.iterator();
+		Iterator<Service> it = temp.iterator();
 		Service service = null;
+		
 		while(it.hasNext())
 		{
-			service = (Service) it.next();
-			if(service.getContractID()==contract.getID())
+			service = it.next();
+			if(service.getContractID() == contract.getID())
 			{
 				System.out.println("Service found: "+service.getTitle());
 				result.add(service);
@@ -196,8 +145,10 @@ public class ProcessContract extends ProcessStorable
 		return result;
 	}
 	
-	/*
+	/**
 	 * Add services to this contract
+	 * @param contract The contract to add services to
+	 * @param services The services to add to the contract
 	 */
 	public void setServices(Contract contract, ArrayList<Service> services)
 	{
@@ -207,8 +158,8 @@ public class ProcessContract extends ProcessStorable
 		database.disconnect();
 	}
 	
-	/*
-	 * returns the number of services in this contract
+	/**
+	 * @return contract The number of services in this contract
 	 */
 	public int getNumberOfServices(Contract contract)
 	{
@@ -219,24 +170,6 @@ public class ProcessContract extends ProcessStorable
 		services = contract.getServices();
 		
 		result = services.size();
-		
-		/*
-		ArrayList<Service> services = null;
-		database.connect();
-		services = database.dumpServices();
-		database.disconnect();
-		
-		Iterator it = services.iterator();
-		Service temp = null;
-		
-		while(it.hasNext())
-		{
-			temp = (Service) it.next();
-			if(contract.getServices().)
-			{
-				result++;
-			}
-		}*/
 		
 		return result;
 	}
