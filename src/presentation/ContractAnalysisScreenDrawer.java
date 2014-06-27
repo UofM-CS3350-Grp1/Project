@@ -1,7 +1,6 @@
 package presentation;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import objects.Client;
 import objects.Contract;
@@ -9,11 +8,9 @@ import objects.Service;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.custom.ScrolledComposite;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.layout.GridData;
@@ -43,13 +40,10 @@ public class ContractAnalysisScreenDrawer
 	private Table servicesTable;
 	private Client client;
 	private Contract contract;
-	private ProcessContract processContract;
-	private ProcessClient processClient;
 	
 	//Client vars
 	private Label lblClientNameData;
 	private Label lblContractIDData;
-	private Label lblClientName2;
 	private Label lblEmailData;
 	private Label lblSignedData;
 	private Label lblAddressData;
@@ -58,21 +52,15 @@ public class ContractAnalysisScreenDrawer
 	private Label lblStartData;
 	private Label lblStatusData;
 	private Label lblEndData;
-	private Label lblPhoneNumberData2;
 	
 	//Contract vars
 	private Label lblContractIDHeader;
 	private Label lblContactData;
 	
-	private ProcessService processService;
-	private Button btnViewSelected;
 	private Label lblEnd;
 	private Label lblContact;
-	private Label lblContact2;
-	private Label lblContactData2;
 	private Label lblAddress;
 	private Label lblPhone;
-	private Label lblPhone_1;
 	private Label lblEmail_1;
 	private Button btnPrint;
 	private Text detailsData;
@@ -103,10 +91,7 @@ public class ContractAnalysisScreenDrawer
 			this.client = client;
 		else
 			throw new IllegalArgumentException();
-		
-		processContract = new ProcessContract();
-		processClient = new ProcessClient();
-		
+				
 		Composite contractDataComposite = new Composite(composite, SWT.NONE);
 		contractDataComposite.setLayout(new GridLayout(9, false));
 		GridData gd_contractDataComposite = new GridData(GridData.FILL_BOTH);
@@ -291,29 +276,6 @@ public class ContractAnalysisScreenDrawer
 		new Label(contractDataComposite, SWT.NONE);
 		new Label(contractDataComposite, SWT.NONE);
 		new Label(contractDataComposite, SWT.NONE);
-		
-		lblContact2 = new Label(contractDataComposite, SWT.NONE);
-		lblContact2.setText("Name:");
-
-		
-		lblContactData2 = new Label(contractDataComposite, SWT.NONE);
-		GridData gd_lblContactData2 = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
-		gd_lblContactData2.widthHint = 137;
-		lblContactData2.setLayoutData(gd_lblContactData2);
-		new Label(contractDataComposite, SWT.NONE);
-		
-		lblPhone_1 = new Label(contractDataComposite, SWT.NONE);
-		lblPhone_1.setText("Phone#:");
-		
-		lblPhoneNumberData2 = new Label(contractDataComposite, SWT.NONE);
-		GridData gd_lblPhoneNumberData2 = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
-		gd_lblPhoneNumberData2.widthHint = 162;
-		lblPhoneNumberData2.setLayoutData(gd_lblPhoneNumberData2);
-		lblPhoneNumberData2.setText("PHONE_NUMBER");
-		new Label(contractDataComposite, SWT.NONE);
-		new Label(contractDataComposite, SWT.NONE);
-		new Label(contractDataComposite, SWT.NONE);
-		new Label(contractDataComposite, SWT.NONE);
 		new Label(contractDataComposite, SWT.NONE);
 		new Label(contractDataComposite, SWT.NONE);
 		new Label(contractDataComposite, SWT.NONE);
@@ -384,9 +346,11 @@ public class ContractAnalysisScreenDrawer
 		buttonComposite.setLayoutData(gd_serviceButtonComposite);
 		
 		btnPrint = new Button(buttonComposite, SWT.NONE);
-		btnPrint.addSelectionListener(new SelectionAdapter() {
+		btnPrint.addSelectionListener(new SelectionAdapter() 
+		{
 			@Override
-			public void widgetSelected(SelectionEvent arg0) {
+			public void widgetSelected(SelectionEvent arg0) 
+			{
 				createContractPDF();
 			}
 		});
@@ -402,7 +366,6 @@ public class ContractAnalysisScreenDrawer
 		new Label(contractDataComposite, SWT.NONE);
 		new Label(contractDataComposite, SWT.NONE);
 		new Label(contractDataComposite, SWT.NONE);
-
 		
 		populateClientData();
 		populateServiceData();
@@ -413,7 +376,7 @@ public class ContractAnalysisScreenDrawer
 		scrollComposite.setExpandVertical(true);
 	}
 	
-	/*
+	/**
 	 * creates, saves and prints contract PDF
 	 */
 	public void createContractPDF()
@@ -431,10 +394,10 @@ public class ContractAnalysisScreenDrawer
 		lblContractIDHeader.setText("Contract");
 		lblContractIDData.setText(String.valueOf(contract.getID()));
 		lblValueData.setText("$"+(value).substring(0, value.length()-2));
-		lblSignedData.setText("NULL");//(contract.getSignedDate()).toString());
-		lblStartData.setText("NULL");//(contract.getSignedDate()).toString());
-		lblEndData.setText("NULL");//(contract.getPeriod()).toString());
-		lblStatusData.setText("NULL");
+		lblSignedData.setText(contract.getFormattedSignedDate());
+		lblStartData.setText(contract.getFormattedSignedDate());
+		lblEndData.setText(contract.getFormattedPeriod());
+		lblStatusData.setText("Not specified");
 		detailsData.setText(contract.getDetails());
 	}
 	
@@ -449,8 +412,6 @@ public class ContractAnalysisScreenDrawer
 		lblAddressData.setText(client.getAddress());
 		lblEmailData.setText(client.getEmail().toString());
 		lblPhoneNumberData.setText(client.getPhoneNumber().formattedPhoneNumber());
-		lblPhoneNumberData2.setText(client.getPhoneNumber().formattedPhoneNumber());
-		lblContactData2.setText(client.getName());
 	}
 	
 	/**
@@ -459,15 +420,13 @@ public class ContractAnalysisScreenDrawer
 	private void populateServiceData()
 	{		
 		TableItem item;
-		TableColumn column;
 		Service service;
 
 		ProcessService processService = new ProcessService();
-		ArrayList<Service> serviceList = new ArrayList<Service>();
 		
 		while((service = processService.getNextService())!=null)
 		{
-			if(service.getContractID()==contract.getID())
+			if(service.getContractID() == contract.getID())
 			{
 				item = new TableItem(servicesTable, SWT.NULL);
 				item.setText(0, service.getTitle());

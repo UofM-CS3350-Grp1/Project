@@ -7,13 +7,11 @@ import objects.Client;
 import objects.Contract;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
 
-import business.ProcessClient;
 import business.ProcessContract;
 
 /**
@@ -22,7 +20,7 @@ import business.ProcessContract;
 public class ContractScreenDrawer extends BaseStorableScreenDrawer
 {
 	private static final String[] tableColumnNames = { "Contract ID", "Client", "Status", "Value", "Signed Date" };
-	private static final int[] tableWidths = { 150, 150, 150, 150, 200 };
+	private static final int[] tableWidths = { 0, 150, 150, 150, 200 };
 	private ProcessContract processContract;
 	private ArrayList<Contract> contracts;
 	
@@ -56,7 +54,7 @@ public class ContractScreenDrawer extends BaseStorableScreenDrawer
 		
 		contracts = processContract.getContracts();
 
-		Iterator it = contracts.iterator();
+		Iterator<Contract> it = contracts.iterator();
 		
 		while(it.hasNext())
 		{
@@ -66,9 +64,9 @@ public class ContractScreenDrawer extends BaseStorableScreenDrawer
 
 			item.setText(0, contract.getID() + "");
 			item.setText(1, contract.getBusinessName() + "");
-			item.setText(2, "NULL");
+			item.setText(2, "Not specified");
 			item.setText(3, contract.getValue() + "");
-			item.setText(4, contract.getSignedDate() + "");
+			item.setText(4, contract.getFormattedSignedDate());
 		}
 	}
 
@@ -99,7 +97,6 @@ public class ContractScreenDrawer extends BaseStorableScreenDrawer
 		Composite updateContractScreen;
 		Client client;
 		Contract contract;
-		ProcessClient processClient;
 		
 		if((index = table.getSelectionIndex()) != -1)
 		{
@@ -126,11 +123,10 @@ public class ContractScreenDrawer extends BaseStorableScreenDrawer
 	@Override
 	protected void viewSelectedItem() 
 	{
-		int index, id;
+		int index;
 		Composite analysisScreen;
 		Client client;
 		Contract contract;
-		ProcessClient processClient = new ProcessClient();
 		ProcessContract processContract = new ProcessContract();
 		
 		if((index = table.getSelectionIndex()) != -1)
@@ -141,8 +137,10 @@ public class ContractScreenDrawer extends BaseStorableScreenDrawer
 				int x = Integer.parseInt(select.getText(0));
 				contract = processContract.getContractByID(x);
 				client = processContract.getContractClient(contract);		
-				if(client==null) System.out.println("Client is null");
-				if(contract==null) System.out.println("Contract is null");
+				if(client==null) 
+					System.out.println("Client is null");
+				if(contract==null) 
+					System.out.println("Contract is null");
 				
 				if(client != null && contract != null)
 				{

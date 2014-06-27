@@ -85,16 +85,18 @@ public class Contract implements Storable
 	 * 				Accessors and Mutators
 	 ********************************************************/
 	
-	/*
-	 * set the date when the contract was signed
+	/**
+	 * @date date Set the date when the contract was signed
 	 */
 	public void setSignedDate(Date date)
 	{
-		this.signedDate = date;
+		assert (date != null);
+		if(date != null)
+			this.signedDate = date;
 	}
 	
-	/*
-	 * returns the date the contract was signed
+	/**
+	 * @return the date the contract was signed
 	 */
 	public Date getSignedDate()
 	{
@@ -119,24 +121,28 @@ public class Contract implements Storable
 		return businessName;
 	}
 	
-	/*
-	 * returns the list of services assigned to this contract
+	/**
+	 * @return the list of services assigned to this contract
 	 */
 	public ArrayList<Service> getServices()
 	{
 		return services;
 	}
 	
-	/*
+	/**
 	 * Assign a list of services to this contract
+	 * 
+	 * @param service The list of services
 	 */
 	public void addServices(ArrayList<Service> services)
 	{
 		this.services = services;
 	}
 	
-	/*
+	/**
 	 * Remove services from contract
+	 * 
+	 * @param service The service to remove
 	 */
 	public void removeService(Service service)
 	{
@@ -214,7 +220,21 @@ public class Contract implements Storable
 			this.period = period;
 	}
 	
-
+	/**
+	 * @return Gets the period formatted to a string
+	 */
+	public String getFormattedPeriod()
+	{
+		return sdf.format(period);
+	}
+	
+	/**
+	 * @return Gets the signed date formatted to a string
+	 */
+	public String getFormattedSignedDate()
+	{
+		return (signedDate != null) ? sdf.format(signedDate) : "Not signed";
+	}
 	
 	public String toString()
 	{
