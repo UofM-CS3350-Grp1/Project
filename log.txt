@@ -31,18 +31,22 @@ TODO(Jason):
 			
 TODO(Adrian):
 
-------------------------------------------------------------------
-General things to polish:
-Login screen currently does nothing of any importance after clicking login. Maybe add something like "Logged in" to the screen.
-
-Testing:
-    We still need testing of some object classes
-    We still need testing of some business classes
-
-    Some tests are also broken...
-------------------------------------------------------------------
-
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Service tracking, Refactoring, Clean up, Testing 
+Date: 6/27, 1:30am
+Assigned to: Tim
+Status: In progress.
+Duration: 4 hours
+Description:	Removed dead code.
+				Enforced coding style.
+				Added back in the improved performance tracking.
+				Added the history manipulation screens.
+					They now populate the graphs with their data for the given feature.
+				Cleaned up the contract code and functionality.
+					Provided I didn't miss any, all of the buttons function and those that are not implemented were removed/ hidden.
+				Testing of objects and some business logic.
+				Updated compile script to include the business tests.
+
 
 Task: Contract tab - creating contracts
 Date: 6/26 2:00pm
@@ -144,6 +148,10 @@ Duration: 2hrs
 Description:	- added additional fields to services to be able to differenciate between them
                 - added the additional details textarea
                 - adding/removing services works perfectly now
+                
+Planned Task: Testing and Clean-up
+Planned dev duration: 2 - 3 hrs
+Assigned to: Tim
        
 Planned Task: Performance tracking feature
 Planned dev duration: 4 - 6 hrs
