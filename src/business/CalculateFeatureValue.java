@@ -18,14 +18,14 @@ public class CalculateFeatureValue
 		FeatureHistory history;
 		double total = 0.0;
 		
-		/*assert (feature != null);
+		assert (feature != null);
 		if(feature != null)
 		{
 			while((history = processHistory.getNextHistoryForFeature(trackable, feature)) != null)
 			{
 				total += history.getValue();
 			}
-		}*/
+		}
 		
 		return total;
 	}

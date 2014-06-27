@@ -2,6 +2,7 @@ package presentation;
 
 import objects.Client;
 import objects.Service;
+import objects.TrackedFeature;
 
 import org.eclipse.swt.widgets.Composite;
 
@@ -29,6 +30,16 @@ public class PerformanceClientServiceScreenDrawer extends PerformanceServiceScre
 			this.client = client;
 		else
 			throw new IllegalArgumentException();
+	}
+	
+	/**
+	 * Draws the history for a given client's service
+	 * 
+	 * @param feature The feature to draw history for
+	 */
+	protected void drawHistoryTable(TrackedFeature feature) 
+	{
+		new HistoryTableDrawer(composite, service, feature);
 	}
 	
 	/**

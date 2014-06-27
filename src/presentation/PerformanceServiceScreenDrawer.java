@@ -27,8 +27,8 @@ public class PerformanceServiceScreenDrawer
 	private static final int CHART_HEIGHT = 500;			//Height of a chart
 	
 	private ScrolledComposite scrollComposite;
-	private Composite composite;
-	private Service service;
+	protected Composite composite;
+	protected Service service;
 	private Label lblTypeData;
 	private Label lblRateData;
 	private Label lblServiceNameData;
@@ -182,9 +182,16 @@ public class PerformanceServiceScreenDrawer
 			chartComp.setLayoutData(gd_chartComposite);
 			
 			//Populate the history data table 
-			//new HistoryTableDrawer(composite, service, feature);			
+			drawHistoryTable(feature);
 		}
 	}
+	
+	/**
+	 * Draws the history for a given client's service
+	 * 
+	 * @param feature The feature to draw history for
+	 */
+	protected void drawHistoryTable(TrackedFeature feature)  { }
 	
 	/**
 	 * Go back to the previous screen

@@ -92,7 +92,7 @@ public class ProcessFeatureHistory extends ProcessStorable
 	{
 		FeatureHistory history = null;
 		
-		if(histories == null)
+		if(featureHistories == null)
 		{
 			database.connect();
 			featureHistories = database.getFeatureHistoryFromParent(service, feature);
