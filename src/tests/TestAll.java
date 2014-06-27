@@ -4,6 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import tests.business.CalcFeatureValueTest;
 import tests.objects.ClientTest;
 import tests.objects.ContractTest;
 import tests.objects.EmailTest;
@@ -25,7 +26,8 @@ import tests.persistence.TestDBInterface;
 			TrackedFeatureTest.class,
 			FeatureHistoryTest.class,
 			TestDBController.class,
-			TestDBInterface.class
+			TestDBInterface.class,
+			CalcFeatureValueTest.class
 		})
 public class TestAll
 { }

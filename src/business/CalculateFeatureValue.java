@@ -21,8 +21,8 @@ public class CalculateFeatureValue
 		FeatureHistory history;
 		double total = 0.0;
 		
-		assert (feature != null);
-		if(feature != null)
+		assert (feature != null && trackable != null);
+		if(feature != null && trackable != null)
 		{
 			while((history = processHistory.getNextHistoryForFeature(trackable, feature)) != null)
 			{
