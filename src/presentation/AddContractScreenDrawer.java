@@ -38,6 +38,7 @@ public class AddContractScreenDrawer
 
 	protected ProcessClient processClient;
 	protected ProcessService processService;
+	protected Client selectedClient;
 	private Table table;
 	private TableColumn column;		
 	private Table table_1;
@@ -264,9 +265,12 @@ public class AddContractScreenDrawer
 				processService = new ProcessService();
 				service = processService.getServiceByID(id);
 				
+				selectedClient = processClient.getClientByBusinessName(combo.getText());
+				
 				newService = new Service(service.getTitle(), service.getDescription(), service.getRate(), service.getType());
 				int cID = contract.getID();
 				newService.setContractID(cID);
+				newService.setClientID(selectedClient.getID());
 				processService.insert(newService);
 			}
 			

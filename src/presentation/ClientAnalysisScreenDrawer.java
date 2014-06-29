@@ -170,6 +170,22 @@ public class ClientAnalysisScreenDrawer
 		servicesTable.setHeaderVisible(true);
 		servicesTable.setLinesVisible(true);
 		
+		TableColumn tableColumn_1 = new TableColumn(servicesTable, SWT.NONE);
+		tableColumn_1.setWidth(150);
+		tableColumn_1.setText("Service");
+		
+		TableColumn tableColumn_2 = new TableColumn(servicesTable, SWT.NONE);
+		tableColumn_2.setWidth(70);
+		tableColumn_2.setText("Rate");
+		
+		TableColumn tableColumn_3 = new TableColumn(servicesTable, SWT.NONE);
+		tableColumn_3.setWidth(100);
+		tableColumn_3.setText("Category");
+		
+		TableColumn tableColumn_4 = new TableColumn(servicesTable, SWT.NONE);
+		tableColumn_4.setWidth(300);
+		tableColumn_4.setText("Details");
+		
 		serviceButtonComposite = new Composite(serviceDataComposite, SWT.NONE);
 		serviceButtonComposite.setLayout(new GridLayout(3, false));
 		GridData gd_serviceButtonComposite = new GridData(SWT.FILL, SWT.LEFT, false, false, 1, 1);
@@ -253,27 +269,20 @@ public class ClientAnalysisScreenDrawer
 	private void populateServiceData()
 	{
 		TableItem item;
-		TableColumn column;
-		Service service;		
+		Service service;
+
+		ProcessService processService = new ProcessService();
 		
-		for(int i = 0; i < serviceNames.length; i++)
+		while((service = processService.getNextService())!=null)
 		{
-			column = new TableColumn(servicesTable, SWT.NULL);
-			column.setText(serviceNames[i]);
-			column.setWidth(serviceWidths[i]);
-		}
-		
-		//Hide the ID field because the user does not need to see
-		//it. It is simply an internal helper to find the associated object.
-		column = servicesTable.getColumn(0);
-		column.setResizable(false);
-		
-		while((service = processClient.getNextClientService(client)) != null)
-		{
-			item = new TableItem(servicesTable, SWT.NULL);
-			
-			item.setText(0, service.getID() + "");
-			item.setText(1, service.getTitle());
+			if(service.getClientID() == client.getID())
+			{
+				item = new TableItem(servicesTable, SWT.NULL);
+				item.setText(0, service.getTitle());
+				item.setText(1, String.valueOf(service.getRate()));
+				item.setText(2, service.getType());
+				item.setText(3, service.getDescription());
+			}
 		}
 	}
 	

@@ -1,6 +1,7 @@
 package business;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import objects.Client;
 import objects.Service;
@@ -46,6 +47,34 @@ public class ProcessClient extends ProcessStorable
 			database.disconnect();
 		}
 		
+		return client;
+	}
+	
+	/*
+	 * Gets the client by business name
+	 * @return The the client
+	 */
+	public Client getClientByBusinessName(String businessName)
+	{
+		ArrayList<Client> clientList = null;
+		database.connect();
+		clientList = database.dumpClients();
+		database.disconnect();
+		
+		Iterator it = clientList.iterator();
+		Client client = null;
+		Client temp = null;
+		
+		while(it.hasNext())
+		{
+			temp = (Client) it.next();
+			if(temp.getBusinessName().startsWith(businessName))
+			{
+				client = temp;
+				break;
+			}
+		}
+		if(client==null) System.out.println("Client is null in ProcessClient");
 		return client;
 	}
 	
