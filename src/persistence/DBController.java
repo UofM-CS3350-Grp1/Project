@@ -21,7 +21,7 @@ import java.util.Locale;
 public class DBController 
 {
 	private final int SQL_DEBUGGING = 0; //1 for full SQL output, 0 to disable.
-	private final int ERROR_LOG = 0; //1 for error log, 0 to disable.
+	private final int ERROR_LOG = 1; //1 for error log, 0 to disable.
 	
 	private String dbName;
 	private String dbType;
@@ -519,6 +519,10 @@ public class DBController
 						query = query + clauses.get(i).get(clauses.get(i).size()-1) + " AND";
 					}
 					query = query + clauses.get(clauses.size()-1).get(0) + " " + clauses.get(clauses.size()-1).get(1) + " " + clauses.get(clauses.size()-1).get(2);
+				}
+				else
+				{
+					query = query + "\nWHERE\n ROW_ID > -1";
 				}
 			}
 		}

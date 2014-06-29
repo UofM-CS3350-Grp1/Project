@@ -327,7 +327,7 @@ public class DBInterface
 			ArrayList<String> conditions = new ArrayList<String>();
 			ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
 			
-			conditions.add("SERVICE_KEY");
+			conditions.add("SERVICE_ID");
 			conditions.add("= ");
 			conditions.add("'"+input.getID()+"'");
 			

@@ -33,7 +33,7 @@ public class TestDBInterface
 		
 		assertNotNull("Feature history retrieval by client", mainFace.getFeatureHistoryFromParent(mainFace.getClientByID(1), mainFace.getTrackedFeatureByID(1)));
 		assertNotNull("Feature history retrieval by service", mainFace.getFeatureHistoryFromParent(mainFace.getServiceByID(2), mainFace.getTrackedFeatureByID(2)));
-		assertNotNull("Tracked features by service", mainFace.getTrackedFeaturesByService(mainFace.getServiceByID(2)));
+		assertNotNull("Tracked features by service", mainFace.getTrackedFeaturesByService(mainFace.getServiceByID(9)));
 		
 		assertNotNull("Table dump, Services", mainFace.dumpServices());
 		assertNotNull("Table dump, Contracts", mainFace.dumpContracts());
