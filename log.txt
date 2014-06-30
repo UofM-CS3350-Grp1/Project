@@ -28,6 +28,26 @@ TODO(Jason):
 TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+
+Planned Task: Creating the JCC (Job Cost Card) tab (used to review financial breakdowns of contracts/services/clients)
+Planned dev duration: 6hrs
+Assigned to: Jason
+
+Planned Task: Editting contracts
+Planned dev duration: 4hrs
+Assigned to: Jason
+
+Task: Connect services and clients
+Date: 6/29 6:00pm
+Assigned to: Jason
+Status: completed
+Duration: 2hrs
+Description: The services provided to a particular client are now visible when viewing client details
+
+Planned Task: Connect services and clients
+Planned dev duration: 1.5hrs
+Assigned to: Jason
+
 Task: Service tracking, Refactoring, Clean up, Testing 
 Date: 6/27, 1:30am
 Assigned to: Tim
