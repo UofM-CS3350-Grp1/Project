@@ -143,5 +143,13 @@ public class JCCClientScreenDrawer extends BaseJCCScreenDrawer
 	protected void viewSelectedItem()
 	{
 	}
+
+	@Override
+	protected void addSurveyInfo() 
+	{
+		Composite jccAddSurvey = SwitchScreen.getContentContainer();
+		new JCCSurveyScreenDrawer( jccAddSurvey );
+		SwitchScreen.switchContent( jccAddSurvey );
+	}
 	
 }

@@ -29,6 +29,7 @@ public abstract class BaseJCCScreenDrawer
 	protected Button btnClient;
 	protected Button btnService;
 	protected Button btnView;
+	protected Button btnSurvey;
 	
 	/*
 	 * Call the constructor with a shell's main component as <container>
@@ -92,6 +93,18 @@ public abstract class BaseJCCScreenDrawer
 		});
 		btnView.setText("View selected");
 		btnView.setBounds(0, 138, 111, 40);
+		
+		btnSurvey = new Button(btnComposite, SWT.NONE);
+		btnSurvey.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent arg0) 
+			{
+				addSurveyInfo();
+			}
+		});
+		btnSurvey.setText("Add Survey Info");
+		btnSurvey.setBounds(0, 182, 111, 40);
 		
 		table = new Table(composite, SWT.BORDER | SWT.FULL_SELECTION | SWT.V_SCROLL | SWT.H_SCROLL);
 		table.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
@@ -231,4 +244,9 @@ public abstract class BaseJCCScreenDrawer
 	 * View the financial details of the selected item through on of the analysis windows
 	 */
 	protected abstract void viewSelectedItem();
+	
+	/**
+	 * Add information received from surveys
+	 */
+	protected abstract void addSurveyInfo();
 }
