@@ -29,8 +29,17 @@ TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 
-Planned Task: Creating the JCC (Job Cost Card) tab (used to review financial breakdowns of contracts/services/clients)
-Planned dev duration: 6hrs
+Task: Creating the JCC tab
+Date: 6/30 7:00pm
+Assigned to: Jason
+Status: in progress
+Duration: 5hrs
+Description: -Generic breakdowns are implemented for the most part
+             -Detailed breakdowns are on hold atm (some more DB tables/functionality needed)
+             -Basic tracking form (front end) completed
+
+Planned Task: Creating the JCC (Job Cost Card) tab (used to review financial breakdowns of contracts/services/clients and features)
+Planned dev duration: 15hrs
 Assigned to: Jason
 
 Planned Task: Editting contracts
