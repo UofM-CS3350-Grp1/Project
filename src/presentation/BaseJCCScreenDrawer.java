@@ -15,6 +15,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.Label;
 
 /**
  * Handles the drawing of table based financial breakdowns
@@ -43,7 +44,7 @@ public abstract class BaseJCCScreenDrawer
 		btnComposite = new Composite(composite, SWT.NONE);
 		GridData gd_btnComposite = new GridData(SWT.LEFT, SWT.TOP, false, false, 1, 1);
 		gd_btnComposite.widthHint = 111;
-		gd_btnComposite.heightHint = 232;
+		gd_btnComposite.heightHint = 313;
 		btnComposite.setLayoutData(gd_btnComposite);
 		
 		btnContract = new Button(btnComposite, SWT.NONE);
@@ -92,7 +93,7 @@ public abstract class BaseJCCScreenDrawer
 			}
 		});
 		btnView.setText("View selected");
-		btnView.setBounds(0, 138, 111, 40);
+		btnView.setBounds(0, 146, 111, 40);
 		
 		btnSurvey = new Button(btnComposite, SWT.NONE);
 		btnSurvey.addSelectionListener(new SelectionAdapter() 
@@ -104,7 +105,17 @@ public abstract class BaseJCCScreenDrawer
 			}
 		});
 		btnSurvey.setText("Add Survey Info");
-		btnSurvey.setBounds(0, 182, 111, 40);
+		btnSurvey.setBounds(0, 246, 111, 40);
+		
+		Label label = new Label(btnComposite, SWT.SEPARATOR | SWT.HORIZONTAL);
+		label.setBounds(25, 238, 64, 2);
+		
+		Label label_1 = new Label(btnComposite, SWT.SEPARATOR | SWT.HORIZONTAL);
+		label_1.setBounds(25, 138, 64, 2);
+		
+		Button btnEdit = new Button(btnComposite, SWT.NONE);
+		btnEdit.setText("Edit Selected");
+		btnEdit.setBounds(0, 192, 111, 40);
 		
 		table = new Table(composite, SWT.BORDER | SWT.FULL_SELECTION | SWT.V_SCROLL | SWT.H_SCROLL);
 		table.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
