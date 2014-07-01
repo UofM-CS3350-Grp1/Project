@@ -43,7 +43,7 @@ public class SwitchScreen
 		/*
 		 * Create the navigation bar
 		 */
-		final int NUM_NAV_BUTTONS = 7;
+		final int NUM_NAV_BUTTONS = 8;
 		Composite navBar = new Composite( shell, SWT.BORDER );
 		GridLayout navLayout = new GridLayout();
 		navLayout.numColumns = NUM_NAV_BUTTONS;
@@ -69,7 +69,10 @@ public class SwitchScreen
 		
 		Button bFeatures = new Button( navBar, SWT.FLAT );
 		tuneNavButton( bFeatures, "FEATURES" );
-		
+
+		Button bJCC = new Button( navBar, SWT.FLAT );
+		tuneNavButton( bJCC, "JCC's" );
+
 		Button bLogin = new Button( navBar, SWT.FLAT );
 		tuneNavButton( bLogin, "LOG IN" );
 		
@@ -161,6 +164,24 @@ public class SwitchScreen
 				Composite featuresScreen = SwitchScreen.getContentContainer();
 				TrackableFeatureScreenDrawer tfsd = new TrackableFeatureScreenDrawer( featuresScreen );
 				SwitchScreen.switchContent( featuresScreen );
+			}
+		});
+
+		
+		/*
+		 * draws the JCC screen
+		 */
+		Composite jccContractScreen = SwitchScreen.getContentContainer();
+		JCCContractScreenDrawer jcc = new JCCContractScreenDrawer( jccContractScreen );
+		SwitchScreen.switchContent( jccContractScreen );
+		bJCC.addSelectionListener( new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected( SelectionEvent event )
+			{
+				Composite jccContractScreen = SwitchScreen.getContentContainer();
+				JCCContractScreenDrawer tfsd = new JCCContractScreenDrawer( jccContractScreen );
+				SwitchScreen.switchContent( jccContractScreen );
 			}
 		});
 		
