@@ -154,4 +154,24 @@ public class DBParser
 		
 		return output;
 	}
+	
+	public ArrayList<TrackedFeatureType> parseFeatureTypes(ArrayList<ArrayList<String>> input)
+	{
+		ArrayList<TrackedFeatureType> output = new ArrayList<TrackedFeatureType>();
+		TrackedFeatureType item = null;
+		
+		for(int i = 0; i < input.size(); i++)
+		{
+			
+			item = new TrackedFeatureType(
+					Integer.parseInt(input.get(i).get(0)),
+					input.get(i).get(1),
+					input.get(i).get(2)
+					);
+
+			output.add(item);
+		}
+		
+		return output;
+	}
 }

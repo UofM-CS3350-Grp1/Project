@@ -7,6 +7,7 @@ public class TrackedFeatureType implements Storable
 	private int typeID;
 	private String type;
 	private String geneticTitle;
+	private String tableName;
 	
 	public TrackedFeatureType(String type, String title) throws IllegalArgumentException
 	{
@@ -15,6 +16,7 @@ public class TrackedFeatureType implements Storable
 			this.typeID = -1;
 			this.geneticTitle = title;
 			this.type = type;
+			this.tableName = "FEATURE_TYPES";
 		}
 		else
 		{
@@ -22,13 +24,14 @@ public class TrackedFeatureType implements Storable
 		}
 	}
 	
-	public TrackedFeatureType(int id, String type, String title) throws IllegalArgumentException
+	public TrackedFeatureType(int id, String title, String type) throws IllegalArgumentException
 	{
 		if(id >= 0 && (type != null && title != null) && (!type.isEmpty() && !title.isEmpty()))
 		{
 			this.typeID = id;
 			this.geneticTitle = title;
 			this.type = type;
+			this.tableName = "FEATURE_TYPES";
 		}
 		else
 		{
@@ -36,28 +39,38 @@ public class TrackedFeatureType implements Storable
 		}
 	}
 
-	@Override
-	public int getID() {
-		// TODO Auto-generated method stub
-		return 0;
+
+	public int getID() 
+	{
+		return this.typeID;
 	}
 
-	@Override
-	public ArrayList<String> toIndex() {
-		// TODO Auto-generated method stub
-		return null;
+
+	public ArrayList<String> toIndex() 
+	{ 
+		ArrayList<String> index = new ArrayList<String>();
+		
+		if(this.typeID >= 0)
+		{
+			index.add(this.typeID+"");
+			index.add(this.geneticTitle);
+			index.add(this.type);
+		}
+		else
+			index = null;
+		
+		return index;
 	}
 
-	@Override
-	public String getTableName() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getTableName() 
+	{
+		return this.tableName;
 	}
 
-	@Override
-	public boolean isInsertable() {
-		// TODO Auto-generated method stub
-		return false;
+
+	public boolean isInsertable()
+	{
+		return true;
 	}
 
 }

@@ -7,6 +7,7 @@ public class ServiceType implements Storable
 	private int typeID;
 	private String type;
 	private String description;
+	private String tableName;
 	
 	public ServiceType(String type, String description) throws IllegalArgumentException
 	{
@@ -15,6 +16,7 @@ public class ServiceType implements Storable
 			this.typeID = -1;
 			this.description = description;
 			this.type = type;
+			this.tableName = "SERVICES_TYPES";
 		}
 		else
 		{
@@ -29,6 +31,7 @@ public class ServiceType implements Storable
 			this.typeID = id;
 			this.description = description;
 			this.type = type;
+			this.tableName = "SERVICES_TYPES";
 		}
 		else
 		{
@@ -36,28 +39,37 @@ public class ServiceType implements Storable
 		}
 	}
 
-	@Override
-	public int getID() {
-		// TODO Auto-generated method stub
-		return 0;
+
+	public int getID() 
+	{
+		return this.typeID;
 	}
 
 	@Override
-	public ArrayList<String> toIndex() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<String> toIndex() 
+	{
+		ArrayList<String> index = new ArrayList<String>();
+		
+		if(this.typeID >= 0)
+		{
+			index.add(this.typeID+"");
+			index.add(this.type);
+			index.add(this.description);
+		}
+		else
+			index = null;
+		
+		return index;
 	}
 
-	@Override
-	public String getTableName() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getTableName()
+	{
+		return this.tableName;
 	}
 
-	@Override
-	public boolean isInsertable() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isInsertable() 
+	{
+		return true;
 	}
 
 }
