@@ -175,7 +175,7 @@ public class DBParser
 		return output;
 	}
 	
-	public ArrayList<ServiceType> parseServiceType(ArrayList<ArrayList<String>> input)
+	public ArrayList<ServiceType> parseServiceTypes(ArrayList<ArrayList<String>> input)
 	{
 		ArrayList<ServiceType> output = new ArrayList<ServiceType>();
 		ServiceType item = null;

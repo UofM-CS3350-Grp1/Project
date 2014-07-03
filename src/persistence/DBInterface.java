@@ -9,6 +9,8 @@ import objects.Contract;
 import objects.TrackedFeature;
 import objects.FeatureHistory;
 import objects.Trackable;
+import objects.TrackedFeatureType;
+import objects.ServiceType;
 import objects.Client.ClientStatus;
 
 public class DBInterface 
@@ -243,6 +245,92 @@ public class DBInterface
 			returnValue  = this.mainDB.query("FEATURE", clauses);
 			
 			storage = parser.parseFeatures(returnValue);
+			
+			if(storage.size() != 1)
+			{
+				return null;
+			}
+			else
+			{
+				return storage.get(0);
+			}
+		}
+		else
+		{
+			return null;
+		}
+		
+	}
+	
+	/**
+	 * 	GETTRACKEDFEATURETYPEBYID()
+	 * 
+	 *  @param	int id	-	ID to search for
+	 *  
+	 *  @return	TrackedFeatureType	-	TrackedFeatureType specified by ID, null if no match
+	 */	
+	
+	public TrackedFeatureType getTrackedFeatureTypeByID(int id)
+	{
+		ArrayList<TrackedFeatureType> storage = new ArrayList<TrackedFeatureType>();
+		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+		ArrayList<String> conditions = new ArrayList<String>();
+		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+		
+		if(id >= 0)
+		{
+			conditions.add("ROW_ID");
+			conditions.add("= ");
+			conditions.add(""+id+"");
+			
+			clauses.add(conditions);
+			
+			returnValue  = this.mainDB.query("FEATURE", clauses);
+			
+			storage = parser.parseFeatureTypes(returnValue);
+			
+			if(storage.size() != 1)
+			{
+				return null;
+			}
+			else
+			{
+				return storage.get(0);
+			}
+		}
+		else
+		{
+			return null;
+		}
+		
+	}
+	
+	/**
+	 * 	GETSERVICETYPEBYID()
+	 * 
+	 *  @param	int id	-	ID to search for
+	 *  
+	 *  @return	ServiceType	-	ServiceType specified by ID, null if no match
+	 */	
+	
+	public ServiceType getServiceTypeByID(int id)
+	{
+		ArrayList<ServiceType> storage = new ArrayList<ServiceType>();
+		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+		ArrayList<String> conditions = new ArrayList<String>();
+		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+		
+		if(id >= 0)
+		{
+			conditions.add("ROW_ID");
+			conditions.add("= ");
+			conditions.add(""+id+"");
+			
+			clauses.add(conditions);
+			
+			returnValue  = this.mainDB.query("FEATURE", clauses);
+			
+			storage = parser.parseServiceTypes(returnValue);
 			
 			if(storage.size() != 1)
 			{
