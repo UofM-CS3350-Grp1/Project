@@ -174,4 +174,24 @@ public class DBParser
 		
 		return output;
 	}
+	
+	public ArrayList<ServiceType> parseServiceType(ArrayList<ArrayList<String>> input)
+	{
+		ArrayList<ServiceType> output = new ArrayList<ServiceType>();
+		ServiceType item = null;
+		
+		for(int i = 0; i < input.size(); i++)
+		{
+			
+			item = new ServiceType(
+					Integer.parseInt(input.get(i).get(0)),
+					input.get(i).get(1),
+					input.get(i).get(2)
+					);
+
+			output.add(item);
+		}
+		
+		return output;
+	}
 }
