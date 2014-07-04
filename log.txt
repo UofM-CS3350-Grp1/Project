@@ -29,6 +29,26 @@ TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 
+#############IMPORTANT#############<------------------PLEASE READ THIS
+Task: Changes to Domain Objects	
+Date: 7/3/2014
+Assigned to: Adrian
+Status: in Progress
+Duration: 2 Hours+
+Description: - Beginning the refactoring of Feature/Service domain objects.
+			 - This WILL BREAK YOUR EXISTING CODE when it is pushed if you use TrackedFeature or Services.
+			 
+			 WHAT YOU NEED TO DO:
+			 	- PULL A CURRENT VERSION AND SAVE AS A BACKUP TODAY before pulling TOMORROW.
+			 	- Update your constructors to include a TrackedFeatureType for TrackedFeatures,
+			 	and TrackedServiceType for Services. These can be retrieved by the getByID()/tableDump() methods.
+			 	- Please refrain from making any changes to domain objects between tday and tomorrow night at 5pm.
+			 	
+			 WHEN WILL THIS TAKE EFFECT:
+			 	- I will push the new domain objects at 5pm tomorrow evening.
+#############IMPORTANT#############
+
+
 Task: Creating the JCC tab
 Date: 6/30 7:00pm
 Assigned to: Jason
