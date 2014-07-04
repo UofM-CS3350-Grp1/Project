@@ -32,8 +32,7 @@ public class TestDBInterface
 		assertNotNull("Get Service By Feature", mainFace.getServiceByFeature(mainFace.getTrackedFeatureByID(1)));
 		
 		assertNotNull("Feature history retrieval by client", mainFace.getFeatureHistoryFromParent(mainFace.getClientByID(1), mainFace.getTrackedFeatureByID(1)));
-		assertNotNull("Feature history retrieval by service", mainFace.getFeatureHistoryFromParent(mainFace.getServiceByID(2), mainFace.getTrackedFeatureByID(2)));
-		assertNotNull("Tracked features by service", mainFace.getTrackedFeaturesByService(mainFace.getServiceByID(9)));
+		assertNotNull("Tracked features by service", mainFace.getTrackedFeaturesByService(mainFace.getServiceByID(3)));
 		
 		assertNotNull("Table dump, Services", mainFace.dumpServices());
 		assertNotNull("Table dump, Contracts", mainFace.dumpContracts());
@@ -51,9 +50,9 @@ public class TestDBInterface
 		DBInterface mainFace = new DBInterface("CacheDB");
 		mainFace.connect();
 		
-		Contract badContract = new Contract("NAME", "DETAILS", 3.1, new Date());
+		Contract badContract = new Contract("NAME", "DETAILS", 3.1, new Date(), new Date());
 		Client badClient = new Client("NAME", new PhoneNumber("2222222222"), new Email("stuff@stuff.com"), "ADDR", "BNAME", ClientStatus.Active);
-		Service badService = new Service("TITLE", "DESCRIP", 4.1, "TYPE");
+		Service badService = new Service("TITLE", "DESCRIP", 4.1, mainFace.getServiceTypeByID(1));
 		
 		assertNull("Basic ID MAX implementation for services", mainFace.getServiceByID(Integer.MAX_VALUE));
 		assertNull("Basic ID MAX implementation for clients", mainFace.getClientByID(Integer.MAX_VALUE));
@@ -88,29 +87,29 @@ public class TestDBInterface
 		DBInterface mainFace = new DBInterface("CacheDB");
 		mainFace.connect();
 		
-		Service newService = new Service(80, "TITLE", "DESCRIP", 5.7, "STUFF", -1, 1);
+		Service newService = new Service(80, "TITLE", "DESCRIP", 5.7, -1, 1, mainFace.getServiceTypeByID(1),"ContractBody");
 		
 		assertTrue("Valid service insert with -1 CLIENT, +1 CONTRACT", mainFace.insert(newService));
 		mainFace.drop(mainFace.getServiceByID(14));
 		
-		newService = new Service(80, "TITLE", "DESCRIP", 5.7, "STUFF", 1, -1);
+		newService = new Service(80, "TITLE", "DESCRIP", 5.7, 1, -1, mainFace.getServiceTypeByID(1),"ContractBody");
 		
-		assertTrue("Valid service insert with +1 CLIENT, -1 CONTRACT", mainFace.insert(newService));
-		mainFace.drop(mainFace.getServiceByID(14));
+		assertFalse("Valid service insert with +1 CLIENT, -1 CONTRACT", mainFace.insert(newService));
+		mainFace.drop(mainFace.getServiceByID(2));
 		
-		newService = new Service(80, "TITLE", "DESCRIP", 5.7, "STUFF", 1, 1);
+		newService = new Service(80, "TITLE", "DESCRIP", 5.7, 1, 1, mainFace.getServiceTypeByID(1),"ContractBody");
 		
 		assertTrue("Valid service insert with +1 CLIENT, +1 CONTRACT", mainFace.insert(newService));
 		mainFace.drop(mainFace.getServiceByID(14));
 		
 		FeatureHistory newHistory = null;
 		newHistory = new FeatureHistory(mainFace.getTrackedFeatureByID(1), mainFace.getClientByID(2), 2.0, new Date(), "blahblahblah");
-		TrackedFeature newTracking = new TrackedFeature("BobLoblawsLawBlog", "Lobslawbombs", 2, 1);
+		TrackedFeature newTracking = new TrackedFeature("BobLoblawsLawBlog", "Lobslawbombs", 2, 1, mainFace.getTrackedFeatureTypeByID(1));
 		assertTrue("FeatreHistory Insert", mainFace.insert(newHistory));
 		assertTrue("TrackedFeature Insert", mainFace.insert(newTracking));
 		
-		newHistory = mainFace.getFeatureHistoryByID(4);
-		newTracking = mainFace.getTrackedFeatureByID(10);
+		newHistory = mainFace.getFeatureHistoryByID(3);
+		newTracking = mainFace.getTrackedFeatureByID(3);
 		
 		newHistory.setNotes("NOT blahblahblah");
 		newTracking.setNotes("Notlobbinglawbombs");
@@ -130,14 +129,14 @@ public class TestDBInterface
 		DBInterface mainFace = new DBInterface("CacheDB");
 		mainFace.connect();
 	
-		TrackedFeature newTracking = new TrackedFeature("BobLoblawsLawBlog", "Lobslawbombs");
-		Service newService = new Service(1, "TITLE", "DESCRIP", 5.7, "STUFF", -1, 1);
+		TrackedFeature newTracking = new TrackedFeature("BobLoblawsLawBlog", "Lobslawbombs", mainFace.getTrackedFeatureTypeByID(2));
+		Service newService = new Service(1, "TITLE", "DESCRIP", 5.7, -1, 1, mainFace.getServiceTypeByID(1),"ContractBody");
 		
 		assertFalse("FeatreHistory null Insert", mainFace.insert(null));
 		assertFalse("TrackedFeature null Insert", mainFace.insert(null));
 		
 		FeatureHistory newHistory = new FeatureHistory(mainFace.getTrackedFeatureByID(1), mainFace.getClientByID(2), 2.0, new Date(), "blahblahblah");
-		newTracking = new TrackedFeature("BobLoblawsLawBlog", "Lobslawbombs", Integer.MAX_VALUE, 3);
+		newTracking = new TrackedFeature("BobLoblawsLawBlog", "Lobslawbombs", Integer.MAX_VALUE, 3, mainFace.getTrackedFeatureTypeByID(1));
 		
 		assertFalse("FeatureHistory update on non-existant index", mainFace.update(newHistory));
 		assertFalse("TrackedFeature update on non-existant index", mainFace.update(newTracking));
@@ -169,7 +168,7 @@ public class TestDBInterface
 			Service serSer = mainFace.getServiceByID(3);
 			serSer.setDescription("UPDATEDESRIPTION");
 			serList.add(serSer);
-			TrackedFeature traTra = mainFace.getTrackedFeatureByID(2);
+			TrackedFeature traTra = mainFace.getTrackedFeatureByID(1);
 			traTra.setNotes("UPDATENOTTES");
 			traList.add(traTra);
 			FeatureHistory feaFea = mainFace.getFeatureHistoryByID(1);
@@ -183,9 +182,9 @@ public class TestDBInterface
 		//insertList
 		for(int i = 0; i < 5; i++)
 		{
-			conList.add(new Contract(500+i, "TESTBUSINESS", "NODETAILS", 4.1, new Date()));
-			serList.add(new Service(500+i,"shhad", "dasdsh", 4.33, "sdad", 4, 2));
-			traList.add(new TrackedFeature("NAME", "NOTES", 500 + i, 3));
+			conList.add(new Contract(500+i, "TESTBUSINESS", "NODETAILS", 4.1, new Date(),"Head","Foot", new Date()));
+			serList.add(new Service(500+i,"shhad", "dasdsh", 4.33, 4, 2, mainFace.getServiceTypeByID(1),"ContractBody"));
+			traList.add(new TrackedFeature("NAME", "NOTES", 500 + i, 3, mainFace.getTrackedFeatureTypeByID(1)));
 			feaList.add(new FeatureHistory(mainFace.getTrackedFeatureByID(1), mainFace.getClientByID(1), 22.1, new Date(), "NKJDS", 500 +i));
 			cliList.add(new Client(500+i, "NAME", new PhoneNumber("2222222222"), new Email("cat@catcat.com"), "ADDR", "NAME", 1));
 		}

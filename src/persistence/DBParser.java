@@ -21,20 +21,29 @@ public class DBParser
 	{
 		ArrayList<Service> output = new ArrayList<Service>();
 		Service item = null;
+		ServiceType type = null;
 		
 		for(int i = 0; i < input.size(); i++)
 		{
-			item = new Service(
-					Integer.parseInt(input.get(i).get(0)),
-					input.get(i).get(1),
-					input.get(i).get(2),
-					Double.parseDouble(input.get(i).get(3)),
-					input.get(i).get(4),
-					Integer.parseInt(input.get(i).get(5)),
-					Integer.parseInt(input.get(i).get(6))
-					);
 			
-			output.add(item);
+			type = iFace.getServiceTypeByID(Integer.parseInt(input.get(i).get(1)));
+			
+			if(type != null)
+			{
+				item = new Service(
+						Integer.parseInt(input.get(i).get(0)),
+						input.get(i).get(2),
+						input.get(i).get(3),
+						Double.parseDouble(input.get(i).get(4)),
+						Integer.parseInt(input.get(i).get(5)),
+						Integer.parseInt(input.get(i).get(6)),
+						type,
+						input.get(i).get(7)
+						);
+				output.add(item);
+			}
+			
+				
 		}
 		
 		return output;
@@ -79,7 +88,10 @@ public class DBParser
 					input.get(i).get(1),
 					input.get(i).get(2),
 					Double.parseDouble(input.get(i).get(3)),
-					new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(input.get(i).get(4))
+					new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(input.get(i).get(4)),
+					input.get(i).get(5),
+					input.get(i).get(6),
+					new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(input.get(i).get(7))
 					);
 			}
 			catch(Exception e)
@@ -138,18 +150,23 @@ public class DBParser
 	{
 		ArrayList<TrackedFeature> output = new ArrayList<TrackedFeature>();
 		TrackedFeature item = null;
+		TrackedFeatureType type = null;
 		
 		for(int i = 0; i < input.size(); i++)
 		{
+			type = iFace.getTrackedFeatureTypeByID(Integer.parseInt(input.get(i).get(2)));
 			
-			item = new TrackedFeature(
-					input.get(i).get(2),
-					input.get(i).get(3),
-					Integer.parseInt(input.get(i).get(0)),
-					Integer.parseInt(input.get(i).get(1))
-					);
-
-			output.add(item);
+			if(type != null)
+			{
+				item = new TrackedFeature(
+						input.get(i).get(3),
+						input.get(i).get(5),
+						Integer.parseInt(input.get(i).get(0)),
+						Integer.parseInt(input.get(i).get(1)),
+						type
+						);
+				output.add(item);
+			}
 		}
 		
 		return output;

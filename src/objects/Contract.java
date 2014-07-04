@@ -9,20 +9,21 @@ import objects.Service;
 /**
  * Handles the service rendered between the company and their client
  */
-//public class Contract implements Storable, Financials
 public class Contract implements Storable
 {
 	private final String DATE_FORMAT = "yyyy-MM-dd";	//The string date representation
 	
-	private int contractNumber; 	//Contract ID number
-	private String businessName;	//Name of the associated business
-	private String details;			//Specific details of the contract
-	private double value;			//Value of the contract
-	private Date period;			//Contract period (end date)
-	private SimpleDateFormat sdf;
+	private int contractNumber; 		 //Contract ID number
+	private String businessName;		 //Name of the associated business
+	private String details;				 //Specific details of the contract
+	private double value;				 //Value of the contract
+	private Date period;				 //Contract period (end date)
+	private SimpleDateFormat sdf;		 //Date formatter
 	private ArrayList<Service> services; //list of services in the contract
-	private Date signedDate;
-	private String tableName;
+	private Date signedDate;			 //Date contract was signed
+	private String header;				 //Header text
+	private String footer;				 //FooterText
+	private String tableName;			 //Name of table for insertion
 	
 	/**
 	 * Creates a new contract
@@ -31,11 +32,20 @@ public class Contract implements Storable
 	 * @param details			The details of the contract
 	 * @param value				The amount the contract is worth
 	 * @param period			The period of the contract
+	 * @param signedDate		The date the contract was signed
 	 * 
 	 */
-	public Contract(int contractNumber, String businessName, String details, double value, Date period) throws IllegalArgumentException
+	public Contract(int contractNumber, String businessName, String details, double value, 
+			Date period, String header, String footer, Date signedDate) throws IllegalArgumentException
 	{
-		if(contractNumber >= 0 && businessName != null && !businessName.isEmpty() && details != null  && !details.isEmpty() && value >= 0 && period != null)
+		if(contractNumber >= 0 && 
+				businessName != null && 
+				!businessName.isEmpty() && 
+				details != null  && 
+				!details.isEmpty() && 
+				value >= 0 && 
+				period != null && (header != null && footer != null) && 
+				signedDate != null)
 		{
 			this.contractNumber = contractNumber;
 			this.businessName = businessName;
@@ -43,7 +53,9 @@ public class Contract implements Storable
 			this.value = value;
 			this.period = period;
 			this.sdf = new SimpleDateFormat(DATE_FORMAT);
-			this.signedDate = null;
+			this.signedDate = signedDate;
+			this.header = header;
+			this.footer = footer;
 			this.tableName = "CONTRACTS";
 		}
 		else
@@ -59,19 +71,30 @@ public class Contract implements Storable
 	 * @param details			The details of the contract
 	 * @param value				The amount the contract is worth
 	 * @param period			The period of the contract
+	 * @param signedDate		The date the contract was signed
 	 * 
 	 */
-	public Contract(String businessName, String details, double value, Date period) throws IllegalArgumentException
+	public Contract(String businessName, String details, double value, 
+			Date period, Date signedDate) throws IllegalArgumentException
 	{
-		if(contractNumber >= 0 && businessName != null && !businessName.isEmpty() && details != null  && !details.isEmpty() && value >= 0 && period != null)
+		if(contractNumber >= 0 && 
+				businessName != null && 
+				!businessName.isEmpty() && 
+				details != null  && 
+				!details.isEmpty() && 
+				value >= 0 && 
+				period != null)
 		{
 			this.contractNumber = 0;
 			this.businessName = businessName;
 			this.details = details;
 			this.value = value;
 			this.period = period;
+			this.signedDate = signedDate;
 			this.sdf = new SimpleDateFormat(DATE_FORMAT);
 			this.services = null;
+			this.header ="";
+			this.footer ="";
 			this.tableName = "CONTRACTS";
 		}
 		else
@@ -236,13 +259,57 @@ public class Contract implements Storable
 		return (signedDate != null) ? sdf.format(signedDate) : "Not signed";
 	}
 	
+	/**
+	 * @return The contract header String
+	 */
+	
+	public String getHeader()
+	{
+		return this.header;
+	}
+	
+	/**
+	 * @param input New value for header
+	 */
+	
+	public void setHeader(String input)
+	{
+		if(input != null)
+			this.header = input;
+	}
+	
+	/**
+	 * @return The contract footer String
+	 */
+	
+	public String getFooter()
+	{
+		return this.header;
+	}
+	
+	
+	/**
+	 * @param input New value for footer
+	 */
+	
+	public void setFooter(String input)
+	{
+		if(input != null)
+			this.footer = input;
+	}
+	
+	/**
+	 * ToString method for contracts.
+	 */
+	
 	public String toString()
 	{
 		return "(Contract ID: "+this.contractNumber+
 				", Business Name: " +this.businessName +
 				", Details: " + this.details +
 				", Value: " + String.format("%.2f", this.value) +
-				", End Date: " + this.period.toString() +")";
+				", End Date: " + this.period.toString() +")"+
+				", Start Date: "+ this.signedDate.toString();
 	}
 	
 	/**TOINDEX()
@@ -260,6 +327,9 @@ public class Contract implements Storable
 		index.add(this.details);
 		index.add(String.format("%.2f", this.value));
 		index.add(this.sdf.format(period));
+		index.add(this.header);
+		index.add(this.footer);
+		index.add(sdf.format(signedDate));
 		
 		return index;
 	}
@@ -269,6 +339,7 @@ public class Contract implements Storable
 	 * Returns the table name of this object.
 	 */
 	
+	
 	public String getTableName()
 	{
 		return this.tableName;
@@ -276,6 +347,11 @@ public class Contract implements Storable
 	
 	public boolean isInsertable() 
 	{
-		return true;		
+		boolean output = false;
+		
+		if(this.signedDate != null && this.period != null && this.businessName != null && !this.businessName.isEmpty())
+			output = true;
+		
+		return output;		
 	}
 }

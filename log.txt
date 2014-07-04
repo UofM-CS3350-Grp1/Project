@@ -29,6 +29,22 @@ TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 
+Task: Cleanup of Domain Objects & Persistence Testing
+Date: 7/4/2014
+Status: Completed
+Duration: 2 Hours
+Description: - Domain objects now passing all persistence tests.
+			 - Will move onto object/business tests once potential bugs in
+			 new code are resolved.
+			 - Business objects generally unbroken, issues are primarily located
+			 in presentation layer and have to do with changes to object constructors.
+			 - Generally I tried to make this as blunt as possible so broken code would
+			 be obvious and easy to fix, but I'm sure I've likely missed something.
+			 - If problems occur restoreDB, turn on error logging in interface, give me error messages
+			 and I will look into it asap.
+			 - Will try to be available until 2am, but I had an early morning so I may crash, in class
+			 from 7pm to 9pm.
+
 #############IMPORTANT#############<------------------PLEASE READ THIS
 Task: Changes to Domain Objects	
 Date: 7/3/2014

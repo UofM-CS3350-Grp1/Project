@@ -8,26 +8,29 @@ import java.util.ArrayList;
  */
 public class TrackedFeature implements Storable
 {
-	private String featureName;			//Name of the feature to track
-	private String notes;				//Notes related to the feature
-	private int id;
-	private int serviceKey;
-	private String tableName;
+	private String featureName;				//Name of the feature to track
+	private String notes;					//Notes related to the feature
+	private int id;							//Id of object
+	private int serviceKey;					//Key of associated service
+	private String tableName;				//Name of table object belongs on
+	private TrackedFeatureType trackedFT;	//Type of feature
 	
 	/**
 	 * Creates a new feature tracker
 	 * @param featureName 	Name of the feature to track
+	 * @param trackedFT		TrackedFeature Type of object
 	 * @throws IllegalArgumentException
 	 */
-	public TrackedFeature(String featureName) throws IllegalArgumentException
+	public TrackedFeature(String featureName, TrackedFeatureType trackedFT) throws IllegalArgumentException
 	{
-		if(featureName != null && !featureName.isEmpty())
+		if(featureName != null && !featureName.isEmpty() && trackedFT != null)
 		{
 			this.id = -1;
 			this.serviceKey = -1;
 			this.featureName = featureName;
 			this.notes = "";
 			this.tableName = "FEATURE";
+			this.trackedFT = trackedFT;
 		}
 		else
 		{
@@ -39,17 +42,19 @@ public class TrackedFeature implements Storable
 	 * Creates a new feature tracker
 	 * @param featureName 	Name of the feature to track
 	 * @param notes 		Some additional notes/ documentation on the feature
+	 * @param trackedFT		TrackedFeature Type of object
 	 * @throws IllegalArgumentException
 	 */
-	public TrackedFeature(String featureName, String notes) throws IllegalArgumentException
+	public TrackedFeature(String featureName, String notes, TrackedFeatureType trackedFT) throws IllegalArgumentException
 	{
-		if(featureName != null && !featureName.isEmpty() && notes != null)
+		if(featureName != null && !featureName.isEmpty() && notes != null && trackedFT != null)
 		{
 			this.serviceKey = 0;
 			this.id = 0;
 			this.featureName = featureName;
 			this.notes = notes;
 			this.tableName = "FEATURE";
+			this.trackedFT = trackedFT;
 		}
 		else
 		{
@@ -62,30 +67,35 @@ public class TrackedFeature implements Storable
 	 * @param featureName 	Name of the feature to track
 	 * @param notes 		Some additional notes/ documentation on the feature
 	 * @param id			The unique id of this feature
+	 * @param serviceKey	Key to corresponding Service object
+	 * @param trackedFT		TrackedFeature Type of object
 	 * @throws IllegalArgumentException
 	 */
-	public TrackedFeature(String featureName, String notes, int id, int serviceKey) throws IllegalArgumentException
+	public TrackedFeature(String featureName, String notes, int id, int serviceKey, TrackedFeatureType trackedFT) throws IllegalArgumentException
 	{
-		if(featureName != null && !featureName.isEmpty() && notes != null && id >= 0 && serviceKey >= 0)
+		if(featureName != null && !featureName.isEmpty() && notes != null && id >= 0 && serviceKey >= 0 && trackedFT != null)
 		{
 			this.serviceKey = serviceKey;
 			this.id = id;
 			this.featureName = featureName;
 			this.notes = notes;
 			this.tableName = "FEATURE";
+			this.trackedFT = trackedFT;
 		}
 		else
 		{
 			throw new IllegalArgumentException();
 		}
 	}
+
+	//----------
+	// GETTERS
+	//----------
 	
 	public int getID()
 	{
 		return this.id;
 	}
-
-
 	
 	/**
 	 * @return The name of the tracked feature
@@ -94,6 +104,34 @@ public class TrackedFeature implements Storable
 	{
 		return featureName;
 	}
+
+	/**
+	 * @return Additional information on the tracked feature
+	 */
+	public String getNotes() 
+	{
+		return notes;
+	}
+	
+	/**
+	 * @return Primary key of parent service associated with object
+	 */
+	public int getServiceKey()
+	{
+		return this.serviceKey;
+	}
+	
+	/**
+	 * @return Gets the FeatureType object that this belongs to
+	 */
+	public TrackedFeatureType getTrackedFeatureType()
+	{
+		return this.trackedFT;
+	}
+	
+	//----------
+	// SETTERS
+	//----------
 
 	/**
 	 * Sets the name of the tracked feature
@@ -105,15 +143,7 @@ public class TrackedFeature implements Storable
 		if(featureName != null && !featureName.isEmpty())
 			this.featureName = featureName;
 	}
-
-	/**
-	 * @return Additional information on the tracked feature
-	 */
-	public String getNotes() 
-	{
-		return notes;
-	}
-
+	
 	/**
 	 * Sets the additional feature information
 	 * @param notes
@@ -125,10 +155,18 @@ public class TrackedFeature implements Storable
 			this.notes = notes;
 	}
 	
-	public int getServiceKey()
+	/**
+	 * @param key TrackedFeatureType to change this object to
+	 */
+	public void setTrackedFeatureType( TrackedFeatureType key)
 	{
-		return this.serviceKey;
+		if(key != null)
+			this.trackedFT = key;
 	}
+	
+	/**
+	 * @param key ID of new parent object to be returned to
+	 */
 	
 	public void setServiceKey( int key)
 	{
@@ -136,7 +174,9 @@ public class TrackedFeature implements Storable
 			this.serviceKey = key;
 	}
 	
-
+	//----------
+	// OTHER
+	//----------
 	
 	public ArrayList<String> toIndex() 
 	{
@@ -144,7 +184,9 @@ public class TrackedFeature implements Storable
 		
 		index.add(""+this.id);
 		index.add(""+this.serviceKey);
+		index.add(""+this.trackedFT.getID());
 		index.add(this.featureName);
+		index.add(this.trackedFT.getType());
 		index.add(this.notes);
 		
 		return index;
@@ -160,11 +202,20 @@ public class TrackedFeature implements Storable
 		return this.tableName;
 	}
 
+	/**
+	 * Checks the object see to see if it can be inserted into a table
+	 */
+	
 	public boolean isInsertable() 
 	{
 		boolean output = true;
 		
 		if(this.serviceKey < 0)
+		{
+			output = false;
+		}
+		
+		if(this.trackedFT == null)
 		{
 			output = false;
 		}

@@ -21,7 +21,7 @@ import java.util.Locale;
 public class DBController 
 {
 	private final int SQL_DEBUGGING = 0; //1 for full SQL output, 0 to disable.
-	private final int ERROR_LOG = 1; //1 for error log, 0 to disable.
+	private final int ERROR_LOG = 0; //1 for error log, 0 to disable.
 	
 	private String dbName;
 	private String dbType;

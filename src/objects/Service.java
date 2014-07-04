@@ -11,12 +11,13 @@ public class Service implements Storable, Trackable
 {	
 	private String title;			// Name of Service
 	private String description;		// Description of service.
-	private String type;			// General type of service, could be used for reinstantiating a subclass.
 	private double rate;			// Rate at which this service is charged.
 	private int id;					// Unique Row ID of service.
 	private int clientID;			// Client owning this service.
 	private int contractID;			// COntract this service is attached to.
+	private String contractDetails;
 	private String tableName;
+	private ServiceType typeS;
 		
 	/**
 	 * Creates a new service
@@ -28,18 +29,24 @@ public class Service implements Storable, Trackable
 	 * @param type The type of service
 	 * @throws IllegalArgumentException
 	 */
-	public Service(int id, String title, String description, double rate, String type) throws IllegalArgumentException
+	public Service(int id, String title, String description, double rate, ServiceType typeS) throws IllegalArgumentException
 	{
-		if(title != null && !title.isEmpty() && id >= 0 && description != null && rate >= 0 && type != null && !type.isEmpty()) 
+		if(title != null && 
+			!title.isEmpty() && 
+			id >= 0 && 
+			description != null && 
+			rate >= 0 && 
+				typeS != null) 
 		{
 			this.title = title;
 			this.description = description;
 			this.rate = rate;
 			this.id = id;
-			this.type = type;
 			this.clientID = 0;
 			this.contractID = 0;
 			this.tableName = "SERVICES";
+			this.typeS = typeS;
+			this.contractDetails = "";
 		}
 		else
 		{
@@ -56,21 +63,26 @@ public class Service implements Storable, Trackable
 	 * @param title The service title
 	 * @param description The description of the service
 	 * @param rate The rate of the service
-	 * @param type The type of service
+	 * @param typeS the type of the service
 	 * @throws IllegalArgumentException
 	 */
-	public Service(String title, String description, double rate, String type) throws IllegalArgumentException
+	public Service(String title, String description, double rate, ServiceType typeS) throws IllegalArgumentException
 	{		
-		if(title != null && !title.isEmpty() && id >= 0 && description != null && rate >= 0 && type != null && !type.isEmpty()) 
+		if(title != null && 
+			!title.isEmpty() && 
+			id >= 0 && 
+			description != null && 
+			rate >= 0  && 
+			typeS != null) 
 		{
 			this.title = title;
 			this.description = description;
 			this.rate = rate;
-			this.id = 0;
-			this.type = type;
+			this.id = 0;;
 			this.tableName = "SERVICES";
 			this.clientID = 0;
 			this.contractID = 0;
+			this.typeS = typeS;
 		}
 		else
 		{
@@ -92,18 +104,27 @@ public class Service implements Storable, Trackable
 	 * @param ContractID associated with service.
 	 * @throws IllegalArgumentException
 	 */
-	public Service(int id, String title, String description, double rate, String type, int clientID, int contractID) throws IllegalArgumentException
+	public Service(int id, String title, String description, double rate, int clientID, 
+			int contractID, ServiceType typeS, String contractDetails) throws IllegalArgumentException
 	{		
-		if(title != null && !title.isEmpty() && id >= 0 && (clientID >= 0 || contractID >= 0) && description != null && rate >= 0 && type != null && !type.isEmpty()) 
+		if(title != null && 
+			!title.isEmpty() && 
+			id >= 0 && 
+			(clientID >= 0 || contractID >= 0) && 
+			description != null && 
+			rate >= 0 && 
+			typeS != null && 
+			contractDetails != null) 
 		{
 			this.title = title;
 			this.description = description;
 			this.rate = rate;
 			this.id = id;
-			this.type = type;
 			this.tableName = "SERVICES";
 			this.clientID = clientID;
 			this.contractID = contractID;
+			this.typeS = typeS;
+			this.contractDetails = contractDetails;
 		}
 		else
 		{
@@ -143,9 +164,9 @@ public class Service implements Storable, Trackable
 	/**
 	 * @return Gets the type of the service
 	 */
-	public String getType()
+	public ServiceType getServiceType()
 	{
-		return this.type;
+		return this.typeS;
 	}
 	
 	/**
@@ -155,6 +176,39 @@ public class Service implements Storable, Trackable
 	{
 		return this.id;
 	}
+	
+	/**
+	 * returns the contract ID
+	 */
+	public int getContractID(){
+		return contractID;
+	}
+	
+	/**
+	 * return the client id
+	 */
+	public int getClientID()
+	{
+		return clientID;
+	}
+	
+	/**
+	 * @return Gets the client associated with this service, null if no client
+	 */
+	public Client getAssociatedClient()
+	{
+		return (new ProcessClient()).getClientByID(clientID);
+	}
+	
+	/**
+	 * @return returns a string containing the contract details for this service
+	 */
+	
+	public String getContractDetails()
+	{
+		return this.contractDetails;
+	}
+	
 	
 	//-------------
 	//	SETTERS
@@ -197,11 +251,11 @@ public class Service implements Storable, Trackable
 	 * Sets the service type
 	 * @param type The service type
 	 */
-	public void setType(String type)
+	public void setType(ServiceType type)
 	{
-		assert (type != null && !type.isEmpty());
-		if(type != null && !type.isEmpty())
-			this.type = type;
+		assert (type != null);
+		if(type != null)
+			this.typeS = type;
 	}
 	
 	/**
@@ -215,22 +269,7 @@ public class Service implements Storable, Trackable
 			this.clientID = id;
 	}
 	
-	/*
-	 * return the client id
-	 */
-	public int getClientID()
-	{
-		return clientID;
-	}
-	
-	/**
-	 * @return Gets the client associated with this service, null if no client
-	 */
-	public Client getAssociatedClient()
-	{
-		return (new ProcessClient()).getClientByID(clientID);
-	}
-	
+
 	/**
 	 * Sets the service id
 	 * @param type The service type
@@ -242,22 +281,21 @@ public class Service implements Storable, Trackable
 			this.contractID = id;
 	}
 	
-	/*
-	 * returns the contract ID
-	 */
-	public int getContractID(){
-		return contractID;
-	}
-	
-	
 	/**
-	 * Currently inactive, under normal conditions will perform either
-	 * an INSERT or an UPDATE call to DBMS.
-	 */	
-	public void commit()
+	 * Sets the contract details 
+	 * @param description The contract description
+	 */
+	public void setContractDetails(String details)
 	{
-		System.out.println("Currently not comitting service changes to the database.");
+		assert (details != null);
+		if(details != null)
+			this.contractDetails = details;
 	}
+	
+	//-------
+	// OTHER
+	//-------
+	
 	
 	/**TOINDEX()
 	 * 
@@ -270,12 +308,13 @@ public class Service implements Storable, Trackable
 		ArrayList<String> index = new ArrayList<String>();
 		
 		index.add(this.id+"");
+		index.add(this.getServiceType().getID()+"");
 		index.add(this.title);
 		index.add(this.description);
 		index.add(String.format("%.2f", this.rate));
-		index.add(this.type);
 		index.add(""+this.clientID);
 		index.add(""+this.contractID);
+		index.add(this.contractDetails);
 		
 		return index;
 	}
@@ -299,14 +338,24 @@ public class Service implements Storable, Trackable
 				", Description: " + this.description + 
 				", Rate: " + this.rate + 
 				", Id: " + this.id +
-				", Type: " + this.type +")";
+				", Type: " + this.typeS.getType() +")";
 	}
+	
+	
+	/**
+	 * Returns true if the object is in a valid state to be inserted into a table
+	 */
 	
 	public boolean isInsertable() 
 	{
 		boolean output = true;
 		
 		if(this.contractID < 0 && this.clientID < 0)
+		{
+			output = false;
+		}
+		
+		if(this.typeS == null)
 		{
 			output = false;
 		}

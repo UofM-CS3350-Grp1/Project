@@ -30,13 +30,10 @@ public class StubDBInterface
 		clients.add(new Client(2, "Jane Doe", new PhoneNumber("4045553434"), new Email("janedoe@gmail.com"), "333 Park St.", "Jane's Business", 1));
 		clients.add(new Client(3, "Steve Smith", new PhoneNumber("2065550021"), new Email("stevesmith@gmail.com"), "212 Broad St.", "Steve's Business", 0));
 		
-		contracts.add(new Contract(1, "John's Business", "Details go here...", 4000.00, new Date()));
-		contracts.add(new Contract(2, "Jane's Business", "Details go here...", 4500.00, new Date()));
-		contracts.add(new Contract(3, "Steve's Business", "Details go here...", 3500.00, new Date()));
+		contracts.add(new Contract(1, "John's Business", "Details go here...", 4000.00, new Date(), "Head", "Foot", new Date()));
+		contracts.add(new Contract(2, "Jane's Business", "Details go here...", 4500.00, new Date(), "Head", "Foot", new Date()));
+		contracts.add(new Contract(3, "Steve's Business", "Details go here...", 3500.00, new Date(), "Head", "Foot", new Date()));
 		
-		services.add(new Service(1, "Service 1", "Service description...", 4.0, "Web Design"));
-		services.add(new Service(2, "Service 2", "Service description...", 3.0, "Social Media"));
-		services.add(new Service(3, "Service 3", "Service description...", 5.5, "Marketing"));
 	}
 	
 	public void connect()

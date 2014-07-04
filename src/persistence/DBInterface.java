@@ -399,11 +399,11 @@ public class DBInterface
 	}
 	
 	/**
-	 * 	GETTRACKEDFEATUREBYID()
+	 * 	GETTRACKEDFEATUREBYSERVICE()
 	 * 
-	 *  @param	int id	-	ID to search for
+	 *  @param	int id	-	Service to search for
 	 *  
-	 *  @return	TrackedFeature	-	TrackedFeature specified by ID, null if no match
+	 *  @return	TrackedFeature	-	TrackedFeature specified by Service, null if no match
 	 */	
 	
 	public ArrayList<TrackedFeature> getTrackedFeaturesByService(Service input)
@@ -437,10 +437,63 @@ public class DBInterface
 		else
 		{	
 			if(input != null && input.getID() < 0 && ERROR_LOGGING == 1)
-				errorMessage("SERVICE", "A SERVICE OBJECT THAT HAS NOT BEEN INSERTED INTO DMBS\n", "INSERT THE SERVICE OBJECT");
+				errorMessage("TRACKED FEATURE", "A SERVICE OBJECT THAT HAS NOT BEEN INSERTED INTO DMBS\n", "INSERT THE SERVICE OBJECT");
 			
 			if(input == null && ERROR_LOGGING == 1)
-				errorMessage("SERVICE", "A NULL SERVICE OBJECT\n", "INSTANTIATE A SERVICE OBJECT");
+				errorMessage("TRACKED FEATURE", "A NULL SERVICE OBJECT\n", "INSTANTIATE A SERVICE OBJECT");
+
+			return null;
+		}
+	}
+	
+	/**
+	 * 	GETFEATURESBYTYPE()
+	 * 
+	 *  @param	int id	-	TrackedFeatureType to search for
+	 *  
+	 *  @return	TrackedFeature	-	TrackedFeature(Feature/Expense) specified by TrackedFeatureType, null if no match
+	 */	
+	
+	public ArrayList<TrackedFeature> getFeaturesByType(TrackedFeatureType input)
+	{
+		if(input != null && input.getID() >= 0)
+		{
+			ArrayList<TrackedFeature> storage = new ArrayList<TrackedFeature>();
+			ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+			ArrayList<String> conditions = new ArrayList<String>();
+			ArrayList<String> conditions2 = new ArrayList<String>();
+			ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+			
+			conditions.add("FEATURE_TYPE_ID");
+			conditions.add("= ");
+			conditions.add("'"+input.getID()+"'");
+			
+			conditions2.add("TYPE");
+			conditions2.add("= ");
+			conditions2.add("'"+input.getType()+"'");
+			
+			clauses.add(conditions);
+			
+			returnValue  = this.mainDB.query("FEATURE", clauses);
+			
+			storage = parser.parseFeatures(returnValue);
+			
+			if(storage.size() == 0)
+			{
+				return null;
+			}
+			else
+			{
+				return storage;
+			}
+		}
+		else
+		{	
+			if(input != null && input.getID() < 0 && ERROR_LOGGING == 1)
+				errorMessage("FEATURES", "A FEATURE TYPE OBJECT THAT HAS NOT BEEN INSERTED INTO DMBS\n", "INSERT THE FEATURE TYPE OBJECT");
+			
+			if(input == null && ERROR_LOGGING == 1)
+				errorMessage("FEATURES", "A NULL FEATURE TYPE OBJECT\n", "INSTANTIATE A FEATURE TYPE OBJECT");
 
 			return null;
 		}
@@ -585,6 +638,54 @@ public class DBInterface
 			
 			if(input == null && ERROR_LOGGING == 1)
 				errorMessage("SERVICE", "A NULL CLIENT OBJECT\n", "INSTANTIATE A CLIENT OBJECT");
+
+			return null;
+		}
+	}
+	
+	/**
+	 * 	GETSERVICESBYTYPE()
+	 * 
+	 *  @param	ServiceType 	- ServiceType to used to retrieve Services
+	 *  
+	 *  @return	ArrayList<Services>	-	All services referenced by ServiceType, null if no ref
+	 */	
+	
+	public ArrayList<Service> getServicesByType(ServiceType input)
+	{
+		if(input != null && input.getID() >= 0)
+		{
+			ArrayList<Service> storage = new ArrayList<Service>();
+			ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+			ArrayList<String> conditions = new ArrayList<String>();
+			ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+			
+			conditions.add("SERVICE_TYPE_ID");
+			conditions.add("= ");
+			conditions.add("'"+input.getID()+"'");
+			
+			clauses.add(conditions);
+			
+			returnValue  = this.mainDB.query("SERVICES", clauses);
+			
+			storage = parser.parseServices(returnValue);
+			
+			if(storage.size() == 0)
+			{
+				return null;
+			}
+			else
+			{
+				return storage;
+			}
+		}
+		else
+		{	
+			if(input != null && input.getID() < 0 && ERROR_LOGGING == 1)
+				errorMessage("SERVICE", "A SERVICE TYPE OBJECT THAT HAS NOT BEEN INSERTED INTO DMBS\n", "INSERT THE SERVICE TYPE OBJECT");
+			
+			if(input == null && ERROR_LOGGING == 1)
+				errorMessage("SERVICE", "A NULL SERVICE TYPE OBJECT\n", "INSTANTIATE A SERVICE TYPE OBJECT");
 
 			return null;
 		}

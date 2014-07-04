@@ -38,14 +38,75 @@ public class ServiceType implements Storable
 			throw new IllegalArgumentException();
 		}
 	}
+	
+	//---------
+	//GETTERS
+	//---------
+	
+	/**
+	 * @return Returns a string containing the service type
+	 */
+	
+	public String getType()
+	{
+		return this.type;
+	}
 
-
+	/**
+	 * @return returns a string containing the qunique service ID
+	 */
+	
 	public int getID() 
 	{
 		return this.typeID;
 	}
+	
+	/**
+	 * @return returns a string containing the appropriate table for this object
+	 */
+	
+	public String getTableName()
+	{
+		return this.tableName;
+	}
+	
+	/**
+	 * @return returns a string containing this item's description
+	 */
+	
+	public String getDescription()
+	{
+		return this.description;
+	}
+	
+	//---------
+	//SETTERS
+	//---------
 
-	@Override
+	/**
+	 * @param type String describing object's new type
+	 */
+	
+	public void setType(String type)
+	{
+		if(type != null && !type.isEmpty())
+			this.type = type;
+	}
+	
+	/**
+	 * @param type String describing object's new description
+	 */
+	
+	public void setDescription(String description)
+	{
+		if(description != null && !description.isEmpty())
+			this.description = description;
+	}
+
+	/**
+	 * Returns the table friendly value of this object in an array list
+	 */
+	
 	public ArrayList<String> toIndex() 
 	{
 		ArrayList<String> index = new ArrayList<String>();
@@ -62,14 +123,18 @@ public class ServiceType implements Storable
 		return index;
 	}
 
-	public String getTableName()
-	{
-		return this.tableName;
-	}
-
+	/**
+	 * Checks to validate if this object is in a valid state to be inserted into a table
+	 */
+	
 	public boolean isInsertable() 
 	{
-		return true;
+		boolean output = false;
+		if(type != null && !type.isEmpty())
+		{
+			output = true;
+		}
+		return output;
 	}
 
 }
