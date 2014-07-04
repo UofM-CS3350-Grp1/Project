@@ -6,7 +6,7 @@ public class TrackedFeatureType implements Storable
 {
 	private int typeID;
 	private String type;
-	private String geneticTitle;
+	private String genericTitle;
 	private String tableName;
 	
 	public TrackedFeatureType(String type, String title) throws IllegalArgumentException
@@ -14,7 +14,7 @@ public class TrackedFeatureType implements Storable
 		if((type != null && title != null) && (!type.isEmpty() && !title.isEmpty()))
 		{
 			this.typeID = -1;
-			this.geneticTitle = title;
+			this.genericTitle = title;
 			this.type = type;
 			this.tableName = "FEATURE_TYPES";
 		}
@@ -29,7 +29,7 @@ public class TrackedFeatureType implements Storable
 		if(id >= 0 && (type != null && title != null) && (!type.isEmpty() && !title.isEmpty()))
 		{
 			this.typeID = id;
-			this.geneticTitle = title;
+			this.genericTitle = title;
 			this.type = type;
 			this.tableName = "FEATURE_TYPES";
 		}
@@ -53,7 +53,7 @@ public class TrackedFeatureType implements Storable
 		if(this.typeID >= 0)
 		{
 			index.add(this.typeID+"");
-			index.add(this.geneticTitle);
+			index.add(this.genericTitle);
 			index.add(this.type);
 		}
 		else
@@ -71,6 +71,11 @@ public class TrackedFeatureType implements Storable
 	public boolean isInsertable()
 	{
 		return true;
+	}
+	
+	public String toString()
+	{
+		return "id: "+typeID+" Type: "+type+" Title: "+genericTitle+".";
 	}
 
 }

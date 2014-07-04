@@ -285,7 +285,7 @@ public class DBInterface
 			
 			clauses.add(conditions);
 			
-			returnValue  = this.mainDB.query("FEATURE", clauses);
+			returnValue  = this.mainDB.query("FEATURE_TYPES", clauses);
 			
 			storage = parser.parseFeatureTypes(returnValue);
 			
@@ -328,7 +328,7 @@ public class DBInterface
 			
 			clauses.add(conditions);
 			
-			returnValue  = this.mainDB.query("FEATURE", clauses);
+			returnValue  = this.mainDB.query("SERVICES_TYPES", clauses);
 			
 			storage = parser.parseServiceTypes(returnValue);
 			
@@ -863,7 +863,7 @@ public class DBInterface
 	
 	/**DUMPFEATUREHISTORY()
 	 * 
-	 * Returns all tracked features on the DBMS;
+	 * Returns all tracked feature histries on the DBMS;
 	 * 
 	 */
 	
@@ -881,6 +881,68 @@ public class DBInterface
 		returnValue  = this.mainDB.query("FEATURE_HISTORY", clauses);
 		
 		storage = parser.parseFeatureHistories(returnValue);
+		
+		if(storage.size() == 0)
+		{
+			return null;
+		}
+		else
+		{
+			return storage;
+		}
+	}
+	
+	/**DUMPTRACKEDFEATURETYPES()
+	 * 
+	 * Returns all tracked feature types on the DBMS;
+	 * 
+	 */
+	
+	public ArrayList<TrackedFeatureType> dumpTrackedFeatureTypes()
+	{
+		ArrayList<TrackedFeatureType> storage = new ArrayList<TrackedFeatureType>();
+		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+		ArrayList<String> conditions = new ArrayList<String>();
+		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+		
+		conditions.add("ALL");
+		
+		clauses.add(conditions);
+		
+		returnValue  = this.mainDB.query("FEATURE_TYPES", clauses);
+		
+		storage = parser.parseFeatureTypes(returnValue);
+		
+		if(storage.size() == 0)
+		{
+			return null;
+		}
+		else
+		{
+			return storage;
+		}
+	}
+	
+	/**DUMPSERVICETYPES()
+	 * 
+	 * Returns all service types on the DBMS;
+	 * 
+	 */
+	
+	public ArrayList<ServiceType> dumpServiceTypes()
+	{
+		ArrayList<ServiceType> storage = new ArrayList<ServiceType>();
+		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+		ArrayList<String> conditions = new ArrayList<String>();
+		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+		
+		conditions.add("ALL");
+		
+		clauses.add(conditions);
+		
+		returnValue  = this.mainDB.query("SERVICES_TYPES", clauses);
+		
+		storage = parser.parseServiceTypes(returnValue);
 		
 		if(storage.size() == 0)
 		{
