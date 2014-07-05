@@ -24,7 +24,7 @@ public class Contract implements Storable
 	private String header;				 //Header text
 	private String footer;				 //FooterText
 	private String tableName;			 //Name of table for insertion
-	
+
 	/**
 	 * Creates a new contract
 	 * @param contractNumber 	The number of the contract
@@ -56,6 +56,43 @@ public class Contract implements Storable
 			this.signedDate = signedDate;
 			this.header = header;
 			this.footer = footer;
+			this.tableName = "CONTRACTS";
+		}
+		else
+		{
+			throw new IllegalArgumentException();
+		}
+	}
+
+	/**
+	 * Creates a new contract (without header and footer)
+	 * @param contractNumber 	The number of the contract
+	 * @param businessName 	 	The name of the business
+	 * @param details			The details of the contract
+	 * @param value				The amount the contract is worth
+	 * @param period			The period of the contract
+	 * @param signedDate		The date the contract was signed
+	 * 
+	 */
+	public Contract(int contractNumber, String businessName, String details, double value, 
+			Date period, Date signedDate) throws IllegalArgumentException
+	{
+		if(contractNumber >= 0 && 
+				businessName != null && 
+				!businessName.isEmpty() && 
+				details != null  && 
+				!details.isEmpty() && 
+				value >= 0 && 
+				period != null && (header != null && footer != null) && 
+				signedDate != null)
+		{
+			this.contractNumber = contractNumber;
+			this.businessName = businessName;
+			this.details = details;
+			this.value = value;
+			this.period = period;
+			this.sdf = new SimpleDateFormat(DATE_FORMAT);
+			this.signedDate = signedDate;
 			this.tableName = "CONTRACTS";
 		}
 		else
