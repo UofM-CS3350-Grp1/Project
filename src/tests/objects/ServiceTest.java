@@ -13,6 +13,7 @@ public class ServiceTest
 {		
 	/** Testing Service Object Creation **/
 	ServiceType serviceType = new ServiceType("Service type", "Service description");
+	ServiceType serviceType2 = new ServiceType("Sv 2", "S Desc");
 	
 	@Test
 	public void testService1()
@@ -22,7 +23,7 @@ public class ServiceTest
 		assertNotNull("Service is null", service);
 		assertTrue("Title is invalid", service.getTitle().equals("Marketing"));
 		assertTrue("Description name is invalid", service.getDescription().equals("Marketing Stuff"));
-		assertTrue("Type of service is invalid", service.getServiceType().getType().equals("Type A"));
+		assertTrue("Type of service is invalid", service.getServiceType().getType().equals("Service type"));
 		assertTrue("Rate is invalid", service.getRate() == 10.0);
 	}
 	
@@ -53,7 +54,7 @@ public class ServiceTest
 	@Test(expected=IllegalArgumentException.class)
 	public void testService6()
 	{
-		new Service("Marketing", "Marketing Stuff", 10.0, serviceType);
+		new Service("Marketing", "Marketing Stuff", 10.0, new ServiceType(null, null));
 	}
 
 	@Test(expected=IllegalArgumentException.class)
@@ -70,19 +71,19 @@ public class ServiceTest
 		assertNotNull("Service is null", service);
 		assertTrue("Title is invalid", service.getTitle().equals("Marketing"));
 		assertTrue("Description name is invalid", service.getDescription().equals("Marketing Stuff"));
-		assertTrue("Type of service is invalid", service.getServiceType().equals("Type A"));
+		assertTrue("Type of service is invalid", service.getServiceType().equals(serviceType));
 		assertTrue("Rate is invalid", service.getRate() == 0.0);
 	}
 	
 	@Test
 	public void testService9()
 	{		
-		Service service = new Service("Marketing", "Marketing Stuff", 123465, serviceType);
+		Service service = new Service("Marketing", "Marketing Stuff", 123465, serviceType2);
 		
 		assertNotNull("Service is null", service);
 		assertTrue("Title is invalid", service.getTitle().equals("Marketing"));
 		assertTrue("Description name is invalid", service.getDescription().equals("Marketing Stuff"));
-		assertTrue("Type of service is invalid", service.getServiceType().equals("Type A"));
+		assertTrue("Type of service is invalid", service.getServiceType().equals(serviceType2));
 		assertTrue("Rate is invalid", service.getRate() == 123465);
 	}
 
@@ -203,7 +204,7 @@ public class ServiceTest
 		service.setType(null);
 		assertTrue("Null type", service.getServiceType() != null);
 		assertTrue("Empty type", !service.getServiceType().equals(""));
-		assertTrue("Type changed", service.getServiceType().equals("Type A"));
+		assertTrue("Type changed", service.getServiceType().equals(serviceType));
 	}
 	
 	@Test
@@ -212,10 +213,10 @@ public class ServiceTest
 		Service service = new Service("Marketing", "Marketing Stuff", 10.0, serviceType);
 		assertNotNull("Service is null", service);
 		
-		service.setType(null);
+		service.setType(serviceType2);
 		assertTrue("Null type", service.getServiceType() != null);
 		assertTrue("Empty type", !service.getServiceType().equals(""));
-		assertTrue("Type changed", service.getServiceType().equals("Type A"));
+		assertTrue("Type changed", service.getServiceType().equals(serviceType2));
 	}
 	
 	@Test
@@ -227,6 +228,6 @@ public class ServiceTest
 		service.setType(serviceType);
 		assertTrue("Null type", service.getServiceType() != null);
 		assertTrue("Empty type", !service.getServiceType().equals(""));
-		assertTrue("Type changed", service.getServiceType().equals("Type B"));
+		assertTrue("Type changed", service.getServiceType().equals(serviceType));
 	}
 }
