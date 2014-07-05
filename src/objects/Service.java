@@ -350,7 +350,7 @@ public class Service implements Storable, Trackable
 	{
 		boolean output = true;
 		
-		if(this.contractID < 0 && this.clientID < 0)
+		if(this.contractID < 0)
 		{
 			output = false;
 		}

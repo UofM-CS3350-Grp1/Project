@@ -250,7 +250,13 @@ public class FeatureHistory implements Storable
 	
 	public boolean isInsertable() 
 	{
-		return true;		
+		boolean output = true;
+		
+		if(this.feature == null)
+			output = false;
+		
+		return output;
+			
 	}
 
 }

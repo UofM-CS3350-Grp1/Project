@@ -29,6 +29,20 @@ TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 
+Task: Refactoring Domain Objects / Tables, Fixing Bugs
+Date: 07/04
+Assigned To: Adrian
+Status: Completed
+Dration: 2 Hours
+Description:	-Added start date to contracts
+				-Added supplier to features for Expense type objects.
+				-Removed unused foreign keys on FeatureHistory
+				-Enforced constraints on isInsertable, please remember the following:
+					- Contracts require a ClientID (parent)
+					- Services require a ContractID (parent)
+					- Features require a ServiceID (parent)
+					- Feature Histories require a FeatureID (parent)
+
 Task: Fixing bugs that resulted from the refactored domain objects
 Date: 07/04 9:00pm
 Assigned to: Jason
