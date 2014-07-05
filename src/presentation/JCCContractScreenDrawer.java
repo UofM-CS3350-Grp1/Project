@@ -151,8 +151,9 @@ public class JCCContractScreenDrawer extends BaseJCCScreenDrawer
 
 	@Override
 	protected void addExpenses() {
-		// TODO Auto-generated method stub
-		
+		Composite jccExpenses = SwitchScreen.getContentContainer();
+		new AddExpensesScreenDrawer( jccExpenses );
+		SwitchScreen.switchContent( jccExpenses );
 	}
 	
 }

@@ -8,10 +8,12 @@ import java.util.Iterator;
 import objects.Client;
 import objects.Contract;
 import objects.FeatureHistory;
+import objects.Service;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -23,6 +25,7 @@ import org.eclipse.swt.widgets.Label;
 import business.ProcessClient;
 import business.ProcessContract;
 import business.ProcessFeatureHistory;
+import business.ProcessService;
 
 import org.eclipse.swt.widgets.Text;
 
@@ -42,7 +45,7 @@ public class AddExpensesScreenDrawer
 		private Label lblNewLabel;
 		private Combo comboContract;
 		private Label lblCompanysupplier;
-		private Text text;
+		private Text payee;
 		
 		/*
 		 * Call the constructor with a shell's main component as <container>
@@ -71,16 +74,22 @@ public class AddExpensesScreenDrawer
 				comboClient.add(client.getBusinessName());
 			}
 			
-			ActionListener clientActionListener = new ActionListener()
+			SelectionListener clientActionListener = new SelectionListener()
 			{
+				@Override
+				public void widgetDefaultSelected(SelectionEvent arg0) 
+				{
+				}
 
 				@Override
-				public void actionPerformed(ActionEvent arg0) {
+				public void widgetSelected(SelectionEvent arg0) 
+				{
 					String selected = comboClient.getText();
 					setContracts(selected);
 				}
 				
 			};
+			comboClient.addSelectionListener(clientActionListener);
 			
 			new Label(composite, SWT.NONE);
 			
@@ -136,26 +145,35 @@ public class AddExpensesScreenDrawer
 			comboContract = new Combo(btnSurvey, SWT.READ_ONLY);
 			comboContract.setBounds(141, 48, 90, 23);
 			
+			SelectionListener contractActionListener = new SelectionListener()
+			{
+				@Override
+				public void widgetDefaultSelected(SelectionEvent arg0) 
+				{
+				}
+
+				@Override
+				public void widgetSelected(SelectionEvent arg0) 
+				{
+					String selected = comboContract.getText();
+					setServices(selected);
+				}
+				
+			};
+			comboContract.addSelectionListener(contractActionListener);
+			
 			lblCompanysupplier = new Label(btnSurvey, SWT.NONE);
 			lblCompanysupplier.setBounds(10, 137, 106, 15);
 			lblCompanysupplier.setText("Company/Supplier");
 			
-			text = new Text(btnSurvey, SWT.BORDER);
-			text.setBounds(141, 137, 305, 21);
+			payee = new Text(btnSurvey, SWT.BORDER);
+			payee.setBounds(141, 137, 305, 21);
 			
-			//fills the dropdown with client business names
-			FeatureHistory feature = null;
-			ProcessFeatureHistory processFeature = new ProcessFeatureHistory();
-			while((feature = processFeature.getNextHistory()) != null)
-			{
-				Combo comboFeature = null;
-				comboFeature.add(feature.getFeature().getFeatureName());
-			}
 			new Label(composite, SWT.NONE);
 			new Label(composite, SWT.NONE);
 			new Label(composite, SWT.NONE);
 		}
-		
+
 		/*
 		 * fills the dropdown with contracts of the selected client
 		 */
@@ -165,12 +183,33 @@ public class AddExpensesScreenDrawer
 			ProcessContract processContract = new ProcessContract();
 			ProcessClient processClient = new ProcessClient();
 			Client client = processClient.getClientByBusinessName(business);
-			ArrayList<Contract> contractList = processContract.getContractsByClient(client);
+			ArrayList<Contract> contractList = null;
+			contractList = processContract.getContractsByClient(client);
 			Iterator<Contract> it = contractList.iterator();
+			comboContract.removeAll();
 			while(it.hasNext())
 			{
 				contract = it.next();
 				comboContract.add(String.valueOf(contract.getID()));
+			}
+		}
+		
+		/*
+		 * fills the dropdown with services of the selected contract
+		 */
+		private void setServices(String contractID)
+		{
+			Service service = null;
+			ProcessContract processContract = new ProcessContract();
+			Contract contract = processContract.getContractByID(Integer.parseInt(contractID));
+			ArrayList<Service> serviceList = null;
+			serviceList = processContract.getServices(contract);
+			Iterator<Service> it = serviceList.iterator();
+			comboService.removeAll();
+			while(it.hasNext())
+			{
+				service = it.next();
+				comboService.add(String.valueOf(service.getTitle()));
 			}
 		}
 
