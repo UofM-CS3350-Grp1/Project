@@ -50,21 +50,24 @@ public class JCCContractScreenDrawer extends BaseJCCScreenDrawer
 		
 		contracts = processContract.getContracts();
 
-		Iterator<Contract> it = contracts.iterator();
-		
-		while(it.hasNext())
+		if(contracts != null)
 		{
-			contract = (Contract) it.next();
+			Iterator<Contract> it = contracts.iterator();
 			
-			item = new TableItem(table, SWT.NULL);
-
-			item.setText(0, contract.getID() + "");
-			item.setText(1, contract.getBusinessName() + "");
-			item.setText(2, "$ "+(int)contract.getValue());
-			item.setText(3, "$ "+getExpenses());
-			item.setText(4, "$ "+getProfit());
-			item.setText(5, "% "+getCM());
-			item.setText(6, "% "+getPM());
+			while(it.hasNext())
+			{
+				contract = (Contract) it.next();
+				
+				item = new TableItem(table, SWT.NULL);
+	
+				item.setText(0, contract.getID() + "");
+				item.setText(1, contract.getBusinessName() + "");
+				item.setText(2, "$ "+(int)contract.getValue());
+				item.setText(3, "$ "+getExpenses());
+				item.setText(4, "$ "+getProfit());
+				item.setText(5, "% "+getCM());
+				item.setText(6, "% "+getPM());
+			}
 		}
 	}
 

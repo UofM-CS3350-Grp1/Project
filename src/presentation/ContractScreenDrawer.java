@@ -46,6 +46,7 @@ public class ContractScreenDrawer extends BaseStorableScreenDrawer
 	{
 		Contract contract = null;
 		TableItem item;
+		Iterator<Contract> it;
 		
 		table.removeAll();
 		
@@ -54,19 +55,22 @@ public class ContractScreenDrawer extends BaseStorableScreenDrawer
 		
 		contracts = processContract.getContracts();
 
-		Iterator<Contract> it = contracts.iterator();
-		
-		while(it.hasNext())
+		if(contracts != null)
 		{
-			contract = (Contract) it.next();
+			it = contracts.iterator();
 			
-			item = new TableItem(table, SWT.NULL);
-
-			item.setText(0, contract.getID() + "");
-			item.setText(1, contract.getBusinessName() + "");
-			item.setText(2, "Not specified");
-			item.setText(3, String.format("$%8.2f", contract.getValue()));
-			item.setText(4, contract.getFormattedSignedDate());
+			while(it.hasNext())
+			{
+				contract = (Contract) it.next();
+				
+				item = new TableItem(table, SWT.NULL);
+	
+				item.setText(0, contract.getID() + "");
+				item.setText(1, contract.getBusinessName() + "");
+				item.setText(2, "Not specified");
+				item.setText(3, String.format("$%8.2f", contract.getValue()));
+				item.setText(4, contract.getFormattedSignedDate());
+			}
 		}
 	}
 
