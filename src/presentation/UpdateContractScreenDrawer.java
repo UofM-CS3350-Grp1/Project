@@ -6,6 +6,7 @@ import java.util.Date;
 import objects.Client;
 import objects.Contract;
 import objects.Service;
+import objects.ServiceType;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -280,10 +281,12 @@ public class UpdateContractScreenDrawer
 				{
 					id = Integer.parseInt(serviceTable.getItem(i).getText(0));
 					service = processService.getServiceByID(id);
+					ServiceType serviceType;
 					
 					if(service != null)
 					{
-						newService = new Service(service.getTitle(), service.getDescription(), service.getRate(), service.getType());
+						serviceType = new ServiceType(service.getServiceType().getType(), service.getDescription());
+						newService = new Service(service.getTitle(), service.getDescription(), service.getRate(), serviceType);
 						cID = contract.getID();
 						newService.setContractID(cID);
 						
@@ -338,7 +341,7 @@ public class UpdateContractScreenDrawer
 			item.setText(0, String.valueOf(service.getID()));
 			item.setText(1, service.getTitle());
 			item.setText(2, service.getRate() + "");
-			item.setText(3, service.getType());
+			item.setText(3, service.getServiceType().getType());
 		}
 	}
 	
@@ -359,7 +362,7 @@ public class UpdateContractScreenDrawer
 				item.setText(0, String.valueOf(service.getID()));
 				item.setText(1, service.getTitle());
 				item.setText(2, String.valueOf(service.getRate()));
-				item.setText(1, service.getType());
+				item.setText(1, service.getServiceType().getType());
 				item.setText(1, service.getDescription());
 			}
 		}
@@ -387,7 +390,7 @@ public class UpdateContractScreenDrawer
 				item.setText(0, String.valueOf(service.getID()));
 				item.setText(1, service.getTitle());
 				item.setText(2, String.valueOf(service.getRate()));
-				item.setText(3, service.getType());
+				item.setText(3, service.getServiceType().getType());
 				item.setText(4, service.getDescription());
 	
 				serviceTable.remove(selectedIndex);
@@ -416,7 +419,7 @@ public class UpdateContractScreenDrawer
 				item.setText(0, String.valueOf(service.getID()));
 				item.setText(1, service.getTitle());
 				item.setText(2, String.valueOf(service.getRate()));
-				item.setText(3, service.getType());
+				item.setText(3, service.getServiceType().getType());
 	
 				contractTable.remove(selectedIndex);
 				lblValueData.setText(String.format("$%8.2f", computeContractValue()));

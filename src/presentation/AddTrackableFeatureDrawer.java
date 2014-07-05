@@ -1,6 +1,7 @@
 package presentation;
 
 import objects.TrackedFeature;
+import objects.TrackedFeatureType;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
@@ -104,11 +105,13 @@ public class AddTrackableFeatureDrawer
 	protected void processActionButton()
 	{
 		TrackedFeature feature;
+		TrackedFeatureType featureType;
 		MessageBox dialog;
 		
 		try
 		{
-			feature = new TrackedFeature(txtName.getText(), txtNotes.getText());
+			featureType = new TrackedFeatureType(txtName.getText(), txtName.getText());
+			feature = new TrackedFeature(txtName.getText(), featureType);
 			
 			if(processAddFeature.insert(feature))
 				backToPreviousScreen();

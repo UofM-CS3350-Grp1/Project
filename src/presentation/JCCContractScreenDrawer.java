@@ -148,5 +148,11 @@ public class JCCContractScreenDrawer extends BaseJCCScreenDrawer
 		new JCCSurveyScreenDrawer( jccAddSurvey );
 		SwitchScreen.switchContent( jccAddSurvey );
 	}
+
+	@Override
+	protected void addExpenses() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

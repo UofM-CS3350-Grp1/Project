@@ -4,15 +4,20 @@ import java.util.Date;
 
 import objects.FeatureHistory;
 import objects.Service;
+import objects.ServiceType;
 import objects.TrackedFeature;
+import objects.TrackedFeatureType;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class FeatureHistoryTest 
 {
-	private static TrackedFeature validFeature = new TrackedFeature("Feature");
-	private static Service validService = new Service("Service X", "X != Y", 16.25, "Alpha");
+	private static TrackedFeatureType featureType = new TrackedFeatureType("Feature type", "Feature title");
+	private static TrackedFeature validFeature = new TrackedFeature("Feature", featureType);
+	private static ServiceType serviceType = new ServiceType("Service type", "Description");
+	private static Service validService = new Service("Service X", "X != Y", 16.25, serviceType);
 	private static Date validDate = new Date(1402194845);
 	
 	/** 	Testing Creation	**/

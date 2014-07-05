@@ -1,6 +1,7 @@
 package presentation;
 
 import objects.Service;
+import objects.ServiceType;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -139,11 +140,13 @@ public class AddServiceScreenDrawer
 	protected void processActionButton()
 	{
 		Service service;
+		ServiceType serviceType;
 		MessageBox dialog;
 		
 		try
 		{
-			service = new Service(svcName.getText(), svcDescription.getText(), Double.parseDouble(rateAmount.getText()), svcType.getText());
+			serviceType = new ServiceType(svcType.getText(), svcDescription.getText());
+			service = new Service(svcName.getText(), svcDescription.getText(), Double.parseDouble(rateAmount.getText()), serviceType);
 			if(processService.insert(service))
 				goBackToServiceScreen();
 		}

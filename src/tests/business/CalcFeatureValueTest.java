@@ -2,7 +2,9 @@ package tests.business;
 
 import static org.junit.Assert.*;
 import objects.Service;
+import objects.ServiceType;
 import objects.TrackedFeature;
+import objects.TrackedFeatureType;
 
 import org.junit.Test;
 
@@ -23,7 +25,8 @@ public class CalcFeatureValueTest
 	@Test
 	public void testCalcFeature2()
 	{
-		Service trackable = new Service("Title", "Desc", 2.12, "Type");
+		ServiceType serviceType = new ServiceType("Type of service","Description");
+		Service trackable = new Service("Title", "Desc", 2.12, serviceType);
 		double result = CalculateFeatureValue.calculateTotalValue(trackable, null);
 		
 		assertTrue("Result is invalid", result == 0);
@@ -32,7 +35,8 @@ public class CalcFeatureValueTest
 	@Test
 	public void testCalcFeature3()
 	{
-		TrackedFeature feature = new TrackedFeature("Feature");
+		TrackedFeatureType featureType = new TrackedFeatureType("Feature type", "Feature title");
+		TrackedFeature feature = new TrackedFeature("Feature", featureType);
 		double result = CalculateFeatureValue.calculateTotalValue(null, feature);
 		
 		assertTrue("Result is invalid", result == 0);

@@ -80,6 +80,19 @@ public class ProcessContract extends ProcessStorable
 	}
 	
 	/**
+	 * @param client The client whos contracts we want
+	 * @return an array List of contracts for the given clients
+	 */
+	public ArrayList<Contract> getContractsByClient(Client client)
+	{
+		database.connect();
+		ArrayList<Contract> theContract = database.getContractsByBusiness(client.getBusinessName());
+		database.disconnect();
+		
+		return theContract;
+	}
+	
+	/**
 	 * @return The client that signed this contract
 	 */
 	public Client getContractClient(Contract contract)

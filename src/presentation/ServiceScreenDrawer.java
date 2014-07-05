@@ -59,7 +59,7 @@ public class ServiceScreenDrawer extends BaseStorableScreenDrawer
 			item.setText(1, service.getTitle());
 			item.setText(2, service.getDescription());
 			item.setText(3, service.getRate() + "");
-			item.setText(4, service.getType());
+			item.setText(4, service.getServiceType().getType());
 		}
 	}
 	

@@ -431,7 +431,7 @@ public class ContractAnalysisScreenDrawer
 				item = new TableItem(servicesTable, SWT.NULL);
 				item.setText(0, service.getTitle());
 				item.setText(1, String.valueOf(service.getRate()));
-				item.setText(2, service.getType());
+				item.setText(2, service.getServiceType().getType());
 				item.setText(3, service.getDescription());
 			}
 		}

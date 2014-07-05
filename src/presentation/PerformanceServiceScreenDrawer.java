@@ -144,7 +144,7 @@ public class PerformanceServiceScreenDrawer
 	{
 		lblServiceNameData.setText(service.getTitle());
 		lblRateData.setText(service.getRate() + "");
-		lblTypeData.setText(service.getType());
+		lblTypeData.setText(service.getServiceType().getType());
 		
 		if(!service.getDescription().isEmpty())
 			lblDescriptionData.setText(service.getDescription());

@@ -251,7 +251,7 @@ public class AddContractScreenDrawer
 		try 
 		{
 			date = formatter.parse(endData.getDay() + "/" + endData.getMonth() + "/" + endData.getYear());
-			contract = new Contract(newID, combo.getText(), inputDetails.getText(), value, date);
+			contract = new Contract(newID, combo.getText(), inputDetails.getText(), value, date, null, null, date);
 			
 			processContract.insert(contract);
 			
@@ -267,7 +267,7 @@ public class AddContractScreenDrawer
 				
 				selectedClient = processClient.getClientByBusinessName(combo.getText());
 				
-				newService = new Service(service.getTitle(), service.getDescription(), service.getRate(), service.getType());
+				newService = new Service(service.getTitle(), service.getDescription(), service.getRate(), service.getServiceType());
 				int cID = contract.getID();
 				newService.setContractID(cID);
 				newService.setClientID(selectedClient.getID());
@@ -316,7 +316,7 @@ public class AddContractScreenDrawer
 				item.setText(0, String.valueOf(service.getID()));
 				item.setText(1, service.getTitle());
 				item.setText(2, String.valueOf(service.getRate()));
-				item.setText(3, service.getType());
+				item.setText(3, String.valueOf(service.getServiceType()));
 				item.setText(4, service.getDescription());
 	
 				table.remove(selectedIndex);
@@ -346,7 +346,7 @@ public class AddContractScreenDrawer
 				item.setText(0, String.valueOf(service.getID()));
 				item.setText(1, service.getTitle());
 				item.setText(2, String.valueOf(service.getRate()));
-				item.setText(3, service.getType());
+				item.setText(3, String.valueOf(service.getServiceType()));
 	
 				table_1.remove(selectedIndex);
 				lblValueData.setText(String.format("$%8.2f", computeContractValue()));
@@ -375,7 +375,7 @@ public class AddContractScreenDrawer
 			item.setText(0, String.valueOf(service.getID()));
 			item.setText(1, service.getTitle());
 			item.setText(2, service.getRate() + "");
-			item.setText(3, service.getType());
+			item.setText(3, String.valueOf(service.getServiceType()));
 		}		
 	}
 	

@@ -31,6 +31,7 @@ public abstract class BaseJCCScreenDrawer
 	protected Button btnService;
 	protected Button btnView;
 	protected Button btnSurvey;
+	protected Button btnExpense;
 	
 	/*
 	 * Call the constructor with a shell's main component as <container>
@@ -44,7 +45,7 @@ public abstract class BaseJCCScreenDrawer
 		btnComposite = new Composite(composite, SWT.NONE);
 		GridData gd_btnComposite = new GridData(SWT.LEFT, SWT.TOP, false, false, 1, 1);
 		gd_btnComposite.widthHint = 111;
-		gd_btnComposite.heightHint = 313;
+		gd_btnComposite.heightHint = 360;
 		btnComposite.setLayoutData(gd_btnComposite);
 		
 		btnContract = new Button(btnComposite, SWT.NONE);
@@ -106,6 +107,18 @@ public abstract class BaseJCCScreenDrawer
 		});
 		btnSurvey.setText("Add Survey Info");
 		btnSurvey.setBounds(0, 246, 111, 40);
+		
+		btnExpense = new Button(btnComposite, SWT.NONE);
+		btnExpense.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent arg0) 
+			{
+				addExpenses();
+			}
+		});
+		btnExpense.setText("Add Expenses");
+		btnExpense.setBounds(0, 292, 111, 40);
 		
 		Label label = new Label(btnComposite, SWT.SEPARATOR | SWT.HORIZONTAL);
 		label.setBounds(25, 238, 64, 2);
@@ -260,4 +273,9 @@ public abstract class BaseJCCScreenDrawer
 	 * Add information received from surveys
 	 */
 	protected abstract void addSurveyInfo();
+	
+	/**
+	 * Add expenses to current services in contracts
+	 */
+	protected abstract void addExpenses();
 }
