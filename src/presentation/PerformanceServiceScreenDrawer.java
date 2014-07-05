@@ -173,7 +173,7 @@ public class PerformanceServiceScreenDrawer
 		chartComposite.setLayoutData(gd_chartComposite);
 		
 		//Display a chart for each tracked feature
-		while((feature = processFeature.getNextFeatureForService(service)) != null)
+		/*while((feature = processFeature.getNextFeatureForService(service)) != null)
 		{
 			//Generate the composite
 			chartComp = new ChartComposite(composite, SWT.NONE, graphGenerator.GenerateChartForFeature(service, feature));
@@ -183,7 +183,7 @@ public class PerformanceServiceScreenDrawer
 			
 			//Populate the history data table 
 			drawHistoryTable(feature);
-		}
+		}*/
 	}
 	
 	/**

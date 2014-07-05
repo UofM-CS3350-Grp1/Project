@@ -49,14 +49,14 @@ public class GenerateGraph
 		{
 			data = new DefaultPieDataset();
 			
-			while((service = processClient.getNextClientService(client)) != null)
+			/*while((service = processClient.getNextClientService(client)) != null)
 			{
 				while((feature = processFeature.getNextFeatureForService(service)) != null)
 				{							
 					//Populate the data in the chart
 					data.setValue(service.getTitle(), CalculateFeatureValue.calculateTotalValue(service, feature));
 				}
-			}
+			}*/
 				
 			//Setup the chart names and axes
 			chart = ChartFactory.createPieChart("Client Services", data);
@@ -84,11 +84,11 @@ public class GenerateGraph
 		{
 			data = new DefaultPieDataset();
 			
-			while((feature = processFeature.getNextFeatureForService(service)) != null)
+			/*while((feature = processFeature.getNextFeatureForService(service)) != null)
 			{							
 				//Populate the data in the chart
 				data.setValue(service.getTitle(), CalculateFeatureValue.calculateTotalValue(service, feature));
-			}
+			}*/
 				
 			//Setup the chart names and axes
 			chart = ChartFactory.createPieChart("Features", data);
