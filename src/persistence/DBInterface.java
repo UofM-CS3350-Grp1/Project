@@ -349,6 +349,92 @@ public class DBInterface
 	}
 	
 	/**
+	 * 	GETSERVICETYPESBYTYPE()
+	 * 
+	 *  @param	int id	-	String type to search for
+	 *  
+	 *  @return	ArrayList<ServiceType>	-	ArrayList<ServiceType> specified by name, null if no match
+	 */	
+	
+	public ArrayList<ServiceType> getServiceTypesByType(String type)
+	{
+		ArrayList<ServiceType> storage = new ArrayList<ServiceType>();
+		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+		ArrayList<String> conditions = new ArrayList<String>();
+		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+		
+		if(type != null && !type.isEmpty())
+		{
+			conditions.add("SERVICE_TYPE");
+			conditions.add("= ");
+			conditions.add("'"+type+"'");
+			
+			clauses.add(conditions);
+			
+			returnValue  = this.mainDB.query("SERVICES_TYPES", clauses);
+			
+			storage = parser.parseServiceTypes(returnValue);
+			
+			if(storage.size() < 1)
+			{
+				return null;
+			}
+			else
+			{
+				return storage;
+			}
+		}
+		else
+		{
+			return null;
+		}
+		
+	}
+	
+	/**
+	 * 	GETTRACKEDFEATURETYPESBYTITLE()
+	 * 
+	 *  @param	int id	-	String title to search for
+	 *  
+	 *  @return	TrackedFeatureType	-	TrackedFeatureType specified by name, null if no match
+	 */	
+	
+	public ArrayList<TrackedFeatureType> getTrackedFeatureTypesByTitle(String title)
+	{
+		ArrayList<TrackedFeatureType> storage = new ArrayList<TrackedFeatureType>();
+		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+		ArrayList<String> conditions = new ArrayList<String>();
+		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+		
+		if(title != null && !title.isEmpty())
+		{
+			conditions.add("TITLE");
+			conditions.add("= ");
+			conditions.add("'"+title+"'");
+			
+			clauses.add(conditions);
+			
+			returnValue  = this.mainDB.query("FEATURE_TYPES", clauses);
+			
+			storage = parser.parseFeatureTypes(returnValue);
+			
+			if(storage.size() < 1)
+			{
+				return null;
+			}
+			else
+			{
+				return storage;
+			}
+		}
+		else
+		{
+			return null;
+		}
+		
+	}
+	
+	/**
 	 * 	GETCONTRACTSBYBUSINESS()
 	 * 
 	 *  @param	String business	-	Business name to search for

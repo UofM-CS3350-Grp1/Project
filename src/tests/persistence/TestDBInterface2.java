@@ -44,6 +44,9 @@ public class TestDBInterface2 {
 		assertNotNull("ServiceType by ID", servL = mainFace.getServicesByType(mainFace.getServiceTypeByID(1)));
 		assertNotNull("FeatureType", featL = mainFace.getFeaturesByType(mainFace.getTrackedFeatureTypeByID(1)));
 		
+		assertNotNull("ServiceType by ID", mainFace.getServiceTypesByType("Web Design"));
+		assertNotNull("FeatureType", mainFace.getTrackedFeatureTypesByTitle("Page Hits"));
+		
 		assertNotNull("New Tracked Feature", mainFace.getTrackedFeatureByID(1));
 		assertNotNull("New Service",mainFace.getServiceByID(1));
 		
@@ -58,6 +61,9 @@ public class TestDBInterface2 {
 		
 		assertNull("Tracked Feature Type not in range",mainFace.getTrackedFeatureTypeByID(Integer.MAX_VALUE));
 		assertNull("Service Type not in range",mainFace.getServiceTypeByID(Integer.MAX_VALUE));
+		
+		assertNull("ServiceType by ID", mainFace.getServiceTypesByType("Web Desaaign"));
+		assertNull("FeatureType", mainFace.getTrackedFeatureTypesByTitle("Page Hssits"));
 		
 		mainFace.disconnect();
 	}
