@@ -492,7 +492,7 @@ public class DBInterface
 	 *  @return	TrackedFeature	-	TrackedFeature specified by Service, null if no match
 	 */	
 	
-	public ArrayList<TrackedFeature> getTrackedFeaturesByService(Service input)
+	public ArrayList<TrackedFeature> getTrackedFeaturesByClient(Client input)
 	{
 		if(input != null && input.getID() >= 0)
 		{
@@ -501,7 +501,7 @@ public class DBInterface
 			ArrayList<String> conditions = new ArrayList<String>();
 			ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
 			
-			conditions.add("SERVICE_ID");
+			conditions.add("CLIENT_ID");
 			conditions.add("= ");
 			conditions.add("'"+input.getID()+"'");
 			
@@ -586,31 +586,31 @@ public class DBInterface
 	}
 	
 	/**
-	 * 	GETSERVICEBYFEATURE()
+	 * 	GETCLIENTBYFEATURE()
 	 * 
 	 *  @param	Feature 	- Feature to use to retrieve Service
 	 *  
 	 *  @return	Service	-	Service referenced by feature, null if no ref
 	 */	
 	
-	public Service getServiceByFeature(TrackedFeature input)
+	public Client getClientByFeature(TrackedFeature input)
 	{
 		if(input != null && input.getID() >= 0)
 		{
-			ArrayList<Service> storage = new ArrayList<Service>();
+			ArrayList<Client> storage = new ArrayList<Client>();
 			ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
 			ArrayList<String> conditions = new ArrayList<String>();
 			ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
 			
 			conditions.add("ROW_ID");
 			conditions.add("= ");
-			conditions.add("'"+input.getServiceKey()+"'");
+			conditions.add("'"+input.getClientKey()+"'");
 			
 			clauses.add(conditions);
 			
-			returnValue  = this.mainDB.query("SERVICES", clauses);
+			returnValue  = this.mainDB.query("CLIENTS", clauses);
 			
-			storage = parser.parseServices(returnValue);
+			storage = parser.parseClients(returnValue);
 			
 			if(storage.size() != 1)
 			{

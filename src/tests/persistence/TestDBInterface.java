@@ -29,10 +29,10 @@ public class TestDBInterface
 		
 		assertNotNull("Get Service by Contract", mainFace.getServiceByContract(mainFace.getContractByID(1)));
 		assertNotNull("Get Service by Client", mainFace.getServiceByClient(mainFace.getClientByID(1)));
-		assertNotNull("Get Service By Feature", mainFace.getServiceByFeature(mainFace.getTrackedFeatureByID(1)));
+		assertNotNull("Get Client By Feature", mainFace.getClientByFeature(mainFace.getTrackedFeatureByID(2)));
 		
 		assertNotNull("Feature history retrieval by client", mainFace.getFeatureHistoryFromParent(mainFace.getClientByID(1), mainFace.getTrackedFeatureByID(1)));
-		assertNotNull("Tracked features by service", mainFace.getTrackedFeaturesByService(mainFace.getServiceByID(3)));
+		assertNotNull("Tracked features by service", mainFace.getTrackedFeaturesByClient(mainFace.getClientByID(3)));
 		
 		assertNotNull("Table dump, Services", mainFace.dumpServices());
 		assertNotNull("Table dump, Contracts", mainFace.dumpContracts());
@@ -182,7 +182,7 @@ public class TestDBInterface
 		//insertList
 		for(int i = 0; i < 5; i++)
 		{
-			conList.add(new Contract(500+i, "TESTBUSINESS", "NODETAILS", 4.1, new Date(),"Head","Foot", new Date(), null));
+			conList.add(new Contract(500+i, "TESTBUSINESS", "NODETAILS", 4.1, new Date(),"Head","Foot", new Date(), new Date()));
 			serList.add(new Service(500+i,"shhad", "dasdsh", 4.33, 4, 2, mainFace.getServiceTypeByID(1),"ContractBody"));
 			traList.add(new TrackedFeature("NAME", "NOTES", 500 + i, 3, mainFace.getTrackedFeatureTypeByID(1), null));
 			feaList.add(new FeatureHistory(mainFace.getTrackedFeatureByID(1), mainFace.getClientByID(1), 22.1, new Date(), "NKJDS", 500 +i));
