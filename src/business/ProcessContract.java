@@ -33,34 +33,38 @@ public class ProcessContract extends ProcessStorable
 	public int getUnusedContractID()
 	{
 		int result = 0;
+		Contract temp = null;
+		boolean found = false;
+		boolean used = false;
 		ArrayList<Contract> contractList = new ArrayList<Contract>();
+		Iterator<Contract> it;
 		
 		database.connect();
 		contractList = database.dumpContracts();
 		database.disconnect();
 		
-		Contract temp = null;
-		
-		boolean found = false;
-		boolean used = false;
-		while(!found)
+		if(contractList != null)
 		{
-			result++;
-			used=false;
-			Iterator<Contract> it = contractList.iterator();
-			while(it.hasNext() && !used)
+			while(!found)
 			{
-				temp = it.next();
-				if(temp.getID()==result)
+				result++;
+				used = false;
+				it = contractList.iterator();
+				
+				while(it.hasNext() && !used)
 				{
-					used=true;
+					temp = it.next();
+					if(temp.getID() == result)
+					{
+						used = true;
+					}
 				}
+				
+				if(!used)
+				{
+					found = true;
+				}				
 			}
-			if(!used)
-			{
-				found = true;
-			}
-			
 		}
 		
 		return result;
@@ -85,9 +89,14 @@ public class ProcessContract extends ProcessStorable
 	 */
 	public ArrayList<Contract> getContractsByClient(Client client)
 	{
-		database.connect();
-		ArrayList<Contract> theContract = database.getContractsByBusiness(client.getBusinessName());
-		database.disconnect();
+		ArrayList<Contract> theContract = null;
+		
+		if(client != null)
+		{
+			database.connect();
+			theContract = database.getContractsByBusiness(client.getBusinessName());
+			database.disconnect();
+		}
 		
 		return theContract;
 	}
@@ -97,22 +106,32 @@ public class ProcessContract extends ProcessStorable
 	 */
 	public Client getContractClient(Contract contract)
 	{
-		database.connect();
-		ArrayList<Client> list = database.dumpClients();
-		database.disconnect();
-		
-		Iterator<Client> it = list.iterator();
+		ArrayList<Client> list;
+		Iterator<Client> it;
 		Client result = null;
 		Client temp = null;
 		
-		while(it.hasNext())
+		if(contract != null)
 		{
-			temp = it.next();
-			if(contract.getBusinessName()==temp.getBusinessName())
+			database.connect();
+			list = database.dumpClients();
+			database.disconnect();
+			
+			if(list != null)
 			{
-				result = temp;
+				it = list.iterator();
+				
+				while(it.hasNext() && result == null)
+				{
+					temp = it.next();
+					if(contract.getBusinessName() == temp.getBusinessName())
+					{
+						result = temp;
+					}
+				}
 			}
 		}
+		
 		return result;
 	}
 
@@ -137,24 +156,32 @@ public class ProcessContract extends ProcessStorable
 	{
 		ArrayList<Service> result = new ArrayList<Service>();
 		ArrayList<Service> temp = null;
-		
-		database.connect();
-		temp = database.dumpServices();
-		database.disconnect();
-		
-		System.out.println("Searching for services");
-		Iterator<Service> it = temp.iterator();
 		Service service = null;
+		Iterator<Service> it;
 		
-		while(it.hasNext())
+		if(contract != null)
 		{
-			service = it.next();
-			if(service.getContractID() == contract.getID())
+			database.connect();
+			temp = database.dumpServices();
+			database.disconnect();
+			
+			if(temp != null)
 			{
-				System.out.println("Service found: "+service.getTitle());
-				result.add(service);
+				System.out.println("Searching for services");
+				it = temp.iterator();
+							
+				while(it.hasNext())
+				{
+					service = it.next();
+					if(service.getContractID() == contract.getID())
+					{
+						System.out.println("Service found: "+service.getTitle());
+						result.add(service);
+					}
+				}
 			}
 		}
+		
 		return result;
 	}
 	
@@ -165,10 +192,13 @@ public class ProcessContract extends ProcessStorable
 	 */
 	public void setServices(Contract contract, ArrayList<Service> services)
 	{
-		contract.addServices(services);
-		database.connect();
-		database.update(contract);
-		database.disconnect();
+		if(contract != null)
+		{
+			contract.addServices(services);
+			database.connect();
+			database.update(contract);
+			database.disconnect();
+		}
 	}
 	
 	/**
@@ -177,12 +207,15 @@ public class ProcessContract extends ProcessStorable
 	public int getNumberOfServices(Contract contract)
 	{
 		int result = 0;
-		ArrayList<Service> services = null;
-		database.connect();
-		database.disconnect();
-		services = contract.getServices();
+		ArrayList<Service> services;
 		
-		result = services.size();
+		if(contract != null)
+		{
+			services = contract.getServices();
+			
+			if(services != null)
+				result = services.size();
+		}
 		
 		return result;
 	}
@@ -193,17 +226,24 @@ public class ProcessContract extends ProcessStorable
 	public double getTotalContractsValue()
 	{
 		double result = 0;
+		Contract temp = null;
+		Iterator<Contract> it;
+		
 		database.connect();
 		contracts = database.dumpContracts();
 		database.disconnect();
-		Contract temp = null;
-		Iterator<Contract> it = contracts.iterator();
 		
-		while(it.hasNext())
+		if(contracts != null)
 		{
-			temp = (Contract) it.next();
-			result += temp.getValue();
+			it = contracts.iterator();
+			
+			while(it.hasNext())
+			{
+				temp = it.next();
+				result += temp.getValue();
+			}
 		}
+		
 		return result;
 	}
 	
@@ -215,20 +255,30 @@ public class ProcessContract extends ProcessStorable
 	public int getNumContractsBetween(Date start, Date end)
 	{
 		int result = 0;
-		database.connect();
-		contracts = database.dumpContracts();
-		database.disconnect();
 		Contract temp = null;
-		Iterator<Contract> it = contracts.iterator();
+		Iterator<Contract> it;
 		
-		while(it.hasNext())
+		if(start != null && end != null)
 		{
-			temp = (Contract) it.next();
-			if(temp.getSignedDate().getSeconds()>=start.getSeconds() && temp.getSignedDate().getSeconds()<=end.getSeconds())
+			database.connect();
+			contracts = database.dumpContracts();
+			database.disconnect();
+			
+			if(contracts != null)
 			{
-				result++;
+				it = contracts.iterator();
+				
+				while(it.hasNext())
+				{
+					temp = (Contract) it.next();
+					if(temp.getSignedDate().getSeconds()>=start.getSeconds() && temp.getSignedDate().getSeconds()<=end.getSeconds())
+					{
+						result++;
+					}
+				}
 			}
 		}
+		
 		return result;
 	}
 	
@@ -240,20 +290,30 @@ public class ProcessContract extends ProcessStorable
 	public double getValueOfContractsBetween(Date start, Date end)
 	{
 		double result = 0;
-		database.connect();
-		contracts = database.dumpContracts();
-		database.disconnect();
 		Contract temp = null;
-		Iterator<Contract> it = contracts.iterator();
+		Iterator<Contract> it;
 		
-		while(it.hasNext())
+		if(start != null && end != null)
 		{
-			temp = (Contract) it.next();
-			if(temp.getSignedDate().getSeconds()>=start.getSeconds() && temp.getSignedDate().getSeconds()<=end.getSeconds())
+			database.connect();
+			contracts = database.dumpContracts();
+			database.disconnect();
+			
+			if(contracts != null)
 			{
-				result += temp.getValue();
+				it = contracts.iterator();
+				
+				while(it.hasNext())
+				{
+					temp = (Contract) it.next();
+					if(temp.getSignedDate().getSeconds()>=start.getSeconds() && temp.getSignedDate().getSeconds()<=end.getSeconds())
+					{
+						result += temp.getValue();
+					}
+				}
 			}
 		}
+		
 		return result;
 	}
 	
@@ -265,16 +325,24 @@ public class ProcessContract extends ProcessStorable
 	{
 		double result = 0;
 		Service temp = null;
-		ArrayList<Service> services = contract.getServices();
-		Iterator<Service> it = services.iterator();
-		
-		while(it.hasNext())
+		ArrayList<Service> services; 
+		Iterator<Service> it;
+			
+		if(contract != null)
 		{
-			temp = (Service) it.next();
-			result += temp.getRate();
+			services = contract.getServices();		
+			if(services != null)
+			{
+				it = services.iterator();
+				
+				while(it.hasNext())
+				{
+					temp = it.next();
+					result += temp.getRate();
+				}
+			}
 		}
 		
 		return result;
 	}
-	
 }
