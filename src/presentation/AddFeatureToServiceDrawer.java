@@ -105,7 +105,7 @@ public class AddFeatureToServiceDrawer
 		TrackedFeature feature;
 		
 		//Ensure that our form data is valid
-		if((index = featureCombo.getSelectionIndex()) != -1)
+		/*if((index = featureCombo.getSelectionIndex()) != -1)
 		{
 			feature = (TrackedFeature) featureCombo.getData(featureCombo.getItem(index));
 			if(feature != null)
@@ -114,7 +114,7 @@ public class AddFeatureToServiceDrawer
 				if(processFeature.addTrackedFeatureToService(service, feature))
 					goBackToPreviousScreen();
 			}
-		}
+		}*/
 	}
 	
 	/**
