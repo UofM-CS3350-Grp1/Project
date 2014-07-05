@@ -60,7 +60,7 @@ public class TrackedFeatureTest
 	@Test
 	public void testFeature8()
 	{
-		TrackedFeature feature = new TrackedFeature("Feature", featureType);		
+		TrackedFeature feature = new TrackedFeature("Feature", "Notes", featureType);		
 		assertTrue("Name is invalid", feature.getFeatureName().equals("Feature"));
 		assertTrue("Notes are invalid", feature.getNotes().equals("Notes"));
 	}
@@ -128,7 +128,7 @@ public class TrackedFeatureTest
 	@Test
 	public void testFeature16()
 	{
-		TrackedFeature feature = new TrackedFeature("Feature", featureType);		
+		TrackedFeature feature = new TrackedFeature("Feature", "Notes", featureType);		
 		feature.setNotes(null);
 		assertTrue("Notes are invalid", feature.getNotes().equals("Notes"));
 	}
