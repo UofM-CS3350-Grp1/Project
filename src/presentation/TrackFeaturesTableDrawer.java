@@ -29,7 +29,6 @@ public class TrackFeaturesTableDrawer
 	private static final int[] featureWidths = { 0, 300 };
 	
 	private Table featuresTable;
-	private Composite featureButtonComposite;
 	private Service service;
 	private ProcessAddFeature processFeature;
 	
@@ -67,16 +66,6 @@ public class TrackFeaturesTableDrawer
 		featuresTable.setLayoutData(gd_featuresTable);
 		featuresTable.setHeaderVisible(true);
 		featuresTable.setLinesVisible(true);
-		
-		featureButtonComposite = new Composite(featureDataComposite, SWT.NONE);
-		featureButtonComposite.setLayout(new GridLayout(3, false));
-		GridData gd_featureButtonComposite = new GridData(SWT.FILL, SWT.LEFT, false, false, 1, 1);
-		gd_featureButtonComposite.heightHint = 44;
-		gd_featureButtonComposite.widthHint = 215;
-		featureButtonComposite.setLayoutData(gd_featureButtonComposite);
-		
-		new Label(featureButtonComposite, SWT.NONE);
-		new Label(composite, SWT.NONE);
-		
+		new Label(composite, SWT.NONE);		
 	}
 }
