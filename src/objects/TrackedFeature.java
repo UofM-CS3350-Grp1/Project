@@ -11,7 +11,7 @@ public class TrackedFeature implements Storable
 	private String featureName;				//Name of the feature to track
 	private String notes;					//Notes related to the feature
 	private int id;							//Id of object
-	private int serviceKey;					//Key of associated service
+	private int clientID;					//Key of associated client
 	private String tableName;				//Name of table object belongs on
 	private String supplier;				//Supplier paid for expenses
 	private TrackedFeatureType trackedFT;	//Type of feature
@@ -27,7 +27,7 @@ public class TrackedFeature implements Storable
 		if(featureName != null && !featureName.isEmpty() && trackedFT != null)
 		{
 			this.id = -1;
-			this.serviceKey = -1;
+			this.clientID = -1;
 			this.featureName = featureName;
 			this.notes = "";
 			this.tableName = "FEATURE";
@@ -50,8 +50,8 @@ public class TrackedFeature implements Storable
 	{
 		if(featureName != null && !featureName.isEmpty() && notes != null && trackedFT != null)
 		{
-			this.serviceKey = 0;
-			this.id = 0;
+			this.clientID = -1;
+			this.id = -1;
 			this.featureName = featureName;
 			this.notes = notes;
 			this.tableName = "FEATURE";
@@ -73,11 +73,11 @@ public class TrackedFeature implements Storable
 	 * @param trackedFT		TrackedFeature Type of object
 	 * @throws IllegalArgumentException
 	 */
-	public TrackedFeature(String featureName, String notes, int id, int serviceKey, TrackedFeatureType trackedFT, String supplier) throws IllegalArgumentException
+	public TrackedFeature(String featureName, String notes, int id, int clientID, TrackedFeatureType trackedFT, String supplier) throws IllegalArgumentException
 	{
-		if(featureName != null && !featureName.isEmpty() && notes != null && id >= 0 && serviceKey >= 0 && trackedFT != null)
+		if(featureName != null && !featureName.isEmpty() && notes != null && id >= 0 && clientID >= 0 && trackedFT != null)
 		{
-			this.serviceKey = serviceKey;
+			this.clientID = clientID;
 			this.id = id;
 			this.featureName = featureName;
 			this.notes = notes;
@@ -127,9 +127,9 @@ public class TrackedFeature implements Storable
 	/**
 	 * @return Primary key of parent service associated with object
 	 */
-	public int getServiceKey()
+	public int getClientKey()
 	{
-		return this.serviceKey;
+		return this.clientID;
 	}
 	
 	/**
@@ -190,10 +190,10 @@ public class TrackedFeature implements Storable
 	 * @param key ID of new parent object to be returned to
 	 */
 	
-	public void setServiceKey( int key)
+	public void setClientKey( int key)
 	{
 		if(key >= 0)
-			this.serviceKey = key;
+			this.clientID = key;
 	}
 	
 	//----------
@@ -205,7 +205,7 @@ public class TrackedFeature implements Storable
 		ArrayList<String> index = new ArrayList<String>();
 		
 		index.add(""+this.id);
-		index.add(""+this.serviceKey);
+		index.add(""+this.clientID);
 		index.add(""+this.trackedFT.getID());
 		index.add(this.featureName);
 		index.add(this.trackedFT.getType());
@@ -233,7 +233,7 @@ public class TrackedFeature implements Storable
 	{
 		boolean output = true;
 		
-		if(this.serviceKey < 0)
+		if(this.clientID < 0)
 		{
 			output = false;
 		}
