@@ -251,7 +251,11 @@ public class AddContractScreenDrawer
 		try 
 		{
 			date = formatter.parse(endData.getDay() + "/" + endData.getMonth() + "/" + endData.getYear());
-			contract = new Contract(newID, combo.getText(), inputDetails.getText(), value, date, null, null, date);
+
+			//---------------------------------------
+			//Error here Please add valid start Date
+			//---------------------------------------
+			contract = new Contract(newID, combo.getText(), inputDetails.getText(), value, date, null, null, date, new Date()); //<---- Change This
 			
 			processContract.insert(contract);
 			

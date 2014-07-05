@@ -42,8 +42,8 @@ public class Service implements Storable, Trackable
 			this.description = description;
 			this.rate = rate;
 			this.id = id;
-			this.clientID = 0;
-			this.contractID = 0;
+			this.clientID = -1;
+			this.contractID = -1;
 			this.tableName = "SERVICES";
 			this.typeS = typeS;
 			this.contractDetails = "";
@@ -80,8 +80,8 @@ public class Service implements Storable, Trackable
 			this.rate = rate;
 			this.id = 0;;
 			this.tableName = "SERVICES";
-			this.clientID = 0;
-			this.contractID = 0;
+			this.clientID = -1;
+			this.contractID = -1;
 			this.typeS = typeS;
 		}
 		else

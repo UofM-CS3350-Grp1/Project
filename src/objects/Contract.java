@@ -21,6 +21,7 @@ public class Contract implements Storable
 	private SimpleDateFormat sdf;		 //Date formatter
 	private ArrayList<Service> services; //list of services in the contract
 	private Date signedDate;			 //Date contract was signed
+	private Date startDate;				 //Date contract starts
 	private String header;				 //Header text
 	private String footer;				 //FooterText
 	private String tableName;			 //Name of table for insertion
@@ -36,7 +37,7 @@ public class Contract implements Storable
 	 * 
 	 */
 	public Contract(int contractNumber, String businessName, String details, double value, 
-			Date period, String header, String footer, Date signedDate) throws IllegalArgumentException
+			Date period, String header, String footer, Date signedDate, Date startDate) throws IllegalArgumentException
 	{
 		if(contractNumber >= 0 && 
 				businessName != null && 
@@ -45,7 +46,8 @@ public class Contract implements Storable
 				!details.isEmpty() && 
 				value >= 0 && 
 				period != null && (header != null && footer != null) && 
-				signedDate != null)
+				signedDate != null &&
+				startDate != null)
 		{
 			this.contractNumber = contractNumber;
 			this.businessName = businessName;
@@ -54,6 +56,7 @@ public class Contract implements Storable
 			this.period = period;
 			this.sdf = new SimpleDateFormat(DATE_FORMAT);
 			this.signedDate = signedDate;
+			this.startDate = startDate;
 			this.header = header;
 			this.footer = footer;
 			this.tableName = "CONTRACTS";
@@ -75,7 +78,7 @@ public class Contract implements Storable
 	 * 
 	 */
 	public Contract(int contractNumber, String businessName, String details, double value, 
-			Date period, Date signedDate) throws IllegalArgumentException
+			Date period, Date signedDate, Date startDate) throws IllegalArgumentException
 	{
 		if(contractNumber >= 0 && 
 				businessName != null && 
@@ -84,7 +87,8 @@ public class Contract implements Storable
 				!details.isEmpty() && 
 				value >= 0 && 
 				period != null && (header != null && footer != null) && 
-				signedDate != null)
+				signedDate != null &&
+				startDate != null)
 		{
 			this.contractNumber = contractNumber;
 			this.businessName = businessName;
@@ -93,6 +97,7 @@ public class Contract implements Storable
 			this.period = period;
 			this.sdf = new SimpleDateFormat(DATE_FORMAT);
 			this.signedDate = signedDate;
+			this.startDate = startDate;
 			this.tableName = "CONTRACTS";
 		}
 		else
@@ -112,7 +117,7 @@ public class Contract implements Storable
 	 * 
 	 */
 	public Contract(String businessName, String details, double value, 
-			Date period, Date signedDate) throws IllegalArgumentException
+			Date period, Date signedDate, Date startDate) throws IllegalArgumentException
 	{
 		if(contractNumber >= 0 && 
 				businessName != null && 
@@ -120,7 +125,9 @@ public class Contract implements Storable
 				details != null  && 
 				!details.isEmpty() && 
 				value >= 0 && 
-				period != null)
+				period != null&&
+				signedDate != null &&
+				startDate != null)
 		{
 			this.contractNumber = 0;
 			this.businessName = businessName;
@@ -128,6 +135,7 @@ public class Contract implements Storable
 			this.value = value;
 			this.period = period;
 			this.signedDate = signedDate;
+			this.startDate = startDate;
 			this.sdf = new SimpleDateFormat(DATE_FORMAT);
 			this.services = null;
 			this.header ="";
@@ -153,6 +161,16 @@ public class Contract implements Storable
 		assert (date != null);
 		if(date != null)
 			this.signedDate = date;
+	}
+	
+	/**
+	 * @date date Set the date when the contract was signed
+	 */
+	public void setStartDate(Date date)
+	{
+		assert (date != null);
+		if(date != null)
+			this.startDate = date;
 	}
 	
 	/**
@@ -297,6 +315,14 @@ public class Contract implements Storable
 	}
 	
 	/**
+	 * @return Gets the signed date formatted to a string
+	 */
+	public String getFormattedStartDate()
+	{
+		return (startDate != null) ? sdf.format(startDate) : "Not signed";
+	}
+	
+	/**
 	 * @return The contract header String
 	 */
 	
@@ -367,6 +393,7 @@ public class Contract implements Storable
 		index.add(this.header);
 		index.add(this.footer);
 		index.add(sdf.format(signedDate));
+		index.add(sdf.format(startDate));
 		
 		return index;
 	}

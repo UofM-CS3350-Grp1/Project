@@ -114,14 +114,11 @@ public class TrackedFeatureType implements Storable
 	{ 
 		ArrayList<String> index = new ArrayList<String>();
 		
-		if(this.typeID >= 0)
-		{
-			index.add(this.typeID+"");
-			index.add(this.genericTitle);
-			index.add(this.type);
-		}
-		else
-			index = null;
+
+		index.add(this.typeID+"");
+		index.add(this.genericTitle);
+		index.add(this.type);
+
 		
 		return index;
 	}

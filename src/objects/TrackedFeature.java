@@ -13,6 +13,7 @@ public class TrackedFeature implements Storable
 	private int id;							//Id of object
 	private int serviceKey;					//Key of associated service
 	private String tableName;				//Name of table object belongs on
+	private String supplier;				//Supplier paid for expenses
 	private TrackedFeatureType trackedFT;	//Type of feature
 	
 	/**
@@ -55,6 +56,7 @@ public class TrackedFeature implements Storable
 			this.notes = notes;
 			this.tableName = "FEATURE";
 			this.trackedFT = trackedFT;
+			this.supplier = "";
 		}
 		else
 		{
@@ -71,7 +73,7 @@ public class TrackedFeature implements Storable
 	 * @param trackedFT		TrackedFeature Type of object
 	 * @throws IllegalArgumentException
 	 */
-	public TrackedFeature(String featureName, String notes, int id, int serviceKey, TrackedFeatureType trackedFT) throws IllegalArgumentException
+	public TrackedFeature(String featureName, String notes, int id, int serviceKey, TrackedFeatureType trackedFT, String supplier) throws IllegalArgumentException
 	{
 		if(featureName != null && !featureName.isEmpty() && notes != null && id >= 0 && serviceKey >= 0 && trackedFT != null)
 		{
@@ -81,6 +83,7 @@ public class TrackedFeature implements Storable
 			this.notes = notes;
 			this.tableName = "FEATURE";
 			this.trackedFT = trackedFT;
+			this.supplier = supplier;
 		}
 		else
 		{
@@ -111,6 +114,14 @@ public class TrackedFeature implements Storable
 	public String getNotes() 
 	{
 		return notes;
+	}
+	
+	/**
+	 * @return Additional information on the supplier
+	 */
+	public String getSupplier() 
+	{
+		return supplier;
 	}
 	
 	/**
@@ -156,6 +167,17 @@ public class TrackedFeature implements Storable
 	}
 	
 	/**
+	 * Sets the supplier information
+	 * @param notes
+	 */
+	public void setSupplier(String supplier) 
+	{
+		assert (supplier != null);
+		if(supplier != null)
+			this.supplier = supplier;
+	}
+	
+	/**
 	 * @param key TrackedFeatureType to change this object to
 	 */
 	public void setTrackedFeatureType( TrackedFeatureType key)
@@ -188,6 +210,7 @@ public class TrackedFeature implements Storable
 		index.add(this.featureName);
 		index.add(this.trackedFT.getType());
 		index.add(this.notes);
+		index.add(this.supplier);
 		
 		return index;
 	}

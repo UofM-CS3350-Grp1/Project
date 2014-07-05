@@ -111,15 +111,11 @@ public class ServiceType implements Storable
 	{
 		ArrayList<String> index = new ArrayList<String>();
 		
-		if(this.typeID >= 0)
-		{
-			index.add(this.typeID+"");
-			index.add(this.type);
-			index.add(this.description);
-		}
-		else
-			index = null;
-		
+
+		index.add(this.typeID+"");
+		index.add(this.type);
+		index.add(this.description);
+
 		return index;
 	}
 

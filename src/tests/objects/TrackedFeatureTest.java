@@ -39,7 +39,7 @@ public class TrackedFeatureTest
 	@Test(expected=IllegalArgumentException.class)
 	public void testFeature5()
 	{
-		new TrackedFeature("Feature", "Notes", -23, 2, featureType);
+		new TrackedFeature("Feature", "Notes", -23, 2, featureType,"Supplier");
 	}
 	
 	@Test
@@ -68,7 +68,7 @@ public class TrackedFeatureTest
 	@Test
 	public void testFeature9()
 	{
-		TrackedFeature feature = new TrackedFeature("Feature", "", 0, 1, featureType);		
+		TrackedFeature feature = new TrackedFeature("Feature", "", 0, 1, featureType, "Supplier");		
 		assertTrue("Name is invalid", feature.getFeatureName().equals("Feature"));
 		assertTrue("Notes are invalid", feature.getNotes().equals(""));
 		assertTrue("ID is invalid", feature.getID() == 0);
@@ -77,7 +77,7 @@ public class TrackedFeatureTest
 	@Test
 	public void testFeature10()
 	{
-		TrackedFeature feature = new TrackedFeature("Feature", "", 123, 5, featureType);		
+		TrackedFeature feature = new TrackedFeature("Feature", "", 123, 5, featureType, "Supplier");		
 		assertTrue("Name is invalid", feature.getFeatureName().equals("Feature"));
 		assertTrue("Notes are invalid", feature.getNotes().equals(""));
 		assertTrue("ID is invalid", feature.getID() == 123);

@@ -91,7 +91,8 @@ public class DBParser
 					new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(input.get(i).get(4)),
 					input.get(i).get(5),
 					input.get(i).get(6),
-					new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(input.get(i).get(7))
+					new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(input.get(i).get(7)),
+					new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(input.get(i).get(8))
 					);
 			}
 			catch(Exception e)
@@ -163,7 +164,8 @@ public class DBParser
 						input.get(i).get(5),
 						Integer.parseInt(input.get(i).get(0)),
 						Integer.parseInt(input.get(i).get(1)),
-						type
+						type,
+						input.get(i).get(6)
 						);
 				output.add(item);
 			}

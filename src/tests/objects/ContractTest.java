@@ -15,7 +15,7 @@ public class ContractTest
     @Test
     public void testContract1() 
     {
-        Contract contract = new Contract("Nickelback", "A band", 1000000.01, new Date(1402194845), new Date(1402194845));
+        Contract contract = new Contract("Nickelback", "A band", 1000000.01, new Date(1402194845), new Date(1402194845),new Date(1402194845));
         
         assertNotNull("Contract is null", contract);
         assertTrue("Business name is incorrect", contract.getBusinessName().equals("Nickelback"));
@@ -27,61 +27,61 @@ public class ContractTest
     @Test(expected=IllegalArgumentException.class)
     public void testContract2() 
     {
-        new Contract(null, "A band", 1000000.01, new Date(1402194845), new Date(1402194845));
+        new Contract(null, "A band", 1000000.01, new Date(1402194845), new Date(1402194845),new Date(1402194845));
     }
     
     @Test(expected=IllegalArgumentException.class)
     public void testContract3() 
     {
-        new Contract("", "A band", 1000000.01, new Date(1402194845), new Date(1402194845));
+        new Contract("", "A band", 1000000.01, new Date(1402194845), new Date(1402194845),new Date(1402194845));
     }
     
     @Test(expected=IllegalArgumentException.class)
     public void testContract4() 
     {
-        new Contract("Nickelback", null, 1000000.01, new Date(1402194845), new Date(1402194845));
+        new Contract("Nickelback", null, 1000000.01, new Date(1402194845), new Date(1402194845),new Date(1402194845));
     }
     
     @Test(expected=IllegalArgumentException.class)
     public void testContract5() 
     {
-        new Contract("Nickelback", "", 1000000.01, new Date(1402194845), new Date(1402194845));
+        new Contract("Nickelback", "", 1000000.01, new Date(1402194845), new Date(1402194845),new Date(1402194845));
     }
     
     @Test(expected=IllegalArgumentException.class)
     public void testContract6() 
     {
-        new Contract("Nickelback", "A band", -1, new Date(1402194845), new Date(1402194845));
+        new Contract("Nickelback", "A band", -1, new Date(1402194845), new Date(1402194845),new Date(1402194845));
     }
     
     @Test(expected=IllegalArgumentException.class)
     public void testContract7() 
     {
-        new Contract("Nickelback", "A band", 1000000.01, null, null);
+        new Contract("Nickelback", "A band", 1000000.01, null, null, null);
     }
     
     @Test(expected=IllegalArgumentException.class)
     public void testContract8() 
     {
-        new Contract(null, null, -1, null, null);
+        new Contract(null, null, -1, null, null, null);
     }
     
     @Test(expected=IllegalArgumentException.class)
     public void testContract9() 
     {
-        new Contract("", null, -1, null, null);
+        new Contract("", null, -1, null, null, null);
     }
     
     @Test(expected=IllegalArgumentException.class)
     public void testContract10() 
     {
-        new Contract(null, null, 0.0, new Date(1402194845),  null);
+        new Contract(null, null, 0.0, new Date(1402194845),  null, null);
     }   
 
     @Test
     public void testContract11() 
     {
-        Contract contract = new Contract("N", "A", 0.01, new Date(1402194845),  new Date(1402194845));
+        Contract contract = new Contract("N", "A", 0.01, new Date(1402194845),  new Date(1402194845),  new Date(1402194845));
         
         assertNotNull("Contract is null", contract);
         assertTrue("Business name is incorrect", contract.getBusinessName().equals("N"));
@@ -93,7 +93,7 @@ public class ContractTest
     @Test
     public void testContract12() 
     {
-        Contract contract = new Contract("Nickelback", "A band", 1000000.01, new Date(1402194820), new Date(1402194845));
+        Contract contract = new Contract("Nickelback", "A band", 1000000.01, new Date(1402194820), new Date(1402194845),  new Date(1402194845));
         
         assertNotNull("Contract is null", contract);
         assertTrue("Business name is incorrect", contract.getBusinessName().equals("Nickelback"));
@@ -107,7 +107,7 @@ public class ContractTest
     @Test
     public void testMutator1() 
     {
-        Contract contract = new Contract("Nickelback", "A band", 1000000.01, new Date(1402194845), new Date(1402194845));
+        Contract contract = new Contract("Nickelback", "A band", 1000000.01, new Date(1402194845), new Date(1402194845),  new Date(1402194845));
         assertNotNull("Contract is null", contract);
         
         contract.setBusinessName(null);
@@ -118,7 +118,7 @@ public class ContractTest
     @Test
     public void testMutator2() 
     {
-        Contract contract = new Contract("Nickelback", "A band", 1000000.01, new Date(1402194845), new Date(1402194845));
+        Contract contract = new Contract("Nickelback", "A band", 1000000.01, new Date(1402194845), new Date(1402194845),  new Date(1402194845));
         assertNotNull("Contract is null", contract);
         
         contract.setBusinessName("");
@@ -129,7 +129,7 @@ public class ContractTest
     @Test
     public void testMutator3() 
     {
-        Contract contract = new Contract("Nickelback", "A band", 1000000.01, new Date(1402194845), new Date(1402194845));
+        Contract contract = new Contract("Nickelback", "A band", 1000000.01, new Date(1402194845), new Date(1402194845),  new Date(1402194845));
         assertNotNull("Contract is null", contract);
         
         contract.setBusinessName("Boston");
@@ -140,7 +140,7 @@ public class ContractTest
     @Test
     public void testMutator4() 
     {
-        Contract contract = new Contract("Nickelback", "A band", 1000000.01, new Date(1402194845), new Date(1402194845));
+        Contract contract = new Contract("Nickelback", "A band", 1000000.01, new Date(1402194845), new Date(1402194845),  new Date(1402194845));
         assertNotNull("Contract is null", contract);
         
         contract.setDetails(null);
@@ -151,7 +151,7 @@ public class ContractTest
     @Test
     public void testMutator5() 
     {
-        Contract contract = new Contract("Nickelback", "A band", 1000000.01, new Date(1402194845), new Date(1402194845));
+        Contract contract = new Contract("Nickelback", "A band", 1000000.01, new Date(1402194845), new Date(1402194845),  new Date(1402194845));
         assertNotNull("Contract is null", contract);
         
         contract.setDetails("");
@@ -162,7 +162,7 @@ public class ContractTest
     @Test
     public void testMutator6() 
     {
-        Contract contract = new Contract("Nickelback", "A band", 1000000.01, new Date(1402194845), new Date(1402194845));
+        Contract contract = new Contract("Nickelback", "A band", 1000000.01, new Date(1402194845), new Date(1402194845),  new Date(1402194845));
         assertNotNull("Contract is null", contract);
         
         contract.setDetails("Another Band");
@@ -173,7 +173,7 @@ public class ContractTest
     @Test
     public void testMutator7() 
     {
-        Contract contract = new Contract("Nickelback", "A band", 1000000.01, new Date(1402194845), new Date(1402194845));
+        Contract contract = new Contract("Nickelback", "A band", 1000000.01, new Date(1402194845), new Date(1402194845),  new Date(1402194845));
         assertNotNull("Contract is null", contract);
         
         contract.setValue(-1.1);
@@ -183,7 +183,7 @@ public class ContractTest
     @Test
     public void testMutator8() 
     {
-        Contract contract = new Contract("Nickelback", "A band", 1000000.01, new Date(1402194845), new Date(1402194845));
+        Contract contract = new Contract("Nickelback", "A band", 1000000.01, new Date(1402194845), new Date(1402194845),  new Date(1402194845));
         assertNotNull("Contract is null", contract);
         
         contract.setValue(0);
@@ -193,7 +193,7 @@ public class ContractTest
     @Test
     public void testMutator9() 
     {
-        Contract contract = new Contract("Nickelback", "A band", 1000000.01, new Date(1402194845), new Date(1402194845));
+        Contract contract = new Contract("Nickelback", "A band", 1000000.01, new Date(1402194845), new Date(1402194845),  new Date(1402194845));
         assertNotNull("Contract is null", contract);
         
         contract.setValue(10);
@@ -203,7 +203,7 @@ public class ContractTest
     @Test
     public void testMutator10() 
     {
-        Contract contract = new Contract("Nickelback", "A band", 1000000.01, new Date(1402194845), new Date(1402194845));
+        Contract contract = new Contract("Nickelback", "A band", 1000000.01, new Date(1402194845), new Date(1402194845),  new Date(1402194845));
         assertNotNull("Contract is null", contract);
         
         contract.setPeriod(null);
@@ -214,7 +214,7 @@ public class ContractTest
     @Test
     public void testMutator11() 
     {
-        Contract contract = new Contract("Nickelback", "A band", 1000000.01, new Date(1402194845), new Date(1402194845));
+        Contract contract = new Contract("Nickelback", "A band", 1000000.01, new Date(1402194845), new Date(1402194845),  new Date(1402194845));
         assertNotNull("Contract is null", contract);
         
         contract.setPeriod(new Date(187893225));
