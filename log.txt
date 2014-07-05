@@ -29,6 +29,13 @@ TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 
+Task: Fixing bugs that resulted from the refactored domain objects
+Date: 07/04 9:00pm
+Assigned to: Jason
+Status: completed
+Duration: 30min
+Description: -rewrote constructors that were affected by the changes
+
 Task: Cleanup of Domain Objects & Persistence Testing
 Date: 7/4/2014
 Status: Completed
