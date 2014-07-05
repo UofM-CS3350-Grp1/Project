@@ -50,7 +50,7 @@ public class TestDBInterface
 		DBInterface mainFace = new DBInterface("CacheDB");
 		mainFace.connect();
 		
-		Contract badContract = new Contract("NAME", "DETAILS", 3.1, new Date(), new Date());
+		Contract badContract = new Contract("NAME", "DETAILS", 3.1, new Date(), new Date(), new Date());
 		Client badClient = new Client("NAME", new PhoneNumber("2222222222"), new Email("stuff@stuff.com"), "ADDR", "BNAME", ClientStatus.Active);
 		Service badService = new Service("TITLE", "DESCRIP", 4.1, mainFace.getServiceTypeByID(1));
 		
@@ -104,7 +104,7 @@ public class TestDBInterface
 		
 		FeatureHistory newHistory = null;
 		newHistory = new FeatureHistory(mainFace.getTrackedFeatureByID(1), mainFace.getClientByID(2), 2.0, new Date(), "blahblahblah");
-		TrackedFeature newTracking = new TrackedFeature("BobLoblawsLawBlog", "Lobslawbombs", 2, 1, mainFace.getTrackedFeatureTypeByID(1));
+		TrackedFeature newTracking = new TrackedFeature("BobLoblawsLawBlog", "Lobslawbombs", 2, 1, mainFace.getTrackedFeatureTypeByID(1), null);
 		assertTrue("FeatreHistory Insert", mainFace.insert(newHistory));
 		assertTrue("TrackedFeature Insert", mainFace.insert(newTracking));
 		
@@ -136,7 +136,7 @@ public class TestDBInterface
 		assertFalse("TrackedFeature null Insert", mainFace.insert(null));
 		
 		FeatureHistory newHistory = new FeatureHistory(mainFace.getTrackedFeatureByID(1), mainFace.getClientByID(2), 2.0, new Date(), "blahblahblah");
-		newTracking = new TrackedFeature("BobLoblawsLawBlog", "Lobslawbombs", Integer.MAX_VALUE, 3, mainFace.getTrackedFeatureTypeByID(1));
+		newTracking = new TrackedFeature("BobLoblawsLawBlog", "Lobslawbombs", Integer.MAX_VALUE, 3, mainFace.getTrackedFeatureTypeByID(1), null);
 		
 		assertFalse("FeatureHistory update on non-existant index", mainFace.update(newHistory));
 		assertFalse("TrackedFeature update on non-existant index", mainFace.update(newTracking));
@@ -182,9 +182,9 @@ public class TestDBInterface
 		//insertList
 		for(int i = 0; i < 5; i++)
 		{
-			conList.add(new Contract(500+i, "TESTBUSINESS", "NODETAILS", 4.1, new Date(),"Head","Foot", new Date()));
+			conList.add(new Contract(500+i, "TESTBUSINESS", "NODETAILS", 4.1, new Date(),"Head","Foot", new Date(), null));
 			serList.add(new Service(500+i,"shhad", "dasdsh", 4.33, 4, 2, mainFace.getServiceTypeByID(1),"ContractBody"));
-			traList.add(new TrackedFeature("NAME", "NOTES", 500 + i, 3, mainFace.getTrackedFeatureTypeByID(1)));
+			traList.add(new TrackedFeature("NAME", "NOTES", 500 + i, 3, mainFace.getTrackedFeatureTypeByID(1), null));
 			feaList.add(new FeatureHistory(mainFace.getTrackedFeatureByID(1), mainFace.getClientByID(1), 22.1, new Date(), "NKJDS", 500 +i));
 			cliList.add(new Client(500+i, "NAME", new PhoneNumber("2222222222"), new Email("cat@catcat.com"), "ADDR", "NAME", 1));
 		}
