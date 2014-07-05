@@ -65,7 +65,7 @@ public class HistoryTableDrawer
 		Label lblHistory = new Label(historyDataComposite, SWT.NONE);
 		lblHistory.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		lblHistory.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.BOLD));
-		lblHistory.setText("Tracked Features");
+		lblHistory.setText(feature.getFeatureName() + " History");
 		
 		historyTable = new Table(historyDataComposite, SWT.BORDER | SWT.FULL_SELECTION | SWT.V_SCROLL | SWT.H_SCROLL);
 		GridData gd_HistoryTable = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
