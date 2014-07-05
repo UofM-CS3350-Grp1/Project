@@ -132,4 +132,33 @@ public class GenerateGraph
 		
 		return chart;
 	}
+	
+	/**
+	 * Creates a line graph of the revenue for the past 12 months
+	 * @param client	The client to produce the data for
+	 * @return A chart containing the past 12 months of revenue
+	 */
+	public JFreeChart generateRevenueChartForClient(Client client)
+	{
+		JFreeChart chart = null;
+		DefaultCategoryDataset data;
+		Plot plot;
+		
+		assert (client != null);
+		if(client != null)
+		{
+			data = new DefaultCategoryDataset();
+			
+			//Get the revenue data per month 
+			
+			//Plot the last 12 months worth of data
+			
+			//Setup the chart
+			chart = ChartFactory.createLineChart("Revenue", "Period (Months)", "Dollars", data);
+			plot = chart.getPlot();
+			plot.setNoDataMessage("No data available");
+		}
+		
+		return chart;
+	}
 }

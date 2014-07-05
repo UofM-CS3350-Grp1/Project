@@ -1,12 +1,13 @@
 package presentation;
 
+import java.util.ArrayList;
+
 import objects.Client;
+import objects.Contract;
 import objects.Service;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.MessageBox;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -17,12 +18,7 @@ import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.widgets.Table;
 
 import business.GenerateGraph;
-import business.ProcessClient;
-import business.ProcessService;
-
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
+import business.ProcessContract;
 import org.jfree.experimental.chart.swt.ChartComposite;
 
 /**
@@ -37,6 +33,7 @@ public class ClientAnalysisScreenDrawer
 	
 	private ScrolledComposite scrollComposite;
 	private Composite composite;
+	private Composite performanceComposite;
 	private Table servicesTable;
 	private Client client;
 	
@@ -46,12 +43,7 @@ public class ClientAnalysisScreenDrawer
 	private Label lblAddressData;
 	private Label lblPhoneNumberData;
 	private Label lblStatusData;
-	
-	private ProcessService processService;
-	private ProcessClient processClient;
-	private Button btnViewSelected;
-	private Composite serviceButtonComposite;
-	
+		
 	/**
 	 * Creates a new client analysis screen
 	 * @param container 	The composite
@@ -69,9 +61,6 @@ public class ClientAnalysisScreenDrawer
 			this.client = client;
 		else
 			throw new IllegalArgumentException();
-		
-		processService = new ProcessService();
-		processClient  = new ProcessClient();
 		
 		Composite clientDataComposite = new Composite(composite, SWT.NONE);
 		clientDataComposite.setLayout(new GridLayout(5, false));
@@ -169,50 +158,9 @@ public class ClientAnalysisScreenDrawer
 		servicesTable.setLayoutData(gd_servicesTable);
 		servicesTable.setHeaderVisible(true);
 		servicesTable.setLinesVisible(true);
-		
-		serviceButtonComposite = new Composite(serviceDataComposite, SWT.NONE);
-		serviceButtonComposite.setLayout(new GridLayout(3, false));
-		GridData gd_serviceButtonComposite = new GridData(SWT.FILL, SWT.LEFT, false, false, 1, 1);
-		gd_serviceButtonComposite.heightHint = 44;
-		gd_serviceButtonComposite.widthHint = 215;
-		serviceButtonComposite.setLayoutData(gd_serviceButtonComposite);
-		
-		Button btnNewService = new Button(serviceButtonComposite, SWT.NONE);
-		btnNewService.addSelectionListener(new SelectionAdapter()
-		{
-			@Override
-			public void widgetSelected(SelectionEvent arg0)
-			{
-				addService();
-			}
-		});
-		btnNewService.setText("New Service");
-		
-		btnViewSelected = new Button(serviceButtonComposite, SWT.NONE);
-		btnViewSelected.setAlignment(SWT.CENTER);
-		btnViewSelected.addSelectionListener(new SelectionAdapter()
-		{
-			@Override
-			public void widgetSelected(SelectionEvent arg0) 
-			{
-				viewSelected();
-			}
-		});
-		btnViewSelected.setText("View Service");
-		
-		Button btnCancelService = new Button(serviceButtonComposite, SWT.NONE);
-		btnCancelService.addSelectionListener(new SelectionAdapter()
-		{
-			@Override
-			public void widgetSelected(SelectionEvent arg0) 
-			{
-				removeService();
-			}
-		});
-		btnCancelService.setText("Cancel Service");
 		new Label(composite, SWT.NONE);
 		
-		Composite performanceComposite = new Composite(composite, SWT.NONE);
+		performanceComposite = new Composite(composite, SWT.NONE);
 		performanceComposite.setLayout(new GridLayout(1, false));
 		GridData gd_performanceComposite = new GridData(GridData.FILL_BOTH);
 		gd_performanceComposite.heightHint = 100;
@@ -255,6 +203,10 @@ public class ClientAnalysisScreenDrawer
 		TableItem item;
 		TableColumn column;
 		Service service;
+		ArrayList<Contract> contracts;
+		ArrayList<Service> services;
+		ProcessContract processContract = new ProcessContract();
+		int contractsSize, servicesSize;
 		
 		for(int i = 0; i < serviceNames.length; i++)
 		{
@@ -268,17 +220,30 @@ public class ClientAnalysisScreenDrawer
 		column = servicesTable.getColumn(0);
 		column.setResizable(false);
 		
-		while((service = processService.getNextService()) != null)
+		//Populate our service table with all of the services
+		//on the active contracts
+		contracts = processContract.getContractsByClient(client);
+		if(contracts != null)
 		{
-			if(service.getClientID() == client.getID())
+			contractsSize = contracts.size();
+			for(int i = 0; i < contractsSize; i++)
 			{
-				item = new TableItem(servicesTable, SWT.NULL);
-				
-				item.setText(0, service.getID() + "");
-				item.setText(1, service.getTitle());
-				item.setText(2, String.valueOf(service.getRate()));
-				item.setText(3, service.getServiceType().getType());
-				item.setText(4, service.getDescription());
+				services = processContract.getServices(contracts.get(i));
+				if(services != null)
+				{
+					servicesSize = services.size();
+					for(int j = 0; j < servicesSize; j++)
+					{
+						service = services.get(j);
+						item = new TableItem(servicesTable, SWT.NULL);
+						
+						item.setText(0, service.getID() + "");
+						item.setText(1, service.getTitle());
+						item.setText(2, String.valueOf(service.getRate()));
+						item.setText(3, service.getServiceType().getType());
+						item.setText(4, service.getDescription());
+					}
+				}
 			}
 		}
 	}
@@ -288,91 +253,24 @@ public class ClientAnalysisScreenDrawer
 	 */
 	private void generateReports()
 	{
-		GenerateGraph graphGenerator = new GenerateGraph();
-		ChartComposite chartComp = new ChartComposite(composite, SWT.NONE, graphGenerator.GenerateChartForClient(client));
-		GridData gd_chartComposite = new GridData(SWT.FILL, SWT.LEFT, false, false, 1, 1);
-		gd_chartComposite.heightHint = 500;
-		chartComp.setLayoutData(gd_chartComposite);
-	}
-	
-	/**
-	 * View the performance data for the selected service item
-	 */
-	private void viewSelected()
-	{
-		int index, id;
-		Composite viewServicePerformance;
-		Service service;
-
-		if((index = servicesTable.getSelectionIndex()) != -1)
-		{
-			try
-			{
-				//Extract the service ID from the table
-				id = Integer.parseInt(servicesTable.getItem(index).getText(0));
-				service = processService.getServiceByClient(id, client);
-				
-				if(service != null)
-				{
-					//Open the service performance tracking screen
-					viewServicePerformance = SwitchScreen.getContentContainer();
-					new PerformanceClientServiceScreenDrawer(viewServicePerformance, client, service);
-					SwitchScreen.switchContent(viewServicePerformance);
-				}
-			}
-			catch(NumberFormatException nfe) 
-			{
-				System.out.println(nfe);
-			}
-		}
-	}
-	
-	/**
-	 * Adds a service to the client
-	 */
-	private void addService()
-	{
-		Composite addClientService = SwitchScreen.getContentContainer();
-		new AddClientServiceScreenDrawer(addClientService, client);
-		SwitchScreen.switchContent(addClientService);		
-	}
-	
-	/**
-	 * Removes a service from the client
-	 */
-	private void removeService()
-	{
-		int selectedIndex = servicesTable.getSelectionIndex();
-		MessageBox dialog;
-		int buttonID;
-		Service service;
-		TableItem selectedItem;
+		GenerateGraph graphGenerator = new GenerateGraph();		
+		//ChartComposite chartComp;
+		GridData gd_chartComposite;
 		
-		if(selectedIndex != -1)
+		//Display the general all feature summary
+		performanceComposite = new ChartComposite(composite, SWT.NONE, graphGenerator.generateRevenueChartForClient(client));
+		gd_chartComposite = new GridData(SWT.FILL, SWT.LEFT, true, false, 1, 1);
+		gd_chartComposite.heightHint = 500;
+		performanceComposite.setLayoutData(gd_chartComposite);
+		
+		//Display a chart for each tracked feature
+		/*while((feature = processFeature.getNextFeatureForService(service)) != null)
 		{
-			selectedItem = servicesTable.getItem(selectedIndex);
-			
-			//Ensure that the user actually wants to delete the item
-			dialog = new MessageBox(new Shell(), SWT.ICON_WARNING | SWT.YES | SWT.NO);
-			dialog.setText("Confirmation");
-			dialog.setMessage("Are you sure you want to delete " + selectedItem.getText(1) + "?");
-			
-			buttonID = dialog.open();
-			switch(buttonID)
-			{
-				case SWT.YES:
-					service = processService.getServiceByID(Integer.parseInt(selectedItem.getText(0)));
-					
-					if(service != null)
-						processClient.removeServiceFromClient(service);
-					
-					servicesTable.remove(selectedIndex);
-					
-					break;
-					
-				case SWT.NO:
-					break;
-			}
-		}
+			//Generate the composite
+			chartComp = new ChartComposite(composite, SWT.NONE, graphGenerator.GenerateChartForFeature(service, feature));
+			gd_chartComposite = new GridData(SWT.FILL, SWT.LEFT, false, false, 1, 1);
+			gd_chartComposite.heightHint = CHART_HEIGHT;
+			chartComp.setLayoutData(gd_chartComposite);
+		}*/
 	}
 }

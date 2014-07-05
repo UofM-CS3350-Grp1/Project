@@ -187,13 +187,6 @@ public class PerformanceServiceScreenDrawer
 	}
 	
 	/**
-	 * Draws the history for a given client's service
-	 * 
-	 * @param feature The feature to draw history for
-	 */
-	protected void drawHistoryTable(TrackedFeature feature)  { }
-	
-	/**
 	 * Go back to the previous screen
 	 */
 	protected void goBackToPreviousScreen()
