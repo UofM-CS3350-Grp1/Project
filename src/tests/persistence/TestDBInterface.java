@@ -31,7 +31,6 @@ public class TestDBInterface
 		assertNotNull("Get Service by Client", mainFace.getServiceByClient(mainFace.getClientByID(1)));
 		assertNotNull("Get Client By Feature", mainFace.getClientByFeature(mainFace.getTrackedFeatureByID(2)));
 		
-		assertNotNull("Feature history retrieval by client", mainFace.getFeatureHistoryFromParent(mainFace.getClientByID(1), mainFace.getTrackedFeatureByID(1)));
 		assertNotNull("Tracked features by service", mainFace.getTrackedFeaturesByClient(mainFace.getClientByID(3)));
 		
 		assertNotNull("Table dump, Services", mainFace.dumpServices());
@@ -71,12 +70,7 @@ public class TestDBInterface
 		
 		assertNull("Get Service by uninserted Contract", mainFace.getServiceByContract(badContract));
 		assertNull("Get Service by uninserted Client", mainFace.getServiceByClient(badClient));
-		
-		assertNull("Feature history retrieval by negative/null client", mainFace.getFeatureHistoryFromParent(mainFace.getClientByID(-11), mainFace.getTrackedFeatureByID(1)));
-
-		
-		assertNull("Feature history retrieval by uninserted client", mainFace.getFeatureHistoryFromParent(badClient, mainFace.getTrackedFeatureByID(1)));
-				
+					
 		mainFace.disconnect();
 	}
 	

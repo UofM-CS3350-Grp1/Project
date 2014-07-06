@@ -539,58 +539,7 @@ public class DBInterface
 		}
 	}
 	
-	/**
-	 * 	GETFEATURESBYTYPE()
-	 * 
-	 *  @param	int id	-	TrackedFeatureType to search for
-	 *  
-	 *  @return	TrackedFeature	-	TrackedFeature(Feature/Expense) specified by TrackedFeatureType, null if no match
-	 */	
-	
-	public ArrayList<TrackedFeature> getFeaturesByType(TrackedFeatureType input)
-	{
-		if(input != null && input.getID() >= 0)
-		{
-			ArrayList<TrackedFeature> storage = new ArrayList<TrackedFeature>();
-			ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
-			ArrayList<String> conditions = new ArrayList<String>();
-			ArrayList<String> conditions2 = new ArrayList<String>();
-			ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
-			
-			conditions.add("FEATURE_TYPE_ID");
-			conditions.add("= ");
-			conditions.add("'"+input.getID()+"'");
-			
-			conditions2.add("TYPE");
-			conditions2.add("= ");
-			conditions2.add("'"+input.getType()+"'");
-			
-			clauses.add(conditions);
-			
-			returnValue  = this.mainDB.query("FEATURE", clauses);
-			
-			storage = parser.parseFeatures(returnValue);
-			
-			if(storage.size() == 0)
-			{
-				return null;
-			}
-			else
-			{
-				return storage;
-			}
-		}
-		else
-		{	
-			if(input != null && input.getID() < 0 && ERROR_LOGGING == 1)
-				errorMessage("FEATURES", "A FEATURE TYPE OBJECT THAT HAS NOT BEEN INSERTED INTO DMBS\n", "INSERT THE FEATURE TYPE OBJECT");
-			
-			if(input == null && ERROR_LOGGING == 1)
-				errorMessage("FEATURES", "A NULL FEATURE TYPE OBJECT\n", "INSTANTIATE A FEATURE TYPE OBJECT");
 
-			return null;
-		}
-	}
 	
 	/**
 	 * 	GETCLIENTBYFEATURE()
@@ -783,68 +732,7 @@ public class DBInterface
 			return null;
 		}
 	}
-	
-	/**
-	 * GETFEATUREHISTORYFROMPARENT()
-	 * 
-	 * @param element Object with that can handle trackable features.
-	 * @return - Array list containing the tracked features history items associated with this object otherise null
-	 */
-	
-	public ArrayList<FeatureHistory> getFeatureHistoryFromParent(Client element, TrackedFeature feature)
-	{
-		ArrayList<FeatureHistory> storage = new ArrayList<FeatureHistory>();
-		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
-		ArrayList<String> conditions1 = new ArrayList<String>();
-		ArrayList<String> conditions2 = new ArrayList<String>();
-		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
-		
-		if(element != null && feature != null && element.getID() >= 0 && feature.getID() >= 0)
-		{
 
-			conditions1.add("CLIENT_ID");
-			conditions1.add("= ");
-			conditions1.add("'"+element.getID()+"'");
-			clauses.add(conditions1);
-
-			conditions2.add(" FEATURE_ID");
-			conditions2.add("= ");
-			conditions2.add("'"+feature.getID()+"'");
-			clauses.add(conditions2);
-			returnValue = this.mainDB.query("FEATURE_HISTORY",clauses);
-			
-			storage = parser.parseFeatureHistories(returnValue);
-			
-			if(storage.size() == 0)
-			{
-				return null;
-			}
-			else
-			{
-				return storage;
-			}
-		}
-		else
-		{
-			if(element == null && ERROR_LOGGING == 1)
-				errorMessage("FEATURE HSTORY", "A NULL TRACKABLE OBJECT\n", "INSTANTIATE A TRACKABLE OBJECT");
-
-			
-			if(feature == null && ERROR_LOGGING == 1)
-				errorMessage("FEATURE HSTORY", "A NULL TRACKED FEATURE OBJECT\n", "INSTANTIATE A TRCKED FEATURE OBJECT");
-
-			
-			if(element != null && element.getID() < 0 && ERROR_LOGGING == 1)
-				errorMessage("FEATURE HISTORY", "A TRACKABLE OBJECT THAT HAS NOT BEEN INSERTED INTO DMBS\n", "INSERT THE TRACKABLE OBJECT");
-
-			
-			if(feature != null && feature.getID() < 0 && ERROR_LOGGING == 1)
-				errorMessage("FEATURE HISTORY", "A TRACKED FEATURE OBJECT THAT HAS NOT BEEN INSERTED INTO DMBS\n", "INSERT THE TRACKED FEATURE OBJECT");
-
-			
-			return null;
-		}
-	}
 	
 	
 	/**
@@ -1028,13 +916,14 @@ public class DBInterface
 				else
 					serviceValue = 0;
 				
-				sql ="SELECT SUM(FH.AMMOUNT) "+
-				"FROM "+
-				"CLIENTS CL "+
-				"INNER JOIN FEATURE FE ON (FE.CLIENT_ID = CL.ROW_ID AND FE.TYPE = 'Expense') "+
-				"INNER JOIN FEATURE_HISTORY FH ON (FH.FEATURE_ID = FE.ROW_ID AND FH.DATE_RECCORDED  <= '"+sdf.format(toDate.getTime())+"' AND FH.DATE_RECCORDED > '"+sdf.format(fromDate.getTime())+"') "+
-				"WHERE "+
-				"CL.ROW_ID = "+element.getID();
+				sql ="SELECT SUM(EX.VALUE) "+
+					"FROM "+
+					"CLIENTS CL "+ 
+					"INNER JOIN CONTRACTS CON ON(CON.BUSINESS_NAME = CL.BUSINESS_NAME) "+
+					"INNER JOIN SERVICES SV ON (SV.CONTRACT_ID = CON.ROW_ID) "+
+					"INNER JOIN EXPENSE EX ON(EX.SERVICE_ID = SV.ROW_ID AND INCURRED_DATE > '"+sdf.format(toDate.getTime())+"' AND INCURRED_DATE < '"+sdf.format(fromDate.getTime())+"') "+
+					"WHERE "+
+					"CL.ROW_ID = " +element.getID();
 				
 				returnVal = this.mainDB.blindQuery(sql);
 				
@@ -1047,6 +936,8 @@ public class DBInterface
 				fromDate.add(Calendar.MONTH, -1);
 				
 				tally.add(new MonthReport(fromDate.getTime(), (serviceValue-expenseValue)));
+				expenseValue = 0;
+				serviceValue = 0;
 			}
 		}
 		
@@ -1106,13 +997,14 @@ public class DBInterface
 		
 		if(element != null && element.getID() > -1)
 		{
-			sql ="SELECT SUM(FH.AMMOUNT) "+
+			sql ="SELECT SUM(EX.VALUE) "+
 					"FROM "+
-					"CLIENTS CL "+
-					"INNER JOIN FEATURE FE ON (FE.CLIENT_ID = CL.ROW_ID AND FE.TYPE = 'Expense') "+
-					"INNER JOIN FEATURE_HISTORY FH ON (FH.FEATURE_ID = FE.ROW_ID AND FH.DATE_RECCORDED  <= '"+sdf.format(new Date())+"' AND FH.DATE_RECCORDED > '"+sdf.format(toDate.getTime())+"') "+
+					"CLIENTS CL "+ 
+					"INNER JOIN CONTRACTS CON ON(CON.BUSINESS_NAME = CL.BUSINESS_NAME) "+
+					"INNER JOIN SERVICES SV ON (SV.CONTRACT_ID = CON.ROW_ID) "+
+					"INNER JOIN EXPENSE EX ON(EX.SERVICE_ID = SV.ROW_ID AND INCURRED_DATE > '"+sdf.format(toDate.getTime())+"' AND INCURRED_DATE < '"+sdf.format(new Date())+"') "+
 					"WHERE "+
-					"CL.ROW_ID = "+element.getID();
+					"CL.ROW_ID = " +element.getID();
 			
 			returnVal = this.mainDB.blindQuery(sql);
 			

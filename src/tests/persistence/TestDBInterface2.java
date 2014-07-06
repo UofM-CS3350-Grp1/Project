@@ -5,6 +5,7 @@ import java.util.Date;
 import objects.*;
 import objects.Client.ClientStatus;
 import static org.junit.Assert.*;
+import static org.junit.matchers.JUnitMatchers.*;
 
 import org.junit.Test;
 
@@ -18,8 +19,12 @@ public class TestDBInterface2 {
 		
 		DBInterface mainFace = new DBInterface("MainDB");
 		mainFace.connect();
-		//mainFace.getLastYearReturns(mainFace.getClientByID(1));
-		mainFace.getFeatureHistoryByFeature(mainFace.getTrackedFeatureByID(1));
+		
+		assertNotNull("LastYearReturns Check",mainFace.getLastYearReturns(mainFace.getClientByID(1)));
+		assertTrue(mainFace.getClientCurrentExpenses(mainFace.getClientByID(1)) <= 0);
+		assertTrue(mainFace.getClientCurrentRevenue(mainFace.getClientByID(1)) >= 0);
+		
+		assertNotNull("FeatureHistoryByFeature Check", mainFace.getFeatureHistoryByFeature(mainFace.getTrackedFeatureByID(1)));
 		
 		assertNotNull("Tracked Feature Type by ID",mainFace.getTrackedFeatureTypeByID(1));
 		assertNotNull("Service Type by ID",mainFace.getServiceTypeByID(1));
@@ -46,7 +51,6 @@ public class TestDBInterface2 {
 		ArrayList<TrackedFeature> featL = new ArrayList<TrackedFeature>();
 		
 		assertNotNull("ServiceType by ID", servL = mainFace.getServicesByType(mainFace.getServiceTypeByID(1)));
-		assertNotNull("FeatureType", featL = mainFace.getFeaturesByType(mainFace.getTrackedFeatureTypeByID(1)));
 		
 		assertNotNull("ServiceType by ID", mainFace.getServiceTypesByType("Web Design"));
 		assertNotNull("FeatureType", mainFace.getTrackedFeatureTypesByTitle("Page Hits"));

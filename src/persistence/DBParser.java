@@ -161,11 +161,11 @@ public class DBParser
 			{
 				item = new TrackedFeature(
 						input.get(i).get(3),
-						input.get(i).get(5),
+						input.get(i).get(4),
 						Integer.parseInt(input.get(i).get(0)),
 						Integer.parseInt(input.get(i).get(1)),
 						type,
-						input.get(i).get(6)
+						input.get(i).get(5)
 						);
 				output.add(item);
 			}
@@ -184,8 +184,7 @@ public class DBParser
 			
 			item = new TrackedFeatureType(
 					Integer.parseInt(input.get(i).get(0)),
-					input.get(i).get(1),
-					input.get(i).get(2)
+					input.get(i).get(1)
 					);
 
 			output.add(item);
@@ -207,6 +206,42 @@ public class DBParser
 					input.get(i).get(1),
 					input.get(i).get(2)
 					);
+
+			output.add(item);
+		}
+		
+		return output;
+	}
+	
+	public ArrayList<Expense> parseExpenses(ArrayList<ArrayList<String>> input)
+	{
+		ArrayList<Expense> output = new ArrayList<Expense>();
+		Expense item = null;
+		Date date = null;
+		
+		for(int i = 0; i < input.size(); i++)
+		{
+			
+			try
+			{
+				date = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(input.get(i).get(5));
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+
+			if(date != null)
+			{
+				item = new Expense(
+						Integer.parseInt(input.get(i).get(0)),
+						Integer.parseInt(input.get(i).get(1)),
+						input.get(i).get(2),
+						Double.parseDouble(input.get(i).get(3)),
+						input.get(i).get(4),
+						date
+						);
+			}
 
 			output.add(item);
 		}

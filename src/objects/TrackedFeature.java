@@ -208,7 +208,6 @@ public class TrackedFeature implements Storable
 		index.add(""+this.clientID);
 		index.add(""+this.trackedFT.getID());
 		index.add(this.featureName);
-		index.add(this.trackedFT.getType());
 		index.add(this.notes);
 		index.add(this.supplier);
 		

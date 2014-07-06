@@ -5,17 +5,15 @@ import java.util.ArrayList;
 public class TrackedFeatureType implements Storable 
 {
 	private int typeID;				//Unique id of this feature type
-	private String type;			//The type of this feature (Feature/Expense)
 	private String genericTitle;	//General title of the feature ie. "Facebook Likes", etc.
 	private String tableName;		//The table this feature belongs to
 	
-	public TrackedFeatureType(String type, String title) throws IllegalArgumentException
+	public TrackedFeatureType(String title) throws IllegalArgumentException
 	{
-		if((type != null && title != null) && (!type.isEmpty() && !title.isEmpty()))
+		if( title != null &&   !title.isEmpty())
 		{
 			this.typeID = -1;
 			this.genericTitle = title;
-			this.type = type;
 			this.tableName = "FEATURE_TYPES";
 		}
 		else
@@ -24,13 +22,12 @@ public class TrackedFeatureType implements Storable
 		}
 	}
 	
-	public TrackedFeatureType(int id, String title, String type) throws IllegalArgumentException
+	public TrackedFeatureType(int id, String title) throws IllegalArgumentException
 	{
-		if(id >= 0 && (type != null && title != null) && (!type.isEmpty() && !title.isEmpty()))
+		if(id >= 0 &&  title != null && !title.isEmpty())
 		{
 			this.typeID = id;
 			this.genericTitle = title;
-			this.type = type;
 			this.tableName = "FEATURE_TYPES";
 		}
 		else
@@ -43,14 +40,7 @@ public class TrackedFeatureType implements Storable
 	// GETTERS
 	//---------
 	
-	/**
-	 * @return The type of this FeatureType
-	 */
-	public String getType()
-	{
-		return this.type;
-	}
-	
+
 	/**
 	 * @return The generic title of this FeatureType
 	 */
@@ -93,14 +83,7 @@ public class TrackedFeatureType implements Storable
 	 * Switches the object type between feature and expense
 	 */
 	
-	public void switchType()
-	{
-		if(this.tableName.compareTo("Feature") == 0)
-			this.type = "Expense";
-		else
-			this.type = "Feature";
-	}
-	
+
 
 	//---------
 	// OTHERS
@@ -117,7 +100,6 @@ public class TrackedFeatureType implements Storable
 
 		index.add(this.typeID+"");
 		index.add(this.genericTitle);
-		index.add(this.type);
 
 		
 		return index;
@@ -131,8 +113,7 @@ public class TrackedFeatureType implements Storable
 	{
 		boolean output = false;
 		
-		if(this.type != null && (this.type.compareTo("Feature") == 0 || this.type.compareTo("Expense") == 0) && 
-				this.genericTitle != null && !this.genericTitle.isEmpty())
+		if(this.genericTitle != null && !this.genericTitle.isEmpty())
 			output = true;
 		
 		return output;
@@ -143,7 +124,7 @@ public class TrackedFeatureType implements Storable
 	 */
 	public String toString()
 	{
-		return "id: "+typeID+" Type: "+type+" Title: "+genericTitle+".";
+		return "id: "+typeID+" Title: "+genericTitle+".";
 	}
 
 }
