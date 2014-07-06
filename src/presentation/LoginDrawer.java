@@ -15,6 +15,7 @@ import org.eclipse.swt.widgets.Button;
 public class LoginDrawer 
 {
 	private Composite composite;
+	private String loggedInAs;
 	protected Button btnLogin;
 	protected Text txtUser;
 	protected Text txtPass;
@@ -26,6 +27,7 @@ public class LoginDrawer
 	public LoginDrawer( Composite container ) 
 	{
 		composite = new Composite( container, SWT.None );
+		loggedInAs = null;
 
 		// units = grid columns
 		final int COMPOSITE_WIDTH = 2;
@@ -93,6 +95,10 @@ public class LoginDrawer
 		isValid = ((txtUser.getText() != "") && (txtPass.getText() != ""));
 
 		return isValid;
-	}	
+	}
 
+	public String getCurrentUser()
+	{
+		return loggedInAs;
+	}
 }
