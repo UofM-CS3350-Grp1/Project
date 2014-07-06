@@ -29,6 +29,19 @@ TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 
+Task: Refactoring Domain Objects / Tables, Fixing Bugs, Queries
+Date: 07/04
+Assigned To: Adrian
+Status: Completed
+Dration: 12 Hours.
+Description:	- Completed request to move expenses into its own table/do
+				- Expenses is now its own table with relationship to services
+				- Basic queries INC
+				- Added / Updated getLastYearReturns, getClientCurrentRevenue, 
+				getClientCurrentExpenses queries
+				- I will stay up as late as I am able to attempting to fix broken
+				code/implementing users table/setting up expenses queries.
+
 Task: Refactoring Domain Objects / Tables, Fixing Bugs
 Date: 07/04
 Assigned To: Adrian
