@@ -34,6 +34,7 @@ public class ClientAnalysisScreenDrawer
 {
 	private final String[] serviceNames = { "ID", "Service", "Rate", "Category", "Details" };
 	private final int[] serviceWidths = { 0, 150, 70, 100, 300 };
+	private final int CHART_HEIGHT = 500;
 	
 	private ScrolledComposite scrollComposite;
 	private Composite composite;
@@ -306,12 +307,12 @@ public class ClientAnalysisScreenDrawer
 		//Draw the graphs that correspond to the written analysis		
 		chartComp = new ChartComposite(composite, SWT.NONE, graphGenerator.generateFinancialBreakdownForClient(client));
 		gd_chartComposite = new GridData(SWT.FILL, SWT.LEFT, true, false, 1, 1);
-		gd_chartComposite.heightHint = 500;
+		gd_chartComposite.heightHint = CHART_HEIGHT;
 		chartComp.setLayoutData(gd_chartComposite);
 		
 		chartComp = new ChartComposite(composite, SWT.NONE, graphGenerator.generateRevenueLineChartForClient(client));
 		gd_chartComposite = new GridData(SWT.FILL, SWT.LEFT, true, false, 1, 1);
-		gd_chartComposite.heightHint = 500;
+		gd_chartComposite.heightHint = CHART_HEIGHT;
 		chartComp.setLayoutData(gd_chartComposite);
 	}
 	
@@ -335,7 +336,7 @@ public class ClientAnalysisScreenDrawer
 				//Generate the composite
 				chartComp = new ChartComposite(composite, SWT.NONE, graphGenerator.generateFeatureLineChart(features.get(i)));
 				gd_chartComposite = new GridData(SWT.FILL, SWT.LEFT, false, false, 1, 1);
-				gd_chartComposite.heightHint = 500;
+				gd_chartComposite.heightHint = CHART_HEIGHT;
 				chartComp.setLayoutData(gd_chartComposite);
 			}
 		}

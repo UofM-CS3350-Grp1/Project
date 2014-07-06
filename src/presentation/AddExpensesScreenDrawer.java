@@ -32,8 +32,11 @@ import business.ProcessContract;
 import business.ProcessExpenses;
 import business.ProcessFeatureHistory;
 import business.ProcessService;
+import business.ValidateTextbox;
 
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.events.VerifyListener;
+import org.eclipse.swt.events.VerifyEvent;
 
 public class AddExpensesScreenDrawer
 {
@@ -105,6 +108,13 @@ public class AddExpensesScreenDrawer
 			lblSelectClient.setText("Select Client");
 			
 			value = new Text(btnSurvey, SWT.BORDER);
+			value.addVerifyListener(new VerifyListener()
+			{
+				public void verifyText(VerifyEvent arg0) 
+				{
+					ValidateTextbox.verifyMonetaryValue(arg0);
+				}
+			});
 			value.setBounds(140, 195, 76, 21);
 			
 			Label lblValue = new Label(btnSurvey, SWT.NONE);
@@ -119,19 +129,30 @@ public class AddExpensesScreenDrawer
 			lblDetails.setText("Details");
 			
 			btnSave = new Button(btnSurvey, SWT.NONE);
-			btnSave.addSelectionListener(new SelectionAdapter() {
+			btnSave.addSelectionListener(new SelectionAdapter()
+			{
 				@Override
-				public void widgetSelected(SelectionEvent arg0) {
-					addSurvey((double)Integer.parseInt(value.getText()), details.getText());
+				public void widgetSelected(SelectionEvent arg0) 
+				{
+					try
+					{
+						addSurvey(Double.parseDouble(value.getText()), details.getText());
+					}
+					catch(NumberFormatException nfe)
+					{
+						System.out.println(nfe);
+					}
 				}
 			});
 			btnSave.setBounds(141, 378, 75, 25);
 			btnSave.setText("Add");
 			
 			btnCancel = new Button(btnSurvey, SWT.NONE);
-			btnCancel.addSelectionListener(new SelectionAdapter() {
+			btnCancel.addSelectionListener(new SelectionAdapter()
+			{
 				@Override
-				public void widgetSelected(SelectionEvent arg0) {
+				public void widgetSelected(SelectionEvent arg0)
+				{
 					goBackToJCCScreen();
 				}
 			});
