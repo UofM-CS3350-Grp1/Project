@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import objects.*;
+import objects.Client.ClientStatus;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
@@ -14,8 +15,10 @@ public class TestDBInterface2 {
 	@Test
 	public void testNewTypes()
 	{
+		
 		DBInterface mainFace = new DBInterface("MainDB");
 		mainFace.connect();
+		mainFace.getLastYearReturns(mainFace.getClientByID(1));
 		
 		assertNotNull("Tracked Feature Type by ID",mainFace.getTrackedFeatureTypeByID(1));
 		assertNotNull("Service Type by ID",mainFace.getServiceTypeByID(1));
@@ -49,6 +52,7 @@ public class TestDBInterface2 {
 		
 		assertNotNull("New Tracked Feature", mainFace.getTrackedFeatureByID(1));
 		assertNotNull("New Service",mainFace.getServiceByID(1));
+	
 		
 		mainFace.disconnect();
 	}
@@ -58,6 +62,8 @@ public class TestDBInterface2 {
 	{
 		DBInterface mainFace = new DBInterface("MainDB");
 		mainFace.connect();
+		
+//		mainFace.getLastYearReturns(new Client("NAME", new PhoneNumber("2222222222"), new Email("stuff@stuff.com"), "ADDR", "BNAME", ClientStatus.Active));
 		
 		assertNull("Tracked Feature Type not in range",mainFace.getTrackedFeatureTypeByID(Integer.MAX_VALUE));
 		assertNull("Service Type not in range",mainFace.getServiceTypeByID(Integer.MAX_VALUE));

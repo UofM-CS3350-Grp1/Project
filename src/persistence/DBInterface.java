@@ -1,8 +1,12 @@
 package persistence;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import objects.Client;
+import objects.MonthReport;
 import objects.Service;
 import objects.Storable;
 import objects.Contract;
@@ -16,14 +20,17 @@ import objects.Client.ClientStatus;
 public class DBInterface 
 {
 	public static final String DATABASE_NAME = "CacheDB";
+	public static final String DATE_FORMAT = "yyyy-MM-dd";
 	
 	private DBController mainDB;
 	private String dbName;
 	private DBParser parser;
 	private final int ERROR_LOGGING = 0; //1 to enable 0 to disable.
+	private SimpleDateFormat sdf;
 	
 	public DBInterface(String dbName)
 	{
+		this.sdf = new SimpleDateFormat(DATE_FORMAT);
 		if(dbName != null)
 		{
 			this.parser = null;
@@ -784,7 +791,7 @@ public class DBInterface
 	 * @return - Array list containing the tracked features history items associated with this object otherise null
 	 */
 	
-	public ArrayList<FeatureHistory> getFeatureHistoryFromParent(Trackable element, TrackedFeature feature)
+	public ArrayList<FeatureHistory> getFeatureHistoryFromParent(Client element, TrackedFeature feature)
 	{
 		ArrayList<FeatureHistory> storage = new ArrayList<FeatureHistory>();
 		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
@@ -794,21 +801,12 @@ public class DBInterface
 		
 		if(element != null && feature != null && element.getID() >= 0 && feature.getID() >= 0)
 		{
-			if(element instanceof Service)
-			{
-				conditions1.add("SERVICE_ID");
-				conditions1.add("= ");
-				conditions1.add("'"+element.getID()+"'");
-				
-				clauses.add(conditions1);
-			}
-			else
-			{
-				conditions1.add("CLIENT_ID");
-				conditions1.add("= ");
-				conditions1.add("'"+element.getID()+"'");
-				clauses.add(conditions1);
-			}
+
+			conditions1.add("CLIENT_ID");
+			conditions1.add("= ");
+			conditions1.add("'"+element.getID()+"'");
+			clauses.add(conditions1);
+
 			conditions2.add(" FEATURE_ID");
 			conditions2.add("= ");
 			conditions2.add("'"+feature.getID()+"'");
@@ -848,7 +846,6 @@ public class DBInterface
 		}
 	}
 	
-
 
 	/**
 	 * INSERT()
@@ -923,6 +920,90 @@ public class DBInterface
 		return output;
 	}
 	
+	
+	/** GETLASTYEARRETURNS()
+	 * 
+	 * Returns up to the last 12 months worth of monthly reports.
+	 */
+	
+	public ArrayList<MonthReport> getLastYearReturns(Client element)
+	{
+		ArrayList<MonthReport> tally = null;
+		double serviceValue = 0;
+		double expenseValue = 0;
+		String sql = "";
+		ArrayList<String> returnVal = new ArrayList<String>();
+		Date startDate = new Date();
+		Date endDate = new Date();
+		Calendar fromDate = Calendar.getInstance();
+		Calendar toDate = Calendar.getInstance();
+		Calendar contractDate = Calendar.getInstance();
+		ArrayList<Contract> clientContracts = new ArrayList<Contract>();
+		toDate.setTime(startDate);
+		fromDate.setTime(startDate);
+		toDate.add(Calendar.MONTH, -1);
+		
+		if(element != null)
+		{
+			
+			tally = new ArrayList<MonthReport>();
+			
+			//Find the oldest active contract to use for contract calendar
+			clientContracts = this.getContractsByBusiness(element.getBusinessName());
+			contractDate.setTime(clientContracts.get(0).getPeriod());
+			
+			for(int i = 1; i <clientContracts.size(); i++)
+			{
+				if(contractDate.before(clientContracts.get(i).getPeriod()))
+					contractDate.setTime(clientContracts.get(i).getPeriod());
+			}
+			
+			
+			for(int i = 0; i < 12 && !toDate.after(contractDate.getTime()); i++)
+			{
+				sql = "SELECT SUM (RATE)" +
+					"FROM " +
+					"(SELECT DISTINCT SV.RATE "+
+					"FROM "+
+					"CLIENTS CL "+
+					"INNER JOIN CONTRACTS CON ON(CON.BUSINESS_NAME = CL.BUSINESS_NAME AND CON.END_DATE > '"+sdf.format(toDate.getTime())+"' AND CON.START_DATE < '"+sdf.format(toDate.getTime())+"')"+
+					"INNER JOIN SERVICES SV ON (SV.CONTRACT_ID = CON.ROW_ID)"+
+					"INNER JOIN SERVICES_TYPES ST ON(SV.SERVICE_TYPE_ID = ST.ROW_ID AND ST.SERVICE_TYPE != 'Web Design') "+
+					"WHERE "+
+					"CL.ROW_ID ="+element.getID()+")";
+					
+				returnVal = this.mainDB.blindQuery(sql);
+					
+				if(returnVal.size() == 1 && returnVal.get(0).compareTo("null") != 0)
+					serviceValue = Double.parseDouble(returnVal.get(0));
+				else
+					serviceValue = 0;
+				
+				sql ="SELECT SUM(FH.AMMOUNT) "+
+				"FROM "+
+				"CLIENTS CL "+
+				"INNER JOIN FEATURE FE ON (FE.CLIENT_ID = CL.ROW_ID AND FE.TYPE = 'Expense') "+
+				"INNER JOIN FEATURE_HISTORY FH ON (FH.FEATURE_ID = FE.ROW_ID AND FH.DATE_RECCORDED  <= '"+sdf.format(toDate.getTime())+"' AND FH.DATE_RECCORDED > '"+sdf.format(fromDate.getTime())+"') "+
+				"WHERE "+
+				"CL.ROW_ID = "+element.getID();
+				
+				returnVal = this.mainDB.blindQuery(sql);
+				
+				if(returnVal.size() == 1 && returnVal.get(0).compareTo("null") != 0)
+					expenseValue = Double.parseDouble(returnVal.get(0));
+				else
+					expenseValue = 0;
+				
+				toDate.add(Calendar.MONTH, -1);
+				fromDate.add(Calendar.MONTH, -1);
+				
+				tally.add(new MonthReport(fromDate.getTime(), (serviceValue-expenseValue)));
+			}
+		}
+		
+		return tally;
+		
+	}
 	
 	/**DUMPCLIENTS()
 	 * 
