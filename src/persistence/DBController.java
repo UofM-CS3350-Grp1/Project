@@ -399,7 +399,7 @@ public class DBController
 				
 				for(int i = 1; i <= counter; i++)
 				{
-					row += rs3.getString(i) + ", ";
+					row += rs3.getString(i);
 				}
 				
 				output.add(row);
