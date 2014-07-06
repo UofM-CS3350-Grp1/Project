@@ -50,6 +50,7 @@ public class TestDBInterface2 {
 		assertTrue("Insert serv", mainFace.insert(servo));
 		assertTrue("Insert tracked", mainFace.insert(tracky));
 		assertTrue("Insert contract", mainFace.insert(tracty));
+		assertTrue("Insert expense", mainFace.insert(mainFace.getExpenseByID(1)));
 		
 		ArrayList<Service> servL = new ArrayList<Service>();
 		ArrayList<TrackedFeature> featL = new ArrayList<TrackedFeature>();
