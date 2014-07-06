@@ -117,4 +117,24 @@ public class ProcessFeatureHistory extends ProcessStorable
 		
 		return history;
 	}
+	
+	/**
+	 * Retrieves the history of a feature
+	 * @param feature 	The feature to get history for
+	 * @return	The list of history
+	 */
+	public ArrayList<FeatureHistory> getHistoryListForFeature(TrackedFeature feature)
+	{
+		ArrayList<FeatureHistory> list = new ArrayList<FeatureHistory>();
+		
+		assert (feature != null);
+		if(feature != null)
+		{
+			database.connect();
+			list = database.getFeatureHistoryByFeature(feature);
+			database.disconnect();
+		}
+		
+		return list;
+	}
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import objects.Client;
 import objects.Contract;
 import objects.Service;
+import objects.TrackedFeature;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -18,7 +19,9 @@ import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.widgets.Table;
 
 import business.GenerateGraph;
+import business.ProcessAddFeature;
 import business.ProcessContract;
+
 import org.jfree.experimental.chart.swt.ChartComposite;
 
 /**
@@ -36,6 +39,7 @@ public class ClientAnalysisScreenDrawer
 	private Composite performanceComposite;
 	private Table servicesTable;
 	private Client client;
+	private ProcessAddFeature processFeature;
 	
 	private Label lblClientNameData;
 	private Label lblContactData;
@@ -61,6 +65,8 @@ public class ClientAnalysisScreenDrawer
 			this.client = client;
 		else
 			throw new IllegalArgumentException();
+		
+		processFeature = new ProcessAddFeature();
 		
 		Composite clientDataComposite = new Composite(composite, SWT.NONE);
 		clientDataComposite.setLayout(new GridLayout(5, false));
@@ -253,9 +259,11 @@ public class ClientAnalysisScreenDrawer
 	 */
 	private void generateReports()
 	{
-		GenerateGraph graphGenerator = new GenerateGraph();		
-		//ChartComposite chartComp;
+		GenerateGraph graphGenerator = new GenerateGraph();	
+		ArrayList<TrackedFeature> features;
+		ChartComposite chartComp;
 		GridData gd_chartComposite;
+		int size;
 		
 		//Display the general all feature summary
 		performanceComposite = new ChartComposite(composite, SWT.NONE, graphGenerator.generateRevenueLineChartForClient(client));
@@ -264,13 +272,18 @@ public class ClientAnalysisScreenDrawer
 		performanceComposite.setLayoutData(gd_chartComposite);
 		
 		//Display a chart for each tracked feature
-		/*while((feature = processFeature.getNextFeatureForService(service)) != null)
+		features = processFeature.getFeaturesByClient(client);
+		if(features != null)
 		{
-			//Generate the composite
-			chartComp = new ChartComposite(composite, SWT.NONE, graphGenerator.GenerateChartForFeature(service, feature));
-			gd_chartComposite = new GridData(SWT.FILL, SWT.LEFT, false, false, 1, 1);
-			gd_chartComposite.heightHint = CHART_HEIGHT;
-			chartComp.setLayoutData(gd_chartComposite);
-		}*/
+			size = features.size();
+			for(int i = 0; i < size; i++)
+			{
+				//Generate the composite
+				chartComp = new ChartComposite(composite, SWT.NONE, graphGenerator.generateFeatureLineChart(features.get(i)));
+				gd_chartComposite = new GridData(SWT.FILL, SWT.LEFT, false, false, 1, 1);
+				gd_chartComposite.heightHint = 500;
+				chartComp.setLayoutData(gd_chartComposite);
+			}
+		}
 	}
 }

@@ -1,8 +1,7 @@
 package business;
 
 import java.util.ArrayList;
-
-import objects.Service;
+import objects.Client;
 import objects.TrackedFeature;
 
 /**
@@ -11,8 +10,6 @@ import objects.TrackedFeature;
 public class ProcessAddFeature extends ProcessStorable
 {
 	private ArrayList<TrackedFeature> features;
-	private ArrayList<TrackedFeature> serviceFeatures;
-	private int serviceFeatureIndex;
 	private int featureIndex;
 	
 	/**
@@ -23,8 +20,6 @@ public class ProcessAddFeature extends ProcessStorable
 		super();
 		
 		features = null;
-		serviceFeatures = null;
-		serviceFeatureIndex = 0;
 		featureIndex = 0;
 	}
 		
@@ -79,5 +74,25 @@ public class ProcessAddFeature extends ProcessStorable
 		}
 		
 		return feature;
+	}
+	
+	/**
+	 * Obtain the features tracked by a client
+	 * @param client	The client in question
+	 * @return	The list of features tracked by said client
+	 */
+	public ArrayList<TrackedFeature> getFeaturesByClient(Client client)
+	{
+		ArrayList<TrackedFeature> featureList = new ArrayList<TrackedFeature>();
+		
+		assert (client != null);
+		if(client != null)
+		{
+			database.connect();
+			featureList = database.getTrackedFeaturesByClient(client);
+			database.disconnect();
+		}
+		
+		return featureList;
 	}
 }

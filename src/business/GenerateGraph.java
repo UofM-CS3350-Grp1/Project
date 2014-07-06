@@ -36,34 +36,49 @@ public class GenerateGraph
 	}
 	
 	/**
-	 * Generates a chart given the client which will pull all service data
-	 * @param client	The client to use
-	 * @return	A chart of the data
+	 * Generates a line chart given a feature
+	 * @param feature	The feature to use
+	 * @return	A line chart of the data
 	 */
-	public JFreeChart GenerateChartForClient(Client client)
+	public JFreeChart generateFeatureLineChart(TrackedFeature feature)
 	{
 		JFreeChart chart = null;
-		DefaultPieDataset data;
-		Service service = null;
-		TrackedFeature feature = null;
+		DefaultCategoryDataset data;
 		Plot plot;
+		ArrayList<FeatureHistory> histories;
+		int size;
+		SimpleDateFormat sdf;
+		FeatureHistory history;
 		
-		assert (client != null);
-		if(client != null)
+		assert (feature != null);
+		if(feature != null)
 		{
-			data = new DefaultPieDataset();
+			data = new DefaultCategoryDataset();
+			histories = processHistory.getHistoryListForFeature(feature);
 			
-			/*while((service = processClient.getNextClientService(client)) != null)
+			if(histories != null)
 			{
-				while((feature = processFeature.getNextFeatureForService(service)) != null)
-				{							
-					//Populate the data in the chart
-					data.setValue(service.getTitle(), CalculateFeatureValue.calculateTotalValue(service, feature));
+				try
+				{
+					sdf = new SimpleDateFormat("MMM, yyyy");
+					size = histories.size();
+					for(int i = 0; i < size; i++)
+					{
+						//NOTE These will need to be properly summed by month and 
+						//probably impose the same 12 month cycle property
+						history = histories.get(i);
+						data.addValue(history.getValue(), sdf.format(history.getDate()), feature.getFeatureName());
+					}
 				}
-			}*/
+				catch(Exception e)
+				{
+					System.out.println(e);
+				}
+			}
 				
 			//Setup the chart names and axes
-			chart = ChartFactory.createPieChart("Client Services", data);
+			chart = ChartFactory.createLineChart(feature.getFeatureName(), "Period (Months)", feature.getFeatureName(), data);
+			chart.removeLegend();
 			plot = chart.getPlot();
 			plot.setNoDataMessage("No data available");
 		}		
@@ -80,7 +95,7 @@ public class GenerateGraph
 	{
 		JFreeChart chart = null;
 		DefaultPieDataset data;
-		TrackedFeature feature = null;
+		//TrackedFeature feature = null;
 		Plot plot;
 		
 		assert (service != null);
