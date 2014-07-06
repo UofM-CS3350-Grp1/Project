@@ -13,6 +13,7 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.Plot;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 
 /**
  * Responsible for generating graphs based on clients and services
@@ -20,6 +21,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 public class GenerateGraph
 {
 	private ProcessFeatureHistory processHistory;
+	private AccessFinancialRecords financialRecords;
 	
 	/**
 	 * Creates a new line graph generator
@@ -27,6 +29,7 @@ public class GenerateGraph
 	public GenerateGraph()
 	{	
 		processHistory = new ProcessFeatureHistory();
+		financialRecords = new AccessFinancialRecords();
 	}
 	
 	/**
@@ -37,7 +40,7 @@ public class GenerateGraph
 	public JFreeChart generateFeatureLineChart(TrackedFeature feature)
 	{
 		JFreeChart chart = null;
-		DefaultCategoryDataset data;
+		DefaultCategoryDataset data = new DefaultCategoryDataset();;
 		Plot plot;
 		ArrayList<FeatureHistory> histories;
 		int size;
@@ -47,7 +50,6 @@ public class GenerateGraph
 		assert (feature != null);
 		if(feature != null)
 		{
-			data = new DefaultCategoryDataset();
 			histories = processHistory.getHistoryListForFeature(feature);
 			
 			if(histories != null)
@@ -69,13 +71,14 @@ public class GenerateGraph
 					System.out.println(e);
 				}
 			}
-				
-			//Setup the chart names and axes
-			chart = ChartFactory.createLineChart(feature.getFeatureName(), "Period (Months)", feature.getFeatureName(), data);
-			chart.removeLegend();
-			plot = chart.getPlot();
-			plot.setNoDataMessage("No data available");
-		}		
+		}	
+		
+		//Setup the chart names and axes
+		chart = ChartFactory.createLineChart(feature.getFeatureName(), "Period (Months)", feature.getFeatureName(), data);
+		chart.removeLegend();
+		
+		plot = chart.getPlot();
+		plot.setNoDataMessage("No data available");
 		
 		return chart;
 	}
@@ -93,7 +96,7 @@ public class GenerateGraph
 		assert (client != null);
 		if(client != null)
 		{
-			reports = (new AccessFinancialRecords()).getYearRevenueForClient(client);
+			reports = financialRecords.getYearRevenueForClient(client);
 			chart = generateRevenueLineChart(reports);
 		}
 		
@@ -113,7 +116,7 @@ public class GenerateGraph
 		assert (service != null);
 		if(service != null)
 		{
-			reports = (new AccessFinancialRecords()).getYearRevenueForService(service);
+			reports = financialRecords.getYearRevenueForService(service);
 			chart = generateRevenueLineChart(reports);
 		}
 		
@@ -162,6 +165,32 @@ public class GenerateGraph
 		plot = chart.getPlot();
 		plot.setNoDataMessage("No data available");
 		
+		return chart;
+	}
+	
+	public JFreeChart generateFinancialBreakdownForClient(Client client)
+	{
+		JFreeChart chart = null;
+		
+		DefaultPieDataset data = new DefaultPieDataset();;
+		Plot plot;
+		double revenue, expenses;
+
+		assert (client != null);
+		if(client != null)
+		{
+			revenue  = financialRecords.calcClientRevenueToDate(client);
+			expenses = financialRecords.calcClientExpensesToDate(client);
+	
+			data.setValue("Revenue", revenue);
+			data.setValue("Expenses", expenses);
+		}	
+		
+		//Setup the chart names and axes
+		chart = ChartFactory.createPieChart("Financial Breakdown", data);
+		plot = chart.getPlot();
+		plot.setNoDataMessage("No data available");
+
 		return chart;
 	}
 }

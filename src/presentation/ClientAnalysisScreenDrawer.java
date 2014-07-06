@@ -303,6 +303,11 @@ public class ClientAnalysisScreenDrawer
 		lblExpenses.setText(String.format("$%8.2f", expenses));
 		
 		//Draw the graphs that correspond to the written analysis		
+		chartComp = new ChartComposite(composite, SWT.NONE, graphGenerator.generateFinancialBreakdownForClient(client));
+		gd_chartComposite = new GridData(SWT.FILL, SWT.LEFT, true, false, 1, 1);
+		gd_chartComposite.heightHint = 500;
+		chartComp.setLayoutData(gd_chartComposite);
+		
 		chartComp = new ChartComposite(composite, SWT.NONE, graphGenerator.generateRevenueLineChartForClient(client));
 		gd_chartComposite = new GridData(SWT.FILL, SWT.LEFT, true, false, 1, 1);
 		gd_chartComposite.heightHint = 500;
