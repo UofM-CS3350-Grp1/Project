@@ -1,7 +1,11 @@
 package business;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
 import objects.Client;
 import objects.FeatureHistory;
+import objects.MonthReport;
 import objects.Service;
 import objects.Trackable;
 import objects.TrackedFeature;
@@ -138,23 +142,45 @@ public class GenerateGraph
 	 * @param client	The client to produce the data for
 	 * @return A chart containing the past 12 months of revenue
 	 */
-	public JFreeChart generateRevenueChartForClient(Client client)
+	public JFreeChart generateRevenueLineChartForClient(Client client)
 	{
 		JFreeChart chart = null;
 		DefaultCategoryDataset data;
 		Plot plot;
+		ArrayList<MonthReport> reports;
+		MonthReport report;
+		int size;
+		SimpleDateFormat sdf;
 		
 		assert (client != null);
 		if(client != null)
 		{
 			data = new DefaultCategoryDataset();
+			reports = (new AccessFinancialRecords()).getYearRevenueForClient(client);
 			
-			//Get the revenue data per month 
-			
-			//Plot the last 12 months worth of data
+			//Plot the last 12 months worth of data. Note that we don't 
+			//care if the months are within the same year. 
+			if(reports != null)
+			{
+				try
+				{
+					sdf  = new SimpleDateFormat("MMM, yyyy");
+					size = reports.size();
+					for(int i = 0; i < size; i++)
+					{
+						report = reports.get(i);
+						data.addValue(report.getValue(), "Revenue", sdf.format(report.getPeriod()));
+					}
+				}
+				catch(Exception e)
+				{
+					System.out.println(e);
+				}
+			}
 			
 			//Setup the chart
 			chart = ChartFactory.createLineChart("Revenue", "Period (Months)", "Dollars", data);
+			chart.removeLegend();
 			plot = chart.getPlot();
 			plot.setNoDataMessage("No data available");
 		}

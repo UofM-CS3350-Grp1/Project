@@ -258,7 +258,7 @@ public class ClientAnalysisScreenDrawer
 		GridData gd_chartComposite;
 		
 		//Display the general all feature summary
-		performanceComposite = new ChartComposite(composite, SWT.NONE, graphGenerator.generateRevenueChartForClient(client));
+		performanceComposite = new ChartComposite(composite, SWT.NONE, graphGenerator.generateRevenueLineChartForClient(client));
 		gd_chartComposite = new GridData(SWT.FILL, SWT.LEFT, true, false, 1, 1);
 		gd_chartComposite.heightHint = 500;
 		performanceComposite.setLayoutData(gd_chartComposite);
