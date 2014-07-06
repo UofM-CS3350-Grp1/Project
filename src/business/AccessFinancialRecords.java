@@ -55,10 +55,51 @@ public class AccessFinancialRecords
 		if(service != null)
 		{
 			database.connect();
+			//TODO Get revenue for services on 12 month cycle
 			//reports = database.getLastYearReturns(service);
 			database.disconnect();
 		}
 		
 		return reports;
+	}
+	
+	/**
+	 * Calculates the revenue for a client the current date/ period
+	 * @param client	The client to generate revenue data for
+	 * @return	The revenue to date
+	 */
+	public double calcClientRevenueToDate(Client client)
+	{
+		double revenue = 0;
+		
+		assert (client != null);
+		if(client != null)
+		{
+			database.connect();
+			revenue = database.getClientCurrentRevenue(client);
+			database.disconnect();
+		}
+		
+		return revenue;
+	}
+	
+	/**
+	 * Calculates the expense for a client the current date/ period
+	 * @param client	The client to generate expense data for
+	 * @return	The expense to date
+	 */
+	public double calcClientExpensesToDate(Client client)
+	{
+		double expense = 0;
+		
+		assert (client != null);
+		if(client != null)
+		{
+			database.connect();
+			expense = database.getClientCurrentExpenses(client);
+			database.disconnect();
+		}
+		
+		return expense;
 	}
 }

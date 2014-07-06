@@ -18,6 +18,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.widgets.Table;
 
+import business.AccessFinancialRecords;
 import business.GenerateGraph;
 import business.ProcessAddFeature;
 import business.ProcessContract;
@@ -47,6 +48,10 @@ public class ClientAnalysisScreenDrawer
 	private Label lblAddressData;
 	private Label lblPhoneNumberData;
 	private Label lblStatusData;
+	private Label lblRevenueToDate;
+	private Label lblRevenue;
+	private Label lblExpensesToDate;
+	private Label lblExpenses;
 		
 	/**
 	 * Creates a new client analysis screen
@@ -167,21 +172,36 @@ public class ClientAnalysisScreenDrawer
 		new Label(composite, SWT.NONE);
 		
 		performanceComposite = new Composite(composite, SWT.NONE);
-		performanceComposite.setLayout(new GridLayout(1, false));
+		performanceComposite.setLayout(new GridLayout(2, false));
 		GridData gd_performanceComposite = new GridData(GridData.FILL_BOTH);
 		gd_performanceComposite.heightHint = 100;
 		performanceComposite.setLayoutData(gd_performanceComposite);
 		
 		Label lblPerformance = new Label(performanceComposite, SWT.NONE);
 		lblPerformance.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.BOLD));
-		GridData gd_lblPerformance = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
-		gd_lblPerformance.widthHint = 471;
+		GridData gd_lblPerformance = new GridData(SWT.FILL, SWT.CENTER, false, false, 2, 1);
+		gd_lblPerformance.widthHint = 147;
 		lblPerformance.setLayoutData(gd_lblPerformance);
 		lblPerformance.setText("Performance");
+		
+		lblRevenueToDate = new Label(performanceComposite, SWT.NONE);
+		GridData gd_lblRevenueToDate = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_lblRevenueToDate.widthHint = 113;
+		lblRevenueToDate.setLayoutData(gd_lblRevenueToDate);
+		lblRevenueToDate.setText("Revenue to date:");
+		
+		lblRevenue = new Label(performanceComposite, SWT.NONE);
+		lblRevenue.setText("REVENUE");
+		
+		lblExpensesToDate = new Label(performanceComposite, SWT.NONE);
+		lblExpensesToDate.setText("Expenses to date:");
+		
+		lblExpenses = new Label(performanceComposite, SWT.NONE);
+		lblExpenses.setText("EXPENSES");
 						
 		populateClientData();
 		populateServiceData();
-		generateReports();
+		generateAnalytics();
 		
 		scrollComposite.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		scrollComposite.setExpandHorizontal(true);
@@ -255,9 +275,44 @@ public class ClientAnalysisScreenDrawer
 	}
 	
 	/**
-	 * Generates the reports based on each service's performance
+	 * Generates the analytics for the client and their tracked features by creating
+	 * graphs and data printouts
 	 */
-	private void generateReports()
+	private void generateAnalytics()
+	{
+		generateFinancialData();
+		generateFeatureData();
+	}
+	
+	/**
+	 * Generates the charts and analysis for the client
+	 */
+	private void generateFinancialData()
+	{
+		GenerateGraph graphGenerator = new GenerateGraph();	
+		AccessFinancialRecords financialRecords = new AccessFinancialRecords();
+		GridData gd_chartComposite;
+		ChartComposite chartComp;
+		double revenue, expenses;
+		
+		//Generate the written analysis including the revenue, expenses, etc.
+		revenue = financialRecords.calcClientRevenueToDate(client);
+		expenses = financialRecords.calcClientExpensesToDate(client);
+		
+		lblRevenue.setText(String.format("$%8.2f", revenue));
+		lblExpenses.setText(String.format("$%8.2f", expenses));
+		
+		//Draw the graphs that correspond to the written analysis		
+		chartComp = new ChartComposite(composite, SWT.NONE, graphGenerator.generateRevenueLineChartForClient(client));
+		gd_chartComposite = new GridData(SWT.FILL, SWT.LEFT, true, false, 1, 1);
+		gd_chartComposite.heightHint = 500;
+		chartComp.setLayoutData(gd_chartComposite);
+	}
+	
+	/**
+	 * Generates the charts and analysis for each feature
+	 */
+	private void generateFeatureData()
 	{
 		GenerateGraph graphGenerator = new GenerateGraph();	
 		ArrayList<TrackedFeature> features;
@@ -265,13 +320,6 @@ public class ClientAnalysisScreenDrawer
 		GridData gd_chartComposite;
 		int size;
 		
-		//Display the general all feature summary
-		performanceComposite = new ChartComposite(composite, SWT.NONE, graphGenerator.generateRevenueLineChartForClient(client));
-		gd_chartComposite = new GridData(SWT.FILL, SWT.LEFT, true, false, 1, 1);
-		gd_chartComposite.heightHint = 500;
-		performanceComposite.setLayoutData(gd_chartComposite);
-		
-		//Display a chart for each tracked feature
 		features = processFeature.getFeaturesByClient(client);
 		if(features != null)
 		{
