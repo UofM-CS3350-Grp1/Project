@@ -7,14 +7,12 @@ import objects.Client;
 import objects.FeatureHistory;
 import objects.MonthReport;
 import objects.Service;
-import objects.Trackable;
 import objects.TrackedFeature;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.Plot;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.DefaultPieDataset;
 
 /**
  * Responsible for generating graphs based on clients and services
@@ -22,8 +20,6 @@ import org.jfree.data.general.DefaultPieDataset;
 public class GenerateGraph
 {
 	private ProcessFeatureHistory processHistory;
-	private ProcessAddFeature processFeature;
-	private ProcessClient processClient;
 	
 	/**
 	 * Creates a new line graph generator
@@ -31,8 +27,6 @@ public class GenerateGraph
 	public GenerateGraph()
 	{	
 		processHistory = new ProcessFeatureHistory();
-		processFeature = new ProcessAddFeature();
-		processClient = new ProcessClient();
 	}
 	
 	/**
@@ -87,72 +81,6 @@ public class GenerateGraph
 	}
 	
 	/**
-	 * Generates a chart given the service's history data
-	 * @param service	The service to use
-	 * @return	A chart of the data
-	 */
-	public JFreeChart GenerateChartForService(Service service)
-	{
-		JFreeChart chart = null;
-		DefaultPieDataset data;
-		//TrackedFeature feature = null;
-		Plot plot;
-		
-		assert (service != null);
-		if(service != null)
-		{
-			data = new DefaultPieDataset();
-			
-			/*while((feature = processFeature.getNextFeatureForService(service)) != null)
-			{							
-				//Populate the data in the chart
-				data.setValue(service.getTitle(), CalculateFeatureValue.calculateTotalValue(service, feature));
-			}*/
-				
-			//Setup the chart names and axes
-			chart = ChartFactory.createPieChart("Features", data);
-			plot = chart.getPlot();
-			plot.setNoDataMessage("No data available");
-		}		
-		
-		return chart;
-	}
-	
-	/**
-	 * Creates a line graph for a given service and feature
-	 * @param service	A trackable object that the feature belongs to
-	 * @param feature	The feature we want to track
-	 * @return	A chart containing all of the data represented via a graph
-	 */
-	public JFreeChart GenerateChartForFeature(Trackable service, TrackedFeature feature)
-	{
-		JFreeChart chart = null;
-		DefaultCategoryDataset data;
-		FeatureHistory history = null;
-		Plot plot;
-		
-		assert (service != null && feature != null);
-		if(service != null && feature != null)
-		{
-			data = new DefaultCategoryDataset();
-			
-			//Populate the data with all of the the history for a service's 
-			//given feature to plot it on a nice graph
-			while((history = processHistory.getNextHistoryForFeature(service, feature)) != null)
-			{
-				data.addValue(history.getValue(), feature.getFeatureName(), history.getShortDate());
-			}
-			
-			//Finally set up the chart with the axis and formatting
-			chart = ChartFactory.createLineChart(feature.getFeatureName(), "Period", feature.getFeatureName(), data);
-			plot = chart.getPlot();
-			plot.setNoDataMessage("No data available");
-		}
-		
-		return chart;
-	}
-	
-	/**
 	 * Creates a line graph of the revenue for the past 12 months
 	 * @param client	The client to produce the data for
 	 * @return A chart containing the past 12 months of revenue
@@ -160,45 +88,79 @@ public class GenerateGraph
 	public JFreeChart generateRevenueLineChartForClient(Client client)
 	{
 		JFreeChart chart = null;
-		DefaultCategoryDataset data;
-		Plot plot;
 		ArrayList<MonthReport> reports;
-		MonthReport report;
-		int size;
-		SimpleDateFormat sdf;
 		
 		assert (client != null);
 		if(client != null)
 		{
-			data = new DefaultCategoryDataset();
 			reports = (new AccessFinancialRecords()).getYearRevenueForClient(client);
-			
+			chart = generateRevenueLineChart(reports);
+		}
+		
+		return chart;
+	}
+	
+	/**
+	 * Creates a line graph of the revenue for the past 12 months
+	 * @param service	The service to produce the data for
+	 * @return A chart containing the past 12 months of revenue
+	 */
+	public JFreeChart generateRevenueLineChartForService(Service service)
+	{
+		JFreeChart chart = null;
+		ArrayList<MonthReport> reports;
+		
+		assert (service != null);
+		if(service != null)
+		{
+			reports = (new AccessFinancialRecords()).getYearRevenueForService(service);
+			chart = generateRevenueLineChart(reports);
+		}
+		
+		return chart;
+	}
+	
+	/**
+	 * Creates a line graph of the revenue for the past 12 months
+	 * @param reports	The last year's monthly values
+	 * @return A chart containing the past 12 months of revenue
+	 */
+	private JFreeChart generateRevenueLineChart(ArrayList<MonthReport> reports)
+	{
+		JFreeChart chart = null;
+		DefaultCategoryDataset data = new DefaultCategoryDataset();;
+		Plot plot;
+		MonthReport report;
+		int size;
+		SimpleDateFormat sdf;
+		
+		assert (reports != null);
+		if(reports != null)
+		{
 			//Plot the last 12 months worth of data. Note that we don't 
 			//care if the months are within the same year. 
-			if(reports != null)
+			try
 			{
-				try
+				sdf  = new SimpleDateFormat("MMM, yyyy");
+				size = reports.size();
+				for(int i = 0; i < size; i++)
 				{
-					sdf  = new SimpleDateFormat("MMM, yyyy");
-					size = reports.size();
-					for(int i = 0; i < size; i++)
-					{
-						report = reports.get(i);
-						data.addValue(report.getValue(), "Revenue", sdf.format(report.getPeriod()));
-					}
-				}
-				catch(Exception e)
-				{
-					System.out.println(e);
+					report = reports.get(i);
+					data.addValue(report.getValue(), "Revenue", sdf.format(report.getPeriod()));
 				}
 			}
-			
-			//Setup the chart
-			chart = ChartFactory.createLineChart("Revenue", "Period (Months)", "Dollars", data);
-			chart.removeLegend();
-			plot = chart.getPlot();
-			plot.setNoDataMessage("No data available");
+			catch(Exception e)
+			{
+				System.out.println(e);
+			}
 		}
+			
+		//Setup the chart
+		chart = ChartFactory.createLineChart("Revenue", "Period (Months)", "Dollars", data);
+		chart.removeLegend();
+		
+		plot = chart.getPlot();
+		plot.setNoDataMessage("No data available");
 		
 		return chart;
 	}

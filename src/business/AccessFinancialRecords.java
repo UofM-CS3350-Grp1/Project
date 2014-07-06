@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import objects.Client;
 import objects.MonthReport;
+import objects.Service;
 import persistence.DBInterface;
 
 /**
@@ -35,6 +36,26 @@ public class AccessFinancialRecords
 		{
 			database.connect();
 			reports = database.getLastYearReturns(client);
+			database.disconnect();
+		}
+		
+		return reports;
+	}
+	
+	/**
+	 * Retrieve the revenue for the service's last 12 months
+	 * @param service	The service to retrieve data for
+	 * @return	The list of reports for the last 12 months
+	 */
+	public ArrayList<MonthReport> getYearRevenueForService(Service service)
+	{
+		ArrayList<MonthReport> reports = null;
+		
+		assert (service != null);
+		if(service != null)
+		{
+			database.connect();
+			//reports = database.getLastYearReturns(service);
 			database.disconnect();
 		}
 		

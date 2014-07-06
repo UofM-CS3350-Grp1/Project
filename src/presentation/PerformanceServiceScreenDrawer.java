@@ -1,8 +1,6 @@
 package presentation;
 
 import objects.Service;
-import objects.TrackedFeature;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -10,10 +8,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.layout.GridData;
 import org.jfree.experimental.chart.swt.ChartComposite;
-
 import business.GenerateGraph;
-import business.ProcessAddFeature;
-
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -37,7 +32,6 @@ public class PerformanceServiceScreenDrawer
 	private ChartComposite chartComposite;
 	
 	private GenerateGraph graphGenerator;
-	private ProcessAddFeature processFeature;
 	private Button btnBack;
 	
 	/**
@@ -62,7 +56,6 @@ public class PerformanceServiceScreenDrawer
 			throw new IllegalArgumentException();
 		
 		graphGenerator = new GenerateGraph();
-		processFeature = new ProcessAddFeature();
 		
 		Composite serviceDataComposite = new Composite(composite, SWT.NONE);
 		serviceDataComposite.setLayout(new GridLayout(4, false));
@@ -162,28 +155,13 @@ public class PerformanceServiceScreenDrawer
 	 */
 	private void generateCharts()
 	{
-		TrackedFeature feature = null;
-		ChartComposite chartComp;
 		GridData gd_chartComposite;
 		
 		//Display the general all feature summary
-		chartComposite = new ChartComposite(composite, SWT.NONE, graphGenerator.GenerateChartForService(service));
+		chartComposite = new ChartComposite(composite, SWT.NONE, graphGenerator.generateRevenueLineChartForService(service));
 		gd_chartComposite = new GridData(SWT.FILL, SWT.LEFT, true, false, 1, 1);
 		gd_chartComposite.heightHint = CHART_HEIGHT;
 		chartComposite.setLayoutData(gd_chartComposite);
-		
-		//Display a chart for each tracked feature
-		/*while((feature = processFeature.getNextFeatureForService(service)) != null)
-		{
-			//Generate the composite
-			chartComp = new ChartComposite(composite, SWT.NONE, graphGenerator.GenerateChartForFeature(service, feature));
-			gd_chartComposite = new GridData(SWT.FILL, SWT.LEFT, false, false, 1, 1);
-			gd_chartComposite.heightHint = CHART_HEIGHT;
-			chartComp.setLayoutData(gd_chartComposite);
-			
-			//Populate the history data table 
-			drawHistoryTable(feature);
-		}*/
 	}
 	
 	/**
