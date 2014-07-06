@@ -13,6 +13,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
 
 import business.ProcessContract;
+import business.ProcessExpenses;
 
 /**
  * Contracts screen
@@ -63,7 +64,7 @@ public class JCCContractScreenDrawer extends BaseJCCScreenDrawer
 				item.setText(0, contract.getID() + "");
 				item.setText(1, contract.getBusinessName() + "");
 				item.setText(2, "$ "+(int)contract.getValue());
-				item.setText(3, "$ "+getExpenses());
+				item.setText(3, "$ "+getExpenses(contract));
 				item.setText(4, "$ "+getProfit());
 				item.setText(5, "% "+getCM());
 				item.setText(6, "% "+getPM());
@@ -98,9 +99,12 @@ public class JCCContractScreenDrawer extends BaseJCCScreenDrawer
 	/*
 	 * @return The total expenses of this contract
 	 */
-	protected String getExpenses() 
+	protected String getExpenses(Contract contract) 
 	{
-		return null;
+		double result = 0;
+		ProcessExpenses processExpenses = new ProcessExpenses();
+		result = processExpenses.getExpensesByContract(contract);
+		return ""+result;
 	}
 
 	@Override

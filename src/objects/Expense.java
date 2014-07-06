@@ -65,27 +65,27 @@ public class Expense implements Storable
 	// GETTERS
 	//---------
 	
-	int getServiceID()
+	public int getServiceID()
 	{
 		return this.serviceID;
 	}
 	
-	String getSupplier()
+	public String getSupplier()
 	{
 		return this.supplier;
 	}
 	
-	String getDetails()
+	public String getDetails()
 	{
 		return this.details;
 	}
 	
-	double getValue()
+	public double getValue()
 	{
 		return this.value;
 	}
 	
-	Date getDateIncurred()
+	public Date getDateIncurred()
 	{
 		return this.dateIncurred;
 	}
@@ -94,30 +94,30 @@ public class Expense implements Storable
 	// SETTERS
 	//---------
 
-	void setServiceID(int id)
+	public void setServiceID(int id)
 	{
 		if(id > 0)
 			this.serviceID = id;
 	}
 	
-	void setSupplier(String insert)
+	public void setSupplier(String insert)
 	{
 		if(insert != null && !insert.isEmpty())
 			this.supplier = insert;
 	}
 	
-	void setDetails(String insert)
+	public void setDetails(String insert)
 	{
 		if(insert != null && !insert.isEmpty())
 			this.details = insert;
 	}
 	
-	void setValue(float insert)
+	public void setValue(float insert)
 	{
 		this.value = insert;
 	}
 	
-	void setDate(Date insert)
+	public void setDate(Date insert)
 	{
 		if(insert != null)
 			this.dateIncurred = insert;

@@ -1,6 +1,7 @@
 package business;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import objects.Client;
 import objects.Service;
@@ -73,6 +74,38 @@ public class ProcessService extends ProcessStorable
 			database.connect();
 			service = database.getServiceByID(id);
 			database.disconnect();
+		}
+		
+		return service;
+	}
+
+	/**
+	 * Gets a service by the given title
+	 * @param title 	The title of the service
+	 * @return	The service if found, null otherwise
+	 */
+	public Service getServiceByTitle(String title)
+	{
+		ArrayList<Service> services = null;
+		Service service = null;
+		
+		assert (title!=null);
+		
+		database.connect();
+		services = database.dumpServices();
+		database.disconnect();
+		
+		Iterator<Service> it = services.iterator();
+		Service temp = null;
+		
+		while(it.hasNext())
+		{
+			temp = it.next();
+			if(temp.getTitle()==title)
+			{
+				service = temp;
+				break;
+			}
 		}
 		
 		return service;

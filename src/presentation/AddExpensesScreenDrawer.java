@@ -8,6 +8,7 @@ import java.util.Iterator;
 
 import objects.Client;
 import objects.Contract;
+import objects.Expense;
 import objects.FeatureHistory;
 import objects.Service;
 import objects.TrackedFeature;
@@ -25,8 +26,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Label;
 
+import business.AccessFinancialRecords;
 import business.ProcessClient;
 import business.ProcessContract;
+import business.ProcessExpenses;
 import business.ProcessFeatureHistory;
 import business.ProcessService;
 
@@ -49,6 +52,7 @@ public class AddExpensesScreenDrawer
 		private Combo comboContract;
 		private Label lblCompanysupplier;
 		private Text supplier;
+		private Service selectedService;
 		
 		/*
 		 * Call the constructor with a shell's main component as <container>
@@ -213,23 +217,20 @@ public class AddExpensesScreenDrawer
 			{
 				service = it.next();
 				comboService.add(String.valueOf(service.getTitle()));
+				selectedService = service;
 			}
 		}
 
 		/*
-		 * Saves the recorded survey information
+		 * Saves the expense
 		 */
 		private void addSurvey(double value, String details) 
 		{
-			TrackedFeatureType featureType = new TrackedFeatureType("Expense type");
-			TrackedFeature trackedFeature = new TrackedFeature("Expense", featureType);
-			Client client;
-			ProcessClient processClient = new ProcessClient();
-			client = processClient.getClientByBusinessName(comboClient.getText());
+			ProcessService processService = new ProcessService();
 			Date date = new Date();
-			FeatureHistory history = new FeatureHistory(trackedFeature, client, value, date);
-			ProcessFeatureHistory processHistory = new ProcessFeatureHistory();
-			processHistory.insert(history);
+			Expense expense = new Expense(selectedService.getID(), supplier.getText(), value, details, date);
+			ProcessExpenses processExpenses = new ProcessExpenses();
+			processExpenses.insertExpense(expense);
 		}
 
 		/*
