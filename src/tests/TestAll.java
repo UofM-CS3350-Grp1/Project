@@ -9,6 +9,7 @@ import tests.objects.ClientTest;
 import tests.objects.ContractTest;
 import tests.objects.EmailTest;
 import tests.objects.FeatureHistoryTest;
+import tests.objects.MonthReportTest;
 import tests.objects.PhoneNumberTest;
 import tests.objects.ServiceTest;
 import tests.objects.TrackedFeatureTest;
@@ -25,6 +26,7 @@ import tests.persistence.TestDBInterface;
 			PhoneNumberTest.class,
 			TrackedFeatureTest.class,
 			FeatureHistoryTest.class,
+			MonthReportTest.class,
 			TestDBController.class,
 			TestDBInterface.class,
 			CalcFeatureValueTest.class
