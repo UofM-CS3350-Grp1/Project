@@ -114,7 +114,7 @@ public class FeatureHistoryTest
 	public void testHistory14()
 	{
 		FeatureHistory history = new FeatureHistory(validFeature, validService, 0, validDate, "Note");
-		history.setTrackedService(null);
-		assertNotNull("Service is null", history.getTrackedService());
+		history.setTrackedClient(null);
+		assertNotNull("Service is null", history.getTrackedClient());
 	}
 }

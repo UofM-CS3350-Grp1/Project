@@ -90,7 +90,7 @@ public class UpdateFeatureHistoryDrawer extends BaseFeatureHistoryDrawer
 	 */
 	protected void backToPreviousScreen() 
 	{
-		Service service = (Service) history.getTrackedService();
+		Service service = (Service) history.getTrackedClient();
 		Client client;
 		
 		if(service != null)
