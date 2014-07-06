@@ -59,6 +59,7 @@ public class AddContractScreenDrawer
 	public AddContractScreenDrawer(Composite container) 
 	{
 		scrollComposite = new ScrolledComposite(container, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
+		scrollComposite.getVerticalBar().setIncrement(15);
 		
 		composite = new Composite(scrollComposite, SWT.BORDER);
 		scrollComposite.setContent(composite);

@@ -43,6 +43,7 @@ public class PerformanceServiceScreenDrawer
 	public PerformanceServiceScreenDrawer(Composite container, Service service) throws IllegalArgumentException 
 	{
 		scrollComposite = new ScrolledComposite(container, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
+		scrollComposite.getVerticalBar().setIncrement(15);
 		
 		composite = new Composite( scrollComposite , SWT.None );
 		composite.setLayout(new GridLayout(1, false));

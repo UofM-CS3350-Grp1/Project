@@ -71,6 +71,7 @@ public class ContractAnalysisScreenDrawer
 	public ContractAnalysisScreenDrawer(Composite container, Contract contract, Client client) throws IllegalArgumentException 
 	{
 		scrollComposite = new ScrolledComposite(container, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
+		scrollComposite.getVerticalBar().setIncrement(15);
 		
 		composite = new Composite(scrollComposite, SWT.NONE);
 		composite.setLayout(new GridLayout(1, false));	
@@ -95,7 +96,7 @@ public class ContractAnalysisScreenDrawer
 		contractDataComposite.setLayoutData(gd_contractDataComposite);
 		
 		lblContractIDHeader = new Label(contractDataComposite, SWT.NONE);
-		lblContractIDHeader.setAlignment(SWT.CENTER);
+		lblContractIDHeader.setAlignment(SWT.LEFT);
 		lblContractIDHeader.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 6, 1));
 		lblContractIDHeader.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.BOLD));
 		lblContractIDHeader.setText("CONTRACT_ID");
@@ -217,7 +218,7 @@ public class ContractAnalysisScreenDrawer
 		new Label(contractDataComposite, SWT.NONE);
 
 		lblClientNameData = new Label(contractDataComposite, SWT.NONE);
-		lblClientNameData.setAlignment(SWT.CENTER);
+		lblClientNameData.setAlignment(SWT.LEFT);
 		lblClientNameData.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 6, 1));
 		lblClientNameData.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.BOLD));
 		lblClientNameData.setText("CLIENT_BUSINESS_NAME");
