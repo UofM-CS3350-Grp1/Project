@@ -28,6 +28,14 @@ TODO(Jason):
 TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Performance tracking analysis 
+Date: 7/06, 5:00am
+Assigned to: Tim
+Status: In progress.
+Duration: 1.5 hours
+Description:	Added analysis for financial breakdown.
+				Added analysis for features tracked per client. 
+
 
 Task: Users Table/Logins, Simple Queries
 Date: 07/06
