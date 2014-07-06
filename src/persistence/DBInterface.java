@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import objects.Client;
+import objects.Expense;
 import objects.MonthReport;
 import objects.Service;
 import objects.Storable;
@@ -295,6 +296,49 @@ public class DBInterface
 			returnValue  = this.mainDB.query("FEATURE_TYPES", clauses);
 			
 			storage = parser.parseFeatureTypes(returnValue);
+			
+			if(storage.size() != 1)
+			{
+				return null;
+			}
+			else
+			{
+				return storage.get(0);
+			}
+		}
+		else
+		{
+			return null;
+		}
+		
+	}
+	
+	/**
+	 * 	GETEXPENSEBYID()
+	 * 
+	 *  @param	int id	-	ID to search for
+	 *  
+	 *  @return	Expense	-	Expense specified by ID, null if no match
+	 */	
+	
+	public Expense getExpenseByID(int id)
+	{
+		ArrayList<Expense> storage = new ArrayList<Expense>();
+		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+		ArrayList<String> conditions = new ArrayList<String>();
+		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+		
+		if(id >= 0)
+		{
+			conditions.add("ROW_ID");
+			conditions.add("= ");
+			conditions.add(""+id+"");
+			
+			clauses.add(conditions);
+			
+			returnValue  = this.mainDB.query("EXPENSE", clauses);
+			
+			storage = parser.parseExpenses(returnValue);
 			
 			if(storage.size() != 1)
 			{
@@ -783,6 +827,52 @@ public class DBInterface
 		
 	}
 	
+	/**
+	 * GETFEATUREHISTORYFROMFEATURE()
+	 * 
+	 * @param element Object with that can handle trackable features.
+	 * @return - Array list containing the tracked features history items associated with this object otherise null
+	 */
+	
+	public ArrayList<Expense> getExpensesByService(Service service)
+	{
+		ArrayList<Expense> storage = new ArrayList<Expense>();
+		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+		ArrayList<String> conditions1 = new ArrayList<String>();
+		ArrayList<String> conditions2 = new ArrayList<String>();
+		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+		
+		if(service != null && service.getID() >= 0)
+		{
+			conditions2.add(" SERVICE_ID");
+			conditions2.add("= ");
+			conditions2.add("'"+service.getID()+"'");
+			clauses.add(conditions2);
+			returnValue = this.mainDB.query("EXPENSE",clauses);
+			
+			storage = parser.parseExpenses(returnValue);
+			
+			if(storage.size() == 0)
+			{
+				return null;
+			}
+			else
+			{
+				return storage;
+			}
+		}
+		else
+		{
+			if(service == null && ERROR_LOGGING == 1)
+				errorMessage("EXPENSE", "A NULL SERVICE OBJECT\n", "INSTANTIATE A SERVICE OBJECT");
+			
+			if(service.getID() >= 0 && ERROR_LOGGING == 1)
+				errorMessage("EXPENSE", "AN UNINSTANTIATED (-1) SERVICE ID\n", "INSERT THE SERVICE OBJECT");
+			
+			return null;
+		}
+	}
+	
 
 	/**
 	 * INSERT()
@@ -1226,6 +1316,37 @@ public class DBInterface
 		returnValue  = this.mainDB.query("SERVICES_TYPES", clauses);
 		
 		storage = parser.parseServiceTypes(returnValue);
+		
+		if(storage.size() == 0)
+		{
+			return null;
+		}
+		else
+		{
+			return storage;
+		}
+	}
+	
+	/**DUMPEXPENSES()
+	 * 
+	 * Returns all service types on the DBMS;
+	 * 
+	 */
+	
+	public ArrayList<Expense> dumpExpenses()
+	{
+		ArrayList<Expense> storage = new ArrayList<Expense>();
+		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+		ArrayList<String> conditions = new ArrayList<String>();
+		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+		
+		conditions.add("ALL");
+		
+		clauses.add(conditions);
+		
+		returnValue  = this.mainDB.query("EXPENSE", clauses);
+		
+		storage = parser.parseExpenses(returnValue);
 		
 		if(storage.size() == 0)
 		{
