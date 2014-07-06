@@ -1,5 +1,7 @@
 package presentation;
 
+import business.ProcessUser;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -16,6 +18,7 @@ public class LoginDrawer
 {
 	private Composite composite;
 	private String loggedInAs;
+	private ProcessUser processUser;
 	protected Button btnLogin;
 	protected Text txtUser;
 	protected Text txtPass;
@@ -31,28 +34,28 @@ public class LoginDrawer
 
 		// units = grid columns
 		final int COMPOSITE_WIDTH = 2;
-		
+
 		// organizer
 		GridLayout compositeLayout = new GridLayout();
 		compositeLayout.numColumns = COMPOSITE_WIDTH;
 		compositeLayout.makeColumnsEqualWidth = true;
 		composite.setLayout( compositeLayout );
-		
+
 		GridData componentTweaker = null;
 
 		// username
 		Label lblUser = new Label( composite, SWT.None );
 		lblUser.setText( "User: ( Type admin )" );
 		lblUser.setLayoutData( componentTweaker );
-		
+
 		txtUser = new Text( composite, SWT.BORDER );
 		txtUser.setLayoutData( componentTweaker );
-		
+
 		// password
 		Label lblPass = new Label( composite, SWT.None );
 		lblPass.setText( "Password: ( Type password )" );
 		lblPass.setLayoutData( componentTweaker );
-		
+
 		txtPass = new Text( composite, SWT.BORDER | SWT.PASSWORD );
 		txtPass.setLayoutData( componentTweaker );
 
@@ -73,10 +76,31 @@ public class LoginDrawer
 	protected void processLoginButton()
 	{
 		MessageBox dialog;
-		
+		boolean validCredentials = false;
+
 		if (isFormDataValid())
 		{
-			// Validate Login Credentials from DB(?)
+			processUser = new ProcessUser();
+
+			validCredentials = processUser.validateUser(txtUser.getText(), txtPass.getText());
+			if (validCredentials)
+			{
+				loggedInAs = txtUser.getText();
+
+				/*
+				 * draws the login screen
+				 */
+				Composite loggedInScreen = SwitchScreen.getContentContainer();
+				LoggedInDrawer ldd = new LoggedInDrawer( loggedInScreen );
+				SwitchScreen.switchContent( loggedInScreen );
+			}
+			else
+			{
+				dialog = new MessageBox(new Shell(), SWT.ERROR | SWT.OK);
+				dialog.setText("Login Error");
+				dialog.setMessage("Invalid user name and/or password");
+				dialog.open();
+			}
 		}
 		else
 		{
@@ -100,5 +124,10 @@ public class LoginDrawer
 	public String getCurrentUser()
 	{
 		return loggedInAs;
+	}
+
+	public void logout()
+	{
+		loggedInAs = null;
 	}
 }
