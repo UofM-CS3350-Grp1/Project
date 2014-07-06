@@ -27,7 +27,7 @@ public class DBInterface
 	private String dbName;
 	protected DBParser parser;
 	private final int ERROR_LOGGING = 0; //1 to enable 0 to disable.
-	private SimpleDateFormat sdf;
+	protected SimpleDateFormat sdf;
 	
 	public DBInterface(String dbName)
 	{
@@ -1327,7 +1327,7 @@ public class DBInterface
 			return storage;
 		}
 	}
-	
+
 	/**DUMPEXPENSES()
 	 * 
 	 * Returns all service types on the DBMS;
