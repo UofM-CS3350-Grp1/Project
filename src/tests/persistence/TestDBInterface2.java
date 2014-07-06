@@ -18,7 +18,8 @@ public class TestDBInterface2 {
 		
 		DBInterface mainFace = new DBInterface("MainDB");
 		mainFace.connect();
-		mainFace.getLastYearReturns(mainFace.getClientByID(1));
+		//mainFace.getLastYearReturns(mainFace.getClientByID(1));
+		mainFace.getFeatureHistoryByFeature(mainFace.getTrackedFeatureByID(1));
 		
 		assertNotNull("Tracked Feature Type by ID",mainFace.getTrackedFeatureTypeByID(1));
 		assertNotNull("Service Type by ID",mainFace.getServiceTypeByID(1));

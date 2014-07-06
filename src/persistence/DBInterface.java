@@ -846,6 +846,55 @@ public class DBInterface
 		}
 	}
 	
+	
+	/**
+	 * GETFEATUREHISTORYFROMFEATURE()
+	 * 
+	 * @param element Object with that can handle trackable features.
+	 * @return - Array list containing the tracked features history items associated with this object otherise null
+	 */
+	
+	public ArrayList<FeatureHistory> getFeatureHistoryByFeature(TrackedFeature feature)
+	{
+		ArrayList<FeatureHistory> storage = new ArrayList<FeatureHistory>();
+		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
+		ArrayList<String> conditions1 = new ArrayList<String>();
+		ArrayList<String> conditions2 = new ArrayList<String>();
+		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
+		
+		if(feature != null && feature.getID() >= 0)
+		{
+			conditions2.add(" FEATURE_ID");
+			conditions2.add("= ");
+			conditions2.add("'"+feature.getID()+"'");
+			clauses.add(conditions2);
+			returnValue = this.mainDB.query("FEATURE_HISTORY",clauses);
+			
+			storage = parser.parseFeatureHistories(returnValue);
+			
+			if(storage.size() == 0)
+			{
+				return null;
+			}
+			else
+			{
+				return storage;
+			}
+		}
+		else
+		{
+			if(feature == null && ERROR_LOGGING == 1)
+				errorMessage("FEATURE HSTORY", "A NULL TRACKED FEATURE OBJECT\n", "INSTANTIATE A TRCKED FEATURE OBJECT");	
+			
+			if(feature != null && feature.getID() < 0 && ERROR_LOGGING == 1)
+				errorMessage("FEATURE HISTORY", "A TRACKED FEATURE OBJECT THAT HAS NOT BEEN INSERTED INTO DMBS\n", "INSERT THE TRACKED FEATURE OBJECT");
+
+			
+			return null;
+		}
+		
+	}
+	
 
 	/**
 	 * INSERT()
@@ -943,7 +992,7 @@ public class DBInterface
 		fromDate.setTime(startDate);
 		toDate.add(Calendar.MONTH, -1);
 		
-		if(element != null)
+		if(element != null && element.getID() > -1)
 		{
 			
 			tally = new ArrayList<MonthReport>();
@@ -1003,6 +1052,80 @@ public class DBInterface
 		
 		return tally;
 		
+	}
+	
+	/**
+	 * @param element client to look into
+	 * @return current revenue from services to client
+	 */
+	
+	public double getClientCurrentRevenue(Client element)
+	{
+		double output = -1;
+		String sql = "";
+		ArrayList<String> returnVal = new ArrayList<String>();
+		
+		if(element != null && element.getID() > -1)
+		{
+			sql = "SELECT SUM (RATE) "+
+			"FROM" + 
+			"(SELECT DISTINCT SV.RATE "+
+			"FROM "+
+			"CLIENTS CL "+ 
+			"INNER JOIN CONTRACTS CON ON(CON.BUSINESS_NAME = CL.BUSINESS_NAME AND CON.END_DATE > '"+sdf.format(new Date())+"' AND CON.START_DATE < '"+sdf.format(new Date())+"') "+
+			"INNER JOIN SERVICES SV ON (SV.CONTRACT_ID = CON.ROW_ID) "+
+			"INNER JOIN SERVICES_TYPES ST ON(SV.SERVICE_TYPE_ID = ST.ROW_ID AND ST.SERVICE_TYPE != 'Web Design') " +
+			"WHERE "+
+			"CL.ROW_ID = "+element.getID()+") ";
+			
+			returnVal = this.mainDB.blindQuery(sql);
+			
+			if(returnVal.size() == 1 && returnVal.get(0).compareTo("null") != 0)
+				output = Double.parseDouble(returnVal.get(0));
+			else
+				output = 0;
+		}
+		
+		return output;
+	}
+	
+	
+	/**
+	 * @param element client to look into
+	 * @return current cost of expenses
+	 */
+	
+	public double getClientCurrentExpenses(Client element)
+	{
+		double output = -1;
+		String sql = "";
+		ArrayList<String> returnVal = new ArrayList<String>();
+		Calendar toDate = Calendar.getInstance();
+		toDate.setTime(new Date());
+		toDate.add(Calendar.MONTH, -1);
+		
+		if(element != null && element.getID() > -1)
+		{
+			sql ="SELECT SUM(FH.AMMOUNT) "+
+					"FROM "+
+					"CLIENTS CL "+
+					"INNER JOIN FEATURE FE ON (FE.CLIENT_ID = CL.ROW_ID AND FE.TYPE = 'Expense') "+
+					"INNER JOIN FEATURE_HISTORY FH ON (FH.FEATURE_ID = FE.ROW_ID AND FH.DATE_RECCORDED  <= '"+sdf.format(new Date())+"' AND FH.DATE_RECCORDED > '"+sdf.format(toDate.getTime())+"') "+
+					"WHERE "+
+					"CL.ROW_ID = "+element.getID();
+			
+			returnVal = this.mainDB.blindQuery(sql);
+			
+			if(returnVal.size() == 1 && returnVal.get(0).compareTo("null") != 0)
+			{
+				output = Double.parseDouble(returnVal.get(0));
+				output = -output;
+			}
+			else
+				output = 0;
+		}
+		
+		return output;
 	}
 	
 	/**DUMPCLIENTS()
