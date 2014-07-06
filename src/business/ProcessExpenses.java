@@ -3,6 +3,7 @@ package business;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import objects.Client;
 import objects.Contract;
 import objects.Expense;
 import objects.Service;
@@ -23,6 +24,57 @@ public class ProcessExpenses
 		database.connect();
 		database.insert(expense);
 		database.disconnect();
+	}
+	
+	public double getExpensesByClient(Client client)
+	{
+		double result = 0;
+		ArrayList<Expense> expenseList;
+		ArrayList<Service> serviceList;
+		
+		database.connect();
+		serviceList = database.getServiceByClient(client);
+		Iterator<Service> itSvc = serviceList.iterator();
+		Service service = null;
+		while(itSvc.hasNext())
+		{
+			service = itSvc.next();
+			expenseList = database.getExpensesByService(service);
+			Iterator<Expense> itExp = expenseList.iterator();
+			Expense expense = null;
+			
+			while(itExp.hasNext())
+			{
+				expense = itExp.next();
+				result += expense.getValue();
+			}
+			
+		}
+		database.disconnect();
+		
+		
+		return result;
+	}
+	
+	public double getExpensesByService(Service service)
+	{
+		double result = 0;
+		ArrayList<Expense> expenseList;
+		
+		database.connect();
+		expenseList = database.getExpensesByService(service);
+		database.disconnect();
+		
+		Iterator<Expense> it = expenseList.iterator();
+		Expense expense = null;
+		
+		while(it.hasNext())
+		{
+			expense = it.next();
+			result += expense.getValue();
+		}
+		
+		return result;
 	}
 	
 	public double getExpensesByContract(Contract contract)

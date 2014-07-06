@@ -6,6 +6,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TableItem;
 
+import business.ProcessExpenses;
 import business.ProcessService;
 
 /**
@@ -48,7 +49,7 @@ public class JCCServiceScreenDrawer extends BaseJCCScreenDrawer
 			item.setText(0, service.getID() + "");
 			item.setText(1, service.getTitle() + "");
 			item.setText(2, "$ "+(int)service.getRate());
-			item.setText(3, "$ "+getExpenses());
+			item.setText(3, "$ "+getExpenses(service));
 			item.setText(4, "$ "+getProfit());
 			item.setText(5, "% "+getCM());
 			item.setText(6, "% "+getPM());
@@ -82,9 +83,12 @@ public class JCCServiceScreenDrawer extends BaseJCCScreenDrawer
 	/*
 	 * @return The total expenses of this service
 	 */
-	protected String getExpenses() 
+	protected String getExpenses(Service service) 
 	{
-		return null;
+		double result = 0;
+		ProcessExpenses processExpenses = new ProcessExpenses();
+		result = processExpenses.getExpensesByService(service);
+		return ""+result;
 	}
 
 	@Override

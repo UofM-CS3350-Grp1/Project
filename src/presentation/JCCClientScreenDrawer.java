@@ -8,6 +8,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TableItem;
 
 import business.ProcessClient;
+import business.ProcessExpenses;
 
 /**
  * Clients screen
@@ -49,7 +50,7 @@ public class JCCClientScreenDrawer extends BaseJCCScreenDrawer
 			item.setText(0, client.getID() + "");
 			item.setText(1, client.getBusinessName() + "");
 			item.setText(2, "$ "+getRevenue(client));
-			item.setText(3, "$ "+getExpenses());
+			item.setText(3, "$ "+getExpenses(client));
 			item.setText(4, "$ "+getProfit());
 			item.setText(5, "% "+getCM());
 			item.setText(6, "% "+getPM());
@@ -98,9 +99,12 @@ public class JCCClientScreenDrawer extends BaseJCCScreenDrawer
 	/*
 	 * @return The total expenses of this client
 	 */
-	protected String getExpenses() 
+	protected String getExpenses(Client client) 
 	{
-		return null;
+		double result = 0;
+		ProcessExpenses processExpenses = new ProcessExpenses();
+		result = processExpenses.getExpensesByClient(client);
+		return ""+result;
 	}
 
 	@Override
