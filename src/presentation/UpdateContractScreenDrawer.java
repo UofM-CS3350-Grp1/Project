@@ -120,7 +120,7 @@ public class UpdateContractScreenDrawer
 				addSelectedItem();
 			}
 		});
-		button.setText("ADD >>");
+		button.setText("Add >>");
 		button.setBounds(338, 146, 75, 25);
 		
 		Button button_1 = new Button(composite, SWT.NONE);
@@ -132,7 +132,7 @@ public class UpdateContractScreenDrawer
 				removeSelectedItem();
 			}
 		});
-		button_1.setText("<< REMOVE");
+		button_1.setText("<< Remove");
 		button_1.setBounds(338, 225, 75, 25);
 		
 		contractTable = new Table(composite, SWT.BORDER | SWT.FULL_SELECTION);

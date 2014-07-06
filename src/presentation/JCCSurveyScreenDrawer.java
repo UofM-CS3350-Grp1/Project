@@ -118,7 +118,7 @@ public class JCCSurveyScreenDrawer
 				}
 			});
 			btnSave.setBounds(119, 312, 75, 25);
-			btnSave.setText("SAVE");
+			btnSave.setText("Add");
 
 			btnCancel = new Button(btnSurvey, SWT.NONE);
 			btnCancel.addSelectionListener(new SelectionAdapter() {
@@ -128,7 +128,7 @@ public class JCCSurveyScreenDrawer
 				}
 			});
 			btnCancel.setBounds(274, 312, 75, 25);
-			btnCancel.setText("CANCEL");
+			btnCancel.setText("Cancel");
 
 			dateField = new DateTime(btnSurvey, SWT.BORDER);
 			dateField.setBounds(104, 77, 80, 24);

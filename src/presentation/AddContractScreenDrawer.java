@@ -119,7 +119,7 @@ public class AddContractScreenDrawer
 			}
 		});
 		btnAdd.setBounds(348, 167, 75, 25);
-		btnAdd.setText("ADD >>");
+		btnAdd.setText("Add >>");
 		
 		Button button = new Button(composite, SWT.NONE);
 		button.addSelectionListener(new SelectionAdapter()
@@ -131,7 +131,7 @@ public class AddContractScreenDrawer
 			}
 		});
 		button.setBounds(348, 246, 75, 25);
-		button.setText("<< REMOVE");
+		button.setText("<< Remove");
 		
 		label = new Label(composite, SWT.NONE);
 		label.setText("Select Business");
@@ -193,7 +193,7 @@ public class AddContractScreenDrawer
 			}
 		});
 		btnCreate.setBounds(307, 525, 75, 25);
-		btnCreate.setText("CREATE");
+		btnCreate.setText("Create");
 		
 		Button btnCancel = new Button(composite, SWT.NONE);
 		btnCancel.addSelectionListener(new SelectionAdapter()
@@ -205,7 +205,7 @@ public class AddContractScreenDrawer
 			}
 		});
 		btnCancel.setBounds(433, 525, 75, 25);
-		btnCancel.setText("CANCEL");
+		btnCancel.setText("Cancel");
 		
 		Label label_1 = new Label(composite, SWT.NONE);
 		label_1.setText("Value:");

@@ -119,7 +119,7 @@ public class AddExpensesScreenDrawer
 				}
 			});
 			btnSave.setBounds(141, 378, 75, 25);
-			btnSave.setText("SAVE");
+			btnSave.setText("Add");
 			
 			btnCancel = new Button(btnSurvey, SWT.NONE);
 			btnCancel.addSelectionListener(new SelectionAdapter() {
@@ -129,7 +129,7 @@ public class AddExpensesScreenDrawer
 				}
 			});
 			btnCancel.setBounds(296, 378, 75, 25);
-			btnCancel.setText("CANCEL");
+			btnCancel.setText("Cancel");
 			
 			lblSelectContract = new Label(btnSurvey, SWT.NONE);
 			lblSelectContract.setBounds(37, 51, 90, 15);
