@@ -35,7 +35,7 @@ public class CalcFeatureValueTest
 	@Test
 	public void testCalcFeature3()
 	{
-		TrackedFeatureType featureType = new TrackedFeatureType("Feature type", "Feature title");
+		TrackedFeatureType featureType = new TrackedFeatureType("Feature type");
 		TrackedFeature feature = new TrackedFeature("Feature", featureType);
 		double result = CalculateFeatureValue.calculateTotalValue(null, feature);
 		

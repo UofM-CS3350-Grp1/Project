@@ -110,7 +110,7 @@ public class AddTrackableFeatureDrawer
 		
 		try
 		{
-			featureType = new TrackedFeatureType(txtName.getText(), txtName.getText());
+			featureType = new TrackedFeatureType(txtName.getText());
 			feature = new TrackedFeature(txtName.getText(), featureType);
 			
 			if(processAddFeature.insert(feature))

@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 
 public class FeatureHistoryTest 
 {
-	private static TrackedFeatureType featureType = new TrackedFeatureType("Feature type", "Feature title");
+	private static TrackedFeatureType featureType = new TrackedFeatureType("Feature type");
 	private static TrackedFeature validFeature = new TrackedFeature("Feature", featureType);
 	private static ServiceType serviceType = new ServiceType("Service type", "Description");
 	private static Service validService = new Service("Service X", "X != Y", 16.25, serviceType);

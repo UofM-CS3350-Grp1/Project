@@ -10,7 +10,7 @@ public class TrackedFeatureTest
 {
 	/** 	Testing Creation	**/
 		
-	TrackedFeatureType featureType = new TrackedFeatureType("Feature type", "Feature title");
+	TrackedFeatureType featureType = new TrackedFeatureType("Feature type");
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testFeature1()

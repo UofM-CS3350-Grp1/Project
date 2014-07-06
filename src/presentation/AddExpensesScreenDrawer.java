@@ -221,7 +221,7 @@ public class AddExpensesScreenDrawer
 		 */
 		private void addSurvey(double value, String details) 
 		{
-			TrackedFeatureType featureType = new TrackedFeatureType("Expense type", "Expense title");
+			TrackedFeatureType featureType = new TrackedFeatureType("Expense type");
 			TrackedFeature trackedFeature = new TrackedFeature("Expense", featureType);
 			Client client;
 			ProcessClient processClient = new ProcessClient();
