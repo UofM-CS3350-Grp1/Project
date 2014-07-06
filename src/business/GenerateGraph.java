@@ -168,6 +168,11 @@ public class GenerateGraph
 		return chart;
 	}
 	
+	/**
+	 * Creates a chart to illustrate the breakdown of revenue to expenses
+	 * @param client	The client to generate breakdown for
+	 * @return	The chart of the financial break down
+	 */
 	public JFreeChart generateFinancialBreakdownForClient(Client client)
 	{
 		JFreeChart chart = null;
