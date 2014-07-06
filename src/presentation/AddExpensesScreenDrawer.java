@@ -3,12 +3,15 @@ package presentation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 
 import objects.Client;
 import objects.Contract;
 import objects.FeatureHistory;
 import objects.Service;
+import objects.TrackedFeature;
+import objects.TrackedFeatureType;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -45,7 +48,7 @@ public class AddExpensesScreenDrawer
 		private Label lblNewLabel;
 		private Combo comboContract;
 		private Label lblCompanysupplier;
-		private Text payee;
+		private Text supplier;
 		
 		/*
 		 * Call the constructor with a shell's main component as <container>
@@ -115,7 +118,7 @@ public class AddExpensesScreenDrawer
 			btnSave.addSelectionListener(new SelectionAdapter() {
 				@Override
 				public void widgetSelected(SelectionEvent arg0) {
-					addSurvey();
+					addSurvey((double)Integer.parseInt(value.getText()), details.getText());
 				}
 			});
 			btnSave.setBounds(141, 378, 75, 25);
@@ -166,8 +169,8 @@ public class AddExpensesScreenDrawer
 			lblCompanysupplier.setBounds(10, 137, 106, 15);
 			lblCompanysupplier.setText("Company/Supplier");
 			
-			payee = new Text(btnSurvey, SWT.BORDER);
-			payee.setBounds(141, 137, 305, 21);
+			supplier = new Text(btnSurvey, SWT.BORDER);
+			supplier.setBounds(141, 137, 305, 21);
 			
 			new Label(composite, SWT.NONE);
 			new Label(composite, SWT.NONE);
@@ -216,8 +219,17 @@ public class AddExpensesScreenDrawer
 		/*
 		 * Saves the recorded survey information
 		 */
-		private void addSurvey() 
+		private void addSurvey(double value, String details) 
 		{
+			TrackedFeatureType featureType = new TrackedFeatureType("Expense type", "Expense title");
+			TrackedFeature trackedFeature = new TrackedFeature("Expense", featureType);
+			Client client;
+			ProcessClient processClient = new ProcessClient();
+			client = processClient.getClientByBusinessName(comboClient.getText());
+			Date date = new Date();
+			FeatureHistory history = new FeatureHistory(trackedFeature, client, value, date);
+			ProcessFeatureHistory processHistory = new ProcessFeatureHistory();
+			processHistory.insert(history);
 		}
 
 		/*
