@@ -29,6 +29,15 @@ TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 
+Task: Users Table/Logins, Simple Queries
+Date: 07/06
+Assigned To: Derek/Adrian
+Status: Competed
+Duration: 1 Hour
+Description:	- Basic queries for expenses.
+				- Added Derek's user table.
+				- Simple untested login.
+
 Task: Testing, bug fixing, refactoring 
 Date: 7/06, 3:00am
 Assigned to: Tim
