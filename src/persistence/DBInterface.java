@@ -23,11 +23,11 @@ public class DBInterface
 	public static final String DATABASE_NAME = "CacheDB";
 	public static final String DATE_FORMAT = "yyyy-MM-dd";
 	
-	private DBController mainDB;
+	protected DBController mainDB;
 	private String dbName;
-	private DBParser parser;
+	protected DBParser parser;
 	private final int ERROR_LOGGING = 0; //1 to enable 0 to disable.
-	private SimpleDateFormat sdf;
+	protected SimpleDateFormat sdf;
 	
 	public DBInterface(String dbName)
 	{
@@ -313,6 +313,7 @@ public class DBInterface
 		
 	}
 	
+	
 	/**
 	 * 	GETEXPENSEBYID()
 	 * 
@@ -355,7 +356,7 @@ public class DBInterface
 		}
 		
 	}
-	
+
 	/**
 	 * 	GETSERVICETYPEBYID()
 	 * 
@@ -1326,7 +1327,7 @@ public class DBInterface
 			return storage;
 		}
 	}
-	
+
 	/**DUMPEXPENSES()
 	 * 
 	 * Returns all service types on the DBMS;
@@ -1403,7 +1404,9 @@ public class DBInterface
 		{
 			sql = "SELECT COUNT(*) FROM USERS WHERE NAME = '"+name+"' AND PASSWORD = '"+login+"'";
 			
-			if(returnVal.size() == 1 && returnVal.get(0).compareTo("null") != 0)
+			returnVal = this.mainDB.blindQuery(sql);
+			
+			if(returnVal.size() == 1 && returnVal.get(0).compareTo("null") != 0  && Integer.parseInt(returnVal.get(0)) == 1)
 				output = true;
 		}
 		

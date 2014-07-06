@@ -1,4 +1,381 @@
 ----------
+Derek, July 6:
+
+Thanks for getting it in there.  I think there may be something missing from this method in the DBInterface:
+
+public boolean userLogin(String name, String login)
+{
+boolean output = false;
+String sql = "";
+ArrayList<String> returnVal = new ArrayList<String>();
+if(name != null && login != null && !name.isEmpty() && !login.isEmpty())
+{
+sql = "SELECT COUNT(*) FROM USERS WHERE NAME = '"+name+"' AND PASSWORD = '"+login+"'";
+if(returnVal.size() == 1 && returnVal.get(0).compareTo("null") != 0)
+output = true;
+}
+return output;
+}
+
+The 'returnVal' ArrayList never gets modified, so the 'output' boolean will always be false (unless I'm missing something).  Did you mean to insert the 'sql' string into the ArrayList before the inner if statement?
+
+----------
+Adrian, July 6:
+
+Yep, I can get right on that. I just have an event for a few hours tonight and I'll put it in asap.
+
+----------
+Derek, July 6:
+
+Hey guys, sorry I missed the meeting.  Didn't know we were planning to meet after the term test.
+
+Adrian - I'm working on the login screen.  Do we have a table for the usernames/passwords (doesn't look like we do)?  How would we want to handle that securely, since passwords in plain text is not the best idea.  Do we want to worry about security later and just set up a table so we have something to work with?  Maybe something like:
+
+CREATE MEMORY TABLE USERS(ROW_ID INTEGER NOT NULL PRIMARY KEY,NAME VARCHAR(16) NOT NULL,PASSWORD VARCHAR(16) NOT NULL)
+
+INSERT INTO USERS VALUES(1,'Adrian','password')
+INSERT INTO USERS VALUES(2,'Dell','password')
+INSERT INTO USERS VALUES(3,'Derek','password')
+INSERT INTO USERS VALUES(4,'Jason','password')
+INSERT INTO USERS VALUES(5,'Karl','password')
+INSERT INTO USERS VALUES(6,'Tim','password')
+
+----------
+Adrian, July 3:
+
+CHANGES TO DOMAIN OBJECTS: Tomorrow 5pm (Hopefully...)
+
+
+Today's Meeting:
+
+Outstanding Changes Required:
+
+    TESTS:
+        -Business
+        -Integration
+        -Customer
+            -Manual
+            -Automated
+
+    CLIENTS
+        - Job costs need to be included in histories.
+
+    SERVICES
+        - Need to GetFeatures/GetHistory to retrieve history.
+
+    UI:
+        - Small graphical updates if time allows.
+
+    PERSISTENCE:
+        - Split interface into queries/edits if time allows.
+        - Replace insert/update with general purpose Save() method if time allows.
+
+DOMAIN OBJECTS: (Changes will be posted at 5pm tomorrow please refrain from editing until that point)
+        TrackedFeatureType:
+            Generic Feature Types:
+                Includes: FeatureID, Title(Name), and Type(Feature/Expense)
+
+
+    TrackedServiceType:
+            Generic Service Types:
+                Includes: ServiceID, ServiceType(Name), and Description(Details)
+
+        TrackedFeature
+            - As of tomorrow ill require a TrackedFeatureType object to function properly. Please update your code.
+
+        Service           
+             - As of tomorrow ill require a ServiceType object and a Header/Footer Object to function properly. Please update your code.
+
+        Contract:
+            - As of tomorrow, will have a text field for service description.
+
+----------
+Adrian, July 2:
+
+Scratch
+
+
+FeatureType getFeatureType(TrackedFeature value)    
+ServiceType getServiceType(Service value)  
+
+as they won't be necessary if using encapsulation.
+
+----------
+Adrian, July 2:
+
+Hey guys,
+
+I took a quick look over the suggested changes and here's what I'm getting from it. I'm sure there's things missing
+
+Tables:
+
+FEATURE_TYPE (rowID not null primary key, title, type)
+FEATURE (rowID not null primary key, uniqueServiceID, rate, description, clientID, contractID,
+    constraint features_to_services foreign key (intermediateServiceID) references SERVICES(rowID) on delete cascade)
+
+SERVICE_TYPE (rowID not null primary key, title, descriptions/notes)
+SERVICES (rowID not null primary key, uniqueServiceID, rate, description, clientID, contractID
+    constraint services_to_contracts foreign key (intermediateServiceID) references CONTRACTS(rowID) on delete cascade)
+
+EXPENSE (rowID not null primary key, intermediateServiceID, description, value, date, constraint expenses_to_services foreign key (intermediateServiceID) references SERVICES(rowID) on delete cascade)
+
+Objects:
+
+ServiceType(int id, String title, String description)    //Will be encapsulated in Service Object
+FeatureType(int id, String title, String description)    //Will be encapsulated in TrackedFeature Object
+Expense(int id, Service serv (or int service id), string description, double value, Date date)
+
+Queries:
+
+getByIDs for FeatureType/ServiceType /Expense         
+
+tableDumps for FeatureType/ServiceType /Expense 
+
+FeatureType getFeatureType(TrackedFeature value)    
+ServiceType getServiceType(Service value)  
+
+ArrayList<Feature> getFeaturesByFeatureType(TrackedFeature value)    
+ArrayList<Service> getServicesByServiceType(value)                       
+ArrayList<Expense> getExpensesByService(Service value)
+
+----------
+Jason, July 1:
+
+Hey Guys,
+I just thought id just give a bit more details about how the db storage should work, for services (as mentioned by Tim), and for features (tracking information received from the survey sent to clients):
+
+A rough layout of the services table (as per Tim) should look as follows (if I understood correctly):
+
+uniqueServiceTable (uniqueServiceID, title, type)
+intermediateTable(intermediateServiceID, uniqueServiceID, rate, description, clientID, contractID)
+
+This way there will be no duplicate data.
+
+
+A rough layout for the features table (something i thought of, any input or other suggestion is welcome)
+uniqueFeatureTable (uniqueFeatureID, title, descriptions/notes)
+intermediateTable (uniqueFeatureID, intermediateID, amount/value, clientID, date, details)
+
+same thing, no duplicate data, and this would make it very easy to track individual items.
+
+If there are any other suggestions feel free to jump in. 
+
+Another benefit for using this method would be that it would be very straight forward to list out the unique services and features rather than running through a table containing all services and features from all clients and extracting one of each type for displaying purposes.
+
+For the expenses tab, heres what i was thinking of (expenses would be located under the JCC, Ill be implementing it this weekend):
+expensesTable(expensesID, intermediateServiceID, description, value, date)
+The easiest way to implement this (due to us only having 2 weeks left and interviews starting soon) would be to give our customer the ability to add an undetermined amount of expenses for any service, which I would implement under a "add new expense" button within JCC.
+
+----------
+Jason, June 30:
+
+Oh i see what you mean. Yeah i think that would be a better way of binding services to contracts. Minimize storage and search times.
+
+----------
+Tim, June 30:
+
+Hey,
+
+Now that I know a bit more of how the contracts are supposed to work, one client per contract makes sense. 
+
+However we still do not need to have multiple duplicated services (or features for that matter). We can use a many to many relationship where the intermediary table (between Contract and Service) specifies the specific details (description, value) of the service. In this case the details specific to the contract can be pulled from the Service table and put into the ContractService (intermediary) table.
+
+If this is still unclear perhaps on Wednesday we can meet up and walk through what we need and how the database system actually works. 
+
+Cheers,
+Tim
+
+----------
+Jason, June 30:
+
+The relationship between clients and contracts cannot have a many to many relationship. A client can have various contracts, but a contract can have only 1 client; that is if I understood your concern correctly. In terms of duplicating services, the only reason that is being done right now is because each service used will have different details and rates. For example, 2 clients want a website, for the first client the cost will be $500 for the site and for the second client it will be $300. Only the details and the rate would change for a particular service. We might be able to use a different architecture for services if that would make things easier though due to how they will work.
+
+----------
+Tim, June 30:
+
+Hey guys,
+
+In terms of deleting contracts, services, etc. why is it that we need more than one service/ feature?
+
+Would it not be better to create a many to many relationship for the data since clients can belong to more than one contract and vice versa? This way when we create a contract it can reference clients/ services without the need to duplicate the service for the sole purpose of relating it to the contract.
+
+In terms of the issue that arises dealing with: What if the table only allows for one client/ service? We can simply create an intermediary table to manage this for us.
+
+Cheers,
+Tim
+
+----------
+Jason, June 30:
+
+Yeah this would be only for selecting services. When deleting contracts/services, its only supposed to delete the recreated/deep-copied services, but the original generic services should stay. If a service would get deleted from the general service table, it should not delete the ones already added to the contracts.
+
+----------
+Adrian, June 30:
+
+Hey Jason,
+
+Thanks for the reply, if you're okay with dropping a client also dropping a contract then it won't even need to be implemented in the controller/interface as it effectively returns the DBMS back to a single-parent tree structure with client as the top level object and it will just cascade normally.
+
+I'm fine with adding a service description table, however I'm assuming we want this enabled primarily for selection criteria (ie. we will not retroactively cancel existing services on accounts when deleting from the general services table)?
+
+----------
+Jason, June 30:
+
+Hey guys sorry about the late email, I was out pretty late last night. Anyways, I met up with our customer last weekend and got some more requirements (nothing new really, he was just pointing out what else was needed yet to finish up). So heres a list of things that need to be done yet (not all of them are in the user stories):
+
+1) a tab to input info received by the customers' clients, like inputing numbers for revenue, hits, leads, etc
+2) a tab to view the business finances (ability to choose between contracts and services/features), and an overall breakdown
+3) editing contracts (im currently working on this)
+4) For the service list, what Ive been thinking about (also talked to Adrian about this) is that we should have unique services displayed only, nothing specific to a contract at all. So one way of doing this that i was thinking about was to add an additional field to the services table, and use that as the generic service id (the one that gets displayed in the list, and the one that gets deep-copied when creating a contract). All the rest of the services would not be displayed anywhere except in their respective contracts/clients.
+
+
+What we should discuss yet in more detail is how the features interact/connect to the analytics section (im still not 100% sure how exactly this works). Also, for deleting contracts, I think it would be best to delete the services along with that from within the dbcontroller or dbinterface. Same for when deleting clients (delete contracts along with it). If there are any other ideas on how we should do this, thats no prob. 
+
+----------
+Derek, June 27:
+
+Hand-in complete.  9 files total.​​
+​
+----------
+Derek, June 27:
+
+​Last call:  Hand-in going in in 30 min.
+
+
+I've got the Costs file, along with the 5 PDF's.  I'll tag the project after doing a fresh pull (last commit I see is from Tim @ 2:07AM), zip it, pull out the log and readme files.
+
+----------
+Adrian, June 27:
+
+Added costs for implementing histories, based on the time associated with implementing TrackedFeature/FeatureHistory on the model level as well as the necessary refactoring, tests, and interface implementation. ~19 hours, assuming roughly 8 hour days, split between the two user stories, rounded down = 1 day each. 
+
+----------
+Tim, June 27:
+
+Hey guys,
+
+Thanks Derek for being able to submit the project.
+
+I'm not sure exactly what caused the tests to fail on the database end but after I ran the RestoreDB.bat it worked again. While I don't remember the exact test that it failed on, I remember that there was a null pointer exception. 
+
+As far as explicitly stating the planned vs actual time you can go through the log and sum up the total time spent on all areas related to an associated user story. If the actual time isn't 100% accurate I'm sure that it will be sufficient. For instance I spent about 20 hours spread across performance history and tracking. I'm not really sure how to split that up since for the most part I was working on both of them simultaneously. (ie. I made one for clients and then duplicated and modified it for services [in terms of UI at the very least]). Both systems were essentially the same in terms of logic. You can also put me down for 2 hours in terms of contract creation as this was the amount of time I spent to pretty it up and verify button functionality. :)
+
+Cheers,
+Tim
+
+----------
+Jason, June 27:
+
+One thing we also need to add yet explicitly for iteration 2: "Include the planned cost and the actual cost for each detailed story and developer task.". This should be done separately from the log because the developer tasks used are a bit more detailed than the generic detailed user stories. The ones for the developer tasks are well laid out in the log file though. Attached is the docx file with a few things filled out that ive done. I wasnt quite sure how to go about adding the actual costs for the other stories, so i though that everyone could maybe just send out their costs for the stories you worked on. 
+
+----------
+Adrian, June 27:
+
+That would be awesome Derek. 
+
+I just did a fresh pull and ran database/RestoreDB.bat, and ran TestAll, which passed without errors. I repeated this a few times without any problems, so I'm unsure what was causing tests to fail?
+
+
+My guess is that if it was failing on testDDInterface or testDBController it would be that they necessitate the testing of all the retrieval methods as well as valid insert/update/delete calls and batch merges for all the different object types, so once the rows change (i.e. repeated testing or other inputs), the hard coded retrieval requests may eventually fall out of sync with the changes to the table. 
+
+Which is why I added a note to the readme file yesterday requesting that the marker run database/RestoreDB.bat after testing.
+
+----------
+Derek, June 27:
+
+I can take care of the handin.  The only thing I'm not super sure on is the tagging, as I'm somewhat new to Eclipse and Git.  I'm guessing this is what I need to do (someone correct me if I'm wrong):
+
+Right click on project
+Team -> Advanced -> Tag
+Fill in Tag name and Tag message
+Click "Create Tag and Start Push"
+
+If that sounds good, I will do a fresh pull and start doing the handin around, say 2:30PM unless I hear otherwise(?)
+
+----------
+Adrian, June 27:
+
+To restore the DB, simply run the RestoreDB.bat script file in the/databases folder.
+
+I was up until 4:30 am last night and I'm at work with an implementation between 9 and 12 today so I'm afraid I won't be able to add much at this point. I will double check the tests I've written asap.
+
+----------
+Tim, June 27:
+
+Hey guys,
+
+I have gone over the project and there are a few things still outstanding in terms of content:
+Business logic tests
+I added one test but it doesn't do any actual checking of the data due to the fact that the CalculateFeatureValue class pulls dynamic data from the database.
+We probably should add a couple more test classes, see what you can do with it
+Ensure that ALL tests pass before hand in
+Login screen
+I know that single/ multiple user access permissions is for Iteration 3 but that login screen should at least say logged in
+Restore the DB prior to handin
+
+
+In terms of tracking the actual revenue, expenses, etc. as Jason addressed, we will need some way to denote the differences between service types. Off the top of my head an enumerated type that encompasses revenue, expenses, ..., and other should work. Unless someone wants to put that together tomorrow (today) then I'd be okay with leaving it until Iteration 3.
+
+I hooked up all of the contract buttons so they should all work and do their respective tasks. I have hidden the print and save buttons on the analysis page as they are not currently needed. I believe I am catching (and handling) all of the possible failure points, if this is not the case add it in and verify that it works.
+
+The code itself has been cleaned up and useless classes, code blocks, TODOs have been removed. Remember that if you need some functionality from a deleted class, you can look up its history in the repository.
+
+IMPORTANT: I have NOT submitted the project as of now. I shall leave you guys to verify that everything works, fix any bugs and tweak features as necessary. I hope that someone adds some additional testing. Something about one small class of business tests feels wrong. 
+
+I hate to pass the torch so to speak but could someone else upload the project after it has been scrutinized by the group? I'm too tired to stay up and wait for confirmation (if you guys are even up :P) and I work in a few hours now... I'll try to double check around noon that the project has indeed been uploaded but do NOT 100% count on it.
+
+I have attached all of the required files to hand in aside from the Readme and the Log file. The project has not yet been tagged.
+
+All that remains is uploading the attached files, tagging the project, zipping the project up, obtaining an additional log and readme file outside of the zipped package and handing it in.
+
+Thanks,
+Tim
+
+----------
+Jason, June 26:
+
+Also some sample contracts need to be taken out before submitting iteration 2 because they arent set up properly (all the testbusiness contracts and updatedbusiness contract) and they are also not clients (because they do not appear in the clients section), and since they arent clients, we are not able to view them in the view section. And the other ones (business big, business med, business small) do not have any services associated with them, so we could either add some services to them (manually) or simply create a few contracts from the new contract tab and use that. Some clients need to be removed as well (5 of them are labeled as NAME). Same with services and features now where im looking at it lol. Besides that and adding the business financial breakdown user story, i think we are ready to go. Any other suggestions are welcome.
+
+----------
+Adrian, June 26:
+
+Hey,
+
+
+I haven't heard back from anyone yet regarding the changes to detail user stories and I unfortunately have to work on other assignments that are due tomorrow. So I'm assuming we'll be fine to go with the current user stories.
+
+----------
+Adrian, june 26:
+
+I have no problem adding it in and dropping contract Creation if everyone okays it.
+
+Did we want to just move the time for contract creation into the Business Finances component or did we want to rebalanced the whole thing?
+
+Also, I want to go over Use Cases/Business Requirements, and nail down exactly what data needs to be added in our next meeting before we make any changes to the DBMS/Object layers. These changes could quite possibly break/complicate existing code and should ideally be implemented very early on, so we are minimizing the amount of refactoring needed for business/presentation code.
+
+----------
+Jason, June 26:
+
+A few side notes for the user stories:
+1) contract creation and viewing is implemented, only the editing will be moved to iteration 3
+2) one thing we need to implement (very important, mentioned a few time throughout the meeting with our customer, so we need a user story for that as well) is to have a section where we break down the finances of the business (Buzzin business finances). This will include revenue, expenses (expenses could be too complex for our short amount of time if we give our customer the ability to create types of expenses, for example service1 has 2 seperate expenses, one is payment to a freelance developer and another one is payment for some equipment or whatever. So what we could do is maybe just give the ability to add a single $$ amount per service), and profit. Implementing this so that he is able to choose between a breakdown per contract and per service should be pretty straight forward. The only question is when to increase the revenue, expenses, profit etc. I was thinking once a contract has its status set to "signed", these numbers can be increased.
+3) for the last detailed user story, i personally would believe that only a username and password would be needed. Usually for software these are the only security features involved (in the front end atleast), where as security questions is more of a web based feature due to hacking. Any other suggestions are welcome.
+
+----------
+Adrian, June 26:
+
+Hey guys, sorry for missing the meeting, I was up till 5:30 and slept through my alarm.
+
+
+Cards and changes are provided. I've basically just taken the notes given.
+
+As always, let me know if anything needs to be changed.
+
+Thanks,
+
+Adrian
+
+----------
 Karl, June 26:
 
 Since we didn't have a meeting today as planned, I created some revised user stories for the next iteration. I also include the changes made below them which are supposed to be included in the handin.
