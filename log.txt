@@ -29,6 +29,23 @@ TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 
+Task: Testing, bug fixing, refactoring 
+Date: 7/06, 3:00am
+Assigned to: Tim
+Status: In progress.
+Duration: 1 hour
+Description:	Added tests for monthly reports class.
+				Fixed many compile issues in response to requirement changes and corresponding class changes.
+
+Task: Performance tracking analysis 
+Date: 7/06, 1:30am
+Assigned to: Tim
+Status: In progress.
+Duration: 2 hours
+Description:	Setup process for integrating financial data into analytics.
+				Created object for handling data required when pulling month based data.
+				Added the initial revenue analysis for clients.
+
 Task: Refactoring Domain Objects / Tables, Fixing Bugs, Queries
 Date: 07/04
 Assigned To: Adrian
