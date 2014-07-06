@@ -1393,6 +1393,23 @@ public class DBInterface
 		return output;
 	}
 	
+	public boolean userLogin(String name, String login)
+	{
+		boolean output = false;
+		String sql = "";
+		ArrayList<String> returnVal = new ArrayList<String>();
+		
+		if(name != null && login != null && !name.isEmpty() && !login.isEmpty())
+		{
+			sql = "SELECT COUNT(*) FROM USERS WHERE NAME = '"+name+"' AND PASSWORD = '"+login+"'";
+			
+			if(returnVal.size() == 1 && returnVal.get(0).compareTo("null") != 0)
+				output = true;
+		}
+		
+		return output;
+	}
+	
 	/**
 	 * 	batchMerge()
 	 * 
