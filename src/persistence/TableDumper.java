@@ -12,11 +12,11 @@ import objects.Storable;
 import objects.TrackedFeature;
 import objects.TrackedFeatureType;
 
-public class TableDumper extends DBInterface
+public class TableDumper extends IDQueryBuilder
 {
 	public TableDumper()
 	{
-		super(DBInterface.DATABASE_NAME);
+		super();
 	}
 	
 	/**DUMPCLIENTS()

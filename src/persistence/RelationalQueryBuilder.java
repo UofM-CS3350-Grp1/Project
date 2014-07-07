@@ -11,13 +11,13 @@ import objects.ServiceType;
 import objects.TrackedFeature;
 import objects.TrackedFeatureType;
 
-public class RelationalQueryBuilder extends DBInterface
+public class RelationalQueryBuilder extends IDQueryBuilder
 {
 	private final int ERROR_LOGGING = 0;
 	
 	public RelationalQueryBuilder()
 	{
-		super(DBInterface.DATABASE_NAME);
+		super();
 	}
 	
 	/**

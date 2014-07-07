@@ -9,11 +9,11 @@ import objects.Contract;
 import objects.MonthReport;
 import objects.Service;
 
-public class FinancialQueryBuilder extends DBInterface
+public class FinancialQueryBuilder extends IDQueryBuilder
 {
 	public FinancialQueryBuilder()
 	{
-		super(DBInterface.DATABASE_NAME);
+		super();
 	}
 	
 	/** GETLASTYEARRETURNS()
