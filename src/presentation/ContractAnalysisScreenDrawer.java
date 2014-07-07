@@ -83,6 +83,9 @@ public class ContractAnalysisScreenDrawer
 	private Button btnSave;
 	private Label lblServicesInThis;
 	
+	private String[] months = {"null", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+	private String[] years = {"2013", "2014", "2015", "2016"};
+	
 	/**
 	 * Creates a new client analysis screen
 	 * @param container 	The composite
@@ -481,13 +484,55 @@ public class ContractAnalysisScreenDrawer
 	 */
 	public void inputServices(PdfContentByte over, PdfWriter writer, BaseFont bf)
 	{
+		int multiplier = 0;
+		int monthStart = 0;
+		int yearStart = 0;
+		int monthEnd = 0;
+		int yearEnd = 0;
+		for(int i=1; i<13; i++)
+		{
+			System.out.println(contract.getSignedDate().toString());
+			if(contract.getSignedDate().toString().contains(months[i]))
+			{
+				monthStart = i;
+				System.out.println("monthStart is "+monthStart);
+				for(int x=0; x<4; x++)
+				{
+					if(contract.getSignedDate().toString().contains(years[x]))
+					{
+						yearStart = Integer.parseInt(years[x]);
+						System.out.println("yearStart is "+yearStart);
+					}
+				}
+			}
+			if(contract.getPeriod().toString().contains(months[i]))
+			{
+				monthEnd = i;
+				System.out.println("monthEnd is "+monthEnd);
+				for(int x=0; x<4; x++)
+				{
+					if(contract.getPeriod().toString().contains(years[x]))
+					{
+						yearEnd = Integer.parseInt(years[x]);
+						System.out.println("yearEnd is "+yearEnd);
+					}
+				}
+			}
+		}
+		if(yearStart!=yearEnd)
+		{
+			multiplier = 12-monthStart;
+			multiplier += monthEnd;
+		}else{
+			multiplier = monthEnd-monthStart;
+		}
 		TableItem[] items = servicesTable.getItems();
 		int y = 500;
 		for(int i=0; i<items.length; i++)
 		{
 	        setTextPosition(over, writer, bf, 20, y, servicesTable.getItem(i).getText(2));
 	        setTextPosition(over, writer, bf, 155, y, servicesTable.getItem(i).getText(3));
-	        setTextPosition(over, writer, bf, 435, y, "1");
+	        setTextPosition(over, writer, bf, 435, y, multiplier+"");
 	        setTextPosition(over, writer, bf, 510, y, servicesTable.getItem(i).getText(1));
 	        y -= 48;
 		}
