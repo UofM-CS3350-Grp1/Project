@@ -949,6 +949,11 @@ public class DBInterface
 	}
 	
 	
+	/** GETLASTYEARRETURNS()
+	 * 
+	 * Returns up to the last 12 months worth of monthly reports.
+	 */
+	
 	public ArrayList<MonthReport> getLastYearReturns(Client element)
 	{
 		ArrayList<MonthReport> tally = null;
@@ -957,7 +962,6 @@ public class DBInterface
 		String sql = "";
 		ArrayList<String> returnVal = new ArrayList<String>();
 		Date startDate = new Date();
-		Date endDate = new Date();
 		Calendar fromDate = Calendar.getInstance();
 		Calendar toDate = Calendar.getInstance();
 		Calendar contractDate = Calendar.getInstance();
