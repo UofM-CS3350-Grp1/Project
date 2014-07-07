@@ -28,6 +28,27 @@ TODO(Jason):
 TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Testing and Cleaning 
+Date: 7/06, 8:30pm
+Assigned to: Tim
+Status: In progress.
+Duration: 1 hour
+Description:	Removed features table from services.
+				Removed dead classes as a result of service/ client swap.
+				Added test cases to the User class.
+				Validated to User class to pass said tests.
+
+
+Task: Performance tracking analysis 
+Date: 7/06, 7:30pm
+Assigned to: Tim
+Status: In progress.
+Duration: 1.5 hours
+Description:	Modified charts to include expenses.
+				Added charts to services.
+				Modified chart structure to accommodate for profit.
+
+
 Date: 07/06, 8:16
 Assigned to: Karl
 Status: in progress
