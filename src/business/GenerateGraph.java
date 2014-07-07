@@ -90,15 +90,24 @@ public class GenerateGraph
 	 */
 	public JFreeChart generateRevenueLineChartForClient(Client client)
 	{
+		ArrayList<MonthReport> reports;		
 		JFreeChart chart = null;
-		ArrayList<MonthReport> reports;
+		DefaultCategoryDataset data = new DefaultCategoryDataset();
+		Plot plot;
 		
 		assert (client != null);
 		if(client != null)
 		{
 			reports = financialRecords.getYearRevenueForClient(client);
-			chart = generateRevenueLineChart(reports);
+			addDataToChart(data, reports, "Revenue");
 		}
+			
+		//Setup the chart
+		chart = ChartFactory.createLineChart("Revenue", "Period (Months)", "Dollars", data);
+		chart.removeLegend();
+		
+		plot = chart.getPlot();
+		plot.setNoDataMessage("No data available");
 		
 		return chart;
 	}
@@ -112,27 +121,37 @@ public class GenerateGraph
 	{
 		JFreeChart chart = null;
 		ArrayList<MonthReport> reports;
+		DefaultCategoryDataset data = new DefaultCategoryDataset();
+		Plot plot;
 		
 		assert (service != null);
 		if(service != null)
 		{
 			reports = financialRecords.getYearRevenueForService(service);
-			chart = generateRevenueLineChart(reports);
+			addDataToChart(data, reports, "Revenue");
+			
+			reports = financialRecords.getYearExpenseForService(service);
+			addDataToChart(data, reports, "Expenses");
 		}
+			
+		//Setup the chart
+		chart = ChartFactory.createLineChart("Revenue/ Expense", "Period (Months)", "Dollars", data);
+		chart.removeLegend();
+		
+		plot = chart.getPlot();
+		plot.setNoDataMessage("No data available");
 		
 		return chart;
 	}
 	
 	/**
-	 * Creates a line graph of the revenue for the past 12 months
-	 * @param reports	The last year's monthly values
-	 * @return A chart containing the past 12 months of revenue
+	 * Adds the report data to a graph
+	 * @param data			The chart's data container
+	 * @param reports		List of reports
+	 * @param xaxisName		Name of the X axis value
 	 */
-	private JFreeChart generateRevenueLineChart(ArrayList<MonthReport> reports)
+	private void addDataToChart(DefaultCategoryDataset data, ArrayList<MonthReport> reports, String xaxisName)
 	{
-		JFreeChart chart = null;
-		DefaultCategoryDataset data = new DefaultCategoryDataset();;
-		Plot plot;
 		MonthReport report;
 		int size;
 		SimpleDateFormat sdf;
@@ -149,7 +168,7 @@ public class GenerateGraph
 				for(int i = 0; i < size; i++)
 				{
 					report = reports.get(i);
-					data.addValue(report.getValue(), "Revenue", sdf.format(report.getPeriod()));
+					data.addValue(report.getValue(), xaxisName, sdf.format(report.getPeriod()));
 				}
 			}
 			catch(Exception e)
@@ -157,15 +176,6 @@ public class GenerateGraph
 				System.out.println(e);
 			}
 		}
-			
-		//Setup the chart
-		chart = ChartFactory.createLineChart("Revenue", "Period (Months)", "Dollars", data);
-		chart.removeLegend();
-		
-		plot = chart.getPlot();
-		plot.setNoDataMessage("No data available");
-		
-		return chart;
 	}
 	
 	/**
@@ -176,9 +186,6 @@ public class GenerateGraph
 	public JFreeChart generateFinancialBreakdownForClient(Client client)
 	{
 		JFreeChart chart = null;
-		
-		DefaultPieDataset data = new DefaultPieDataset();;
-		Plot plot;
 		double revenue, expenses;
 
 		assert (client != null);
@@ -186,13 +193,54 @@ public class GenerateGraph
 		{
 			revenue  = financialRecords.calcClientRevenueToDate(client);
 			expenses = financialRecords.calcClientExpensesToDate(client);
-	
-			data.setValue("Revenue", revenue);
-			data.setValue("Expenses", expenses);
+			
+			chart = generateFinancialBreakdown(revenue, expenses);
 		}	
+		
+		return chart;
+	}
+	
+	/**
+	 * Creates a chart to illustrate the breakdown of revenue to expenses
+	 * @param service	The service to generate breakdown for
+	 * @return	The chart of the financial break down
+	 */
+	public JFreeChart generateFinancialBreakdownForService(Service service)
+	{
+		JFreeChart chart = null;
+		double revenue, expenses;
+
+		assert (service != null);
+		if(service != null)
+		{
+			revenue  = financialRecords.calcServiceRevenueToDate(service);
+			expenses = financialRecords.calcServiceExpensesToDate(service);
+
+			chart = generateFinancialBreakdown(revenue, expenses);
+		}
+
+		return chart;
+	}
+	
+	/**
+	 * Creates a chart to illustrate the breakdown of revenue and expenses
+	 * @param revenue 	The total revenue
+	 * @param expenses 	The total expenses
+	 * @return	The chart of the financial break down
+	 */
+	private JFreeChart generateFinancialBreakdown(double revenue, double expenses)
+	{
+		JFreeChart chart = null;
+		DefaultPieDataset data = new DefaultPieDataset();;
+		Plot plot;
+
+		data.setValue("Revenue", revenue);
+		data.setValue("Expenses", expenses);
+		data.setValue("Profit", revenue - expenses);
 		
 		//Setup the chart names and axes
 		chart = ChartFactory.createPieChart("Financial Breakdown", data);
+		
 		plot = chart.getPlot();
 		plot.setNoDataMessage("No data available");
 

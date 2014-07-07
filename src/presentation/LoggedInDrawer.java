@@ -17,19 +17,14 @@ public class LoggedInDrawer
 	private Composite composite;
 	private String loggedInAs;
 	protected Button btnLogout;
-	private LoginDrawer ld;
-	private Composite loginScreen;
+
 	/**
 	 * Call the constructor with a shell's main component as <container>
 	 * and it will be added to that component;
 	 */
 	public LoggedInDrawer( Composite container ) 
 	{
-		loginScreen = SwitchScreen.getContentContainer();
-		ld = new LoginDrawer( loginScreen );
-
 		composite = new Composite( container, SWT.None );
-		loggedInAs = ld.getCurrentUser();
 
 		// units = grid columns
 		final int COMPOSITE_WIDTH = 2;
@@ -58,20 +53,26 @@ public class LoggedInDrawer
 			@Override
 			public void widgetSelected(SelectionEvent event)
 			{
-				processLogoutButton(loginScreen);
+				processLogoutButton();
 			}
 		});
 	}
 
-	protected void processLogoutButton(Composite loginScreen)
+	protected void processLogoutButton()
 	{
 		loggedInAs = null;
-		ld.logout();
+		Composite loginScreen = SwitchScreen.getContentContainer();
+		LoginDrawer ld = new LoginDrawer( loginScreen );
 		SwitchScreen.switchContent( loginScreen );
 	}
 
 	public String getCurrentUser()
 	{
 		return loggedInAs;
+	}
+
+	public void setUser(String user)
+	{
+		loggedInAs = user;
 	}
 }

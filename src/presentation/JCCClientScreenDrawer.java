@@ -1,13 +1,17 @@
 package presentation;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import objects.Client;
-import objects.Service;
+import objects.Contract;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TableItem;
 
 import business.ProcessClient;
+import business.ProcessContract;
 import business.ProcessExpenses;
 
 /**
@@ -15,7 +19,7 @@ import business.ProcessExpenses;
  */
 public class JCCClientScreenDrawer extends BaseJCCScreenDrawer
 {
-	private static final String[] tableColumnNames = { "Client ID", "Business", "Revenue", "Expenses", "Profit", "Contribution Margin", "Profit Margin" };
+	private static final String[] tableColumnNames = { "Client ID", "Business", "Revenue", "Expenses", "Profit", "Expense Margin", "Profit Margin" };
 	private static final int[] tableWidths = { 0, 150, 150, 150, 150, 150, 150 };
 	private ProcessClient processClient;
 	
@@ -47,64 +51,79 @@ public class JCCClientScreenDrawer extends BaseJCCScreenDrawer
 		{			
 			item = new TableItem(table, SWT.NULL);
 
+			double expense = getExpenses(client);
+			double total = getRevenue(client);
+			double profit = getProfit(expense, total);
+
 			item.setText(0, client.getID() + "");
 			item.setText(1, client.getBusinessName() + "");
-			item.setText(2, "$ "+getRevenue(client));
-			item.setText(3, "$ "+getExpenses(client));
-			item.setText(4, "$ "+getProfit());
-			item.setText(5, "% "+getCM());
-			item.setText(6, "% "+getPM());
+			item.setText(2, "$ "+total);
+			item.setText(3, "$ "+expense);
+			item.setText(4, "$ "+profit);
+			item.setText(5, getEM(expense, total)+"%");
+			item.setText(6, getPM(profit, total)+"%");
 		}
 	}
 
 	/*
 	 * @return The total revenue generated off this client (includes all contracts/services)
 	 */
-	protected int getRevenue(Client client) 
+	protected double getRevenue(Client client) 
 	{
 		int result = 0;
-		Service temp = null;
+		ArrayList<Contract> contractList = null;
 		ProcessClient processClient2 = new ProcessClient();
-		while((temp = processClient2.getNextClientService(client))!=null)
+		ProcessContract processContract = new ProcessContract();
+		contractList = processContract.getContractsByClient(client);
+		Iterator<Contract> it = contractList.iterator();
+		Contract contract = null;
+		while(it.hasNext())
 		{
-			result += (int)temp.getRate();
+			contract = it.next();
+			result += contract.getValue();
 		}
 		return result;
 	}
 
 	/*
-	 * @return The total profit margin (%) of this client
+	 * @return The total profit margin (%) made off this client
 	 */
-	protected String getPM() 
+	protected double getPM(double profit, double total) 
 	{
-		return null;
+		double result = 0;
+		result = Math.round((profit/total)*100.0)/100.0;
+		return result;
 	}
 
 	/*
-	 * @return The total contribution margin (%) of this client
+	 * @return The total profit margin (%) made off this client
 	 */
-	protected String getCM() 
+	protected double getEM(double expense, double total) 
 	{
-		return null;
+		double result = 0;
+		result = Math.round((expense/total)*100.0)/100.0;
+		return result;
 	}
 
 	/*
-	 * @return The total profit of this client
+	 * @return The total profit made off this client
 	 */
-	protected String getProfit() 
+	protected double getProfit(double expense, double total) 
 	{
-		return null;
+		double result = 0;
+		result = total - expense;
+		return result;
 	}
 
 	/*
 	 * @return The total expenses of this client
 	 */
-	protected String getExpenses(Client client) 
+	protected double getExpenses(Client client) 
 	{
 		double result = 0;
 		ProcessExpenses processExpenses = new ProcessExpenses();
 		result = processExpenses.getExpensesByClient(client);
-		return ""+result;
+		return result;
 	}
 
 	@Override

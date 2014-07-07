@@ -1,5 +1,6 @@
 package presentation;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -20,7 +21,7 @@ import business.ProcessExpenses;
  */
 public class JCCContractScreenDrawer extends BaseJCCScreenDrawer
 {
-	private static final String[] tableColumnNames = { "Contract ID", "Client", "Revenue", "Expenses", "Profit", "Contribution Margin", "Profit Margin" };
+	private static final String[] tableColumnNames = { "Contract ID", "Client", "Revenue", "Expenses", "Profit", "Expense Margin", "Profit Margin" };
 	private static final int[] tableWidths = { 100, 150, 150, 150, 150, 150, 150 };
 	private ProcessContract processContract;
 	private ArrayList<Contract> contracts;
@@ -60,14 +61,18 @@ public class JCCContractScreenDrawer extends BaseJCCScreenDrawer
 				contract = (Contract) it.next();
 				
 				item = new TableItem(table, SWT.NULL);
+				
+				double expense = getExpenses(contract);
+				double total = contract.getValue();
+				double profit = getProfit(expense, total);
 	
 				item.setText(0, contract.getID() + "");
 				item.setText(1, contract.getBusinessName() + "");
-				item.setText(2, "$ "+(int)contract.getValue());
-				item.setText(3, "$ "+getExpenses(contract));
-				item.setText(4, "$ "+getProfit());
-				item.setText(5, "% "+getCM());
-				item.setText(6, "% "+getPM());
+				item.setText(2, "$ "+total);
+				item.setText(3, "$ "+expense);
+				item.setText(4, "$ "+profit);
+				item.setText(5, getEM(expense, total)+"% ");
+				item.setText(6, getPM(profit, total)+"% ");
 			}
 		}
 	}
@@ -75,36 +80,42 @@ public class JCCContractScreenDrawer extends BaseJCCScreenDrawer
 	/*
 	 * @return The total profit margin (%) of this contract
 	 */
-	protected String getPM() 
+	protected double getPM(double profit, double total) 
 	{
-		return null;
+		double result = 0;
+		result = Math.round((profit/total)*100.0)/100.0;
+		return result;
 	}
 
 	/*
-	 * @return The total contribution margin (%) of this contract
+	 * @return The total expense margin (%) of this contract
 	 */
-	protected String getCM() 
+	protected double getEM(double expense, double total) 
 	{
-		return null;
+		double result = 0;
+		result = Math.round((expense/total)*100.0)/100.0;
+		return result;
 	}
 
 	/*
 	 * @return The total profit of this contract
 	 */
-	protected String getProfit() 
+	protected double getProfit(double expense, double total) 
 	{
-		return null;
+		double result = 0;
+		result = total - expense;
+		return result;
 	}
 
 	/*
 	 * @return The total expenses of this contract
 	 */
-	protected String getExpenses(Contract contract) 
+	protected double getExpenses(Contract contract) 
 	{
 		double result = 0;
 		ProcessExpenses processExpenses = new ProcessExpenses();
 		result = processExpenses.getExpensesByContract(contract);
-		return ""+result;
+		return result;
 	}
 
 	@Override
