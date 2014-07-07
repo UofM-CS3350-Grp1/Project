@@ -450,9 +450,9 @@ public class ContractAnalysisScreenDrawer
         
         //Subtotal, GST and Total
         double sub = getSubtotal();
-        setTextPosition(over, writer, bf, 510, 280, "$ "+sub);
-        setTextPosition(over, writer, bf, 510, 250, "$ "+Math.round((sub*0.05)*100.0)/100.0);
-        setTextPosition(over, writer, bf, 510, 215, "$ "+Math.round(((sub*0.05)+sub)*100.0)/100.0);
+        setTextPosition(over, writer, bf, 510, 280, "$ "+(int)sub);
+        setTextPosition(over, writer, bf, 510, 250, "$ "+Math.round((sub*0.05)*100.00)/100.00);
+        setTextPosition(over, writer, bf, 510, 215, "$ "+Math.round(((sub*0.05)+sub)*100.00)/100.00);
         
         //Terms of the contract
         ColumnText ct = new ColumnText(over);
@@ -472,9 +472,15 @@ public class ContractAnalysisScreenDrawer
 	{
 		TableItem[] items = servicesTable.getItems();
 		double result = 0;
+		int multiplier = getMultiplier();
 		for(int i=0; i<items.length; i++)
 		{
-	        result += Double.parseDouble(servicesTable.getItem(i).getText(1));
+			if(!servicesTable.getItem(i).getText(2).contains("Web Design"))
+			{
+				result += Double.parseDouble(servicesTable.getItem(i).getText(1))*multiplier;
+			}else{
+				result += Double.parseDouble(servicesTable.getItem(i).getText(1));
+			}
 		}
 		return result;
 	}
@@ -483,6 +489,30 @@ public class ContractAnalysisScreenDrawer
 	 * inputs services to the pdf
 	 */
 	public void inputServices(PdfContentByte over, PdfWriter writer, BaseFont bf)
+	{
+		TableItem[] items = servicesTable.getItems();
+		int y = 500;
+		int multiplier = getMultiplier();
+		for(int i=0; i<items.length; i++)
+		{
+			if(!servicesTable.getItem(i).getText(2).contains("Web Design"))
+			{
+		        setTextPosition(over, writer, bf, 20, y, servicesTable.getItem(i).getText(2));
+		        setTextPosition(over, writer, bf, 155, y, servicesTable.getItem(i).getText(3));
+		        setTextPosition(over, writer, bf, 435, y, multiplier+"");
+		        setTextPosition(over, writer, bf, 510, y, ""+(int)(Double.parseDouble(servicesTable.getItem(i).getText(1))*(double)multiplier));
+		        y -= 48;
+			}else{
+		        setTextPosition(over, writer, bf, 20, y, servicesTable.getItem(i).getText(2));
+		        setTextPosition(over, writer, bf, 155, y, servicesTable.getItem(i).getText(3));
+		        setTextPosition(over, writer, bf, 435, y, "1");
+		        setTextPosition(over, writer, bf, 510, y, ""+(int)Double.parseDouble(servicesTable.getItem(i).getText(1)));
+		        y -= 48;
+			}
+		}
+	}
+	
+	public int getMultiplier()
 	{
 		int multiplier = 0;
 		int monthStart = 0;
@@ -521,21 +551,14 @@ public class ContractAnalysisScreenDrawer
 		}
 		if(yearStart!=yearEnd)
 		{
+			int yearsDifference = yearEnd-yearStart;
 			multiplier = 12-monthStart;
 			multiplier += monthEnd;
+			multiplier += ((yearsDifference*12)-12);
 		}else{
 			multiplier = monthEnd-monthStart;
 		}
-		TableItem[] items = servicesTable.getItems();
-		int y = 500;
-		for(int i=0; i<items.length; i++)
-		{
-	        setTextPosition(over, writer, bf, 20, y, servicesTable.getItem(i).getText(2));
-	        setTextPosition(over, writer, bf, 155, y, servicesTable.getItem(i).getText(3));
-	        setTextPosition(over, writer, bf, 435, y, multiplier+"");
-	        setTextPosition(over, writer, bf, 510, y, servicesTable.getItem(i).getText(1));
-	        y -= 48;
-		}
+		return multiplier;
 	}
 	
 	/*
