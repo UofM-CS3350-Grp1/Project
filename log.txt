@@ -29,6 +29,24 @@ TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 
+Task: Export contract to properly formatted PDF
+Date: 7/06, 8:00pm
+Assigned to: Jason
+Status: Completed
+Duration: 5.5 hours
+Description:	Exporting contracts in pdf works perfectly for printing/saving
+
+Task: Adding expenses
+Date: 7/06, 5:00pm
+Assigned to: Jason
+Status: Completed
+Duration: 2 hours
+Description:	Expenses are now able to be added to services
+
+Planned Task: Adding expenses
+Planned dev duration: 3hrs
+Assigned to: Jason
+
 Task: Refactoring and Cleanup
 Date: 07/06
 Assigned to: Adrian
@@ -93,6 +111,12 @@ Duration: 1 Hour
 Description:	- Basic queries for expenses.
 				- Added Derek's user table.
 				- Simple untested login.
+				
+
+Planned Task: Export contract to properly formatted PDF
+Planned dev duration: 5hrs
+Assigned to: Jason
+
 
 Task: Testing, bug fixing, refactoring 
 Date: 7/06, 3:00am
@@ -110,6 +134,13 @@ Duration: 2 hours
 Description:	Setup process for integrating financial data into analytics.
 				Created object for handling data required when pulling month based data.
 				Added the initial revenue analysis for clients.
+
+Task: Creating the JCC (Job Cost Card) tab (used to review financial breakdowns of contracts/services/clients and features)
+Date: 7/05, 3:00pm
+Assigned to: Jason
+Status: Completed
+Duration: 6 hours
+Description:	Generic breakdown tables completed for the most part
 
 Task: Refactoring Domain Objects / Tables, Fixing Bugs, Queries
 Date: 07/04
