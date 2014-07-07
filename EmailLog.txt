@@ -1,4 +1,14 @@
 ----------
+Karl, July 6:
+
+Hey everyone,
+
+I read through the iteration 3 handin requirements and we need to do some new things this iteration. 
+I we should meet up again tuesday july 8 an hour before class so that we can go through some of this stuff. 
+If you want to see what extra things we need to do just check out the Iteration 3 document on D2L. 
+Note that all of the new things are not bolded this time so you'll have to read the whole thing.
+
+----------
 Derek, July 6:
 
 Thanks for getting it in there.  I think there may be something missing from this method in the DBInterface:

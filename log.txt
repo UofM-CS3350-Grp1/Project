@@ -28,6 +28,14 @@ TODO(Jason):
 TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Date: 07/06, 8:16
+Assigned to: Karl
+Status: in progress
+Duration: 2 hours
+Description:	Add acceptance testing to project. 
+				Note: am currently experiencing some difficulty getting it set up properly due to the way our GUI is structured
+
+
 Task: Performance tracking analysis 
 Date: 7/06, 5:00am
 Assigned to: Tim
