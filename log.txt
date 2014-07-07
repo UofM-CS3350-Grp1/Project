@@ -28,6 +28,17 @@ TODO(Jason):
 TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+
+Task: Refactoring and Cleanup
+Date: 07/06
+Assigned to: Adrian
+Status: In Progress
+Duration: 3 hours
+Description:	- Split persistence interface into appropriate modules.
+				- Wrote queries.
+				- Populated tables.
+				- Wrote persistence tests.
+
 Task: Testing 
 Date: 7/06, 9:30pm
 Assigned to: Tim
