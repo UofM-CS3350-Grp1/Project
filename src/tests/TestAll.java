@@ -13,6 +13,7 @@ import tests.objects.MonthReportTest;
 import tests.objects.PhoneNumberTest;
 import tests.objects.ServiceTest;
 import tests.objects.TrackedFeatureTest;
+import tests.objects.TrackedFeatureTypeTest;
 import tests.objects.UserTest;
 import tests.persistence.TestDBController;
 import tests.persistence.TestDBInterface;
@@ -29,6 +30,7 @@ import tests.persistence.TestDBInterface;
 			FeatureHistoryTest.class,
 			MonthReportTest.class,
 			UserTest.class,
+			TrackedFeatureTypeTest.class,
 			TestDBController.class,
 			TestDBInterface.class,
 			CalcFeatureValueTest.class
