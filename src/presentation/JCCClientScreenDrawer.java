@@ -1,6 +1,10 @@
 package presentation;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import objects.Client;
+import objects.Contract;
 import objects.Service;
 
 import org.eclipse.swt.SWT;
@@ -8,6 +12,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TableItem;
 
 import business.ProcessClient;
+import business.ProcessContract;
 import business.ProcessExpenses;
 
 /**
@@ -67,11 +72,16 @@ public class JCCClientScreenDrawer extends BaseJCCScreenDrawer
 	protected double getRevenue(Client client) 
 	{
 		int result = 0;
-		Service temp = null;
+		ArrayList<Contract> contractList = null;
 		ProcessClient processClient2 = new ProcessClient();
-		while((temp = processClient2.getNextClientService(client))!=null)
+		ProcessContract processContract = new ProcessContract();
+		contractList = processContract.getContractsByClient(client);
+		Iterator<Contract> it = contractList.iterator();
+		Contract contract = null;
+		while(it.hasNext())
 		{
-			result += temp.getRate();
+			contract = it.next();
+			result += contract.getValue();
 		}
 		return result;
 	}
