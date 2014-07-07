@@ -97,15 +97,18 @@ public class ProcessExpenses
 		{
 			service = it2.next();
 			expenseList = database.getExpensesByService(service);
-			Iterator<Expense> it = expenseList.iterator();
-			Expense expense = null;
-			
-			while(it.hasNext())
+			if(expenseList!=null)
 			{
-				expense = it.next();
-				if(expense.getServiceID()==service.getID())
+				Iterator<Expense> it = expenseList.iterator();
+				Expense expense = null;
+				
+				while(it.hasNext())
 				{
-					result += expense.getValue();
+					expense = it.next();
+					if(expense.getServiceID()==service.getID())
+					{
+						result += expense.getValue();
+					}
 				}
 			}
 		}
