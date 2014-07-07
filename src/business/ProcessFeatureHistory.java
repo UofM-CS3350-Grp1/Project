@@ -15,7 +15,7 @@ public class ProcessFeatureHistory extends ProcessStorable
 	private ArrayList<FeatureHistory> featureHistories;
 	private int histIndex;
 	private int featureHistIndex;
-	
+
 	/**
 	 * Create the Feature adder
 	 */
@@ -28,7 +28,7 @@ public class ProcessFeatureHistory extends ProcessStorable
 		histIndex = 0;
 		featureHistIndex = 0;
 	}
-		
+
 	/**
 	 * Gets the next history in the database
 	 * @return The next history or null if we have reached the end of the list
@@ -36,13 +36,13 @@ public class ProcessFeatureHistory extends ProcessStorable
 	public FeatureHistory getNextHistory()
 	{
 		FeatureHistory history = null;
-		
+
 		if(histories == null)
 		{
 			database.connect();
 			histories = database.dumpFeatureHistory();
 			database.disconnect();
-			
+
 			if(histories != null && histories.size() > 0)
 			{
 				history = histories.get(0);
@@ -58,7 +58,7 @@ public class ProcessFeatureHistory extends ProcessStorable
 		{
 			histories = null;
 		}
-		
+
 		return history;
 	}
 
@@ -70,7 +70,7 @@ public class ProcessFeatureHistory extends ProcessStorable
 	public FeatureHistory getHistoryByID(int id)
 	{
 		FeatureHistory history = null;
-		
+
 		assert (id >= 0);
 		if(id >= 0)
 		{
@@ -81,7 +81,7 @@ public class ProcessFeatureHistory extends ProcessStorable
 		
 		return history;
 	}
-	
+
 	/**
 	 * Retrieves the history objects for a given feature
 	 * @param service The service to find the history for
@@ -91,7 +91,7 @@ public class ProcessFeatureHistory extends ProcessStorable
 	public FeatureHistory getNextHistoryForFeature(Trackable service, TrackedFeature feature)
 	{
 		FeatureHistory history = null;
-		
+
 		if(featureHistories == null)
 		{
 			database.connect();
@@ -114,10 +114,10 @@ public class ProcessFeatureHistory extends ProcessStorable
 		{
 			featureHistories = null;
 		}
-		
+
 		return history;
 	}
-	
+
 	/**
 	 * Retrieves the history of a feature
 	 * @param feature 	The feature to get history for
@@ -136,5 +136,12 @@ public class ProcessFeatureHistory extends ProcessStorable
 		}
 		
 		return list;
+	}
+
+	public void insertFeature(FeatureHistory feature)
+	{
+		database.connect();
+		database.insert(feature);
+		database.disconnect();
 	}
 }
