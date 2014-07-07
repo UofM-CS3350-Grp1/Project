@@ -17,9 +17,9 @@ public class Expense implements Storable
 	
 	public Expense(int serviceID, String supplier, double value, String details, Date dateIncurred) throws IllegalArgumentException
 	{
-		if(serviceID > 0 && 
-				!supplier.isEmpty() && 
+		if(serviceID > 0 &&
 				supplier!= null &&
+				!supplier.isEmpty() && 
 				dateIncurred != null&&
 				details!= null)
 			{
@@ -41,8 +41,8 @@ public class Expense implements Storable
 	{
 		if(expenseID >0 && 
 			serviceID > 0 && 
-			!supplier.isEmpty() && 
 			supplier!= null &&
+			!supplier.isEmpty() &&			
 			dateIncurred != null&&
 			details!= null)
 		{
@@ -108,7 +108,7 @@ public class Expense implements Storable
 	
 	public void setDetails(String insert)
 	{
-		if(insert != null && !insert.isEmpty())
+		if(insert != null)
 			this.details = insert;
 	}
 	

@@ -8,6 +8,7 @@ import tests.business.CalcFeatureValueTest;
 import tests.objects.ClientTest;
 import tests.objects.ContractTest;
 import tests.objects.EmailTest;
+import tests.objects.ExpenseTest;
 import tests.objects.FeatureHistoryTest;
 import tests.objects.MonthReportTest;
 import tests.objects.PhoneNumberTest;
@@ -31,6 +32,7 @@ import tests.persistence.TestDBInterface;
 			MonthReportTest.class,
 			UserTest.class,
 			TrackedFeatureTypeTest.class,
+			ExpenseTest.class,
 			TestDBController.class,
 			TestDBInterface.class,
 			CalcFeatureValueTest.class
