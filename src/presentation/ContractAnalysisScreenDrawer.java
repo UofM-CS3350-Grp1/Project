@@ -521,30 +521,25 @@ public class ContractAnalysisScreenDrawer
 		int yearEnd = 0;
 		for(int i=1; i<13; i++)
 		{
-			System.out.println(contract.getSignedDate().toString());
 			if(contract.getSignedDate().toString().contains(months[i]))
 			{
 				monthStart = i;
-				System.out.println("monthStart is "+monthStart);
 				for(int x=0; x<4; x++)
 				{
 					if(contract.getSignedDate().toString().contains(years[x]))
 					{
 						yearStart = Integer.parseInt(years[x]);
-						System.out.println("yearStart is "+yearStart);
 					}
 				}
 			}
 			if(contract.getPeriod().toString().contains(months[i]))
 			{
 				monthEnd = i;
-				System.out.println("monthEnd is "+monthEnd);
 				for(int x=0; x<4; x++)
 				{
 					if(contract.getPeriod().toString().contains(years[x]))
 					{
 						yearEnd = Integer.parseInt(years[x]);
-						System.out.println("yearEnd is "+yearEnd);
 					}
 				}
 			}
