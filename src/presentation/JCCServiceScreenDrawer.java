@@ -89,7 +89,7 @@ public class JCCServiceScreenDrawer extends BaseJCCScreenDrawer
 	protected double getPM(double profit, double total) 
 	{
 		double result = 0;
-		result = Math.round((profit/total)*100.0)/100.0;
+		result = Math.round((profit/total)*100.0);
 		return result;
 	}
 
@@ -99,7 +99,7 @@ public class JCCServiceScreenDrawer extends BaseJCCScreenDrawer
 	protected double getEM(double expense, double total) 
 	{
 		double result = 0;
-		result = Math.round((expense/total)*100.0)/100.0;
+		result = Math.round((expense/total)*100.0);
 		return result;
 	}
 

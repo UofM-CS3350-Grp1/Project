@@ -40,15 +40,17 @@ public class ProcessExpenses
 		{
 			service = itSvc.next();
 			expenseList = database.getExpensesByService(service);
-			Iterator<Expense> itExp = expenseList.iterator();
-			Expense expense = null;
-			
-			while(itExp.hasNext())
+			if(expenseList!=null)
 			{
-				expense = itExp.next();
-				result += expense.getValue();
+				Iterator<Expense> itExp = expenseList.iterator();
+				Expense expense = null;
+				
+				while(itExp.hasNext())
+				{
+					expense = itExp.next();
+					result += expense.getValue();
+				}
 			}
-			
 		}
 		database.disconnect();
 		
