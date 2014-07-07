@@ -55,8 +55,7 @@ public class AccessFinancialRecords
 		if(service != null)
 		{
 			database.connect();
-			//TODO Get revenue for services on 12 month cycle
-			//reports = database.getLastYearReturns(service);
+			reports = database.getLastYearServiceRevenue(service);
 			database.disconnect();
 		}
 		
@@ -76,8 +75,7 @@ public class AccessFinancialRecords
 		if(service != null)
 		{
 			database.connect();
-			//TODO Get revenue for services on 12 month cycle
-			//reports = database.getLastYearExpense(service);
+			reports = database.getLastYearServiceRevenue(service);
 			database.disconnect();
 		}
 		

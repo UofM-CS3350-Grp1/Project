@@ -136,7 +136,6 @@ public class GenerateGraph
 			
 		//Setup the chart
 		chart = ChartFactory.createLineChart("Revenue/ Expense", "Period (Months)", "Dollars", data);
-		chart.removeLegend();
 		
 		plot = chart.getPlot();
 		plot.setNoDataMessage("No data available");
