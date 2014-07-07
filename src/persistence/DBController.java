@@ -20,8 +20,8 @@ import java.util.Locale;
 
 public class DBController 
 {
-	private final int SQL_DEBUGGING = 1; //1 for full SQL output, 0 to disable.
-	private final int ERROR_LOG = 1; //1 for error log, 0 to disable.
+	private final int SQL_DEBUGGING = 0; //1 for full SQL output, 0 to disable.
+	private final int ERROR_LOG = 0; //1 for error log, 0 to disable.
 	
 	private String dbName;
 	private String dbType;
@@ -65,8 +65,8 @@ public class DBController
 		{
 			errorOutput(e);
 		}
-		//if(ERROR_LOG == 1)
-			//System.out.println("Opened " +dbType +" database " +dbName);
+		if(ERROR_LOG == 1)
+			System.out.println("Opened " +dbType +" database " +dbName);
 	
 	}
 	
@@ -89,8 +89,8 @@ public class DBController
 		{
 			errorOutput(e);
 		}
-		//if(ERROR_LOG == 1)
-			//System.out.println("Closed " +dbType +" database " +dbName);
+		if(ERROR_LOG == 1)
+			System.out.println("Closed " +dbType +" database " +dbName);
 		
 	}
 	
@@ -141,7 +141,7 @@ public class DBController
 				modify += "'"+objectIndexes.get(fields.size()-1)+"')";
 				
 				if(SQL_DEBUGGING == 1)
-					//System.out.println(modify);
+					System.out.println(modify);
 				
 				try
 				{
@@ -225,7 +225,7 @@ public class DBController
 				modify += "WHERE\nROW_ID = " + element.getID();
 				
 				if(SQL_DEBUGGING == 1)
-					//System.out.println(modify);
+					System.out.println(modify);
 				
 				try
 				{
@@ -285,7 +285,7 @@ public class DBController
 			modify = "DELETE FROM " + table + " WHERE ROW_ID = " +id;
 
 			if(SQL_DEBUGGING == 1)
-				//System.out.println(modify);
+				System.out.println(modify);
 			
 			try
 			{
@@ -338,7 +338,7 @@ public class DBController
 			fields = fieldBuilder(tableTarget); //Retrieves columns from CONTRACTS table
 			
 			if(SQL_DEBUGGING == 1)
-				//System.out.println(query);
+				System.out.println(query);
 			
 			try
 			{
