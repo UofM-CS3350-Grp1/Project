@@ -28,6 +28,14 @@ TODO(Jason):
 TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Testing 
+Date: 7/06, 9:30pm
+Assigned to: Tim
+Status: In progress.
+Duration: 30 minutes
+Description:	Added test cases to Expense and TrackedFeatureType classes.
+
+
 Task: Testing and Cleaning 
 Date: 7/06, 8:30pm
 Assigned to: Tim
