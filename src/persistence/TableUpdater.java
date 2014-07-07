@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 import objects.Storable;
 
-public class TableUpdater extends IDQueryBuilder
+public class TableUpdater extends DBInterface
 {
 	private final int ERROR_LOGGING = 0;
 	
 	public TableUpdater()
 	{
-		super();
+		super(DBInterface.DATABASE_NAME);
 	}
 	
 	/**

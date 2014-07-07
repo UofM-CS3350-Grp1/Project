@@ -9,8 +9,9 @@ import objects.Contract;
 import objects.MonthReport;
 import objects.Service;
 
-public class FinancialQueryBuilder extends IDQueryBuilder
+public class FinancialQueryBuilder extends RelationalQueryBuilder
 {
+	
 	public FinancialQueryBuilder()
 	{
 		super();

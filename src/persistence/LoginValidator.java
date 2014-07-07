@@ -3,11 +3,11 @@ package persistence;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class LoginValidator extends IDQueryBuilder
+public class LoginValidator extends DBInterface
 {
 	public LoginValidator()
 	{
-		super();
+		super(DBInterface.DATABASE_NAME);
 	}
 	
 	/**USERLOGIN()
