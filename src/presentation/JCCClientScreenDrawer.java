@@ -47,37 +47,43 @@ public class JCCClientScreenDrawer extends BaseJCCScreenDrawer
 		{			
 			item = new TableItem(table, SWT.NULL);
 
+			double expense = getExpenses(client);
+			double total = getRevenue(client);
+			double profit = getProfit(expense, total);
+
 			item.setText(0, client.getID() + "");
 			item.setText(1, client.getBusinessName() + "");
-			item.setText(2, "$ "+getRevenue(client));
-			item.setText(3, "$ "+getExpenses(client));
-			item.setText(4, "$ "+getProfit());
+			item.setText(2, "$ "+total);
+			item.setText(3, "$ "+expense);
+			item.setText(4, "$ "+profit);
 			item.setText(5, "% "+getCM());
-			item.setText(6, "% "+getPM());
+			item.setText(6, getPM(profit, total)+"%");
 		}
 	}
 
 	/*
 	 * @return The total revenue generated off this client (includes all contracts/services)
 	 */
-	protected int getRevenue(Client client) 
+	protected double getRevenue(Client client) 
 	{
 		int result = 0;
 		Service temp = null;
 		ProcessClient processClient2 = new ProcessClient();
 		while((temp = processClient2.getNextClientService(client))!=null)
 		{
-			result += (int)temp.getRate();
+			result += temp.getRate();
 		}
 		return result;
 	}
 
 	/*
-	 * @return The total profit margin (%) of this client
+	 * @return The total profit margin (%) made off this client
 	 */
-	protected String getPM() 
+	protected double getPM(double profit, double total) 
 	{
-		return null;
+		double result = 0;
+		result = Math.round((profit/total)*100.0)/100.0;
+		return result;
 	}
 
 	/*
@@ -89,22 +95,24 @@ public class JCCClientScreenDrawer extends BaseJCCScreenDrawer
 	}
 
 	/*
-	 * @return The total profit of this client
+	 * @return The total profit made off this client
 	 */
-	protected String getProfit() 
+	protected double getProfit(double expense, double total) 
 	{
-		return null;
+		double result = 0;
+		result = total - expense;
+		return result;
 	}
 
 	/*
 	 * @return The total expenses of this client
 	 */
-	protected String getExpenses(Client client) 
+	protected double getExpenses(Client client) 
 	{
 		double result = 0;
 		ProcessExpenses processExpenses = new ProcessExpenses();
 		result = processExpenses.getExpensesByClient(client);
-		return ""+result;
+		return result;
 	}
 
 	@Override
