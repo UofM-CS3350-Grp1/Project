@@ -5,6 +5,8 @@ import java.util.Date;
 
 import objects.Client;
 import objects.FeatureHistory;
+import objects.TrackedFeature;
+import objects.TrackedFeatureType;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -42,6 +44,7 @@ public class JCCSurveyScreenDrawer
 	private Text txtDetails;
 	private Button btnSave;
 	private Button btnCancel;
+	private Client client;
 
 	/*
 	 * Call the constructor with a shell's main component as <container>
@@ -179,12 +182,13 @@ public class JCCSurveyScreenDrawer
 /*
  * Need some clarification on how the FeatureHistory object works
  * (seems like it needs some fixing)
-
-				FeatureHistory newFeature = new FeatureHistory(comboFeature.getText(), comboClient.getText(), txtValue.getText(), date, txtDetails.getText());
+				TrackedFeatureType featureType = new TrackedFeatureType(comboFeature.getText());
+				TrackedFeature feature = new TrackedFeature(comboFeature.getText(), featureType);
+				FeatureHistory newFeature = new FeatureHistory(feature, client, comboClient.getText(), txtValue.getText(), date, txtDetails.getText());
 				ProcessFeatureHistory processFeatureHistory = new ProcessFeatureHistory();
 				processFeatureHistory.insertFeature(newFeature);
-*/
-			}
+
+*/			}
 			catch(Exception e)
 			{
 				dialog = new MessageBox(new Shell(), SWT.ICON_ERROR | SWT.OK);

@@ -66,7 +66,7 @@ public class DBController
 			errorOutput(e);
 		}
 		if(ERROR_LOG == 1)
-			System.out.println("Opened " +dbType +" database " +dbName);
+			//System.out.println("Opened " +dbType +" database " +dbName);
 	
 	}
 	
@@ -141,7 +141,7 @@ public class DBController
 				modify += "'"+objectIndexes.get(fields.size()-1)+"')";
 				
 				if(SQL_DEBUGGING == 1)
-					System.out.println(modify);
+					//System.out.println(modify);
 				
 				try
 				{
@@ -225,7 +225,7 @@ public class DBController
 				modify += "WHERE\nROW_ID = " + element.getID();
 				
 				if(SQL_DEBUGGING == 1)
-					System.out.println(modify);
+					//System.out.println(modify);
 				
 				try
 				{
@@ -285,7 +285,7 @@ public class DBController
 			modify = "DELETE FROM " + table + " WHERE ROW_ID = " +id;
 
 			if(SQL_DEBUGGING == 1)
-				System.out.println(modify);
+				//System.out.println(modify);
 			
 			try
 			{
@@ -338,7 +338,7 @@ public class DBController
 			fields = fieldBuilder(tableTarget); //Retrieves columns from CONTRACTS table
 			
 			if(SQL_DEBUGGING == 1)
-				System.out.println(query);
+				//System.out.println(query);
 			
 			try
 			{
