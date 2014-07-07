@@ -65,7 +65,7 @@ public class DBController
 		{
 			errorOutput(e);
 		}
-		if(ERROR_LOG == 1)
+		//if(ERROR_LOG == 1)
 			//System.out.println("Opened " +dbType +" database " +dbName);
 	
 	}
@@ -89,8 +89,8 @@ public class DBController
 		{
 			errorOutput(e);
 		}
-		if(ERROR_LOG == 1)
-			System.out.println("Closed " +dbType +" database " +dbName);
+		//if(ERROR_LOG == 1)
+			//System.out.println("Closed " +dbType +" database " +dbName);
 		
 	}
 	
