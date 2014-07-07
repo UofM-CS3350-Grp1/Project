@@ -21,6 +21,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Label;
 
+import business.ProcessAddFeature;
 import business.ProcessClient;
 import business.ProcessFeatureHistory;
 import objects.FeatureHistory;
@@ -82,11 +83,13 @@ public class JCCSurveyScreenDrawer
 		comboFeature.setBounds(104, 40, 96, 23);
 
 		// Fills the drop down with tracking features
-		FeatureHistory feature = null;
+		TrackedFeature feature = null;
 		ProcessFeatureHistory processFeature = new ProcessFeatureHistory();
-		while((feature = processFeature.getNextHistory()) != null)
+		ProcessAddFeature add = new ProcessAddFeature();
+		
+		while((feature = add.getNextFeature()) != null)
 		{
-			comboFeature.add(feature.getFeature().getFeatureName());
+			comboFeature.add(feature.getFeatureName());
 		}
 
 		// Fill the Month drop down

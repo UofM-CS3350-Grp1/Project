@@ -65,15 +65,17 @@ public class ProcessExpenses
 		expenseList = database.getExpensesByService(service);
 		database.disconnect();
 		
-		Iterator<Expense> it = expenseList.iterator();
-		Expense expense = null;
-		
-		while(it.hasNext())
+		if(expenseList!=null)
 		{
-			expense = it.next();
-			result += expense.getValue();
+			Iterator<Expense> it = expenseList.iterator();
+			Expense expense = null;
+			
+			while(it.hasNext())
+			{
+				expense = it.next();
+				result += expense.getValue();
+			}
 		}
-		
 		return result;
 	}
 	
