@@ -17,7 +17,6 @@ import org.eclipse.swt.widgets.Button;
 public class LoginDrawer 
 {
 	private Composite composite;
-	private String loggedInAs;
 	private ProcessUser processUser;
 	protected Button btnLogin;
 	protected Text txtUser;
@@ -30,7 +29,6 @@ public class LoginDrawer
 	public LoginDrawer( Composite container ) 
 	{
 		composite = new Composite( container, SWT.None );
-		loggedInAs = null;
 
 		// units = grid columns
 		final int COMPOSITE_WIDTH = 2;
@@ -85,13 +83,12 @@ public class LoginDrawer
 			validCredentials = processUser.validateUser(txtUser.getText(), txtPass.getText());
 			if (validCredentials)
 			{
-				loggedInAs = txtUser.getText();
-
 				/*
-				 * draws the login screen
+				 * draws the logged in screen
 				 */
 				Composite loggedInScreen = SwitchScreen.getContentContainer();
 				LoggedInDrawer ldd = new LoggedInDrawer( loggedInScreen );
+				ldd.setUser(txtUser.getText());
 				SwitchScreen.switchContent( loggedInScreen );
 			}
 			else
@@ -119,15 +116,5 @@ public class LoginDrawer
 		isValid = ((txtUser.getText() != "") && (txtPass.getText() != ""));
 
 		return isValid;
-	}
-
-	public String getCurrentUser()
-	{
-		return loggedInAs;
-	}
-
-	public void logout()
-	{
-		loggedInAs = null;
 	}
 }
