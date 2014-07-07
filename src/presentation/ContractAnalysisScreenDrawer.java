@@ -1,5 +1,12 @@
 package presentation;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import objects.Client;
 import objects.Contract;
 import objects.Service;
@@ -22,6 +29,18 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Text;
 
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.ColumnText;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfWriter;
 
 /**
  * Responsible for drawing the detailed client information including all of the
@@ -347,7 +366,15 @@ public class ContractAnalysisScreenDrawer
 			@Override
 			public void widgetSelected(SelectionEvent arg0) 
 			{
-				createContractPDF();
+				try {
+					createContractPDF();
+				} catch (IOException e) {
+					System.out.println("Error creating pdf 1");
+					e.printStackTrace();
+				} catch (DocumentException e) {
+					System.out.println("Error creating pdf 2");
+					e.printStackTrace();
+				}
 			}
 		});
 		btnPrint.setText("Print");
@@ -367,11 +394,6 @@ public class ContractAnalysisScreenDrawer
 		populateServiceData();
 		populateContractData();
 		
-		btnPrint.setVisible(false);
-		btnPrint.setEnabled(false);
-		btnSave.setVisible(false);
-		btnSave.setEnabled(false);
-		
 		scrollComposite.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		scrollComposite.setExpandHorizontal(true);
 		scrollComposite.setExpandVertical(true);
@@ -379,10 +401,122 @@ public class ContractAnalysisScreenDrawer
 	
 	/**
 	 * creates, saves and prints contract PDF
+	 * @throws IOException 
+	 * @throws DocumentException 
 	 */
-	public void createContractPDF()
+	public void createContractPDF() throws IOException, DocumentException
 	{
-		//Document doc = new Document();
+		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyy");
+		
+		String DEST = "src/presentation/ContractTemplate.pdf";
+		String IMAGE = "src/presentation/template.jpg";
+		File file = new File("src/presentation/ContractTemplate.pdf");
+
+		Document document = new Document(PageSize.A4);
+		PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(DEST));
+		document.open();
+		
+		PdfContentByte canvas = writer.getDirectContentUnder();
+		Image image = Image.getInstance(IMAGE);
+		image.scaleAbsolute(PageSize.A4);
+		image.setAbsolutePosition(0, 0);
+		canvas.addImage(image);
+        BaseFont bf = BaseFont.createFont();
+		PdfContentByte over = writer.getDirectContent();
+
+		//Client details
+        setTextPosition(over, writer, bf, 150, 730, contract.getBusinessName());
+        setTextPosition(over, writer, bf, 150, 710, client.getAddress());
+        setTextPosition(over, writer, bf, 150, 688, client.getName());
+        setTextPosition(over, writer, bf, 150, 667, client.getPhoneNumber().toString());
+        setTextPosition(over, writer, bf, 150, 649, client.getEmail().toString());
+        setTextPosition(over, writer, bf, 150, 629, "Signed");
+        setTextPosition(over, writer, bf, 150, 607, df.format(contract.getSignedDate()));
+        setTextPosition(over, writer, bf, 150, 585, df.format(contract.getPeriod()));
+
+        //Buzzin details
+        setTextPosition(over, writer, bf, 415, 730, "Buzzin' Digital Marketing");
+        setTextPosition(over, writer, bf, 415, 710, "123 First St.");
+        setTextPosition(over, writer, bf, 415, 688, "Christos Vasalirakis");
+        setTextPosition(over, writer, bf, 415, 667, "204 960 1538");
+        setTextPosition(over, writer, bf, 415, 649, "jasontoews88@gmail.com");
+        setTextPosition(over, writer, bf, 415, 629, df.format(contract.getSignedDate()));
+
+        //input services
+        inputServices(over, writer, bf);
+        
+        //Subtotal, GST and Total
+        double sub = getSubtotal();
+        setTextPosition(over, writer, bf, 510, 280, "$ "+sub);
+        setTextPosition(over, writer, bf, 510, 250, "$ "+Math.round((sub*0.05)*100.0)/100.0);
+        setTextPosition(over, writer, bf, 510, 215, "$ "+Math.round(((sub*0.05)+sub)*100.0)/100.0);
+        
+        //Terms of the contract
+        ColumnText ct = new ColumnText(over);
+        setTextPosition("terms of the contract terms of the contract terms of the "
+        		+ "contract terms of the contract terms of the contract terms of the contract terms of the "
+        		+ "contract terms of the contract terms of the contract terms of the contract", ct);
+        
+		
+		document.close();
+		Desktop.getDesktop().open(file);
+	}
+	
+	/*
+	 * @return returns the subtotal (before GST) of the contract
+	 */
+	public double getSubtotal()
+	{
+		TableItem[] items = servicesTable.getItems();
+		double result = 0;
+		for(int i=0; i<items.length; i++)
+		{
+	        result += Double.parseDouble(servicesTable.getItem(i).getText(1));
+		}
+		return result;
+	}
+	
+	/*
+	 * inputs services to the pdf
+	 */
+	public void inputServices(PdfContentByte over, PdfWriter writer, BaseFont bf)
+	{
+		TableItem[] items = servicesTable.getItems();
+		int y = 500;
+		for(int i=0; i<items.length; i++)
+		{
+	        setTextPosition(over, writer, bf, 20, y, servicesTable.getItem(i).getText(2));
+	        setTextPosition(over, writer, bf, 155, y, servicesTable.getItem(i).getText(3));
+	        setTextPosition(over, writer, bf, 435, y, "1");
+	        setTextPosition(over, writer, bf, 510, y, servicesTable.getItem(i).getText(1));
+	        y -= 48;
+		}
+	}
+	
+	/*
+	 * sets the text position inside the pdf
+	 */
+	private void setTextPosition(PdfContentByte over, PdfWriter writer, BaseFont bf, int x, int y, String text)
+	{
+		over.saveState();
+		over.beginText();
+        over.setLineWidth(1.5f);
+        over.setFontAndSize(bf, 12);
+        over.moveText(x, y);
+        over.showText(text);
+        over.endText();
+        over.restoreState();
+	}
+	
+	/*
+	 * sets the text position inside the pdf (special case for text wrapping)
+	 */
+	private void setTextPosition(String text, ColumnText ct) throws DocumentException
+	{
+		ct.setSimpleColumn(new Phrase(new Chunk(text)),
+				20, 190, 550, 100, 15, Element.ALIGN_LEFT | Element.ALIGN_TOP | Element.ALIGN_RIGHT | Element.ALIGN_BOTTOM);
+        //ct.setSimpleColumn(20, 170, 540, 100);
+		ct.go();
 	}
 	
 	/**
