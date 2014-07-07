@@ -17,6 +17,10 @@ public class FinancialQueryBuilderTest
 		assertNotNull("LastYearReturns Check",finBuild.getLastYearReturns(finBuild.getClientByID(1)));
 		assertTrue(finBuild.getClientCurrentExpenses(finBuild.getClientByID(1)) <= 0);
 		assertTrue(finBuild.getClientCurrentRevenue(finBuild.getClientByID(1)) >= 0);
+		
+		finBuild.getAllClientReturns(finBuild.getClientByID(1));
+		finBuild.getLastYearServiceExpenses(finBuild.getServiceByID(1));
+		finBuild.getLastYearServiceRevenue(finBuild.getServiceByID(1));
 		finBuild.disconnect();
 	}
 	
