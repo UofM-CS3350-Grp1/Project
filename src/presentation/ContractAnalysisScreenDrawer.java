@@ -84,7 +84,7 @@ public class ContractAnalysisScreenDrawer
 	private Label lblServicesInThis;
 	
 	private String[] months = {"null", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
-	private String[] years = {"2013", "2014", "2015", "2016"};
+	private String[] years = {"2013", "2014", "2015", "2016", "2017", "2018"};
 	
 	/**
 	 * Creates a new client analysis screen
@@ -429,21 +429,21 @@ public class ContractAnalysisScreenDrawer
 
 		//Client details
         setTextPosition(over, writer, bf, 150, 730, contract.getBusinessName());
-        setTextPosition(over, writer, bf, 150, 710, client.getAddress());
+        setTextPosition(over, writer, bf, 150, 708, client.getAddress());
         setTextPosition(over, writer, bf, 150, 688, client.getName());
         setTextPosition(over, writer, bf, 150, 667, client.getPhoneNumber().toString());
-        setTextPosition(over, writer, bf, 150, 649, client.getEmail().toString());
-        setTextPosition(over, writer, bf, 150, 629, "Signed");
-        setTextPosition(over, writer, bf, 150, 607, df.format(contract.getSignedDate()));
-        setTextPosition(over, writer, bf, 150, 585, df.format(contract.getPeriod()));
+        setTextPosition(over, writer, bf, 150, 647, client.getEmail().toString());
+        setTextPosition(over, writer, bf, 150, 626, "Signed");
+        setTextPosition(over, writer, bf, 150, 606, df.format(contract.getSignedDate()));
+        setTextPosition(over, writer, bf, 150, 584, df.format(contract.getPeriod()));
 
         //Buzzin details
         setTextPosition(over, writer, bf, 415, 730, "Buzzin' Digital Marketing");
-        setTextPosition(over, writer, bf, 415, 710, "123 First St.");
+        setTextPosition(over, writer, bf, 415, 708, "123 First St.");
         setTextPosition(over, writer, bf, 415, 688, "Christos Vasalirakis");
         setTextPosition(over, writer, bf, 415, 667, "204 960 1538");
-        setTextPosition(over, writer, bf, 415, 649, "jasontoews88@gmail.com");
-        setTextPosition(over, writer, bf, 415, 629, df.format(contract.getSignedDate()));
+        setTextPosition(over, writer, bf, 415, 647, "jasontoews88@gmail.com");
+        setTextPosition(over, writer, bf, 415, 626, df.format(contract.getSignedDate()));
 
         //input services
         inputServices(over, writer, bf);
@@ -458,6 +458,11 @@ public class ContractAnalysisScreenDrawer
         ColumnText ct = new ColumnText(over);
         setTextPosition("terms of the contract terms of the contract terms of the "
         		+ "contract terms of the contract terms of the contract terms of the contract terms of the "
+        		+ "contract terms of the contract terms of the contract terms of the contract"
+        		+ "contract terms of the contract terms of the contract terms of the contract"
+        		+ "contract terms of the contract terms of the contract terms of the contract"
+        		+ "contract terms of the contract terms of the contract terms of the contract"
+        		+ "contract terms of the contract terms of the contract terms of the contract"
         		+ "contract terms of the contract terms of the contract terms of the contract", ct);
         
 		
@@ -479,7 +484,9 @@ public class ContractAnalysisScreenDrawer
 			{
 				result += Double.parseDouble(servicesTable.getItem(i).getText(1))*multiplier;
 			}else{
-				result += Double.parseDouble(servicesTable.getItem(i).getText(1));
+				if(multiplier<12) multiplier = 12;
+				result += Double.parseDouble(servicesTable.getItem(i).getText(1))*Math.floor(multiplier/12);
+				multiplier = getMultiplier();
 			}
 		}
 		return result;
@@ -500,18 +507,23 @@ public class ContractAnalysisScreenDrawer
 		        setTextPosition(over, writer, bf, 20, y, servicesTable.getItem(i).getText(2));
 		        setTextPosition(over, writer, bf, 155, y, servicesTable.getItem(i).getText(3));
 		        setTextPosition(over, writer, bf, 435, y, multiplier+"");
-		        setTextPosition(over, writer, bf, 510, y, ""+(int)(Double.parseDouble(servicesTable.getItem(i).getText(1))*(double)multiplier));
+		        setTextPosition(over, writer, bf, 520, y, "$ "+(int)(Double.parseDouble(servicesTable.getItem(i).getText(1)))*(int)multiplier);
 		        y -= 48;
 			}else{
+				if(multiplier<12) multiplier = 12;
 		        setTextPosition(over, writer, bf, 20, y, servicesTable.getItem(i).getText(2));
 		        setTextPosition(over, writer, bf, 155, y, servicesTable.getItem(i).getText(3));
-		        setTextPosition(over, writer, bf, 435, y, "1");
-		        setTextPosition(over, writer, bf, 510, y, ""+(int)Double.parseDouble(servicesTable.getItem(i).getText(1)));
+		        setTextPosition(over, writer, bf, 435, y, ""+(int)(multiplier/12));
+		        setTextPosition(over, writer, bf, 520, y, "$ "+(int)Double.parseDouble(servicesTable.getItem(i).getText(1))*(int)(multiplier/12));
 		        y -= 48;
+				multiplier = getMultiplier();
 			}
 		}
 	}
 	
+	/*
+	 * @return returns the number of months of the contract
+	 */
 	public int getMultiplier()
 	{
 		int multiplier = 0;
@@ -524,7 +536,7 @@ public class ContractAnalysisScreenDrawer
 			if(contract.getSignedDate().toString().contains(months[i]))
 			{
 				monthStart = i;
-				for(int x=0; x<4; x++)
+				for(int x=0; x<years.length; x++)
 				{
 					if(contract.getSignedDate().toString().contains(years[x]))
 					{
@@ -535,7 +547,7 @@ public class ContractAnalysisScreenDrawer
 			if(contract.getPeriod().toString().contains(months[i]))
 			{
 				monthEnd = i;
-				for(int x=0; x<4; x++)
+				for(int x=0; x<years.length; x++)
 				{
 					if(contract.getPeriod().toString().contains(years[x]))
 					{
@@ -578,7 +590,6 @@ public class ContractAnalysisScreenDrawer
 	{
 		ct.setSimpleColumn(new Phrase(new Chunk(text)),
 				20, 190, 550, 100, 15, Element.ALIGN_LEFT | Element.ALIGN_TOP | Element.ALIGN_RIGHT | Element.ALIGN_BOTTOM);
-        //ct.setSimpleColumn(20, 170, 540, 100);
 		ct.go();
 	}
 	
