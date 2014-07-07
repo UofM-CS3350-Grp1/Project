@@ -27,6 +27,15 @@ public class ProcessService extends ProcessStorable
 		serviceIndex = 0;
 	}
 	
+	public ServiceType getServiceTypeByID(int id)
+	{
+		ServiceType result = null;
+		database.connect();
+		result = database.getServiceTypeByID(id);
+		database.disconnect();
+		return result;
+	}
+	
 	public ArrayList<ServiceType> getServiceTypes()
 	{
 		ArrayList<ServiceType> result = null;

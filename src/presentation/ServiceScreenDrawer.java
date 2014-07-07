@@ -1,6 +1,10 @@
 package presentation;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import objects.Service;
+import objects.ServiceType;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -19,6 +23,7 @@ public class ServiceScreenDrawer extends BaseStorableScreenDrawer
 	private static final String[] tableColumnNames = { "ID", "Title", "Description", "Rate", "Type" };
 	private static final int[] tableWidths = { 0, 150, 250, 100, 150 };
 	private ProcessService processService;
+	private ServiceType serviceType;
 	private TableItem item;
 	
 	/**
@@ -44,22 +49,29 @@ public class ServiceScreenDrawer extends BaseStorableScreenDrawer
 	protected void populateTable()
 	{
 		Service service = null;
+		ArrayList<ServiceType> serviceTypeList = null;
 		
 		table.removeAll();
+
+		processService = new ProcessService();	 
+		serviceTypeList = processService.getServiceTypes();
 		
-		if(processService == null)
-			processService = new ProcessService();
-		
-		//Populate our services
-		while((service = processService.getNextService()) != null)
+		if(serviceTypeList!=null)
 		{
-			item = new TableItem(table, SWT.NULL);
-			
-			item.setText(0, service.getID() + "");
-			item.setText(1, service.getTitle());
-			item.setText(2, service.getDescription());
-			item.setText(3, service.getRate() + "");
-			item.setText(4, service.getServiceType().getType());
+			Iterator<ServiceType> it = serviceTypeList.iterator();
+
+			while(it.hasNext())
+			{
+				serviceType = it.next();
+				
+				item = new TableItem(table, SWT.NULL);
+				
+				item.setText(0, serviceType.getID() + "");
+				item.setText(1, serviceType.getType());
+				item.setText(2, serviceType.getDescription());
+				item.setText(3, "NA");
+				item.setText(4, serviceType.getType());
+			}
 		}
 	}
 	
@@ -102,6 +114,8 @@ public class ServiceScreenDrawer extends BaseStorableScreenDrawer
 		int id;
 		Composite viewService;
 		Service service;
+		ArrayList<Service> serviceList = null;
+		ServiceType serviceType;
 
 		if(selectedIndex != -1)
 		{
@@ -109,12 +123,12 @@ public class ServiceScreenDrawer extends BaseStorableScreenDrawer
 			{
 				//Extract the service ID from the table
 				id = Integer.parseInt(table.getItem(selectedIndex).getText(0));
-				service = processService.getServiceByID(id);
+				serviceType = processService.getServiceTypeByID(id);
 				
-				if(service != null)
+				if(serviceType != null)
 				{
 					viewService = SwitchScreen.getContentContainer();
-					new PerformanceServiceScreenDrawer( viewService, service );
+					new PerformanceServiceScreenDrawer( viewService, serviceType );
 					SwitchScreen.switchContent( viewService );
 				}
 			}

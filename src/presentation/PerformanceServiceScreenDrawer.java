@@ -1,6 +1,8 @@
 package presentation;
 
 import objects.Service;
+import objects.ServiceType;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -8,7 +10,9 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.layout.GridData;
 import org.jfree.experimental.chart.swt.ChartComposite;
+
 import business.GenerateGraph;
+
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -24,6 +28,7 @@ public class PerformanceServiceScreenDrawer
 	private ScrolledComposite scrollComposite;
 	protected Composite composite;
 	protected Service service;
+	protected ServiceType serviceType;
 	private Label lblTypeData;
 	private Label lblRateData;
 	private Label lblServiceNameData;
@@ -37,10 +42,10 @@ public class PerformanceServiceScreenDrawer
 	/**
 	 * Creates a new performance screen for a service
 	 * @param container	The parent composite
-	 * @param service	The service to track performance
+	 * @param serviceType	The service to track performance
 	 * @throws IllegalArgumentException
 	 */
-	public PerformanceServiceScreenDrawer(Composite container, Service service) throws IllegalArgumentException 
+	public PerformanceServiceScreenDrawer(Composite container, ServiceType serviceType) throws IllegalArgumentException 
 	{
 		scrollComposite = new ScrolledComposite(container, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
 		scrollComposite.getVerticalBar().setIncrement(15);
@@ -50,9 +55,9 @@ public class PerformanceServiceScreenDrawer
 		
 		scrollComposite.setContent(composite);
 		
-		assert (service != null);
-		if(service != null)
-			this.service = service;
+		assert (serviceType != null);
+		if(serviceType != null)
+			this.serviceType = serviceType;
 		else
 			throw new IllegalArgumentException();
 		
