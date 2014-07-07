@@ -157,6 +157,11 @@ public class PerformanceServiceScreenDrawer
 		GridData gd_chartComposite;
 		
 		//Display the general all feature summary
+		chartComposite = new ChartComposite(composite, SWT.NONE, graphGenerator.generateFinancialBreakdownForService(service));
+		gd_chartComposite = new GridData(SWT.FILL, SWT.LEFT, true, false, 1, 1);
+		gd_chartComposite.heightHint = CHART_HEIGHT;
+		chartComposite.setLayoutData(gd_chartComposite);
+		
 		chartComposite = new ChartComposite(composite, SWT.NONE, graphGenerator.generateRevenueLineChartForService(service));
 		gd_chartComposite = new GridData(SWT.FILL, SWT.LEFT, true, false, 1, 1);
 		gd_chartComposite.heightHint = CHART_HEIGHT;
