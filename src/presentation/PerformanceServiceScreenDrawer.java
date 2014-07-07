@@ -107,8 +107,6 @@ public class PerformanceServiceScreenDrawer
 		lblDescriptionData.setLayoutData(gd_lblDescriptionData);
 		lblDescriptionData.setText("DESCRIPTION");
 		
-		drawTrackFeatureTable();
-		
 		populateServiceData();
 		generateCharts();
 		
@@ -173,13 +171,5 @@ public class PerformanceServiceScreenDrawer
 		Composite serviceScreen = SwitchScreen.getContentContainer();
 		new ServiceScreenDrawer( serviceScreen );
 		SwitchScreen.switchContent( serviceScreen );
-	}
-	
-	/**
-	 * Draws the table to manipulate the features that a service tracks
-	 */
-	protected void drawTrackFeatureTable()
-	{
-		new TrackFeaturesTableDrawer(composite, service);
 	}
 }
