@@ -7,6 +7,7 @@ import objects.Client;
 import objects.Contract;
 import objects.Expense;
 import objects.Service;
+import objects.ServiceType;
 import persistence.DBInterface;
 
 public class ProcessExpenses 
@@ -78,6 +79,33 @@ public class ProcessExpenses
 				result += expense.getValue();
 			}
 		}
+		return result;
+	}
+
+	public double getExpensesByServiceType(ServiceType serviceType) 
+	{
+		double result = 0;
+		ArrayList<Expense> expenseList;
+		ArrayList<Service> serviceList;
+		Service service;
+		Expense expense;
+		
+		database.connect();
+		serviceList = database.getServicesByType(serviceType);
+		Iterator<Service> it = serviceList.iterator();
+		while(it.hasNext())
+		{
+			service = it.next();
+			expenseList = database.getExpensesByService(service);
+			Iterator<Expense> itExp = expenseList.iterator();
+			while(itExp.hasNext())
+			{
+				expense = itExp.next();
+				result += expense.getValue();
+			}
+		}
+		database.disconnect();
+		
 		return result;
 	}
 	
