@@ -67,7 +67,7 @@ public class JCCServiceScreenDrawer extends BaseJCCScreenDrawer
 
 					item.setText(0, serviceType.getID() + "");
 					item.setText(1, serviceType.getType() + "");
-					item.setText(2, "$ ");
+					item.setText(2, "$ "+total);
 					item.setText(3, "$ "+expense);
 					item.setText(4, "$ "+profit);
 					item.setText(5, getEM(expense, total)+"% ");
@@ -89,7 +89,7 @@ public class JCCServiceScreenDrawer extends BaseJCCScreenDrawer
 		Service temp = null;
 		while((temp = processService.getNextService())!=null)
 		{
-			if(temp.getServiceType()==serviceType)
+			if(temp.getServiceType().getType()==serviceType.getType())
 			{
 				result += temp.getRate();
 			}
@@ -138,9 +138,9 @@ public class JCCServiceScreenDrawer extends BaseJCCScreenDrawer
 		Service temp = null;
 		while((temp = processService.getNextService())!=null)
 		{
-			if(temp.getServiceType()==serviceType)
+			if(temp.getServiceType().getType()==serviceType.getType())
 			{
-				result += processExpenses.getExpensesByServiceType(serviceType);
+				result += processExpenses.getExpensesByService(temp);
 			}
 		}
 		return result;
