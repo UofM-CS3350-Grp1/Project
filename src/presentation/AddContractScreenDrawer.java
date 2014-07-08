@@ -55,6 +55,7 @@ public class AddContractScreenDrawer
 	private DateTime startData;
 	private DateTime endData;
 	private String[] months = {"null", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+	private String[] years = {"2013", "2014", "2015", "2016", "2017", "2018"};
 	private Text text;
 	private Text text_1;
 	private Text text_2;
@@ -262,18 +263,30 @@ public class AddContractScreenDrawer
 
 			int totalNumServices = table_1.getItemCount();
 			
+			int multiplier = getMultiplier(end, start);
+			
 			for(int i=0; i<totalNumServices; i++)
 			{
-				if(i==0) value += Double.parseDouble(text.getText());
-				if(i==1) value += Double.parseDouble(text_1.getText());
-				if(i==2) value += Double.parseDouble(text_2.getText());
-				if(i==3) value += Double.parseDouble(text_3.getText());
-				if(i==4) value += Double.parseDouble(text_4.getText());
-				if(i==5) value += Double.parseDouble(text_5.getText());
-				if(i==6) value += Double.parseDouble(text_6.getText());
-				if(i==7) value += Double.parseDouble(text_7.getText());
-				if(i==8) value += Double.parseDouble(text_8.getText());
-				if(i==9) value += Double.parseDouble(text_9.getText());
+				if(table_1.getItem(i).getText(1).contains("Web Design")) 
+				{
+					if(multiplier<12)
+					{
+						multiplier = 12;
+					}else{
+						multiplier = (int)(multiplier/12);
+					}
+				}
+				if(i==0) value += Double.parseDouble(text.getText())*multiplier;
+				if(i==1) value += Double.parseDouble(text_1.getText())*multiplier;
+				if(i==2) value += Double.parseDouble(text_2.getText())*multiplier;
+				if(i==3) value += Double.parseDouble(text_3.getText())*multiplier;
+				if(i==4) value += Double.parseDouble(text_4.getText())*multiplier;
+				if(i==5) value += Double.parseDouble(text_5.getText())*multiplier;
+				if(i==6) value += Double.parseDouble(text_6.getText())*multiplier;
+				if(i==7) value += Double.parseDouble(text_7.getText())*multiplier;
+				if(i==8) value += Double.parseDouble(text_8.getText())*multiplier;
+				if(i==9) value += Double.parseDouble(text_9.getText())*multiplier;
+				multiplier = getMultiplier(end, start);
 			}
 			contract = new Contract(newID, combo.getText(), inputDetails.getText(), value, end, start, start);
 			processContract.insert(contract);
@@ -320,6 +333,53 @@ public class AddContractScreenDrawer
 			dialog.setMessage("Could not create a new contract. Please check the data and try again.");
 			dialog.open();
 		}
+	}
+	
+	/*
+	 * @return returns the number of months of the contract
+	 */
+	public int getMultiplier(Date end, Date start)
+	{
+		int multiplier = 0;
+		int monthStart = 0;
+		int yearStart = 0;
+		int monthEnd = 0;
+		int yearEnd = 0;
+		for(int i=1; i<13; i++)
+		{
+			if(start.toString().contains(months[i]))
+			{
+				monthStart = i;
+				for(int x=0; x<years.length; x++)
+				{
+					if(start.toString().contains(years[x]))
+					{
+						yearStart = Integer.parseInt(years[x]);
+					}
+				}
+			}
+			if(end.toString().contains(months[i]))
+			{
+				monthEnd = i;
+				for(int x=0; x<years.length; x++)
+				{
+					if(end.toString().contains(years[x]))
+					{
+						yearEnd = Integer.parseInt(years[x]);
+					}
+				}
+			}
+		}
+		if(yearStart!=yearEnd)
+		{
+			int yearsDifference = yearEnd-yearStart;
+			multiplier = 12-monthStart;
+			multiplier += monthEnd;
+			multiplier += ((yearsDifference*12)-12);
+		}else{
+			multiplier = monthEnd-monthStart;
+		}
+		return multiplier;
 	}
 	
 	/**
