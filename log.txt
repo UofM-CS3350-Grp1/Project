@@ -28,6 +28,29 @@ TODO(Jason):
 TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+
+Task: Generate revenue/expenses/profit/EM/PM columns properly in JCC
+Date: 7/07, 4:00pm
+Assigned to: Jason
+Status: Completed
+Duration: 5hours
+Description:	All financial numbers now calculate properly/correctly
+
+Planned Task: Implement dynamic rates for services (when editting contracts) STEP 2
+Planned dev duration: 3hrs
+Assigned to: OPEN
+
+Planned Task: implement service lists in "edit contract" the same as in "create contract" STEP 1
+Planned dev duration: 2hrs
+Assigned to: OPEN
+
+Task: Implement dynamic rates for services
+Date: 7/07, 9:00pm
+Assigned to: Jason
+Status: Completed
+Duration: 2.5hours
+Description:	Rates can now be added manually when creating contracts
+
 Task: Service to Service Type changes 
 Date: 7/07, 8:00pm
 Assigned to: Tim
@@ -35,6 +58,13 @@ Status: In progress.
 Duration: 30 minutes
 Description:	Converted services to use service types for performance analysis.
 
+Planned Task: Implement dynamic rates for services (when creating contracts)
+Planned dev duration: 3hrs
+Assigned to: Jason
+
+Planned Task: Generate revenue/expenses/profit/EM/PM columns properly in JCC
+Planned dev duration: 5hrs
+Assigned to: Jason
 
 Task: Export contract to properly formatted PDF
 Date: 7/06, 8:00pm
