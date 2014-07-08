@@ -1,15 +1,11 @@
 package presentation;
 
-import objects.Service;
 import objects.ServiceType;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.VerifyEvent;
-import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.MessageBox;
@@ -17,7 +13,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import business.ProcessService;
-import business.ValidateTextbox;
 
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
@@ -27,9 +22,7 @@ import org.eclipse.swt.layout.GridData;
  */
 public class AddServiceScreenDrawer
 {
-	protected Text svcType;
 	protected Composite composite;
-	protected Text rateAmount;
 	protected Text svcDescription;
 	protected ProcessService processService;
 	protected Text svcName;
@@ -54,32 +47,6 @@ public class AddServiceScreenDrawer
 		GridData gd_svcName = new GridData(GridData.FILL_HORIZONTAL);
 		gd_svcName.horizontalSpan = 2;
 		svcName.setLayoutData(gd_svcName);
-		
-		Label lblServiceType = new Label(composite, SWT.NONE);
-		lblServiceType.setText("Service Type");
-		
-		svcType = new Text(composite, SWT.BORDER);
-		GridData gd_svcType = new GridData(GridData.FILL_HORIZONTAL);
-		gd_svcType.horizontalSpan = 2;
-		svcType.setLayoutData(gd_svcType);
-		
-		Label lblServiceRate = new Label(composite, SWT.NONE);
-		lblServiceRate.setText("Service Rate");
-		
-		rateAmount = new Text(composite, SWT.BORDER);
-		rateAmount.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		rateAmount.addVerifyListener(new VerifyListener()
-		{
-			public void verifyText(VerifyEvent event)
-			{
-				ValidateTextbox.verifyMonetaryValue(event);
-			}
-		});
-		
-		final Combo rateLength = new Combo(composite, SWT.NONE);
-		rateLength.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		rateLength.setItems(new String[] {"Year", "Month", "Week", "Session"});
-		rateLength.select(0);
 		
 		Label lblServiceDescription = new Label(composite, SWT.NONE);
 		GridData gd_lblServiceDescription = new GridData(GridData.FILL_HORIZONTAL);
@@ -129,9 +96,7 @@ public class AddServiceScreenDrawer
 	protected void clearFields()
 	{
 		svcName.setText("");
-		svcType.setText("");
 		svcDescription.setText("");
-		rateAmount.setText("");		
 	}
 	
 	/**
@@ -139,15 +104,13 @@ public class AddServiceScreenDrawer
 	 */
 	protected void processActionButton()
 	{
-		Service service;
 		ServiceType serviceType;
 		MessageBox dialog;
 		
 		try
 		{
-			serviceType = new ServiceType(svcType.getText(), svcDescription.getText());
-			service = new Service(svcName.getText(), svcDescription.getText(), Double.parseDouble(rateAmount.getText()), serviceType);
-			if(processService.insert(service))
+			serviceType = new ServiceType(svcName.getText(), svcDescription.getText());
+			if(processService.insert(serviceType))
 				goBackToServiceScreen();
 		}
 		catch(Exception e)

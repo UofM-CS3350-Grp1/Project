@@ -1,6 +1,5 @@
 package presentation;
 
-import objects.Service;
 import objects.ServiceType;
 
 import org.eclipse.swt.widgets.Composite;
@@ -11,19 +10,19 @@ import org.eclipse.swt.widgets.Composite;
  */
 public class UpdateServiceScreenDrawer extends AddServiceScreenDrawer
 {
-	private Service service;
+	private ServiceType serviceType;
 
 	/**
 	 * Call the constructor with a shell's main component as <container>
 	 * and it will be added to that component;
 	 */
-	public UpdateServiceScreenDrawer(Composite container, Service service) throws IllegalArgumentException
+	public UpdateServiceScreenDrawer(Composite container, ServiceType serviceType) throws IllegalArgumentException
 	{
 		super(container);
 		
-		if(service != null)
+		if(serviceType != null)
 		{
-			this.service = service;
+			this.serviceType = serviceType;
 			btnAdd.setText("Update");
 			
 			populateFields();
@@ -37,10 +36,8 @@ public class UpdateServiceScreenDrawer extends AddServiceScreenDrawer
      */
     private void populateFields()
     { 
-        svcName.setText(service.getTitle());
-        svcType.setText(service.getServiceType().getType());
-        rateAmount.setText(String.valueOf(service.getRate()));
-        svcDescription.setText(service.getDescription());
+        svcName.setText(serviceType.getType());
+        svcDescription.setText(serviceType.getDescription());
     }
 	
 	/**
@@ -48,13 +45,11 @@ public class UpdateServiceScreenDrawer extends AddServiceScreenDrawer
 	 */
 	protected void processActionButton()
 	{
-		ServiceType serviceType = new ServiceType(svcType.getText(), svcDescription.getText());
-		service.setTitle(svcName.getText());
-		service.setDescription(svcDescription.getText());
-		service.setRate(Double.parseDouble(rateAmount.getText()));
-		service.setType(serviceType);
+		serviceType.setType(svcName.getText());
+		serviceType.setDescription(svcDescription.getText());
 		
-		processService.update(service);
+		if(processService.update(serviceType))
+			goBackToServiceScreen();
 	}
 	
 	/**
