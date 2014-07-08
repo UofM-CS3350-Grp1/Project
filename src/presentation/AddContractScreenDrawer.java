@@ -1,11 +1,14 @@
 package presentation;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 import objects.Client;
 import objects.Contract;
 import objects.Service;
+import objects.ServiceType;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -51,6 +54,7 @@ public class AddContractScreenDrawer
 	private Text inputDetails;
 	private DateTime startData;
 	private DateTime endData;
+	private String[] months = {"null", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 	
 	/**
 	 * Create a new contract drawer
@@ -239,7 +243,7 @@ public class AddContractScreenDrawer
 	 */
 	private void createContract()
 	{
-		double value = computeContractValue();
+		double value = 0;//computeContractValue();
 		ProcessService processService = null;
 		Service newService = null;
 		MessageBox dialog;	
@@ -248,42 +252,33 @@ public class AddContractScreenDrawer
 		int newID = processContract.getUnusedContractID();
 		Contract contract = null;
 		Date date = new Date();
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
 		try 
 		{
-			date = formatter.parse(endData.getDay() + "/" + endData.getMonth() + "/" + endData.getYear());
+			Date end = formatter.parse(endData.getMonth() + "-" + endData.getDay() + "-" + endData.getYear());
+			Date start = formatter.parse(startData.getMonth() + "-" + startData.getDay() + "-" + startData.getYear());
 
-			//---------------------------------------
-			//Error here Please add valid start Date
-			//---------------------------------------
-			//contract = new Contract(newID, combo.getText(), inputDetails.getText(), value, date, date, new Date()); //<---- Change This
-
-			Date end = formatter.parse(endData.toString().substring(10, endData.toString().length()-1));
-			Date start = formatter.parse(startData.toString().substring(10, startData.toString().length()-1));
-			
-			contract = new Contract(combo.getText(), inputDetails.getText(), value, end, start, start);
-			if(contract==null) System.out.println("Contract is null");
+			contract = new Contract(newID, combo.getText(), inputDetails.getText(), 100.0, end, start, start);
 			processContract.insert(contract);
-			System.out.println("Contract inserted to DB");
+
 			int totalNumServices = table_1.getItemCount();
-			Service service = null;
+			ServiceType serviceType = null;
 			int id = 0;
 	
 			for(int i=0; i<totalNumServices; i++)
 			{
 				id = Integer.parseInt(table_1.getItem(i).getText(0));
 				processService = new ProcessService();
-				service = processService.getServiceByID(id);
+				serviceType = processService.getServiceTypeByID(id);
 				
 				selectedClient = processClient.getClientByBusinessName(combo.getText());
 				
-				newService = new Service(service.getTitle(), service.getDescription(), service.getRate(), service.getServiceType());
-				if(newService==null) System.out.println("newService is null");
+				newService = new Service(serviceType.getType(), serviceType.getDescription(), 400.0, serviceType);
+				
 				int cID = contract.getID();
 				newService.setContractID(cID);
 				newService.setClientID(selectedClient.getID());
 				processService.insert(newService);
-				System.out.println("newService inserted");
 			}
 			
 			backToContractsScreen();
@@ -319,21 +314,21 @@ public class AddContractScreenDrawer
 		{
 			TableItem select = table.getItem(selectedIndex);
 			int x = Integer.parseInt(select.getText(0));
-			Service service = processService.getServiceByID(x);
+			ServiceType servicetype = processService.getServiceTypeByID(x);
 			
-			if(service != null)
+			if(servicetype != null)
 			{
 				item = new TableItem(table_1, SWT.NULL);
 	
-				item.setText(0, String.valueOf(service.getID()));
-				item.setText(1, service.getTitle());
-				item.setText(2, String.valueOf(service.getRate()));
-				item.setText(3, String.valueOf(service.getServiceType()));
-				item.setText(4, service.getDescription());
+				item.setText(0, String.valueOf(servicetype.getID()));
+				item.setText(1, servicetype.getType());
+				item.setText(2, "NA");
+				item.setText(3, String.valueOf(servicetype.getType()));
+				item.setText(4, servicetype.getDescription());
 	
 				table.remove(selectedIndex);
 				
-				lblValueData.setText(String.format("$%8.2f", computeContractValue()));
+				//lblValueData.setText(String.format("$%8.2f", computeContractValue()));
 			}
 		}
 	}
@@ -361,7 +356,7 @@ public class AddContractScreenDrawer
 				item.setText(3, String.valueOf(service.getServiceType()));
 	
 				table_1.remove(selectedIndex);
-				lblValueData.setText(String.format("$%8.2f", computeContractValue()));
+				//lblValueData.setText(String.format("$%8.2f", computeContractValue()));
 			}
 		}
 	}
@@ -372,22 +367,26 @@ public class AddContractScreenDrawer
 	protected void populateTable() 
 	{
 		Service service = null;
+		ArrayList<ServiceType> serviceTypeList = null;
+		ServiceType serviceType = null;
 		
 		table.removeAll();
+			
+		processService = new ProcessService();
 		
-		if(processService == null)
-		{
-			processService = new ProcessService();
-		}
+		serviceTypeList = processService.getServiceTypes();
+		Iterator<ServiceType> it = serviceTypeList.iterator();
 		
-		while((service = processService.getNextService()) != null)
+		while(it.hasNext())
 		{
+			serviceType = it.next();
+			
 			item = new TableItem(table, SWT.NULL);
 
-			item.setText(0, String.valueOf(service.getID()));
-			item.setText(1, service.getTitle());
-			item.setText(2, service.getRate() + "");
-			item.setText(3, String.valueOf(service.getServiceType()));
+			item.setText(0, String.valueOf(serviceType.getID()));
+			item.setText(1, serviceType.getType());
+			item.setText(2, "NA");
+			item.setText(3, String.valueOf(serviceType.getType()));
 		}		
 	}
 	

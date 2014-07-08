@@ -86,7 +86,7 @@ public class Contract implements Storable
 				details != null  && 
 				!details.isEmpty() && 
 				value >= 0 && 
-				period != null && (header != null && footer != null) && 
+				period != null && 
 				signedDate != null &&
 				startDate != null)
 		{
