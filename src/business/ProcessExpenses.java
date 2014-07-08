@@ -120,26 +120,29 @@ public class ProcessExpenses
 		serviceList = database.getServiceByContract(contract);
 		database.disconnect();
 
-		Iterator<Service> it2 = serviceList.iterator();
-		Service service = null;
-
-		database.connect();
-
-		while(it2.hasNext())
+		if(serviceList!=null)
 		{
-			service = it2.next();
-			expenseList = database.getExpensesByService(service);
-			if(expenseList!=null)
+			Iterator<Service> it2 = serviceList.iterator();
+			Service service = null;
+	
+			database.connect();
+	
+			while(it2.hasNext())
 			{
-				Iterator<Expense> it = expenseList.iterator();
-				Expense expense = null;
-				
-				while(it.hasNext())
+				service = it2.next();
+				expenseList = database.getExpensesByService(service);
+				if(expenseList!=null)
 				{
-					expense = it.next();
-					if(expense.getServiceID()==service.getID())
+					Iterator<Expense> it = expenseList.iterator();
+					Expense expense = null;
+					
+					while(it.hasNext())
 					{
-						result += expense.getValue();
+						expense = it.next();
+						if(expense.getServiceID()==service.getID())
+						{
+							result += expense.getValue();
+						}
 					}
 				}
 			}

@@ -256,10 +256,15 @@ public class AddContractScreenDrawer
 			//---------------------------------------
 			//Error here Please add valid start Date
 			//---------------------------------------
-			contract = new Contract(newID, combo.getText(), inputDetails.getText(), value, date, null, null, date, new Date()); //<---- Change This
+			//contract = new Contract(newID, combo.getText(), inputDetails.getText(), value, date, date, new Date()); //<---- Change This
+
+			Date end = formatter.parse(endData.toString().substring(10, endData.toString().length()-1));
+			Date start = formatter.parse(startData.toString().substring(10, startData.toString().length()-1));
 			
+			contract = new Contract(combo.getText(), inputDetails.getText(), value, end, start, start);
+			if(contract==null) System.out.println("Contract is null");
 			processContract.insert(contract);
-			
+			System.out.println("Contract inserted to DB");
 			int totalNumServices = table_1.getItemCount();
 			Service service = null;
 			int id = 0;
@@ -273,10 +278,12 @@ public class AddContractScreenDrawer
 				selectedClient = processClient.getClientByBusinessName(combo.getText());
 				
 				newService = new Service(service.getTitle(), service.getDescription(), service.getRate(), service.getServiceType());
+				if(newService==null) System.out.println("newService is null");
 				int cID = contract.getID();
 				newService.setContractID(cID);
 				newService.setClientID(selectedClient.getID());
 				processService.insert(newService);
+				System.out.println("newService inserted");
 			}
 			
 			backToContractsScreen();
