@@ -3,7 +3,6 @@ package presentation;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import objects.Service;
 import objects.ServiceType;
 
 import org.eclipse.swt.SWT;
@@ -20,8 +19,8 @@ import business.ProcessService;
  */
 public class ServiceScreenDrawer extends BaseStorableScreenDrawer
 {
-	private static final String[] tableColumnNames = { "ID", "Title", "Description", "Rate", "Type" };
-	private static final int[] tableWidths = { 0, 150, 250, 100, 150 };
+	private static final String[] tableColumnNames = { "ID", "Title", "Description" };
+	private static final int[] tableWidths = { 0, 150, 400 };
 	private ProcessService processService;
 	private ServiceType serviceType;
 	private TableItem item;
@@ -48,8 +47,8 @@ public class ServiceScreenDrawer extends BaseStorableScreenDrawer
 	 */
 	protected void populateTable()
 	{
-		Service service = null;
 		ArrayList<ServiceType> serviceTypeList = null;
+		Iterator<ServiceType> it;
 		
 		table.removeAll();
 
@@ -58,19 +57,16 @@ public class ServiceScreenDrawer extends BaseStorableScreenDrawer
 		
 		if(serviceTypeList!=null)
 		{
-			Iterator<ServiceType> it = serviceTypeList.iterator();
+			it = serviceTypeList.iterator();
 
 			while(it.hasNext())
 			{
-				serviceType = it.next();
-				
+				serviceType = it.next();				
 				item = new TableItem(table, SWT.NULL);
 				
 				item.setText(0, serviceType.getID() + "");
 				item.setText(1, serviceType.getType());
 				item.setText(2, serviceType.getDescription());
-				item.setText(3, "NA");
-				item.setText(4, serviceType.getType());
 			}
 		}
 	}
@@ -91,12 +87,12 @@ public class ServiceScreenDrawer extends BaseStorableScreenDrawer
 	protected void editSelectedItem()
 	{
 		int selectedIndex = table.getSelectionIndex();
-		Service service;
+		ServiceType serviceType;
 		
 		if(selectedIndex != -1)
 		{
-			service = processService.getServiceByID(Integer.parseInt(table.getItem(selectedIndex).getText(0)));
-			if(service != null)
+			serviceType = processService.getServiceTypeByID(Integer.parseInt(table.getItem(selectedIndex).getText(0)));
+			if(serviceType != null)
 			{
 				/*Composite editServiceScreen = SwitchScreen.getContentContainer();
 				new UpdateServiceScreenDrawer( editServiceScreen, service );
@@ -113,8 +109,6 @@ public class ServiceScreenDrawer extends BaseStorableScreenDrawer
 		int selectedIndex = table.getSelectionIndex();
 		int id;
 		Composite viewService;
-		Service service;
-		ArrayList<Service> serviceList = null;
 		ServiceType serviceType;
 
 		if(selectedIndex != -1)
@@ -147,7 +141,7 @@ public class ServiceScreenDrawer extends BaseStorableScreenDrawer
 		int selectedIndex = table.getSelectionIndex();
 		MessageBox dialog;
 		int buttonID;
-		Service service;
+		ServiceType serviceType;
 		TableItem selectedItem;
 		
 		if(selectedIndex != -1)
@@ -163,10 +157,10 @@ public class ServiceScreenDrawer extends BaseStorableScreenDrawer
 			switch(buttonID)
 			{
 				case SWT.YES:
-					service = processService.getServiceByID(Integer.parseInt(selectedItem.getText(0)));
+					serviceType = processService.getServiceTypeByID(Integer.parseInt(selectedItem.getText(0)));
 					
-					if(service != null)
-						processService.delete(service);
+					if(serviceType != null)
+						processService.delete(serviceType);
 					
 					table.remove(selectedIndex);
 					

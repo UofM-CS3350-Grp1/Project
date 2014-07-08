@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import objects.Client;
 import objects.FeatureHistory;
 import objects.MonthReport;
-import objects.Service;
+import objects.ServiceType;
 import objects.TrackedFeature;
 
 import org.jfree.chart.ChartFactory;
@@ -114,23 +114,23 @@ public class GenerateGraph
 	
 	/**
 	 * Creates a line graph of the revenue for the past 12 months
-	 * @param service	The service to produce the data for
+	 * @param serviceType	The service to produce the data for
 	 * @return A chart containing the past 12 months of revenue
 	 */
-	public JFreeChart generateRevenueLineChartForService(Service service)
+	public JFreeChart generateRevenueLineChartForService(ServiceType serviceType)
 	{
 		JFreeChart chart = null;
-		ArrayList<MonthReport> reports;
+		ArrayList<MonthReport> reports = null;
 		DefaultCategoryDataset data = new DefaultCategoryDataset();
 		Plot plot;
 		
-		assert (service != null);
-		if(service != null)
+		assert (serviceType != null);
+		if(serviceType != null)
 		{
-			reports = financialRecords.getYearRevenueForService(service);
+			//reports = financialRecords.getYearRevenueForService(serviceType);
 			addDataToChart(data, reports, "Revenue");
 			
-			reports = financialRecords.getYearExpenseForService(service);
+			//reports = financialRecords.getYearExpenseForService(serviceType);
 			addDataToChart(data, reports, "Expenses");
 		}
 			
@@ -201,19 +201,19 @@ public class GenerateGraph
 	
 	/**
 	 * Creates a chart to illustrate the breakdown of revenue to expenses
-	 * @param service	The service to generate breakdown for
+	 * @param serviceType	The service to generate breakdown for
 	 * @return	The chart of the financial break down
 	 */
-	public JFreeChart generateFinancialBreakdownForService(Service service)
+	public JFreeChart generateFinancialBreakdownForService(ServiceType serviceType)
 	{
 		JFreeChart chart = null;
 		double revenue, expenses;
 
-		assert (service != null);
-		if(service != null)
+		assert (serviceType != null);
+		if(serviceType != null)
 		{
-			revenue  = financialRecords.calcServiceRevenueToDate(service);
-			expenses = financialRecords.calcServiceExpensesToDate(service);
+			revenue  = 0;//financialRecords.calcServiceRevenueToDate(serviceType);
+			expenses = 0;//financialRecords.calcServiceExpensesToDate(serviceType);
 
 			chart = generateFinancialBreakdown(revenue, expenses);
 		}
