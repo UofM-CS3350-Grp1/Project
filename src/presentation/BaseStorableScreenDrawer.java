@@ -16,6 +16,8 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 
+import acceptanceTests.Register;
+
 /**
  * Handles the drawing of table based Storable object screens. Each subclass
  * is responsible for opening its own composites
@@ -36,6 +38,8 @@ public abstract class BaseStorableScreenDrawer
 	 */
 	public BaseStorableScreenDrawer( Composite container )
 	{		
+		Register.newWindow(this);
+		
 		composite = new Composite( container, SWT.NONE );
 		composite.setLayout(new GridLayout(2, false));
 		
