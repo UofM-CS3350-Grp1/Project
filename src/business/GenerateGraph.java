@@ -212,8 +212,8 @@ public class GenerateGraph
 		assert (serviceType != null);
 		if(serviceType != null)
 		{
-			revenue  = 0;//financialRecords.calcServiceRevenueToDate(serviceType);
-			expenses = 0;//financialRecords.calcServiceExpensesToDate(serviceType);
+			revenue  = financialRecords.calcServiceRevenueToDate(serviceType);
+			expenses = financialRecords.calcServiceExpensesToDate(serviceType);
 
 			chart = generateFinancialBreakdown(revenue, expenses);
 		}

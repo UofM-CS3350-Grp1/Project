@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import objects.Client;
 import objects.MonthReport;
 import objects.Service;
+import objects.ServiceType;
 import persistence.DBInterface;
 
 /**
@@ -124,16 +125,23 @@ public class AccessFinancialRecords
 	
 	/**
 	 * Calculates the revenue for a service the current date/ period
-	 * @param service	The service to generate revenue data for
+	 * @param serviceType	The service to generate revenue data for
 	 * @return	The revenue to date
 	 */
-	public double calcServiceRevenueToDate(Service service)
+	public double calcServiceRevenueToDate(ServiceType serviceType)
 	{
+		ProcessService processService = new ProcessService();
+		Service service = null;
 		double revenue = 0;
 		
-		assert (service != null);
-		if(service != null)
+		assert (serviceType != null);
+		if(serviceType != null)
 		{
+			while((service = processService.getNextService()) != null)
+			{
+				if(service.getServiceType().getType().equals(serviceType.getType()))
+					revenue += service.getRate();
+			}
 			database.connect();
 			//revenue = database.getServiceCurrentRevenue(service);
 			database.disconnect();
@@ -144,19 +152,18 @@ public class AccessFinancialRecords
 	
 	/**
 	 * Calculates the expense for a service the current date/ period
-	 * @param service	The service to generate expense data for
+	 * @param serviceType	The service to generate expense data for
 	 * @return	The expense to date
 	 */
-	public double calcServiceExpensesToDate(Service service)
+	public double calcServiceExpensesToDate(ServiceType serviceType)
 	{
+		ProcessExpenses processExpenses = new ProcessExpenses();
 		double expense = 0;
 		
-		assert (service != null);
-		if(service != null)
+		assert (serviceType != null);
+		if(serviceType != null)
 		{
-			database.connect();
-			//expense = database.getServiceCurrentExpenses(service);
-			database.disconnect();
+			expense = processExpenses.getExpensesByServiceType(serviceType);
 		}
 		
 		return expense;

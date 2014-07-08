@@ -89,21 +89,31 @@ public class ProcessExpenses
 		ArrayList<Service> serviceList;
 		Service service;
 		Expense expense;
+		Iterator<Service> it;
+		Iterator<Expense> itExp;
 		
 		database.connect();
 		serviceList = database.getServicesByType(serviceType);
-		Iterator<Service> it = serviceList.iterator();
-		while(it.hasNext())
+		if(serviceList != null)
 		{
-			service = it.next();
-			expenseList = database.getExpensesByService(service);
-			Iterator<Expense> itExp = expenseList.iterator();
-			while(itExp.hasNext())
+			it = serviceList.iterator();
+			while(it.hasNext())
 			{
-				expense = itExp.next();
-				result += expense.getValue();
+				service = it.next();
+				expenseList = database.getExpensesByService(service);
+				
+				if(expenseList != null)
+				{
+					itExp = expenseList.iterator();
+					while(itExp.hasNext())
+					{
+						expense = itExp.next();
+						result += expense.getValue();
+					}
+				}
 			}
 		}
+		
 		database.disconnect();
 		
 		return result;
