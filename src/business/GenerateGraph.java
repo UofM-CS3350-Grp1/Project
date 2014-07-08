@@ -1,5 +1,6 @@
 package business;
 
+import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -11,6 +12,7 @@ import objects.TrackedFeature;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.Plot;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
@@ -40,7 +42,7 @@ public class GenerateGraph
 	public JFreeChart generateFeatureLineChart(TrackedFeature feature)
 	{
 		JFreeChart chart = null;
-		DefaultCategoryDataset data = new DefaultCategoryDataset();;
+		DefaultCategoryDataset data = new DefaultCategoryDataset();
 		Plot plot;
 		ArrayList<FeatureHistory> histories;
 		int size;
@@ -231,16 +233,17 @@ public class GenerateGraph
 	{
 		JFreeChart chart = null;
 		DefaultPieDataset data = new DefaultPieDataset();;
-		Plot plot;
+		PiePlot plot;
 
-		data.setValue("Revenue", revenue);
-		data.setValue("Expenses", expenses);
 		data.setValue("Profit", revenue - expenses);
+		data.setValue("Expenses", expenses);
 		
 		//Setup the chart names and axes
 		chart = ChartFactory.createPieChart("Financial Breakdown", data);
 		
-		plot = chart.getPlot();
+		plot = (PiePlot) chart.getPlot();
+		plot.setSectionPaint("Profit", Color.GREEN);
+		plot.setSectionPaint("Expenses", Color.RED);
 		plot.setNoDataMessage("No data available");
 
 		return chart;
