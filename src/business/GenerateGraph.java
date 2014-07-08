@@ -127,10 +127,10 @@ public class GenerateGraph
 		assert (serviceType != null);
 		if(serviceType != null)
 		{
-			//reports = financialRecords.getYearRevenueForService(serviceType);
+			reports = financialRecords.getYearRevenueForService(serviceType);
 			addDataToChart(data, reports, "Revenue");
 			
-			//reports = financialRecords.getYearExpenseForService(serviceType);
+			reports = financialRecords.getYearExpenseForService(serviceType);
 			addDataToChart(data, reports, "Expenses");
 		}
 			
