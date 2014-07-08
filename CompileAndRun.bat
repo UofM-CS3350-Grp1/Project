@@ -31,6 +31,6 @@ javac -d bin\ -cp %classpath% src\tests\*.java
 
 call setClasspath
 echo Running program...
-java presentation.SwitchScreen
+java presentation.Startup
 
 pause
