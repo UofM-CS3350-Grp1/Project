@@ -4,9 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import objects.Client;
-import objects.FeatureHistory;
 import objects.TrackedFeature;
-import objects.TrackedFeatureType;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -24,7 +22,6 @@ import org.eclipse.swt.widgets.Label;
 import business.ProcessAddFeature;
 import business.ProcessClient;
 import business.ProcessFeatureHistory;
-import objects.FeatureHistory;
 
 import org.eclipse.swt.widgets.Text;
 
@@ -45,7 +42,6 @@ public class JCCSurveyScreenDrawer
 	private Text txtDetails;
 	private Button btnSave;
 	private Button btnCancel;
-	private Client client;
 
 	/*
 	 * Call the constructor with a shell's main component as <container>
@@ -84,7 +80,6 @@ public class JCCSurveyScreenDrawer
 
 		// Fills the drop down with tracking features
 		TrackedFeature feature = null;
-		ProcessFeatureHistory processFeature = new ProcessFeatureHistory();
 		ProcessAddFeature add = new ProcessAddFeature();
 		
 		while((feature = add.getNextFeature()) != null)

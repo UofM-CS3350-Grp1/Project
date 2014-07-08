@@ -72,7 +72,6 @@ public class JCCClientScreenDrawer extends BaseJCCScreenDrawer
 	{
 		int result = 0;
 		ArrayList<Contract> contractList = null;
-		ProcessClient processClient2 = new ProcessClient();
 		ProcessContract processContract = new ProcessContract();
 		contractList = processContract.getContractsByClient(client);
 		Iterator<Contract> it = contractList.iterator();

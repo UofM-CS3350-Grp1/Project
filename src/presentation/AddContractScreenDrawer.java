@@ -47,7 +47,6 @@ public class AddContractScreenDrawer
 	private Table table_1;
 	protected TableItem item;
 	private Label label;
-	private Label lblValueData;
 	private Combo combo;
 	private Label lblStart;
 	private Label lblEnd;
@@ -214,14 +213,6 @@ public class AddContractScreenDrawer
 		});
 		btnCancel.setBounds(433, 525, 75, 25);
 		btnCancel.setText("Cancel");
-		
-		Label label_1 = new Label(composite, SWT.NONE);
-		label_1.setText("Value:");
-		label_1.setBounds(540, 13, 44, 15);
-		
-		lblValueData = new Label(composite, SWT.NONE);
-		lblValueData.setText(String.format("$%8.2f", 0.00));
-		lblValueData.setBounds(590, 13, 55, 15);		
 				
 		processClient = new ProcessClient();
 		processService = new ProcessService();
@@ -246,7 +237,7 @@ public class AddContractScreenDrawer
 	 */
 	private void createContract()
 	{
-		double value = 0;//computeContractValue();
+		double value = 0;
 		ProcessService processService = null;
 		Service newService = null;
 		MessageBox dialog;	
@@ -254,7 +245,6 @@ public class AddContractScreenDrawer
 		ProcessContract processContract = new ProcessContract();
 		int newID = processContract.getUnusedContractID();
 		Contract contract = null;
-		Date date = new Date();
 		SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
 		try 
 		{
@@ -415,8 +405,6 @@ public class AddContractScreenDrawer
 				item.setText(3, servicetype.getDescription());
 	
 				table.remove(selectedIndex);
-				
-				//lblValueData.setText(String.format("$%8.2f", computeContractValue()));
 			}
 		}
 		addValueField(table_1.getItemCount());
@@ -494,7 +482,6 @@ public class AddContractScreenDrawer
 				item.setText(2, String.valueOf(service.getServiceType().getType()));
 	
 				table_1.remove(selectedIndex);
-				//lblValueData.setText(String.format("$%8.2f", computeContractValue()));
 			}
 		}
 	}
@@ -504,7 +491,6 @@ public class AddContractScreenDrawer
 	 */
 	protected void populateTable() 
 	{
-		Service service = null;
 		ArrayList<ServiceType> serviceTypeList = null;
 		ServiceType serviceType = null;
 		
@@ -530,23 +516,5 @@ public class AddContractScreenDrawer
 				item.setText(3, String.valueOf(serviceType.getType()));
 			}
 		}
-	}
-	
-	/**
-	 * Computes the value of a contract given the added services
-	 * @return The contract value
-	 */
-	private double computeContractValue()
-	{
-		double value = 0.0;
-		int items = table_1.getItemCount();
-		
-		for(int i=0; i<items; i++)
-		{
-			int z = (table_1.getItem(i).getText(2)).length()-2;
-			value += Double.parseDouble((table_1.getItem(i).getText(2)).substring(0, z));
-		}
-		
-		return value;
 	}
 }
