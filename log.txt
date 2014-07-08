@@ -28,6 +28,13 @@ TODO(Jason):
 TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Service to Service Type changes 
+Date: 7/07, 8:00pm
+Assigned to: Tim
+Status: In progress.
+Duration: 30 minutes
+Description:	Converted services to use service types for performance analysis.
+
 
 Task: Export contract to properly formatted PDF
 Date: 7/06, 8:00pm
