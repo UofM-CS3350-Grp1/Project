@@ -175,18 +175,23 @@ public class JCCSurveyScreenDrawer
 			{
 				date = formatter.parse(theDate);
 
-				// FeatureHistory constructor:
-				// public FeatureHistory(TrackedFeature feature, Trackable trackedClient, double value, Date date, String notes)
-/*
- * Need some clarification on how the FeatureHistory object works
- * (seems like it needs some fixing)
 				TrackedFeatureType featureType = new TrackedFeatureType(comboFeature.getText());
 				TrackedFeature feature = new TrackedFeature(comboFeature.getText(), featureType);
-				FeatureHistory newFeature = new FeatureHistory(feature, client, comboClient.getText(), txtValue.getText(), date, txtDetails.getText());
+
+				ProcessClient processClient = new ProcessClient();
+				Client client = processClient.getClientByBusinessName(comboClient.getText());
+
+				// Make sure we're not passing a null string in the FeatureHistory constructor
+				String textDetails = "";
+				if (txtDetails.getText() != null)
+				{
+					textDetails = txtDetails.getText();
+				}
+
+				FeatureHistory newFeature = new FeatureHistory(feature, client, Double.parseDouble(txtValue.getText()), date, textDetails);
 				ProcessFeatureHistory processFeatureHistory = new ProcessFeatureHistory();
 				processFeatureHistory.insertFeature(newFeature);
-
-*/			}
+			}
 			catch(Exception e)
 			{
 				dialog = new MessageBox(new Shell(), SWT.ICON_ERROR | SWT.OK);
@@ -227,7 +232,6 @@ public class JCCSurveyScreenDrawer
 		if (isValid) isValid = (comboMonth.getText() != "");
 		if (isValid) isValid = (comboYear.getText() != "");
 		if (isValid) isValid = (txtValue.getText() != "");
-		// if (isValid) isValid = (txtDetails.getText() != ""); // Is details a required field?
 
 		return isValid;
 	}
