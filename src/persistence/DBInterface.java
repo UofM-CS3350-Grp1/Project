@@ -1145,7 +1145,7 @@ public class DBInterface
 		fromDate.setTime(startDate);
 		toDate.add(Calendar.MONTH, -1);
 		
-		if(element != null && element.getID() > -1 && element.getID() > -1)
+		if(element != null && element.getID() > -1)
 		{
 			
 			tally = new ArrayList<MonthReport>();
