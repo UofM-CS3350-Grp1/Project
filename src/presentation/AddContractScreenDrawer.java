@@ -55,6 +55,16 @@ public class AddContractScreenDrawer
 	private DateTime startData;
 	private DateTime endData;
 	private String[] months = {"null", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+	private Text text;
+	private Text text_1;
+	private Text text_2;
+	private Text text_3;
+	private Text text_4;
+	private Text text_5;
+	private Text text_6;
+	private Text text_7;
+	private Text text_8;
+	private Text text_9;
 	
 	/**
 	 * Create a new contract drawer
@@ -69,7 +79,7 @@ public class AddContractScreenDrawer
 		scrollComposite.setContent(composite);
 		
 		table = new Table(composite, SWT.BORDER | SWT.FULL_SELECTION);
-		table.setBounds(24, 112, 284, 204);
+		table.setBounds(24, 112, 215, 197);
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 
@@ -82,17 +92,13 @@ public class AddContractScreenDrawer
 		column.setWidth(110);
 
 		column = new TableColumn(table, SWT.NULL);
-		column.setText("Rate");
-		column.setWidth(70);
-
-		column = new TableColumn(table, SWT.NULL);
 		column.setText("Category");
 		column.setWidth(100);
 		
 		table_1 = new Table(composite, SWT.BORDER | SWT.FULL_SELECTION);
 		table_1.setLinesVisible(true);
 		table_1.setHeaderVisible(true);
-		table_1.setBounds(447, 112, 444, 204);
+		table_1.setBounds(369, 112, 375, 197);
 
 		TableColumn tableColumn = new TableColumn(table_1, SWT.NONE);
 		tableColumn.setWidth(0);
@@ -101,10 +107,6 @@ public class AddContractScreenDrawer
 		tableColumn = new TableColumn(table_1, SWT.NONE);
 		tableColumn.setWidth(110);
 		tableColumn.setText("Service");
-
-		TableColumn tableColumn2 = new TableColumn(table_1, SWT.NONE);
-		tableColumn2.setWidth(70);
-		tableColumn2.setText("Rate");
 
 		TableColumn tableColumn3 = new TableColumn(table_1, SWT.NONE);
 		tableColumn3.setWidth(100);
@@ -123,7 +125,7 @@ public class AddContractScreenDrawer
 				addSelectedItem();
 			}
 		});
-		btnAdd.setBounds(348, 167, 75, 25);
+		btnAdd.setBounds(270, 173, 75, 25);
 		btnAdd.setText("Add >>");
 		
 		Button button = new Button(composite, SWT.NONE);
@@ -135,7 +137,7 @@ public class AddContractScreenDrawer
 				removeSelectedItem();
 			}
 		});
-		button.setBounds(348, 246, 75, 25);
+		button.setBounds(270, 228, 75, 25);
 		button.setText("<< Remove");
 		
 		label = new Label(composite, SWT.NONE);
@@ -218,7 +220,7 @@ public class AddContractScreenDrawer
 		
 		lblValueData = new Label(composite, SWT.NONE);
 		lblValueData.setText(String.format("$%8.2f", 0.00));
-		lblValueData.setBounds(590, 13, 55, 15);
+		lblValueData.setBounds(590, 13, 55, 15);		
 				
 		processClient = new ProcessClient();
 		processService = new ProcessService();
@@ -258,10 +260,26 @@ public class AddContractScreenDrawer
 			Date end = formatter.parse(endData.getMonth() + "-" + endData.getDay() + "-" + endData.getYear());
 			Date start = formatter.parse(startData.getMonth() + "-" + startData.getDay() + "-" + startData.getYear());
 
-			contract = new Contract(newID, combo.getText(), inputDetails.getText(), 100.0, end, start, start);
-			processContract.insert(contract);
-
 			int totalNumServices = table_1.getItemCount();
+			
+			for(int i=0; i<totalNumServices; i++)
+			{
+				if(i==0) value += Double.parseDouble(text.getText());
+				if(i==1) value += Double.parseDouble(text_1.getText());
+				if(i==2) value += Double.parseDouble(text_2.getText());
+				if(i==3) value += Double.parseDouble(text_3.getText());
+				if(i==4) value += Double.parseDouble(text_4.getText());
+				if(i==5) value += Double.parseDouble(text_5.getText());
+				if(i==6) value += Double.parseDouble(text_6.getText());
+				if(i==7) value += Double.parseDouble(text_7.getText());
+				if(i==8) value += Double.parseDouble(text_8.getText());
+				if(i==9) value += Double.parseDouble(text_9.getText());
+			}
+			contract = new Contract(newID, combo.getText(), inputDetails.getText(), value, end, start, start);
+			processContract.insert(contract);
+			
+			value = 0;
+
 			ServiceType serviceType = null;
 			int id = 0;
 	
@@ -272,8 +290,19 @@ public class AddContractScreenDrawer
 				serviceType = processService.getServiceTypeByID(id);
 				
 				selectedClient = processClient.getClientByBusinessName(combo.getText());
+
+				if(i==0) value = Double.parseDouble(text.getText());
+				if(i==1) value = Double.parseDouble(text_1.getText());
+				if(i==2) value = Double.parseDouble(text_2.getText());
+				if(i==3) value = Double.parseDouble(text_3.getText());
+				if(i==4) value = Double.parseDouble(text_4.getText());
+				if(i==5) value = Double.parseDouble(text_5.getText());
+				if(i==6) value = Double.parseDouble(text_6.getText());
+				if(i==7) value = Double.parseDouble(text_7.getText());
+				if(i==8) value = Double.parseDouble(text_8.getText());
+				if(i==9) value = Double.parseDouble(text_9.getText());
 				
-				newService = new Service(serviceType.getType(), serviceType.getDescription(), 400.0, serviceType);
+				newService = new Service(serviceType.getType(), serviceType.getDescription(), value, serviceType);
 				
 				int cID = contract.getID();
 				newService.setContractID(cID);
@@ -322,14 +351,64 @@ public class AddContractScreenDrawer
 	
 				item.setText(0, String.valueOf(servicetype.getID()));
 				item.setText(1, servicetype.getType());
-				item.setText(2, "NA");
-				item.setText(3, String.valueOf(servicetype.getType()));
-				item.setText(4, servicetype.getDescription());
+				item.setText(2, String.valueOf(servicetype.getType()));
+				item.setText(3, servicetype.getDescription());
 	
 				table.remove(selectedIndex);
 				
 				//lblValueData.setText(String.format("$%8.2f", computeContractValue()));
 			}
+		}
+		addValueField(table_1.getItemCount());
+	}
+	
+	public void addValueField(int number)
+	{
+		switch(number)
+		{
+		case 1:
+			text = new Text(composite, SWT.BORDER);
+			text.setBounds(750, 137, 76, 21);
+			Label lblPrice = new Label(composite, SWT.NONE);
+			lblPrice.setBounds(761, 118, 34, 15);
+			lblPrice.setText("Price");
+			break;
+		case 2:
+			text_1 = new Text(composite, SWT.BORDER);
+			text_1.setBounds(750, 155, 76, 21);
+			break;
+		case 3:
+			text_2 = new Text(composite, SWT.BORDER);
+			text_2.setBounds(750, 175, 76, 21);
+			break;
+		case 4:
+			text_3 = new Text(composite, SWT.BORDER);
+			text_3.setBounds(750, 193, 76, 21);
+			break;
+		case 5:
+			text_4 = new Text(composite, SWT.BORDER);
+			text_4.setBounds(750, 212, 76, 21);
+			break;
+		case 6:
+			text_5 = new Text(composite, SWT.BORDER);
+			text_5.setBounds(750, 251, 76, 21);
+			break;
+		case 7:
+			text_6 = new Text(composite, SWT.BORDER);
+			text_6.setBounds(750, 232, 76, 21);
+			break;
+		case 8:
+			text_7 = new Text(composite, SWT.BORDER);
+			text_7.setBounds(750, 270, 76, 21);
+			break;
+		case 9:
+			text_8 = new Text(composite, SWT.BORDER);
+			text_8.setBounds(750, 295, 30, -4);
+			break;
+		case 10:
+			text_9 = new Text(composite, SWT.BORDER);
+			text_9.setBounds(750, 288, 76, 21);
+			break;
 		}
 	}
 
@@ -352,8 +431,7 @@ public class AddContractScreenDrawer
 	
 				item.setText(0, String.valueOf(service.getID()));
 				item.setText(1, service.getTitle());
-				item.setText(2, String.valueOf(service.getRate()));
-				item.setText(3, String.valueOf(service.getServiceType()));
+				item.setText(2, String.valueOf(service.getServiceType().getType()));
 	
 				table_1.remove(selectedIndex);
 				//lblValueData.setText(String.format("$%8.2f", computeContractValue()));
@@ -375,19 +453,23 @@ public class AddContractScreenDrawer
 		processService = new ProcessService();
 		
 		serviceTypeList = processService.getServiceTypes();
-		Iterator<ServiceType> it = serviceTypeList.iterator();
 		
-		while(it.hasNext())
+		if(serviceTypeList!=null)
 		{
-			serviceType = it.next();
+			Iterator<ServiceType> it = serviceTypeList.iterator();
 			
-			item = new TableItem(table, SWT.NULL);
-
-			item.setText(0, String.valueOf(serviceType.getID()));
-			item.setText(1, serviceType.getType());
-			item.setText(2, "NA");
-			item.setText(3, String.valueOf(serviceType.getType()));
-		}		
+			while(it.hasNext())
+			{
+				serviceType = it.next();
+				
+				item = new TableItem(table, SWT.NULL);
+	
+				item.setText(0, String.valueOf(serviceType.getID()));
+				item.setText(1, serviceType.getType());
+				item.setText(2, "NA");
+				item.setText(3, String.valueOf(serviceType.getType()));
+			}
+		}
 	}
 	
 	/**
