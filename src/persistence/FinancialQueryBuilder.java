@@ -283,6 +283,7 @@ public class FinancialQueryBuilder extends RelationalQueryBuilder
 		ArrayList<MonthReport> tally = null;
 		double expenseValue = 0;
 		String sql = "";
+		double divisor = 1;
 		ArrayList<String> returnVal = new ArrayList<String>();
 		Date startDate = new Date();
 		Date endDate = new Date();
@@ -322,6 +323,8 @@ public class FinancialQueryBuilder extends RelationalQueryBuilder
 			}
 				
 			contractDate.setTime(endDate);
+			if(element.getID() == 2)
+				divisor = 12;
 			
 			for(int i = 0; i < 12 && toDate.getTime().after(contractDate.getTime()); i++)
 			{
@@ -338,7 +341,7 @@ public class FinancialQueryBuilder extends RelationalQueryBuilder
 				returnVal = this.mainDB.blindQuery(sql);
 				
 				if(returnVal.size() == 1 && returnVal.get(0).compareTo("null") != 0)
-					expenseValue = Double.parseDouble(returnVal.get(0));
+					expenseValue = (Double.parseDouble(returnVal.get(0)) / divisor);
 				else
 					expenseValue = 0;	
 			

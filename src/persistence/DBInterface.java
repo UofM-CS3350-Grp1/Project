@@ -1126,7 +1126,7 @@ public class DBInterface
 	
 	/** 
 	 * @param element Service of Interest
-	 * @return Expenses + revenue for services for month
+	 * @return Ex3penses + revenue for services for month
 	 */
 	
 	public ArrayList<MonthReport> getLastYearServiceExpenses(ServiceType element)
@@ -1216,6 +1216,7 @@ public class DBInterface
 		ArrayList<MonthReport> tally = null;
 		double expenseValue = 0;
 		String sql = "";
+		double divisor = 1;
 		ArrayList<String> returnVal = new ArrayList<String>();
 		Date startDate = new Date();
 		Date endDate = new Date();
@@ -1227,7 +1228,7 @@ public class DBInterface
 		fromDate.setTime(startDate);
 		toDate.add(Calendar.MONTH, -1);
 		
-		if(element != null && element.getID() > -1 && element.getID() > -1)
+		if(element != null && element.getID() > -1)
 		{
 			
 			tally = new ArrayList<MonthReport>();
@@ -1255,6 +1256,8 @@ public class DBInterface
 			}
 				
 			contractDate.setTime(endDate);
+			if(element.getID() == 2)
+				divisor = 12;
 			
 			for(int i = 0; i < 12 && toDate.getTime().after(contractDate.getTime()); i++)
 			{
@@ -1271,7 +1274,7 @@ public class DBInterface
 				returnVal = this.mainDB.blindQuery(sql);
 				
 				if(returnVal.size() == 1 && returnVal.get(0).compareTo("null") != 0)
-					expenseValue = Double.parseDouble(returnVal.get(0));
+					expenseValue = (Double.parseDouble(returnVal.get(0)) / divisor);
 				else
 					expenseValue = 0;	
 			
