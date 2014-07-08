@@ -142,9 +142,6 @@ public class AccessFinancialRecords
 				if(service.getServiceType().getType().equals(serviceType.getType()))
 					revenue += service.getRate();
 			}
-			database.connect();
-			//revenue = database.getServiceCurrentRevenue(service);
-			database.disconnect();
 		}
 		
 		return revenue;
