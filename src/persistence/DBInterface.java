@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import objects.Client;
 import objects.Expense;
@@ -99,6 +100,7 @@ public class DBInterface
 		}
 	}
 	
+	
 	/**
 	 * 	GETCLIENTBYID()
 	 * 
@@ -106,6 +108,7 @@ public class DBInterface
 	 *  
 	 *  @return	Service	-	Client specified by ID, null if no match
 	 */
+	
 	
 	public Client getClientByID(int id)
 	{
@@ -399,6 +402,7 @@ public class DBInterface
 		}
 		
 	}
+	
 	
 	/**
 	 * 	GETSERVICETYPESBYTYPE()
@@ -1125,13 +1129,14 @@ public class DBInterface
 	 * @return Expenses + revenue for services for month
 	 */
 	
-	public ArrayList<MonthReport> getLastYearServiceExpenses(Service element)
+	public ArrayList<MonthReport> getLastYearServiceExpenses(ServiceType element)
 	{
 		ArrayList<MonthReport> tally = null;
 		double expenseValue = 0;
 		String sql = "";
 		ArrayList<String> returnVal = new ArrayList<String>();
 		Date startDate = new Date();
+		Date endDate = new Date();
 		Calendar fromDate = Calendar.getInstance();
 		Calendar toDate = Calendar.getInstance();
 		Calendar contractDate = Calendar.getInstance();
@@ -1140,14 +1145,35 @@ public class DBInterface
 		fromDate.setTime(startDate);
 		toDate.add(Calendar.MONTH, -1);
 		
-		if(element != null && element.getID() > -1 && element.getContractID() > -1)
+		if(element != null && element.getID() > -1 && element.getID() > -1)
 		{
 			
 			tally = new ArrayList<MonthReport>();
 			
 			//Find the oldest active contract to use for contract calendar
-			clientContract = this.getContractByID(element.getContractID());
-			contractDate.setTime(clientContract.getSignedDate());
+			sql = "SELECT MIN(CON.SIGNED_DATE) "+
+			"FROM "+
+			"CONTRACTS CON "+
+			"INNER JOIN SERVICES SV ON (SV.CONTRACT_ID = CON.ROW_ID) "+
+			"INNER JOIN SERVICES_TYPES ST ON (ST.ROW_ID = SV.SERVICE_TYPE_ID) "+
+			"WHERE "+
+			"ST.ROW_ID ="+ element.getID();
+			
+			returnVal = this.mainDB.blindQuery(sql);
+			
+			if(returnVal.size() == 1 && returnVal.get(0).compareTo("null") != 0)
+			{
+				try
+				{
+					endDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(returnVal.get(0));
+				}
+				catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+			
+			contractDate.setTime(endDate);
 			
 			
 			for(int i = 0; i < 12 && toDate.getTime().after(contractDate.getTime()); i++)
@@ -1156,9 +1182,10 @@ public class DBInterface
 				"FROM "+
 				"CONTRACTS CON "+  
 				"INNER JOIN SERVICES SV ON (SV.CONTRACT_ID = CON.ROW_ID AND CON.END_DATE > '"+sdf.format(toDate.getTime())+"' AND CON.START_DATE < '"+sdf.format(toDate.getTime())+"' ) "+
+				"INNER JOIN SERVICES_TYPES ST ON (ST.ROW_ID = SV.SERVICE_TYPE_ID) "+
 				"INNER JOIN EXPENSE EX ON(EX.SERVICE_ID = SV.ROW_ID AND INCURRED_DATE > '"+sdf.format(toDate.getTime())+"' AND INCURRED_DATE < '"+sdf.format(fromDate.getTime())+"') "+
 				"WHERE "+
-				"SV.ROW_ID = "+element.getID();
+				"ST.ROW_ID = "+element.getID();
 			
 				
 				returnVal = this.mainDB.blindQuery(sql);
@@ -1184,13 +1211,14 @@ public class DBInterface
 	 * @return Expenses + revenue for services for month
 	 */
 	
-	public ArrayList<MonthReport> getLastYearServiceRevenue(Service element)
+	public ArrayList<MonthReport> getLastYearServiceRevenue(ServiceType element)
 	{
 		ArrayList<MonthReport> tally = null;
 		double expenseValue = 0;
 		String sql = "";
 		ArrayList<String> returnVal = new ArrayList<String>();
 		Date startDate = new Date();
+		Date endDate = new Date();
 		Calendar fromDate = Calendar.getInstance();
 		Calendar toDate = Calendar.getInstance();
 		Calendar contractDate = Calendar.getInstance();
@@ -1199,25 +1227,46 @@ public class DBInterface
 		fromDate.setTime(startDate);
 		toDate.add(Calendar.MONTH, -1);
 		
-		if(element != null && element.getID() > -1 && element.getContractID() > -1)
+		if(element != null && element.getID() > -1 && element.getID() > -1)
 		{
 			
 			tally = new ArrayList<MonthReport>();
 			
-			clientContract = this.getContractByID(element.getContractID());
-			contractDate.setTime(clientContract.getSignedDate());
-			
+			sql = "SELECT MIN(CON.SIGNED_DATE) "+
+				"FROM "+
+				"CONTRACTS CON "+
+				"INNER JOIN SERVICES SV ON (SV.CONTRACT_ID = CON.ROW_ID) "+
+				"INNER JOIN SERVICES_TYPES ST ON (ST.ROW_ID = SV.SERVICE_TYPE_ID) "+
+				"WHERE "+
+				"ST.ROW_ID ="+ element.getID();
+				
+			returnVal = this.mainDB.blindQuery(sql);
+					
+			if(returnVal.size() == 1 && returnVal.get(0).compareTo("null") != 0)
+			{
+				try
+				{
+					endDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(returnVal.get(0));
+				}
+				catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+				
+			contractDate.setTime(endDate);
 			
 			for(int i = 0; i < 12 && toDate.getTime().after(contractDate.getTime()); i++)
 			{
 				sql = "SELECT SUM (RATE) "+
 				"FROM" + 
-				"(SELECT DISTINCT SV.RATE "+
+				"(SELECT SV.RATE "+
 				"FROM "+
 				"CONTRACTS CON "+ 
 				"INNER JOIN SERVICES SV ON (SV.CONTRACT_ID = CON.ROW_ID AND CON.END_DATE > '"+sdf.format(toDate.getTime())+"' AND CON.START_DATE < '"+sdf.format(toDate.getTime())+"' ) "+
+				"INNER JOIN SERVICES_TYPES ST ON (ST.ROW_ID = SV.SERVICE_TYPE_ID) "+
 				"WHERE "+
-				"SV.ROW_ID = "+element.getID()+")";
+				"ST.ROW_ID = "+element.getID()+")";
 				
 				returnVal = this.mainDB.blindQuery(sql);
 				
@@ -1671,5 +1720,5 @@ public class DBInterface
 	{
 		System.out.println("ATTEMPTING TO RETRIEVE "+retrieve+" FROM "+invalid+" PLEASE "+instruction+" AND TRY AGAIN.\n\n");
 	}
-	
+
 }
