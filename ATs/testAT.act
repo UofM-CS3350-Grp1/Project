@@ -1,0 +1,8 @@
+Package                 presentation
+
+InvokeMethod            presentation.Startup		jumpStart
+
+Click                   SwitchScreen				bClients
+
+Click					SwitchScreen				btnView
+

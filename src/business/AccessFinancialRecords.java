@@ -45,18 +45,18 @@ public class AccessFinancialRecords
 	
 	/**
 	 * Retrieve the revenue for the service's last 12 months
-	 * @param service	The service to retrieve data for
+	 * @param serviceType	The service to retrieve data for
 	 * @return	The list of reports for the last 12 months
 	 */
-	public ArrayList<MonthReport> getYearRevenueForService(Service service)
+	public ArrayList<MonthReport> getYearRevenueForService(ServiceType serviceType)
 	{
 		ArrayList<MonthReport> reports = null;
 		
-		assert (service != null);
-		if(service != null)
+		assert (serviceType != null);
+		if(serviceType != null)
 		{
 			database.connect();
-			reports = database.getLastYearServiceRevenue(service);
+			reports = database.getLastYearServiceRevenue(serviceType);
 			database.disconnect();
 		}
 		
@@ -65,18 +65,18 @@ public class AccessFinancialRecords
 	
 	/**
 	 * Retrieve the expense for the service's last 12 months
-	 * @param service	The service to retrieve data for
+	 * @param serviceType	The service to retrieve data for
 	 * @return	The list of reports for the last 12 months
 	 */
-	public ArrayList<MonthReport> getYearExpenseForService(Service service)
+	public ArrayList<MonthReport> getYearExpenseForService(ServiceType serviceType)
 	{
 		ArrayList<MonthReport> reports = null;
 		
-		assert (service != null);
-		if(service != null)
+		assert (serviceType != null);
+		if(serviceType != null)
 		{
 			database.connect();
-			reports = database.getLastYearServiceRevenue(service);
+			reports = database.getLastYearServiceRevenue(serviceType);
 			database.disconnect();
 		}
 		

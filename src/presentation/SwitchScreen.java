@@ -16,6 +16,9 @@ import org.eclipse.swt.events.SelectionEvent;
 import presentation.ClientScreenDrawer;
 import presentation.ServiceScreenDrawer;
 
+import acceptanceTests.Register;
+import acceptanceTests.EventLoop;
+
 import java.util.Deque;
 import java.util.ArrayDeque;
 
@@ -30,15 +33,26 @@ public class SwitchScreen
 	private static Composite content;
 	
 	private static Deque< Composite > backStack;
+
+	private static Button bBack;
+	private static Button bClients;
+	private static Button bContract;
+	private static Button bServices;
+	private static Button bFeatures;
+	private static Button bJCC;
+	private static Button bLogin;
+	private static Button bExit;
+	private static Display display;
+	private static Shell shell;
 	
-	
-	public static void main( String[] args )
-	{
+	SwitchScreen()
+	{	
 		backStack = new ArrayDeque< Composite >();
 		
-		Display display = Display.getDefault();
-		Shell shell = new Shell();
+		display = Display.getDefault();
+		shell = new Shell();
 		initShell( shell );
+		Register.newWindow(this);
 		
 		/*
 		 * Create the navigation bar
@@ -55,28 +69,28 @@ public class SwitchScreen
 		 * adds the buttons to the nav bar; more than six will cause it to overflow
 		 * to a new row; if you need more buttons, adjust num columns above
 		 */
-		Button bBack = new Button( navBar, SWT.FLAT );
+		bBack = new Button( navBar, SWT.FLAT );
 		tuneNavButton( bBack, "BACK" );
 
-		Button bClients = new Button( navBar, SWT.FLAT );
+		bClients = new Button( navBar, SWT.FLAT );
 		tuneNavButton( bClients, "CLIENTS" );
 
-		Button bContract = new Button( navBar, SWT.FLAT );
+		bContract = new Button( navBar, SWT.FLAT );
 		tuneNavButton( bContract, "CONTRACTS" );
 
-		Button bServices = new Button( navBar, SWT.FLAT );
+		bServices = new Button( navBar, SWT.FLAT );
 		tuneNavButton( bServices, "SERVICES" );
 		
-		Button bFeatures = new Button( navBar, SWT.FLAT );
+		bFeatures = new Button( navBar, SWT.FLAT );
 		tuneNavButton( bFeatures, "FEATURES" );
 
-		Button bJCC = new Button( navBar, SWT.FLAT );
+		bJCC = new Button( navBar, SWT.FLAT );
 		tuneNavButton( bJCC, "JCC's" );
 
-		Button bLogin = new Button( navBar, SWT.FLAT );
+		bLogin = new Button( navBar, SWT.FLAT );
 		tuneNavButton( bLogin, "LOG IN" );
 		
-		Button bExit = new Button( navBar, SWT.FLAT );
+		bExit = new Button( navBar, SWT.FLAT );
 		tuneNavButton( bExit, "EXIT" );
 		
 		/*
@@ -221,10 +235,13 @@ public class SwitchScreen
 		shell.open();
 		shell.layout();
 		
-		while (!shell.isDisposed())
+		if(EventLoop.isEnabled())
 		{
-			if (!display.readAndDispatch())
-				display.sleep();
+			while (!shell.isDisposed())
+			{
+				if (!display.readAndDispatch())
+					display.sleep();
+			}
 		}
 		
 		// System.out.println( "END." );
@@ -283,6 +300,7 @@ public class SwitchScreen
 		srcShell.setLayout( shellLayout );
 		
 		srcShell.setMinimumSize( WIN_WIDTH, WIN_HEIGHT);
+		srcShell.setLocation(0,0);
 	}
 	
 	/**

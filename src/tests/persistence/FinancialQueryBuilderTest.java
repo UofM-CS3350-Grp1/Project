@@ -17,8 +17,8 @@ public class FinancialQueryBuilderTest
 		assertNotNull("LastYearReturns Check",finBuild.getLastYearReturns(finBuild.getClientByID(1)));
 		assertTrue(finBuild.getClientCurrentExpenses(finBuild.getClientByID(1)) <= 0);
 		assertTrue(finBuild.getClientCurrentRevenue(finBuild.getClientByID(1)) >= 0);
-		assertNotNull(finBuild.getLastYearServiceExpenses(finBuild.getServiceByID(1)));
-		assertNotNull(finBuild.getLastYearServiceRevenue(finBuild.getServiceByID(1)));
+		assertNotNull(finBuild.getLastYearServiceExpenses(finBuild.getServiceTypeByID(2)));
+		assertNotNull(finBuild.getLastYearServiceRevenue(finBuild.getServiceTypeByID(2)));
 		finBuild.disconnect();
 	}
 	
@@ -31,8 +31,8 @@ public class FinancialQueryBuilderTest
 		assertTrue(finBuild.getClientCurrentExpenses(finBuild.getClientByID(Integer.MAX_VALUE)) == -1);
 		assertTrue(finBuild.getClientCurrentRevenue(finBuild.getClientByID(Integer.MAX_VALUE)) == -1);
 		assertTrue(finBuild.getAllClientReturns(finBuild.getClientByID(Integer.MAX_VALUE)) == 0);
-		assertNull(finBuild.getLastYearServiceExpenses(finBuild.getServiceByID(Integer.MAX_VALUE)));
-		assertNull(finBuild.getLastYearServiceRevenue(finBuild.getServiceByID(Integer.MAX_VALUE)));
+		assertNull(finBuild.getLastYearServiceExpenses(finBuild.getServiceTypeByID(Integer.MAX_VALUE)));
+		assertNull(finBuild.getLastYearServiceRevenue(finBuild.getServiceTypeByID(Integer.MAX_VALUE)));
 		finBuild.disconnect();
 	}
 }
