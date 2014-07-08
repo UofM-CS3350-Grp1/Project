@@ -165,6 +165,31 @@ public class JCCClientScreenDrawer extends BaseJCCScreenDrawer
 	@Override
 	protected void viewSelectedItem()
 	{
+		int index, id;
+		Composite analysisScreen;
+		Client client;
+		
+		if((index = table.getSelectionIndex()) != -1)
+		{
+			try
+			{
+				//Extract the service ID from the table
+				id = Integer.parseInt(table.getItem(index).getText(0));
+				client = processClient.getClientByID(id);
+				
+				if(client != null)
+				{
+					//Open the client performance tracking screen
+					analysisScreen = SwitchScreen.getContentContainer();
+					new ClientAnalysisScreenDrawer( analysisScreen, client );
+					SwitchScreen.switchContent( analysisScreen );
+				}
+			}
+			catch(NumberFormatException nfe)
+			{
+				System.out.println(nfe);
+			}
+		}
 	}
 
 	@Override

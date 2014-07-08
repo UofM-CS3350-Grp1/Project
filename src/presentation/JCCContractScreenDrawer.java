@@ -157,6 +157,41 @@ public class JCCContractScreenDrawer extends BaseJCCScreenDrawer
 	@Override
 	protected void viewSelectedItem()
 	{
+		int index;
+		Composite analysisScreen;
+		Client client;
+		Contract contract;
+		ProcessContract processContract = new ProcessContract();
+		
+		if((index = table.getSelectionIndex()) != -1)
+		{
+			try
+			{
+				TableItem select = table.getItem(index);
+				int x = Integer.parseInt(select.getText(0));
+				contract = processContract.getContractByID(x);
+				client = processContract.getContractClient(contract);		
+				if(client==null) 
+					System.out.println("Client is null");
+				if(contract==null) 
+					System.out.println("Contract is null");
+				
+				if(client != null && contract != null)
+				{
+					analysisScreen = SwitchScreen.getContentContainer();
+					new ContractAnalysisScreenDrawer( analysisScreen, contract, client );
+					SwitchScreen.switchContent( analysisScreen );
+				}
+				else
+				{
+					System.out.println("error");
+				}
+			}
+			catch(NumberFormatException nfe)
+			{
+				System.out.println(nfe);
+			}
+		}
 	}
 
 	@Override
