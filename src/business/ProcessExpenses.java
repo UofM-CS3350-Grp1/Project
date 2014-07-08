@@ -7,6 +7,7 @@ import objects.Client;
 import objects.Contract;
 import objects.Expense;
 import objects.Service;
+import objects.ServiceType;
 import persistence.DBInterface;
 
 public class ProcessExpenses 
@@ -40,15 +41,17 @@ public class ProcessExpenses
 		{
 			service = itSvc.next();
 			expenseList = database.getExpensesByService(service);
-			Iterator<Expense> itExp = expenseList.iterator();
-			Expense expense = null;
-			
-			while(itExp.hasNext())
+			if(expenseList!=null)
 			{
-				expense = itExp.next();
-				result += expense.getValue();
+				Iterator<Expense> itExp = expenseList.iterator();
+				Expense expense = null;
+				
+				while(itExp.hasNext())
+				{
+					expense = itExp.next();
+					result += expense.getValue();
+				}
 			}
-			
 		}
 		database.disconnect();
 		
@@ -65,14 +68,53 @@ public class ProcessExpenses
 		expenseList = database.getExpensesByService(service);
 		database.disconnect();
 		
-		Iterator<Expense> it = expenseList.iterator();
-		Expense expense = null;
-		
-		while(it.hasNext())
+		if(expenseList!=null)
 		{
-			expense = it.next();
-			result += expense.getValue();
+			Iterator<Expense> it = expenseList.iterator();
+			Expense expense = null;
+			
+			while(it.hasNext())
+			{
+				expense = it.next();
+				result += expense.getValue();
+			}
 		}
+		return result;
+	}
+
+	public double getExpensesByServiceType(ServiceType serviceType) 
+	{
+		double result = 0;
+		ArrayList<Expense> expenseList;
+		ArrayList<Service> serviceList;
+		Service service;
+		Expense expense;
+		Iterator<Service> it;
+		Iterator<Expense> itExp;
+		
+		database.connect();
+		serviceList = database.getServicesByType(serviceType);
+		if(serviceList != null)
+		{
+			it = serviceList.iterator();
+			while(it.hasNext())
+			{
+				service = it.next();
+				expenseList = database.getExpensesByService(service);
+				
+				if(expenseList != null)
+				{
+					itExp = expenseList.iterator();
+					while(itExp.hasNext())
+					{
+						expense = itExp.next();
+						result += expense.getValue();
+					}
+				}
+			}
+		}
+		
+		database.disconnect();
 		
 		return result;
 	}
@@ -88,24 +130,30 @@ public class ProcessExpenses
 		serviceList = database.getServiceByContract(contract);
 		database.disconnect();
 
-		Iterator<Service> it2 = serviceList.iterator();
-		Service service = null;
-
-		database.connect();
-
-		while(it2.hasNext())
+		if(serviceList!=null)
 		{
-			service = it2.next();
-			expenseList = database.getExpensesByService(service);
-			Iterator<Expense> it = expenseList.iterator();
-			Expense expense = null;
-			
-			while(it.hasNext())
+			Iterator<Service> it2 = serviceList.iterator();
+			Service service = null;
+	
+			database.connect();
+	
+			while(it2.hasNext())
 			{
-				expense = it.next();
-				if(expense.getServiceID()==service.getID())
+				service = it2.next();
+				expenseList = database.getExpensesByService(service);
+				if(expenseList!=null)
 				{
-					result += expense.getValue();
+					Iterator<Expense> it = expenseList.iterator();
+					Expense expense = null;
+					
+					while(it.hasNext())
+					{
+						expense = it.next();
+						if(expense.getServiceID()==service.getID())
+						{
+							result += expense.getValue();
+						}
+					}
 				}
 			}
 		}

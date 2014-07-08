@@ -32,14 +32,14 @@ public class TestIDQueryBuilder {
 		IDQueryBuilder iqBuilder = new IDQueryBuilder();
 		iqBuilder.connect();
 		
-		assertNotNull("Query builder client", iqBuilder.getClientByID(Integer.MAX_VALUE));
-		assertNotNull("Query builder service", iqBuilder.getServiceByID(Integer.MAX_VALUE));
-		assertNotNull("Query builder contract", iqBuilder.getContractByID(Integer.MAX_VALUE));
-		assertNotNull("Query builder expense", iqBuilder.getExpenseByID(Integer.MAX_VALUE));
-		assertNotNull("Query builder expense", iqBuilder.getTrackedFeatureByID(Integer.MAX_VALUE));
-		assertNotNull("Query builder expense", iqBuilder.getServiceTypeByID(Integer.MAX_VALUE));
-		assertNotNull("Query builder expense", iqBuilder.getTrackedFeatureTypeByID(Integer.MAX_VALUE));
-		assertNotNull("Query builder expense", iqBuilder.getFeatureHistoryByID(Integer.MAX_VALUE));
+		assertNull("Query builder client", iqBuilder.getClientByID(Integer.MAX_VALUE));
+		assertNull("Query builder service", iqBuilder.getServiceByID(Integer.MAX_VALUE));
+		assertNull("Query builder contract", iqBuilder.getContractByID(Integer.MAX_VALUE));
+		assertNull("Query builder expense", iqBuilder.getExpenseByID(Integer.MAX_VALUE));
+		assertNull("Query builder expense", iqBuilder.getTrackedFeatureByID(Integer.MAX_VALUE));
+		assertNull("Query builder expense", iqBuilder.getServiceTypeByID(Integer.MAX_VALUE));
+		assertNull("Query builder expense", iqBuilder.getTrackedFeatureTypeByID(Integer.MAX_VALUE));
+		assertNull("Query builder expense", iqBuilder.getFeatureHistoryByID(Integer.MAX_VALUE));
 		
 		iqBuilder.disconnect();
 	}

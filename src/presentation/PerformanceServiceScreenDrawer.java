@@ -1,6 +1,7 @@
 package presentation;
 
-import objects.Service;
+import objects.ServiceType;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -8,7 +9,9 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.layout.GridData;
 import org.jfree.experimental.chart.swt.ChartComposite;
+
 import business.GenerateGraph;
+
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -22,10 +25,8 @@ public class PerformanceServiceScreenDrawer
 	private static final int CHART_HEIGHT = 500;			//Height of a chart
 	
 	private ScrolledComposite scrollComposite;
-	protected Composite composite;
-	protected Service service;
-	private Label lblTypeData;
-	private Label lblRateData;
+	private Composite composite;
+	private ServiceType serviceType;
 	private Label lblServiceNameData;
 	private Label lblDescription;
 	private Label lblDescriptionData;
@@ -37,10 +38,10 @@ public class PerformanceServiceScreenDrawer
 	/**
 	 * Creates a new performance screen for a service
 	 * @param container	The parent composite
-	 * @param service	The service to track performance
+	 * @param serviceType	The service to track performance
 	 * @throws IllegalArgumentException
 	 */
-	public PerformanceServiceScreenDrawer(Composite container, Service service) throws IllegalArgumentException 
+	public PerformanceServiceScreenDrawer(Composite container, ServiceType serviceType) throws IllegalArgumentException 
 	{
 		scrollComposite = new ScrolledComposite(container, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
 		scrollComposite.getVerticalBar().setIncrement(15);
@@ -50,9 +51,9 @@ public class PerformanceServiceScreenDrawer
 		
 		scrollComposite.setContent(composite);
 		
-		assert (service != null);
-		if(service != null)
-			this.service = service;
+		assert (serviceType != null);
+		if(serviceType != null)
+			this.serviceType = serviceType;
 		else
 			throw new IllegalArgumentException();
 		
@@ -70,30 +71,6 @@ public class PerformanceServiceScreenDrawer
 		lblServiceNameData.setLayoutData(gd_lblServiceName);
 		lblServiceNameData.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.BOLD));
 		lblServiceNameData.setText("SERVICE_NAME");
-		
-		Label lblRate = new Label(serviceDataComposite, SWT.NONE);
-		GridData gd_lblRate = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_lblRate.widthHint = 56;
-		lblRate.setLayoutData(gd_lblRate);
-		lblRate.setText("Rate:");
-		
-		lblRateData = new Label(serviceDataComposite, SWT.NONE);
-		GridData gd_lblRateData = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
-		gd_lblRateData.widthHint = 84;
-		lblRateData.setLayoutData(gd_lblRateData);
-		lblRateData.setText("RATE");
-		
-		Label lblType = new Label(serviceDataComposite, SWT.NONE);
-		GridData gd_lblType = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_lblType.widthHint = 48;
-		lblType.setLayoutData(gd_lblType);
-		lblType.setText("Type:");
-		
-		lblTypeData = new Label(serviceDataComposite, SWT.NONE);
-		GridData gd_lblTypeData = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
-		gd_lblTypeData.widthHint = 162;
-		lblTypeData.setLayoutData(gd_lblTypeData);
-		lblTypeData.setText("TYPE");
 		
 		lblDescription = new Label(serviceDataComposite, SWT.NONE);
 		GridData gd_lblDescription = new GridData(SWT.LEFT, SWT.TOP, false, false, 1, 1);
@@ -134,12 +111,10 @@ public class PerformanceServiceScreenDrawer
 	 */
 	private void populateServiceData()
 	{
-		lblServiceNameData.setText(service.getTitle());
-		lblRateData.setText(service.getRate() + "");
-		lblTypeData.setText(service.getServiceType().getType());
+		lblServiceNameData.setText(serviceType.getType());
 		
-		if(!service.getDescription().isEmpty())
-			lblDescriptionData.setText(service.getDescription());
+		if(!serviceType.getDescription().isEmpty())
+			lblDescriptionData.setText(serviceType.getDescription());
 		else
 		{
 			//Hide the description fields
@@ -157,7 +132,12 @@ public class PerformanceServiceScreenDrawer
 		GridData gd_chartComposite;
 		
 		//Display the general all feature summary
-		chartComposite = new ChartComposite(composite, SWT.NONE, graphGenerator.generateRevenueLineChartForService(service));
+		chartComposite = new ChartComposite(composite, SWT.NONE, graphGenerator.generateFinancialBreakdownForService(serviceType));
+		gd_chartComposite = new GridData(SWT.FILL, SWT.LEFT, true, false, 1, 1);
+		gd_chartComposite.heightHint = CHART_HEIGHT;
+		chartComposite.setLayoutData(gd_chartComposite);
+		
+		chartComposite = new ChartComposite(composite, SWT.NONE, graphGenerator.generateRevenueLineChartForService(serviceType));
 		gd_chartComposite = new GridData(SWT.FILL, SWT.LEFT, true, false, 1, 1);
 		gd_chartComposite.heightHint = CHART_HEIGHT;
 		chartComposite.setLayoutData(gd_chartComposite);

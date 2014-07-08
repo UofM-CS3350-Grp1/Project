@@ -1,5 +1,12 @@
 package presentation;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import objects.Client;
 import objects.Contract;
 import objects.Service;
@@ -22,6 +29,18 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Text;
 
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.ColumnText;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfWriter;
 
 /**
  * Responsible for drawing the detailed client information including all of the
@@ -63,6 +82,9 @@ public class ContractAnalysisScreenDrawer
 	private Label lblDetails;
 	private Button btnSave;
 	private Label lblServicesInThis;
+	
+	private String[] months = {"null", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+	private String[] years = {"2013", "2014", "2015", "2016", "2017", "2018"};
 	
 	/**
 	 * Creates a new client analysis screen
@@ -347,7 +369,15 @@ public class ContractAnalysisScreenDrawer
 			@Override
 			public void widgetSelected(SelectionEvent arg0) 
 			{
-				createContractPDF();
+				try {
+					createContractPDF();
+				} catch (IOException e) {
+					System.out.println("Error creating pdf 1");
+					e.printStackTrace();
+				} catch (DocumentException e) {
+					System.out.println("Error creating pdf 2");
+					e.printStackTrace();
+				}
 			}
 		});
 		btnPrint.setText("Print");
@@ -367,11 +397,6 @@ public class ContractAnalysisScreenDrawer
 		populateServiceData();
 		populateContractData();
 		
-		btnPrint.setVisible(false);
-		btnPrint.setEnabled(false);
-		btnSave.setVisible(false);
-		btnSave.setEnabled(false);
-		
 		scrollComposite.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		scrollComposite.setExpandHorizontal(true);
 		scrollComposite.setExpandVertical(true);
@@ -379,10 +404,193 @@ public class ContractAnalysisScreenDrawer
 	
 	/**
 	 * creates, saves and prints contract PDF
+	 * @throws IOException 
+	 * @throws DocumentException 
 	 */
-	public void createContractPDF()
+	public void createContractPDF() throws IOException, DocumentException
 	{
-		//Document doc = new Document();
+		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyy");
+		
+		String DEST = "src/presentation/ContractTemplate.pdf";
+		String IMAGE = "src/presentation/template.jpg";
+		File file = new File("src/presentation/ContractTemplate.pdf");
+
+		Document document = new Document(PageSize.A4);
+		PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(DEST));
+		document.open();
+		
+		PdfContentByte canvas = writer.getDirectContentUnder();
+		Image image = Image.getInstance(IMAGE);
+		image.scaleAbsolute(PageSize.A4);
+		image.setAbsolutePosition(0, 0);
+		canvas.addImage(image);
+        BaseFont bf = BaseFont.createFont();
+		PdfContentByte over = writer.getDirectContent();
+
+		//Client details
+        setTextPosition(over, writer, bf, 150, 730, contract.getBusinessName());
+        setTextPosition(over, writer, bf, 150, 708, client.getAddress());
+        setTextPosition(over, writer, bf, 150, 688, client.getName());
+        setTextPosition(over, writer, bf, 150, 667, client.getPhoneNumber().toString());
+        setTextPosition(over, writer, bf, 150, 647, client.getEmail().toString());
+        setTextPosition(over, writer, bf, 150, 626, "Signed");
+        setTextPosition(over, writer, bf, 150, 606, df.format(contract.getSignedDate()));
+        setTextPosition(over, writer, bf, 150, 584, df.format(contract.getPeriod()));
+
+        //Buzzin details
+        setTextPosition(over, writer, bf, 415, 730, "Buzzin' Digital Marketing");
+        setTextPosition(over, writer, bf, 415, 708, "123 First St.");
+        setTextPosition(over, writer, bf, 415, 688, "Christos Vasalirakis");
+        setTextPosition(over, writer, bf, 415, 667, "204 960 1538");
+        setTextPosition(over, writer, bf, 415, 647, "jasontoews88@gmail.com");
+        setTextPosition(over, writer, bf, 415, 626, df.format(contract.getSignedDate()));
+
+        //input services
+        inputServices(over, writer, bf);
+        
+        //Subtotal, GST and Total
+        double sub = getSubtotal();
+        setTextPosition(over, writer, bf, 510, 280, "$ "+(int)sub);
+        setTextPosition(over, writer, bf, 510, 250, "$ "+Math.round((sub*0.05)*100.00)/100.00);
+        setTextPosition(over, writer, bf, 510, 215, "$ "+Math.round(((sub*0.05)+sub)*100.00)/100.00);
+        
+        //Terms of the contract
+        ColumnText ct = new ColumnText(over);
+        setTextPosition("terms of the contract terms of the contract terms of the "
+        		+ "contract terms of the contract terms of the contract terms of the contract terms of the "
+        		+ "contract terms of the contract terms of the contract terms of the contract"
+        		+ "contract terms of the contract terms of the contract terms of the contract"
+        		+ "contract terms of the contract terms of the contract terms of the contract"
+        		+ "contract terms of the contract terms of the contract terms of the contract"
+        		+ "contract terms of the contract terms of the contract terms of the contract"
+        		+ "contract terms of the contract terms of the contract terms of the contract", ct);
+        
+		
+		document.close();
+		Desktop.getDesktop().open(file);
+	}
+	
+	/*
+	 * @return returns the subtotal (before GST) of the contract
+	 */
+	public double getSubtotal()
+	{
+		TableItem[] items = servicesTable.getItems();
+		double result = 0;
+		int multiplier = getMultiplier();
+		for(int i=0; i<items.length; i++)
+		{
+			if(!servicesTable.getItem(i).getText(2).contains("Web Design"))
+			{
+				result += Double.parseDouble(servicesTable.getItem(i).getText(1))*multiplier;
+			}else{
+				if(multiplier<12) multiplier = 12;
+				result += Double.parseDouble(servicesTable.getItem(i).getText(1))*Math.floor(multiplier/12);
+				multiplier = getMultiplier();
+			}
+		}
+		return result;
+	}
+	
+	/*
+	 * inputs services to the pdf
+	 */
+	public void inputServices(PdfContentByte over, PdfWriter writer, BaseFont bf)
+	{
+		TableItem[] items = servicesTable.getItems();
+		int y = 500;
+		int multiplier = getMultiplier();
+		for(int i=0; i<items.length; i++)
+		{
+			if(!servicesTable.getItem(i).getText(2).contains("Web Design"))
+			{
+		        setTextPosition(over, writer, bf, 20, y, servicesTable.getItem(i).getText(2));
+		        setTextPosition(over, writer, bf, 155, y, servicesTable.getItem(i).getText(3));
+		        setTextPosition(over, writer, bf, 435, y, multiplier+"");
+		        setTextPosition(over, writer, bf, 520, y, "$ "+(int)(Double.parseDouble(servicesTable.getItem(i).getText(1)))*(int)multiplier);
+		        y -= 48;
+			}else{
+				if(multiplier<12) multiplier = 12;
+		        setTextPosition(over, writer, bf, 20, y, servicesTable.getItem(i).getText(2));
+		        setTextPosition(over, writer, bf, 155, y, servicesTable.getItem(i).getText(3));
+		        setTextPosition(over, writer, bf, 435, y, ""+(int)(multiplier/12));
+		        setTextPosition(over, writer, bf, 520, y, "$ "+(int)Double.parseDouble(servicesTable.getItem(i).getText(1))*(int)(multiplier/12));
+		        y -= 48;
+				multiplier = getMultiplier();
+			}
+		}
+	}
+	
+	/*
+	 * @return returns the number of months of the contract
+	 */
+	public int getMultiplier()
+	{
+		int multiplier = 0;
+		int monthStart = 0;
+		int yearStart = 0;
+		int monthEnd = 0;
+		int yearEnd = 0;
+		for(int i=1; i<13; i++)
+		{
+			if(contract.getSignedDate().toString().contains(months[i]))
+			{
+				monthStart = i;
+				for(int x=0; x<years.length; x++)
+				{
+					if(contract.getSignedDate().toString().contains(years[x]))
+					{
+						yearStart = Integer.parseInt(years[x]);
+					}
+				}
+			}
+			if(contract.getPeriod().toString().contains(months[i]))
+			{
+				monthEnd = i;
+				for(int x=0; x<years.length; x++)
+				{
+					if(contract.getPeriod().toString().contains(years[x]))
+					{
+						yearEnd = Integer.parseInt(years[x]);
+					}
+				}
+			}
+		}
+		if(yearStart!=yearEnd)
+		{
+			int yearsDifference = yearEnd-yearStart;
+			multiplier = 12-monthStart;
+			multiplier += monthEnd;
+			multiplier += ((yearsDifference*12)-12);
+		}else{
+			multiplier = monthEnd-monthStart;
+		}
+		return multiplier;
+	}
+	
+	/*
+	 * sets the text position inside the pdf
+	 */
+	private void setTextPosition(PdfContentByte over, PdfWriter writer, BaseFont bf, int x, int y, String text)
+	{
+		over.saveState();
+		over.beginText();
+        over.setLineWidth(1.5f);
+        over.setFontAndSize(bf, 12);
+        over.moveText(x, y);
+        over.showText(text);
+        over.endText();
+        over.restoreState();
+	}
+	
+	/*
+	 * sets the text position inside the pdf (special case for text wrapping)
+	 */
+	private void setTextPosition(String text, ColumnText ct) throws DocumentException
+	{
+		ct.setSimpleColumn(new Phrase(new Chunk(text)),
+				20, 190, 550, 100, 15, Element.ALIGN_LEFT | Element.ALIGN_TOP | Element.ALIGN_RIGHT | Element.ALIGN_BOTTOM);
+		ct.go();
 	}
 	
 	/**

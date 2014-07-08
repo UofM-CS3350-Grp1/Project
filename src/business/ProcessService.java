@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import objects.Client;
 import objects.Service;
+import objects.ServiceType;
 
 /**
  * Performs the service related processing between the GUI
@@ -24,6 +25,24 @@ public class ProcessService extends ProcessStorable
 		
 		services = null;
 		serviceIndex = 0;
+	}
+	
+	public ServiceType getServiceTypeByID(int id)
+	{
+		ServiceType result = null;
+		database.connect();
+		result = database.getServiceTypeByID(id);
+		database.disconnect();
+		return result;
+	}
+	
+	public ArrayList<ServiceType> getServiceTypes()
+	{
+		ArrayList<ServiceType> result = null;
+		database.connect();
+		result = database.dumpServiceTypes();
+		database.disconnect();
+		return result;
 	}
 		
 	/**

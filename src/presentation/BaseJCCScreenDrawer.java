@@ -106,7 +106,7 @@ public abstract class BaseJCCScreenDrawer
 			}
 		});
 		btnSurvey.setText("Add Survey Info");
-		btnSurvey.setBounds(0, 246, 111, 40);
+		btnSurvey.setBounds(0, 200, 111, 40);
 		
 		btnExpense = new Button(btnComposite, SWT.NONE);
 		btnExpense.addSelectionListener(new SelectionAdapter() 
@@ -118,17 +118,13 @@ public abstract class BaseJCCScreenDrawer
 			}
 		});
 		btnExpense.setText("Add Expenses");
-		btnExpense.setBounds(0, 292, 111, 40);
+		btnExpense.setBounds(0, 246, 111, 40);
 		
 		Label label = new Label(btnComposite, SWT.SEPARATOR | SWT.HORIZONTAL);
-		label.setBounds(25, 238, 64, 2);
+		label.setBounds(25, 192, 64, 2);
 		
 		Label label_1 = new Label(btnComposite, SWT.SEPARATOR | SWT.HORIZONTAL);
 		label_1.setBounds(25, 138, 64, 2);
-		
-		Button btnEdit = new Button(btnComposite, SWT.NONE);
-		btnEdit.setText("Edit Selected");
-		btnEdit.setBounds(0, 192, 111, 40);
 		
 		table = new Table(composite, SWT.BORDER | SWT.FULL_SELECTION | SWT.V_SCROLL | SWT.H_SCROLL);
 		table.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));

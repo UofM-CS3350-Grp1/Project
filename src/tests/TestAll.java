@@ -8,11 +8,14 @@ import tests.business.CalcFeatureValueTest;
 import tests.objects.ClientTest;
 import tests.objects.ContractTest;
 import tests.objects.EmailTest;
+import tests.objects.ExpenseTest;
 import tests.objects.FeatureHistoryTest;
 import tests.objects.MonthReportTest;
 import tests.objects.PhoneNumberTest;
 import tests.objects.ServiceTest;
 import tests.objects.TrackedFeatureTest;
+import tests.objects.TrackedFeatureTypeTest;
+import tests.objects.UserTest;
 import tests.persistence.TestDBController;
 import tests.persistence.TestDBInterface;
 
@@ -27,6 +30,9 @@ import tests.persistence.TestDBInterface;
 			TrackedFeatureTest.class,
 			FeatureHistoryTest.class,
 			MonthReportTest.class,
+			UserTest.class,
+			TrackedFeatureTypeTest.class,
+			ExpenseTest.class,
 			TestDBController.class,
 			TestDBInterface.class,
 			CalcFeatureValueTest.class

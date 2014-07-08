@@ -1,4 +1,4 @@
-package presentation;
+/*package presentation;
 
 import objects.Service;
 import objects.TrackedFeature;
@@ -18,7 +18,7 @@ import business.ProcessAddFeature;
 /**
  * Draws the interface to add features to services
  */
-public class AddFeatureToServiceDrawer
+/*public class AddFeatureToServiceDrawer
 {
 	private Composite composite;
 	private Service service;
@@ -31,7 +31,7 @@ public class AddFeatureToServiceDrawer
 	 * @param service	The service to add to
 	 * @throws IllegalArgumentException
 	 */
-	public AddFeatureToServiceDrawer(Composite container, Service service) throws IllegalArgumentException
+/*	public AddFeatureToServiceDrawer(Composite container, Service service) throws IllegalArgumentException
 	{		
 		composite = new Composite( container, SWT.NONE );
 		composite.setLayout(new GridLayout(2, false));
@@ -85,7 +85,7 @@ public class AddFeatureToServiceDrawer
 	/**
 	 * Populates the combo box with feature objects
 	 */
-	private void populateComboBox()
+/*	private void populateComboBox()
 	{
 		TrackedFeature feature = null;
 		
@@ -99,7 +99,7 @@ public class AddFeatureToServiceDrawer
 	/**
 	 * Adds a new feature to the service
 	 */
-	private void processAddNew()
+/*	private void processAddNew()
 	{
 		int index;
 		TrackedFeature feature;
@@ -115,15 +115,15 @@ public class AddFeatureToServiceDrawer
 					goBackToPreviousScreen();
 			}
 		}*/
-	}
+/*	}
 	
 	/**
 	 * Goes back to the previous screen
 	 */
-	private void goBackToPreviousScreen()
+/*	private void goBackToPreviousScreen()
 	{
 		Composite servicePerformanceScreen = SwitchScreen.getContentContainer();
 		new PerformanceServiceScreenDrawer(servicePerformanceScreen, service);
 		SwitchScreen.switchContent(servicePerformanceScreen);
 	}
-}
+}*/

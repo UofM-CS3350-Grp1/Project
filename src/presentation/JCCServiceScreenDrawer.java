@@ -1,8 +1,10 @@
 package presentation;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import objects.Service;
+import objects.ServiceType;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -29,7 +31,7 @@ public class JCCServiceScreenDrawer extends BaseJCCScreenDrawer
 		super(container);
 		
 		if(processService == null)
-			processService = new ProcessService();	    
+			processService = new ProcessService();
 	}	
 	
 	/**
@@ -39,34 +41,46 @@ public class JCCServiceScreenDrawer extends BaseJCCScreenDrawer
 	{
 		Service service = null;
 		TableItem item;
+		ArrayList<ServiceType> serviceTypeList = null;
+		ServiceType serviceType = null;
 		
 		table.removeAll();
 		
 		if(processService == null)
 			processService = new ProcessService();
 		
-		while((service = processService.getNextService())!=null)
+		serviceTypeList = processService.getServiceTypes();
+		Iterator<ServiceType> it = serviceTypeList.iterator();
+		
+		while(it.hasNext())
 		{			
-			item = new TableItem(table, SWT.NULL);
+			serviceType = it.next();
+			/*while((service = processService.getNextService())!=null)
+			{
+				if(service.getServiceType()==serviceType)
+				{*/
+					item = new TableItem(table, SWT.NULL);
+					
+					double expense = getExpenses(serviceType);
+					double total = getRevenue(serviceType);
+					double profit = getProfit(expense, total);
 
-			double expense = getExpenses(service);
-			double total = getRevenue(service);
-			double profit = getProfit(expense, total);
-
-			item.setText(0, service.getID() + "");
-			item.setText(1, service.getTitle() + "");
-			item.setText(2, "$ "+(int)service.getRate());
-			item.setText(3, "$ "+expense);
-			item.setText(4, "$ "+profit);
-			item.setText(5, getEM(expense, total)+"% ");
-			item.setText(6, getPM(profit, total)+"% ");
+					item.setText(0, serviceType.getID() + "");
+					item.setText(1, serviceType.getType() + "");
+					item.setText(2, "$ "+total);
+					item.setText(3, "$ "+expense);
+					item.setText(4, "$ "+profit);
+					item.setText(5, getEM(expense, total)+"% ");
+					item.setText(6, getPM(profit, total)+"% ");					
+			//	}
+			//}
 		}
 	}
 	
 	/*
 	 * @return The total income of this service
 	 */
-	protected double getRevenue(Service service)
+	protected double getRevenue(ServiceType serviceType)
 	{
 		double result = 0;
 		ProcessService processService = new ProcessService();
@@ -75,7 +89,7 @@ public class JCCServiceScreenDrawer extends BaseJCCScreenDrawer
 		Service temp = null;
 		while((temp = processService.getNextService())!=null)
 		{
-			if(temp.getID()==service.getID())
+			if(temp.getServiceType().getType()==serviceType.getType())
 			{
 				result += temp.getRate();
 			}
@@ -89,7 +103,7 @@ public class JCCServiceScreenDrawer extends BaseJCCScreenDrawer
 	protected double getPM(double profit, double total) 
 	{
 		double result = 0;
-		result = Math.round((profit/total)*100.0)/100.0;
+		result = Math.round((profit/total)*100.0);
 		return result;
 	}
 
@@ -99,7 +113,7 @@ public class JCCServiceScreenDrawer extends BaseJCCScreenDrawer
 	protected double getEM(double expense, double total) 
 	{
 		double result = 0;
-		result = Math.round((expense/total)*100.0)/100.0;
+		result = Math.round((expense/total)*100.0);
 		return result;
 	}
 
@@ -116,11 +130,19 @@ public class JCCServiceScreenDrawer extends BaseJCCScreenDrawer
 	/*
 	 * @return The total expenses of this service
 	 */
-	protected double getExpenses(Service service) 
+	protected double getExpenses(ServiceType serviceType) 
 	{
 		double result = 0;
 		ProcessExpenses processExpenses = new ProcessExpenses();
-		result = processExpenses.getExpensesByService(service);
+		ArrayList<Service> serviceList;
+		Service temp = null;
+		while((temp = processService.getNextService())!=null)
+		{
+			if(temp.getServiceType().getType()==serviceType.getType())
+			{
+				result += processExpenses.getExpensesByService(temp);
+			}
+		}
 		return result;
 	}
 

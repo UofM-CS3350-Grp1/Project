@@ -8,11 +8,11 @@ import java.util.Date;
 import java.util.Locale;
 import java.text.SimpleDateFormat;
 
-public class DBParser
+public class DeadParser
 {
-	private DBInterface iFace;
+	private IDQueryBuilder iFace;
 	
-	public DBParser(DBInterface iFace)
+	public DeadParser(IDQueryBuilder iFace)
 	{
 		this.iFace = iFace;
 	}

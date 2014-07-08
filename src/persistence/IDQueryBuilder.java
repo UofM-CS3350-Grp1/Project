@@ -11,11 +11,13 @@ import objects.ServiceType;
 import objects.TrackedFeature;
 import objects.TrackedFeatureType;
 
-public class IDQueryBuilder extends DBInterface 
+public class IDQueryBuilder extends DeadInterface 
 {
+	protected DeadParser parser;
 	public IDQueryBuilder()
 	{
-		super(DBInterface.DATABASE_NAME);
+		super(DeadInterface.DATABASE_NAME);
+		this.parser = new DeadParser(this);
 	}
 	
 	/**
