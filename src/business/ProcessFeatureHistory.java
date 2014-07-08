@@ -138,10 +138,12 @@ public class ProcessFeatureHistory extends ProcessStorable
 		return list;
 	}
 
-	public void insertFeature(FeatureHistory feature)
+	public boolean insertFeature(FeatureHistory feature)
 	{
+		boolean inserted = false;
 		database.connect();
-		database.insert(feature);
+		inserted = database.insert(feature);
 		database.disconnect();
+		return inserted;
 	}
 }

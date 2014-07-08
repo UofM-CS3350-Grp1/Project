@@ -178,10 +178,12 @@ public class JCCSurveyScreenDrawer
 				date = formatter.parse(theDate);
 
 				TrackedFeatureType featureType = new TrackedFeatureType(comboFeature.getText());
-				TrackedFeature feature = new TrackedFeature(comboFeature.getText(), featureType);
 
 				ProcessClient processClient = new ProcessClient();
 				Client client = processClient.getClientByBusinessName(comboClient.getText());
+
+				TrackedFeature feature = new TrackedFeature(comboFeature.getText(), featureType);
+				feature.setClientKey(client.getID());
 
 				// Make sure we're not passing a null string in the FeatureHistory constructor
 				String textDetails = "";
@@ -192,7 +194,14 @@ public class JCCSurveyScreenDrawer
 
 				FeatureHistory newFeature = new FeatureHistory(feature, client, Double.parseDouble(txtValue.getText()), date, textDetails);
 				ProcessFeatureHistory processFeatureHistory = new ProcessFeatureHistory();
-				processFeatureHistory.insertFeature(newFeature);
+
+				System.out.println("\nTrackedFeature Object (feature):\nfeature.getClientKey(): " + feature.getClientKey() + "\nfeature.getFeatureName(): " + feature.getFeatureName() + "\nfeature.getID(): " + feature.getID() + "\nfeature.getNotes(): " + feature.getNotes() + "\nfeature.getSupplier(): " + feature.getSupplier() + "\nfeature.getTableName(): " + feature.getTableName() + "\nfeature.getTrackedFeatureType().toString(): " + feature.getTrackedFeatureType().toString());
+				System.out.println("\nFeatureHistory Object (newFeature):\nnewFeature.getID(): " + newFeature.getID() + "\nnewFeature.getFeature().toString(): " + newFeature.getFeature().toString() + "\nnewFeature.getValue(): " + newFeature.getValue() + "\nnewFeature.getDate(): " + newFeature.getDate() + "\nnewFeature.getShortDate(): " + newFeature.getShortDate() + "\nnewFeature.getNotes(): " + newFeature.getNotes() + "\nnewFeature.getTrackedClient(): " + newFeature.getTrackedClient());
+				boolean inserted = processFeatureHistory.insertFeature(newFeature);
+				if (inserted)
+					System.out.println("insertFeature(newFeature) success");
+				else
+					System.out.println("insertFeature(newFeature) FAILED");
 			}
 			catch(Exception e)
 			{

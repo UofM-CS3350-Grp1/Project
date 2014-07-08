@@ -162,6 +162,7 @@ public class DBController
 				}
 				catch(Exception e)
 				{
+					System.out.println("DBController exception encountered: " + e);
 					errorOutput(e);
 				}
 				
