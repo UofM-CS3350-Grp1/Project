@@ -15,7 +15,7 @@ public class TrackedFeature implements Storable
 	private String tableName;				//Name of table object belongs on
 	private String supplier;				//Supplier paid for expenses
 	private TrackedFeatureType trackedFT;	//Type of feature
-	
+
 	/**
 	 * Creates a new feature tracker
 	 * @param featureName 	Name of the feature to track
@@ -38,7 +38,7 @@ public class TrackedFeature implements Storable
 			throw new IllegalArgumentException();
 		}
 	}
-	
+
 	/**
 	 * Creates a new feature tracker
 	 * @param featureName 	Name of the feature to track
@@ -63,7 +63,7 @@ public class TrackedFeature implements Storable
 			throw new IllegalArgumentException();
 		}
 	}
-	
+
 	/**
 	 * Creates a new feature tracker
 	 * @param featureName 	Name of the feature to track
@@ -94,12 +94,12 @@ public class TrackedFeature implements Storable
 	//----------
 	// GETTERS
 	//----------
-	
+
 	public int getID()
 	{
 		return this.id;
 	}
-	
+
 	/**
 	 * @return The name of the tracked feature
 	 */
@@ -115,7 +115,7 @@ public class TrackedFeature implements Storable
 	{
 		return notes;
 	}
-	
+
 	/**
 	 * @return Additional information on the supplier
 	 */
@@ -123,7 +123,7 @@ public class TrackedFeature implements Storable
 	{
 		return supplier;
 	}
-	
+
 	/**
 	 * @return Primary key of parent service associated with object
 	 */
@@ -131,7 +131,7 @@ public class TrackedFeature implements Storable
 	{
 		return this.clientID;
 	}
-	
+
 	/**
 	 * @return Gets the FeatureType object that this belongs to
 	 */
@@ -139,7 +139,7 @@ public class TrackedFeature implements Storable
 	{
 		return this.trackedFT;
 	}
-	
+
 	//----------
 	// SETTERS
 	//----------
@@ -154,7 +154,7 @@ public class TrackedFeature implements Storable
 		if(featureName != null && !featureName.isEmpty())
 			this.featureName = featureName;
 	}
-	
+
 	/**
 	 * Sets the additional feature information
 	 * @param notes
@@ -165,7 +165,7 @@ public class TrackedFeature implements Storable
 		if(notes != null)
 			this.notes = notes;
 	}
-	
+
 	/**
 	 * Sets the supplier information
 	 * @param notes
@@ -176,7 +176,7 @@ public class TrackedFeature implements Storable
 		if(supplier != null)
 			this.supplier = supplier;
 	}
-	
+
 	/**
 	 * @param key TrackedFeatureType to change this object to
 	 */
@@ -185,40 +185,38 @@ public class TrackedFeature implements Storable
 		if(key != null)
 			this.trackedFT = key;
 	}
-	
+
 	/**
 	 * @param key ID of new parent object to be returned to
 	 */
-	
-	public void setClientKey( int key)
+
+	public void setClientKey(int key)
 	{
 		if(key >= 0)
 			this.clientID = key;
 	}
-	
+
 	//----------
 	// OTHER
 	//----------
-	
 	public ArrayList<String> toIndex() 
 	{
 		ArrayList<String> index = new ArrayList<String>();
-		
+
 		index.add(""+this.id);
 		index.add(""+this.clientID);
 		index.add(""+this.trackedFT.getID());
 		index.add(this.featureName);
 		index.add(this.notes);
 		index.add(this.supplier);
-		
+
 		return index;
 	}
-	
+
 	/**GETTABLENAME()
 	 * 
 	 * Returns the table name of this object.
 	 */
-	
 	public String getTableName()
 	{
 		return this.tableName;
@@ -227,22 +225,20 @@ public class TrackedFeature implements Storable
 	/**
 	 * Checks the object see to see if it can be inserted into a table
 	 */
-	
 	public boolean isInsertable() 
 	{
 		boolean output = true;
-		
-		if(this.clientID < 0)
+		if((this.clientID < 0) || (this.trackedFT == null))
 		{
 			output = false;
 		}
-		
-		if(this.trackedFT == null)
-		{
-			output = false;
-		}
-		
 		return output;		
 	}
-	
+
+	public String toString()
+	{
+		String returnVal = "";
+		returnVal = "FeatureName: " + featureName + ", Client ID: " + clientID + ", TableName: " + tableName + ", Supplier: " + supplier + ", TrackedFeatureType: " + trackedFT.toString() + ", Notes: " + notes;
+		return returnVal;
+	}
 }
