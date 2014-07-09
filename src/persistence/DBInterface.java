@@ -19,7 +19,7 @@ import objects.TrackedFeatureType;
 import objects.ServiceType;
 import objects.Client.ClientStatus;
 
-public class DBInterface 
+public class DBInterface extends AbstractDBInterface
 {
 	public static final String DATABASE_NAME = "CacheDB";
 	public static final String DATE_FORMAT = "yyyy-MM-dd";
@@ -871,7 +871,7 @@ public class DBInterface
 			if(service == null && ERROR_LOGGING == 1)
 				errorMessage("EXPENSE", "A NULL SERVICE OBJECT\n", "INSTANTIATE A SERVICE OBJECT");
 			
-			if(service.getID() >= 0 && ERROR_LOGGING == 1)
+			if(service!= null && service.getID() < 0 && ERROR_LOGGING == 1)
 				errorMessage("EXPENSE", "AN UNINSTANTIATED (-1) SERVICE ID\n", "INSERT THE SERVICE OBJECT");
 			
 			return null;

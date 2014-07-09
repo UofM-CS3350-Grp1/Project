@@ -11,7 +11,7 @@ import objects.Storable;
 import objects.Contract;
 import objects.Client.ClientStatus;
 
-public class StubDBInterface
+public class StubDBInterface extends AbstractDBInterface
 {
 	private String dbName;
 	private ArrayList<Client> clients;
@@ -351,5 +351,17 @@ public class StubDBInterface
 		}
 		
 		return output;
+	}
+
+	@Override
+	public boolean idExists(Storable storableTemplate) 
+	{
+		return true;
+	}
+
+	@Override
+	public void errorMessage(String retrieve, String invalid, String instruction) 
+	{
+		//No returns invalid output not in stub.
 	}
 }
