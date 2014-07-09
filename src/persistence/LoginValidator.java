@@ -3,7 +3,7 @@ package persistence;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class LoginValidator extends DeadInterface
+public class LoginValidator extends NewDBInterface
 {
 	public LoginValidator()
 	{

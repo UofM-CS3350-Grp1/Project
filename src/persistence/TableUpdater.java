@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import objects.Storable;
 
-public class TableUpdater extends DeadInterface
+public class TableUpdater extends NewDBInterface
 {
 	private final int ERROR_LOGGING = 0;
 	
