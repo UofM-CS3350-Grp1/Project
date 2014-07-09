@@ -11,15 +11,21 @@ import objects.ServiceType;
 import persistence.DBInterface;
 
 public class ProcessExpenses 
-{
-	
+{	
 	private DBInterface database;
 	
+	/**
+	 * Creates a new expense processor
+	 */
 	public ProcessExpenses()
 	{
 		database = new DBInterface(DBInterface.DATABASE_NAME);
 	}
 
+	/**
+	 * Inserts the expense into the database
+	 * @param expense The expense to insert
+	 */
 	public void insertExpense(Expense expense)
 	{
 		database.connect();
@@ -27,51 +33,69 @@ public class ProcessExpenses
 		database.disconnect();
 	}
 	
+	/**
+	 * Calculates the total expenses for a client
+	 * @param client	The client
+	 * @return	The total expenses
+	 */
 	public double getExpensesByClient(Client client)
 	{
 		double result = 0;
 		ArrayList<Expense> expenseList;
 		ArrayList<Service> serviceList;
+		Iterator<Service> itSvc;
+		Iterator<Expense> itExp;
+		Service service = null;
+		Expense expense = null;
 		
 		database.connect();
 		serviceList = database.getServiceByClient(client);
-		Iterator<Service> itSvc = serviceList.iterator();
-		Service service = null;
-		while(itSvc.hasNext())
+		
+		if(serviceList != null)
 		{
-			service = itSvc.next();
-			expenseList = database.getExpensesByService(service);
-			if(expenseList!=null)
+			itSvc = serviceList.iterator();
+			while(itSvc.hasNext())
 			{
-				Iterator<Expense> itExp = expenseList.iterator();
-				Expense expense = null;
+				service = itSvc.next();
+				expenseList = database.getExpensesByService(service);
 				
-				while(itExp.hasNext())
+				if(expenseList!=null)
 				{
-					expense = itExp.next();
-					result += expense.getValue();
+					itExp = expenseList.iterator();
+					
+					while(itExp.hasNext())
+					{
+						expense = itExp.next();
+						result += expense.getValue();
+					}
 				}
 			}
 		}
+		
 		database.disconnect();
-		
-		
+				
 		return result;
 	}
 	
+	/**
+	 * Calculates the total expense per service
+	 * @param service	The service
+	 * @return	The total expense
+	 */
 	public double getExpensesByService(Service service)
 	{
 		double result = 0;
 		ArrayList<Expense> expenseList;
+		Iterator<Expense> it;
+		Expense expense = null;
 		
 		database.connect();
 		expenseList = database.getExpensesByService(service);
 		database.disconnect();
 		
-		if(expenseList!=null)
+		if(expenseList != null)
 		{
-			Iterator<Expense> it = expenseList.iterator();
-			Expense expense = null;
+			it = expenseList.iterator();
 			
 			while(it.hasNext())
 			{
@@ -79,9 +103,15 @@ public class ProcessExpenses
 				result += expense.getValue();
 			}
 		}
+		
 		return result;
 	}
 
+	/**
+	 * Calculates the total expense for a given service type 
+	 * @param serviceType	The service type
+	 * @return	The total expense
+	 */
 	public double getExpensesByServiceType(ServiceType serviceType) 
 	{
 		double result = 0;
@@ -119,37 +149,41 @@ public class ProcessExpenses
 		return result;
 	}
 	
+	/**
+	 * Calculates the total expense for a contract
+	 * @param contract	The contract
+	 * @return	The total expense
+	 */
 	public double getExpensesByContract(Contract contract)
 	{
 		double result = 0;
 		ArrayList<Expense> expenseList;
-		ArrayList<Expense> expenses;
 		ArrayList<Service> serviceList;
+		Iterator<Service> it2;
+		Iterator<Expense> it;
+		Expense expense = null;
 		
 		database.connect();
 		serviceList = database.getServiceByContract(contract);
-		database.disconnect();
 
 		if(serviceList!=null)
 		{
-			Iterator<Service> it2 = serviceList.iterator();
+			it2 = serviceList.iterator();
 			Service service = null;
-	
-			database.connect();
 	
 			while(it2.hasNext())
 			{
 				service = it2.next();
 				expenseList = database.getExpensesByService(service);
+				
 				if(expenseList!=null)
 				{
-					Iterator<Expense> it = expenseList.iterator();
-					Expense expense = null;
-					
+					it = expenseList.iterator();
+										
 					while(it.hasNext())
 					{
 						expense = it.next();
-						if(expense.getServiceID()==service.getID())
+						if(expense.getServiceID() == service.getID())
 						{
 							result += expense.getValue();
 						}
