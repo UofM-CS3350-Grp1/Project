@@ -381,22 +381,29 @@ public class UpdateContractScreenDrawer
 		
 		if(selectedIndex != -1)
 		{
-			TableItem select = serviceTable.getItem(selectedIndex);
-			int x = Integer.parseInt(select.getText(0));
-			Service service = processService.getServiceByID(x);
-			
-			if(service != null)
+			try
 			{
-				item = new TableItem(contractTable, SWT.NULL);
-	
-				item.setText(0, String.valueOf(service.getID()));
-				item.setText(1, service.getTitle());
-				item.setText(2, String.valueOf(service.getRate()));
-				item.setText(3, service.getServiceType().getType());
-				item.setText(4, service.getDescription());
-	
-				serviceTable.remove(selectedIndex);
-				lblValueData.setText(String.format("$%8.2f", computeContractValue()));
+				TableItem select = serviceTable.getItem(selectedIndex);
+				int x = Integer.parseInt(select.getText(0));
+				Service service = processService.getServiceByID(x);
+				
+				if(service != null)
+				{
+					item = new TableItem(contractTable, SWT.NULL);
+		
+					item.setText(0, String.valueOf(service.getID()));
+					item.setText(1, service.getTitle());
+					item.setText(2, String.valueOf(service.getRate()));
+					item.setText(3, service.getServiceType().getType());
+					item.setText(4, service.getDescription());
+		
+					serviceTable.remove(selectedIndex);
+					lblValueData.setText(String.format("$%8.2f", computeContractValue()));
+				}
+			}
+			catch(Exception e)
+			{
+				System.out.println(e);
 			}
 		}
 	}
@@ -410,21 +417,28 @@ public class UpdateContractScreenDrawer
 		
 		if(selectedIndex != -1)
 		{
-			TableItem select = contractTable.getItem(selectedIndex);
-			int x = Integer.parseInt(select.getText(0));
-			Service service = processService.getServiceByID(x);
-
-			if(service != null)
+			try
 			{
-				item = new TableItem(serviceTable, SWT.NULL);
+				TableItem select = contractTable.getItem(selectedIndex);
+				int x = Integer.parseInt(select.getText(0));
+				Service service = processService.getServiceByID(x);
 	
-				item.setText(0, String.valueOf(service.getID()));
-				item.setText(1, service.getTitle());
-				item.setText(2, String.valueOf(service.getRate()));
-				item.setText(3, service.getServiceType().getType());
-	
-				contractTable.remove(selectedIndex);
-				lblValueData.setText(String.format("$%8.2f", computeContractValue()));
+				if(service != null)
+				{
+					item = new TableItem(serviceTable, SWT.NULL);
+		
+					item.setText(0, String.valueOf(service.getID()));
+					item.setText(1, service.getTitle());
+					item.setText(2, String.valueOf(service.getRate()));
+					item.setText(3, service.getServiceType().getType());
+		
+					contractTable.remove(selectedIndex);
+					lblValueData.setText(String.format("$%8.2f", computeContractValue()));
+				}
+			}
+			catch(Exception e)
+			{
+				System.out.println(e);
 			}
 		}
 	}
@@ -455,10 +469,17 @@ public class UpdateContractScreenDrawer
 		double value = 0.0;
 		int items = serviceTable.getItemCount();
 		
-		for(int i=0; i<items; i++)
+		try
 		{
-			int z = (serviceTable.getItem(i).getText(2)).length()-2;
-			value += Double.parseDouble((serviceTable.getItem(i).getText(2)).substring(0, z));
+			for(int i=0; i<items; i++)
+			{
+				int z = (serviceTable.getItem(i).getText(2)).length()-2;
+				value += Double.parseDouble((serviceTable.getItem(i).getText(2)).substring(0, z));
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
 		}
 		
 		return value;

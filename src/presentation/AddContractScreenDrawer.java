@@ -470,18 +470,25 @@ public class AddContractScreenDrawer
 		if(selectedIndex != -1)
 		{
 			TableItem select = table_1.getItem(selectedIndex);
-			int x = Integer.parseInt(select.getText(0));
-			Service service = processService.getServiceByID(x);
-
-			if(service != null)
+			try
 			{
-				item = new TableItem(table, SWT.NULL);
+				int x = Integer.parseInt(select.getText(0));
+				Service service = processService.getServiceByID(x);
 	
-				item.setText(0, String.valueOf(service.getID()));
-				item.setText(1, service.getTitle());
-				item.setText(2, String.valueOf(service.getServiceType().getType()));
-	
-				table_1.remove(selectedIndex);
+				if(service != null)
+				{
+					item = new TableItem(table, SWT.NULL);
+		
+					item.setText(0, String.valueOf(service.getID()));
+					item.setText(1, service.getTitle());
+					item.setText(2, String.valueOf(service.getServiceType().getType()));
+		
+					table_1.remove(selectedIndex);
+				}
+			}
+			catch(Exception e)
+			{
+				System.out.println(e);
 			}
 		}
 	}
