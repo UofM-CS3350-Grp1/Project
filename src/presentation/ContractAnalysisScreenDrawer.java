@@ -116,8 +116,8 @@ public class ContractAnalysisScreenDrawer
 		contractDataComposite.setLayoutData(gd_contractDataComposite);
 		
 		lblContractIDHeader = new Label(contractDataComposite, SWT.NONE);
-		lblContractIDHeader.setAlignment(SWT.LEFT);
 		lblContractIDHeader.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 6, 1));
+		lblContractIDHeader.setAlignment(SWT.LEFT);
 		lblContractIDHeader.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.BOLD));
 		lblContractIDHeader.setText("CONTRACT_ID");
 		new Label(contractDataComposite, SWT.NONE);
@@ -126,28 +126,18 @@ public class ContractAnalysisScreenDrawer
 		
 		
 		Label lblContractID = new Label(contractDataComposite, SWT.NONE);
-		GridData gd_lblContractID = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_lblContractID.widthHint = 67;
-		lblContractID.setLayoutData(gd_lblContractID);
 		lblContractID.setText("Contract #:");
 		
 		lblContractIDData = new Label(contractDataComposite, SWT.NONE);
-		GridData gd_lblContractIDData = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
-		gd_lblContractIDData.widthHint = 137;
-		lblContractIDData.setLayoutData(gd_lblContractIDData);
+		lblContractIDData.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		lblContractIDData.setText("CONTRACT_ID");
 		new Label(contractDataComposite, SWT.NONE);
 		
 		Label lblSigned = new Label(contractDataComposite, SWT.NONE);
-		GridData gd_lblSigned = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_lblSigned.widthHint = 80;
-		lblSigned.setLayoutData(gd_lblSigned);
 		lblSigned.setText("Signed date:");
 		
 		lblSignedData = new Label(contractDataComposite, SWT.NONE);
-		GridData gd_lblSignedData = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
-		gd_lblSignedData.widthHint = 162;
-		lblSignedData.setLayoutData(gd_lblSignedData);
+		lblSignedData.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		lblSignedData.setText("SIGNED");
 		new Label(contractDataComposite, SWT.NONE);
 		new Label(contractDataComposite, SWT.NONE);
@@ -155,28 +145,18 @@ public class ContractAnalysisScreenDrawer
 		new Label(contractDataComposite, SWT.NONE);
 		
 		Label lblValue = new Label(contractDataComposite, SWT.NONE);
-		GridData gd_lblValue = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_lblValue.widthHint = 67;
-		lblValue.setLayoutData(gd_lblValue);
 		lblValue.setText("Value:");
 		
 		lblValueData = new Label(contractDataComposite, SWT.NONE);
-		GridData gd_lblValueData = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
-		gd_lblValueData.widthHint = 137;
-		lblValueData.setLayoutData(gd_lblValueData);
+		lblValueData.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		lblValueData.setText("VALUE");
 		new Label(contractDataComposite, SWT.NONE);
 		
 		Label lblStart = new Label(contractDataComposite, SWT.NONE);
-		GridData gd_lblStart = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_lblStart.widthHint = 103;
-		lblStart.setLayoutData(gd_lblStart);
 		lblStart.setText("Start date:");
 		
 		lblStartData = new Label(contractDataComposite, SWT.NONE);
-		GridData gd_lblStartData = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
-		gd_lblStartData.widthHint = 162;
-		lblStartData.setLayoutData(gd_lblStartData);
+		lblStartData.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		lblStartData.setText("START_DATE");
 		new Label(contractDataComposite, SWT.NONE);
 		new Label(contractDataComposite, SWT.NONE);
@@ -184,15 +164,10 @@ public class ContractAnalysisScreenDrawer
 		new Label(contractDataComposite, SWT.NONE);
 		
 		Label lblStatus = new Label(contractDataComposite, SWT.NONE);
-		GridData gd_lblStatus = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_lblStatus.widthHint = 57;
-		lblStatus.setLayoutData(gd_lblStatus);
 		lblStatus.setText("Status:");
 		
 		lblStatusData = new Label(contractDataComposite, SWT.NONE);
-		GridData gd_lblStatusData = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
-		gd_lblStatusData.widthHint = 137;
-		lblStatusData.setLayoutData(gd_lblStatusData);
+		lblStatusData.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		lblStatusData.setText("STATUS");
 		new Label(contractDataComposite, SWT.NONE);
 		
@@ -200,15 +175,12 @@ public class ContractAnalysisScreenDrawer
 		lblEnd.setText("End date:");
 		
 		lblEndData = new Label(contractDataComposite, SWT.NONE);
-		GridData gd_lblEndData = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
-		gd_lblEndData.widthHint = 162;
-		lblEndData.setLayoutData(gd_lblEndData);
+		lblEndData.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		lblEndData.setText("END");
 		new Label(contractDataComposite, SWT.NONE);
 		new Label(contractDataComposite, SWT.NONE);
 		new Label(contractDataComposite, SWT.NONE);
 		new Label(contractDataComposite, SWT.NONE);
-		
 		new Label(contractDataComposite, SWT.NONE);
 		new Label(contractDataComposite, SWT.NONE);
 		new Label(contractDataComposite, SWT.NONE);
@@ -238,8 +210,8 @@ public class ContractAnalysisScreenDrawer
 		new Label(contractDataComposite, SWT.NONE);
 
 		lblClientNameData = new Label(contractDataComposite, SWT.NONE);
-		lblClientNameData.setAlignment(SWT.LEFT);
 		lblClientNameData.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 6, 1));
+		lblClientNameData.setAlignment(SWT.LEFT);
 		lblClientNameData.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.BOLD));
 		lblClientNameData.setText("CLIENT_BUSINESS_NAME");
 		new Label(contractDataComposite, SWT.NONE);
@@ -250,9 +222,7 @@ public class ContractAnalysisScreenDrawer
 		lblAddress.setText("Address:");
 		
 		lblAddressData = new Label(contractDataComposite, SWT.NONE);
-		GridData gd_lblAddressData = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
-		gd_lblAddressData.widthHint = 137;
-		lblAddressData.setLayoutData(gd_lblAddressData);
+		lblAddressData.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		lblAddressData.setText("ADDRESS");
 		new Label(contractDataComposite, SWT.NONE);
 		
@@ -260,9 +230,7 @@ public class ContractAnalysisScreenDrawer
 		lblEmail_1.setText("Email:");
 
 		lblEmailData = new Label(contractDataComposite, SWT.NONE);
-		GridData gd_lblEmailData = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
-		gd_lblEmailData.widthHint = 162;
-		lblEmailData.setLayoutData(gd_lblEmailData);
+		lblEmailData.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		lblEmailData.setText("EMAIL");
 		new Label(contractDataComposite, SWT.NONE);
 		new Label(contractDataComposite, SWT.NONE);
@@ -273,9 +241,7 @@ public class ContractAnalysisScreenDrawer
 		lblContact.setText("Name:");
 		
 		lblContactData = new Label(contractDataComposite, SWT.NONE);
-		GridData gd_lblContactData = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
-		gd_lblContactData.widthHint = 137;
-		lblContactData.setLayoutData(gd_lblContactData);
+		lblContactData.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		new Label(contractDataComposite, SWT.NONE);
 		
 		
@@ -284,9 +250,7 @@ public class ContractAnalysisScreenDrawer
 		lblPhone.setText("Phone#:");
 		
 		lblPhoneNumberData = new Label(contractDataComposite, SWT.NONE);
-		GridData gd_lblPhoneNumberData = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
-		gd_lblPhoneNumberData.widthHint = 162;
-		lblPhoneNumberData.setLayoutData(gd_lblPhoneNumberData);
+		lblPhoneNumberData.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		lblPhoneNumberData.setText("PHONE_NUMBER");
 		new Label(contractDataComposite, SWT.NONE);
 		new Label(contractDataComposite, SWT.NONE);
@@ -315,7 +279,7 @@ public class ContractAnalysisScreenDrawer
 		
 		detailsData = new Text(contractDataComposite, SWT.BORDER | SWT.READ_ONLY);
 		GridData gd_detailsData = new GridData(SWT.FILL, SWT.CENTER, true, false, 9, 1);
-		gd_detailsData.heightHint = 78;
+		gd_detailsData.heightHint = 109;
 		detailsData.setLayoutData(gd_detailsData);
 		
 		lblServicesInThis = new Label(contractDataComposite, SWT.NONE);
@@ -331,8 +295,7 @@ public class ContractAnalysisScreenDrawer
 		
 		servicesTable = new Table(contractDataComposite, SWT.BORDER | SWT.FULL_SELECTION | SWT.V_SCROLL | SWT.H_SCROLL);
 		GridData gd_servicesTable = new GridData(SWT.FILL, SWT.TOP, true, false, 9, 1);
-		gd_servicesTable.widthHint = 628;
-		gd_servicesTable.heightHint = 142;
+		gd_servicesTable.heightHint = 141;
 		servicesTable.setLayoutData(gd_servicesTable);
 		servicesTable.setHeaderVisible(true);
 		servicesTable.setLinesVisible(true);
@@ -355,11 +318,8 @@ public class ContractAnalysisScreenDrawer
 		
 		
 		buttonComposite = new Composite(contractDataComposite, SWT.NONE);
+		buttonComposite.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		buttonComposite.setLayout(new GridLayout(2, false));
-		GridData gd_serviceButtonComposite = new GridData(SWT.FILL, SWT.LEFT, false, false, 1, 1);
-		gd_serviceButtonComposite.heightHint = 44;
-		gd_serviceButtonComposite.widthHint = 215;
-		buttonComposite.setLayoutData(gd_serviceButtonComposite);
 		
 		btnPrint = new Button(buttonComposite, SWT.NONE);
 		btnPrint.addSelectionListener(new SelectionAdapter() 
@@ -395,7 +355,7 @@ public class ContractAnalysisScreenDrawer
 		populateServiceData();
 		populateContractData();
 		
-		scrollComposite.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+		scrollComposite.setMinSize(contractDataComposite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		scrollComposite.setExpandHorizontal(true);
 		scrollComposite.setExpandVertical(true);
 	}
