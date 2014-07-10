@@ -26,8 +26,11 @@ public class TestDBController
 	public void testModify1()
 	{
 		DBInterface iFace = new DBInterface("CacheDB");
+		
 		iFace.connect();
 		DBController controller = iFace.getController();
+		
+		assertFalse(controller.isClosed());
 		
 		Client clientTest = new Client(234, "Joe Doe", new PhoneNumber("2135552222"), new Email("joedoe@gmail.com"), "223 Main St.", "Joes Business", 1);
 		ArrayList<String> clauses = new ArrayList<String>();
@@ -56,6 +59,8 @@ public class TestDBController
 		assertFalse("Controller believed it could drop from an inexistant tale.", controller.drop("", 4) == true);
 		assertFalse("Controller believed it could drop from an inexistant ID.", controller.drop("CLIENTS", 9999) == true);
 		controller.disconnect();
+		
+		assertTrue(controller.isClosed());
 	}
 
 }
