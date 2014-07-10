@@ -65,7 +65,7 @@ public class GenerateGraph
 						//NOTE These will need to be properly summed by month and 
 						//probably impose the same 12 month cycle property
 						history = histories.get(i);
-						data.addValue(history.getValue(), sdf.format(history.getDate()), feature.getFeatureName());
+						data.addValue(history.getValue(), feature.getFeatureName(), sdf.format(history.getDate()));
 					}
 				}
 				catch(Exception e)
