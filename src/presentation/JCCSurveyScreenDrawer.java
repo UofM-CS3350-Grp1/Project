@@ -207,16 +207,7 @@ public class JCCSurveyScreenDrawer
 				// Created the FeatureHistory object and insert it into the DB
 				FeatureHistory newFeature = new FeatureHistory(feature, client, Double.parseDouble(txtValue.getText()), date, textDetails);
 				ProcessFeatureHistory processFeatureHistory = new ProcessFeatureHistory();
-				boolean inserted = processFeatureHistory.insertFeature(newFeature);
-
-				// These println's starting here can be removed once successful processing is verified
-				if (inserted)
-					System.out.println("\nSurvey Info Add: SUCCESS\n");
-				else
-					System.out.println("\nSurvey Info Add: FAIL\n");
-				System.out.println("\nTrackedFeature Object (feature):\nfeature.getClientKey(): " + feature.getClientKey() + "\nfeature.getFeatureName(): " + feature.getFeatureName() + "\nfeature.getID(): " + feature.getID() + "\nfeature.getNotes(): " + feature.getNotes() + "\nfeature.getSupplier(): " + feature.getSupplier() + "\nfeature.getTableName(): " + feature.getTableName() + "\nfeature.getTrackedFeatureType().toString(): " + feature.getTrackedFeatureType().toString());
-				System.out.println("\nFeatureHistory Object (newFeature):\nnewFeature.getID(): " + newFeature.getID() + "\nnewFeature.getFeature().toString(): " + newFeature.getFeature().toString() + "\nnewFeature.getValue(): " + newFeature.getValue() + "\nnewFeature.getDate(): " + newFeature.getDate() + "\nnewFeature.getShortDate(): " + newFeature.getShortDate() + "\nnewFeature.getNotes(): " + newFeature.getNotes() + "\nnewFeature.getTrackedClient(): " + newFeature.getTrackedClient() + "\n");
-				// Up to here
+				processFeatureHistory.insertFeature(newFeature);
 			}
 			catch(Exception e)
 			{
