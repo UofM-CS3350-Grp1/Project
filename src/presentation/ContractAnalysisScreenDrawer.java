@@ -338,10 +338,8 @@ public class ContractAnalysisScreenDrawer
 				}
 			}
 		});
-		btnPrint.setText("Print");
+		btnPrint.setText("Create PDF");
 		
-		btnSave = new Button(buttonComposite, SWT.NONE);
-		btnSave.setText("Save");
 		new Label(contractDataComposite, SWT.NONE);
 		new Label(contractDataComposite, SWT.NONE);
 		new Label(contractDataComposite, SWT.NONE);
@@ -374,7 +372,8 @@ public class ContractAnalysisScreenDrawer
 		File file = new File("src/presentation/ContractTemplate.pdf");
 
 		Document document = new Document(PageSize.A4);
-		PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(DEST));
+		FileOutputStream fos = new FileOutputStream(DEST);
+		PdfWriter writer = PdfWriter.getInstance(document, fos);
 		document.open();
 		
 		PdfContentByte canvas = writer.getDirectContentUnder();
@@ -425,6 +424,9 @@ public class ContractAnalysisScreenDrawer
         
 		
 		document.close();
+		writer.close();
+		over.closePath();
+		fos.close();
 		Desktop.getDesktop().open(file);
 	}
 	
@@ -442,9 +444,7 @@ public class ContractAnalysisScreenDrawer
 			{
 				result += Double.parseDouble(servicesTable.getItem(i).getText(1))*multiplier;
 			}else{
-				if(multiplier<12) multiplier = 12;
-				result += Double.parseDouble(servicesTable.getItem(i).getText(1))*Math.floor(multiplier/12);
-				multiplier = getMultiplier();
+				result += Double.parseDouble(servicesTable.getItem(i).getText(1));
 			}
 		}
 		return result;

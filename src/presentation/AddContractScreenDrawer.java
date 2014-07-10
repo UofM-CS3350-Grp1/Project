@@ -245,12 +245,15 @@ public class AddContractScreenDrawer
 		ProcessContract processContract = new ProcessContract();
 		int newID = processContract.getUnusedContractID();
 		Contract contract = null;
-		SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-dd-MM");
 		try 
 		{
-			Date end = formatter.parse(endData.getMonth() + "-" + endData.getDay() + "-" + endData.getYear());
-			Date start = formatter.parse(startData.getMonth() + "-" + startData.getDay() + "-" + startData.getYear());
+			Date end = formatter.parse(endData.getYear() + "-" + endData.getDay() + "-" + endData.getMonth());
+			Date start = formatter.parse(startData.getYear() + "-" + startData.getDay() + "-" + startData.getMonth());
 
+			System.out.println(end.toString());
+			System.out.println(start.toString());
+			
 			int totalNumServices = table_1.getItemCount();
 			
 			int multiplier = getMultiplier(end, start);
@@ -259,12 +262,7 @@ public class AddContractScreenDrawer
 			{
 				if(table_1.getItem(i).getText(1).contains("Web Design")) 
 				{
-					if(multiplier<12)
-					{
-						multiplier = 12;
-					}else{
-						multiplier = (int)(multiplier/12);
-					}
+					multiplier = 1;
 				}
 				if(i==0) value += Double.parseDouble(text.getText())*multiplier;
 				if(i==1) value += Double.parseDouble(text_1.getText())*multiplier;
