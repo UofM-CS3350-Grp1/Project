@@ -1,6 +1,7 @@
 package presentation;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import objects.Client;
@@ -80,14 +81,17 @@ public class JCCSurveyScreenDrawer
 		comboFeature.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, false, false, 1, 1));
 		comboFeature.setBounds(104, 40, 96, 23);
 
-		// Fills the drop down with tracking features
-		TrackedFeature feature = null;
-		ProcessAddFeature add = new ProcessAddFeature();
-		
-		while((feature = add.getNextFeature()) != null)
+		// Fills the drop down with tracking features when a client is selected
+		comboClient.addSelectionListener(new SelectionAdapter()
 		{
-			comboFeature.add(feature.getFeatureName());
-		}
+			public void widgetSelected(SelectionEvent e)
+			{
+				Client theClient = null;
+				ProcessClient processClient = new ProcessClient();
+				theClient = processClient.getClientByBusinessName(comboClient.getText());
+				fillComboFeature(comboFeature, theClient);
+			}
+		});
 
 		// Fill the Month drop down
 		comboMonth = new Combo(btnSurvey, SWT.READ_ONLY);
@@ -163,7 +167,7 @@ public class JCCSurveyScreenDrawer
 	/*
 	 * Saves the recorded survey information
 	 */
-	private void addSurvey() 
+	private void addSurvey()
 	{
 		MessageBox dialog;
 
@@ -182,6 +186,7 @@ public class JCCSurveyScreenDrawer
 				ProcessClient processClient = new ProcessClient();
 				Client client = processClient.getClientByBusinessName(comboClient.getText());
 
+				// 
 				TrackedFeature feature = new TrackedFeature(comboFeature.getText(), featureType);
 				feature.setClientKey(client.getID());
 
@@ -220,6 +225,19 @@ public class JCCSurveyScreenDrawer
 			dialog.setText("Form validation error");
 			dialog.setMessage("Please fill out all fields");
 			dialog.open();				
+		}
+	}
+
+	public void fillComboFeature(Combo comboFeature, Client theClient)
+	{
+		ProcessAddFeature add = new ProcessAddFeature();
+		ArrayList<TrackedFeature> featureList = new ArrayList<TrackedFeature>();
+		featureList = add.getFeaturesByClient(theClient);
+		comboFeature.removeAll();
+
+		for (int i = 0; i < featureList.size(); i++)
+		{
+			comboFeature.add(featureList.get(i).getFeatureName());
 		}
 	}
 
