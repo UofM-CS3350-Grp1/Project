@@ -228,4 +228,20 @@ public class ContractTest
         assertTrue("Period is null", contract.getPeriod() != null);
         assertTrue("Period has changed", contract.getPeriod().getTime() == 187893225);
     }
+    
+    @Test
+    public void testMutator12() 
+    {
+        Contract contract = new Contract("Nickelback", "A band", 1000000.01, new Date(1402194845), new Date(1402194845),  new Date(1402194845));
+        assertNotNull("Contract is null", contract);
+        
+        contract.setStatus("Signed");
+        assertTrue("Contract is signed", contract.getStatus().compareTo("Signed") == 0);
+        contract.setStatus("Cancelled");
+        assertTrue("Contract is cancelled", contract.getStatus().compareTo("Cancelled") == 0);
+        contract.setStatus("Terminated");
+        assertTrue("Contract is Terminated", contract.getStatus().compareTo("Terminated") == 0);
+        contract.setStatus("adsada");
+        assertTrue("Contract is still Terminated", contract.getStatus().compareTo("Terminated") == 0);
+    }
 }
