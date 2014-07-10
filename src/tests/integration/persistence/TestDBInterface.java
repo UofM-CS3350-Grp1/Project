@@ -95,6 +95,18 @@ public class TestDBInterface
 		assertTrue("Valid service insert with +1 CLIENT, +1 CONTRACT", mainFace.insert(newService));
 		mainFace.drop(mainFace.getServiceByID(14));
 		
+		Contract contract = new Contract(500, "Business Med", "NODETAILS", 4.1, new Date(),"Head","Foot", new Date(), new Date(),"Pending");
+    	contract = new Contract(500, "Business Med", "NODETAILS", 4.1, new Date(),"Head","Foot", new Date(), new Date(),"Signed");
+    	contract = new Contract(500, "Business Med", "NODETAILS", 4.1, new Date(),"Head","Foot", new Date(), new Date(),"Cancelled");
+    	contract = new Contract(500, "Business Med", "NODETAILS", 4.1, new Date(),"Head","Foot", new Date(), new Date(),"Terminated");
+    	
+    	assertTrue(mainFace.insert(contract));
+    	
+    	contract = mainFace.getContractByID(9);
+    	contract.setStatus("Pending");
+    	
+    	assertTrue(mainFace.update(contract));
+		
 		FeatureHistory newHistory = null;
 		newHistory = new FeatureHistory(mainFace.getTrackedFeatureByID(1), mainFace.getClientByID(2), 2.0, new Date(), "blahblahblah");
 		TrackedFeature newTracking = new TrackedFeature("BobLoblawsLawBlog", "Lobslawbombs", 2, 1, mainFace.getTrackedFeatureTypeByID(1), null);
@@ -175,7 +187,7 @@ public class TestDBInterface
 		//insertList
 		for(int i = 0; i < 5; i++)
 		{
-			conList.add(new Contract(500+i, "TESTBUSINESS", "NODETAILS", 4.1, new Date(),"Head","Foot", new Date(), new Date()));
+			conList.add(new Contract(500+i, "TESTBUSINESS", "NODETAILS", 4.1, new Date(),"Head","Foot", new Date(), new Date(),"Pending"));
 			serList.add(new Service(500+i,"shhad", "dasdsh", 4.33, 4, 2, mainFace.getServiceTypeByID(1),"ContractBody"));
 			traList.add(new TrackedFeature("NAME", "NOTES", 500 + i, 3, mainFace.getTrackedFeatureTypeByID(1), null));
 			feaList.add(new FeatureHistory(mainFace.getTrackedFeatureByID(1), mainFace.getClientByID(1), 22.1, new Date(), "NKJDS", 500 +i));

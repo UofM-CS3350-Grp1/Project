@@ -102,6 +102,13 @@ public class ContractTest
         assertTrue("Date is incorrect", contract.getPeriod().getTime() != 1402194845);
     }
     
+    @Test(expected=IllegalArgumentException.class)
+    public void testContract13()
+    {
+    	Contract contract = new Contract(500, "TESTBUSINESS", "NODETAILS", 4.1, new Date(),"Head","Foot", new Date(), new Date(),"dsadasd");
+    }
+    
+    
     /** Testing Contract Mutators **/
     
     @Test

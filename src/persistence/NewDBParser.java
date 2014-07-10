@@ -92,7 +92,8 @@ public class NewDBParser
 					input.get(i).get(5),
 					input.get(i).get(6),
 					new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(input.get(i).get(7)),
-					new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(input.get(i).get(8))
+					new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(input.get(i).get(8)),
+					input.get(i).get(9)
 					);
 			}
 			catch(Exception e)

@@ -12,6 +12,7 @@ import objects.Service;
 public class Contract implements Storable
 {
 	private final String DATE_FORMAT = "yyyy-MM-dd";	//The string date representation
+	private final String[] STATUS_TYPE = {"Pending", "Signed", "Cancelled", "Terminated"};
 	
 	private int contractNumber; 		 //Contract ID number
 	private String businessName;		 //Name of the associated business
@@ -25,6 +26,7 @@ public class Contract implements Storable
 	private String header;				 //Header text
 	private String footer;				 //FooterText
 	private String tableName;			 //Name of table for insertion
+	private String status;				 //status of contract;
 
 	/**
 	 * Creates a new contract
@@ -37,7 +39,7 @@ public class Contract implements Storable
 	 * 
 	 */
 	public Contract(int contractNumber, String businessName, String details, double value, 
-			Date period, String header, String footer, Date signedDate, Date startDate) throws IllegalArgumentException
+			Date period, String header, String footer, Date signedDate, Date startDate, String status) throws IllegalArgumentException
 	{
 		if(contractNumber >= 0 && 
 				businessName != null && 
@@ -47,7 +49,9 @@ public class Contract implements Storable
 				value >= 0 && 
 				period != null && (header != null && footer != null) && 
 				signedDate != null &&
-				startDate != null)
+				startDate != null &&
+				(status.compareTo(STATUS_TYPE[0]) ==0 || status.compareTo(STATUS_TYPE[1]) ==0 || 
+				status.compareTo(STATUS_TYPE[2]) ==0 || status.compareTo(STATUS_TYPE[3]) ==0))
 		{
 			this.contractNumber = contractNumber;
 			this.businessName = businessName;
@@ -60,6 +64,7 @@ public class Contract implements Storable
 			this.header = header;
 			this.footer = footer;
 			this.tableName = "CONTRACTS";
+			this.status = status;
 		}
 		else
 		{
@@ -99,6 +104,7 @@ public class Contract implements Storable
 			this.signedDate = signedDate;
 			this.startDate = startDate;
 			this.tableName = "CONTRACTS";
+			this.status = STATUS_TYPE[0];
 		}
 		else
 		{
@@ -141,6 +147,7 @@ public class Contract implements Storable
 			this.header ="";
 			this.footer ="";
 			this.tableName = "CONTRACTS";
+			this.status = STATUS_TYPE[0];
 		}
 		else
 		{
@@ -208,6 +215,14 @@ public class Contract implements Storable
 	}
 	
 	/**
+	 * @return the status assigned of this contract
+	 */
+	public String getStatus()
+	{
+		return this.status;
+	}
+	
+	/**
 	 * Assign a list of services to this contract
 	 * 
 	 * @param service The list of services
@@ -216,6 +231,7 @@ public class Contract implements Storable
 	{
 		this.services = services;
 	}
+	
 	
 	/**
 	 * Remove services from contract
@@ -361,6 +377,19 @@ public class Contract implements Storable
 			this.footer = input;
 	}
 	
+	public void setStatus(String status)
+	{
+		boolean insert = false;
+		for(int i = 0; i< STATUS_TYPE.length;i++)
+		{
+			if(status.compareTo(STATUS_TYPE[i]) == 0)
+				insert = true;
+		}
+		
+		if(insert)
+			this.status = status;
+	}
+	
 	/**
 	 * ToString method for contracts.
 	 */
@@ -394,6 +423,7 @@ public class Contract implements Storable
 		index.add(this.footer);
 		index.add(sdf.format(signedDate));
 		index.add(sdf.format(startDate));
+		index.add(this.status);
 		
 		return index;
 	}
