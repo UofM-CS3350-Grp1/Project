@@ -7,7 +7,6 @@ import java.util.Date;
 import objects.Client;
 import objects.FeatureHistory;
 import objects.TrackedFeature;
-import objects.TrackedFeatureType;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -181,14 +180,22 @@ public class JCCSurveyScreenDrawer
 			{
 				date = formatter.parse(theDate);
 
-				TrackedFeatureType featureType = new TrackedFeatureType(comboFeature.getText());
-
 				ProcessClient processClient = new ProcessClient();
 				Client client = processClient.getClientByBusinessName(comboClient.getText());
 
-				// 
-				TrackedFeature feature = new TrackedFeature(comboFeature.getText(), featureType);
-				feature.setClientKey(client.getID());
+				ProcessAddFeature processFeature = new ProcessAddFeature();
+				ArrayList<TrackedFeature> featureList = new ArrayList<TrackedFeature>();
+				featureList = processFeature.getFeaturesByClient(client);
+				TrackedFeature feature = null;
+
+				for (int i = 0; i < featureList.size(); i++)
+				{
+					if ((featureList.get(i).getFeatureName()).equals(comboFeature.getText()))
+					{
+						feature = featureList.get(i);
+						i = featureList.size();
+					}
+				}
 
 				// Make sure we're not passing a null string in the FeatureHistory constructor
 				String textDetails = "";
@@ -197,16 +204,19 @@ public class JCCSurveyScreenDrawer
 					textDetails = txtDetails.getText();
 				}
 
+				// Created the FeatureHistory object and insert it into the DB
 				FeatureHistory newFeature = new FeatureHistory(feature, client, Double.parseDouble(txtValue.getText()), date, textDetails);
 				ProcessFeatureHistory processFeatureHistory = new ProcessFeatureHistory();
-
-				System.out.println("\nTrackedFeature Object (feature):\nfeature.getClientKey(): " + feature.getClientKey() + "\nfeature.getFeatureName(): " + feature.getFeatureName() + "\nfeature.getID(): " + feature.getID() + "\nfeature.getNotes(): " + feature.getNotes() + "\nfeature.getSupplier(): " + feature.getSupplier() + "\nfeature.getTableName(): " + feature.getTableName() + "\nfeature.getTrackedFeatureType().toString(): " + feature.getTrackedFeatureType().toString());
-				System.out.println("\nFeatureHistory Object (newFeature):\nnewFeature.getID(): " + newFeature.getID() + "\nnewFeature.getFeature().toString(): " + newFeature.getFeature().toString() + "\nnewFeature.getValue(): " + newFeature.getValue() + "\nnewFeature.getDate(): " + newFeature.getDate() + "\nnewFeature.getShortDate(): " + newFeature.getShortDate() + "\nnewFeature.getNotes(): " + newFeature.getNotes() + "\nnewFeature.getTrackedClient(): " + newFeature.getTrackedClient());
 				boolean inserted = processFeatureHistory.insertFeature(newFeature);
+
+				// These println's starting here can be removed once successful processing is verified
 				if (inserted)
-					System.out.println("insertFeature(newFeature) success");
+					System.out.println("\nSurvey Info Add: SUCCESS\n");
 				else
-					System.out.println("insertFeature(newFeature) FAILED");
+					System.out.println("\nSurvey Info Add: FAIL\n");
+				System.out.println("\nTrackedFeature Object (feature):\nfeature.getClientKey(): " + feature.getClientKey() + "\nfeature.getFeatureName(): " + feature.getFeatureName() + "\nfeature.getID(): " + feature.getID() + "\nfeature.getNotes(): " + feature.getNotes() + "\nfeature.getSupplier(): " + feature.getSupplier() + "\nfeature.getTableName(): " + feature.getTableName() + "\nfeature.getTrackedFeatureType().toString(): " + feature.getTrackedFeatureType().toString());
+				System.out.println("\nFeatureHistory Object (newFeature):\nnewFeature.getID(): " + newFeature.getID() + "\nnewFeature.getFeature().toString(): " + newFeature.getFeature().toString() + "\nnewFeature.getValue(): " + newFeature.getValue() + "\nnewFeature.getDate(): " + newFeature.getDate() + "\nnewFeature.getShortDate(): " + newFeature.getShortDate() + "\nnewFeature.getNotes(): " + newFeature.getNotes() + "\nnewFeature.getTrackedClient(): " + newFeature.getTrackedClient() + "\n");
+				// Up to here
 			}
 			catch(Exception e)
 			{
@@ -230,9 +240,9 @@ public class JCCSurveyScreenDrawer
 
 	public void fillComboFeature(Combo comboFeature, Client theClient)
 	{
-		ProcessAddFeature add = new ProcessAddFeature();
+		ProcessAddFeature processFeature = new ProcessAddFeature();
 		ArrayList<TrackedFeature> featureList = new ArrayList<TrackedFeature>();
-		featureList = add.getFeaturesByClient(theClient);
+		featureList = processFeature.getFeaturesByClient(theClient);
 		comboFeature.removeAll();
 
 		for (int i = 0; i < featureList.size(); i++)
