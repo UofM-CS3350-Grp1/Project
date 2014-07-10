@@ -15,6 +15,7 @@ import org.eclipse.swt.events.SelectionEvent;
 
 import presentation.ClientScreenDrawer;
 import presentation.ServiceScreenDrawer;
+import objects.User;
 
 import acceptanceTests.Register;
 import acceptanceTests.EventLoop;
@@ -27,11 +28,11 @@ public class SwitchScreen
 	private static final int WIN_WIDTH = 680;
 	private static final int WIN_HEIGHT = 480;
 	private static final String WIN_TEXT = "Buzzin' Digital Marketing";
-	
+
 	static int pageNum = -1;
 	private static StackLayout contentLayout;
 	private static Composite content;
-	
+
 	private static Deque< Composite > backStack;
 
 	private static Button bBack;
@@ -44,16 +45,16 @@ public class SwitchScreen
 	private static Button bExit;
 	private static Display display;
 	private static Shell shell;
-	
+
 	SwitchScreen()
 	{	
 		backStack = new ArrayDeque< Composite >();
-		
+
 		display = Display.getDefault();
 		shell = new Shell();
 		initShell( shell );
 		Register.newWindow(this);
-		
+
 		/*
 		 * Create the navigation bar
 		 */
@@ -64,7 +65,7 @@ public class SwitchScreen
 		navLayout.makeColumnsEqualWidth = true;
 		navBar.setLayout( navLayout );
 		navBar.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ) );
-		
+
 		/*
 		 * adds the buttons to the nav bar; more than six will cause it to overflow
 		 * to a new row; if you need more buttons, adjust num columns above
@@ -80,7 +81,7 @@ public class SwitchScreen
 
 		bServices = new Button( navBar, SWT.FLAT );
 		tuneNavButton( bServices, "SERVICES" );
-		
+
 		bFeatures = new Button( navBar, SWT.FLAT );
 		tuneNavButton( bFeatures, "FEATURES" );
 
@@ -89,10 +90,10 @@ public class SwitchScreen
 
 		bLogin = new Button( navBar, SWT.FLAT );
 		tuneNavButton( bLogin, "LOG IN" );
-		
+
 		bExit = new Button( navBar, SWT.FLAT );
 		tuneNavButton( bExit, "EXIT" );
-		
+
 		/*
 		 * Back button listener
 		 */
@@ -104,7 +105,7 @@ public class SwitchScreen
 				switchBack();
 			}
 		});
-		
+
 		/*
 		 * create the switching composite
 		 */
@@ -145,8 +146,7 @@ public class SwitchScreen
 				SwitchScreen.switchContent( clientScreen );
 			}
 		});
-		
-		
+
 		/*
 		 * draws the service screen
 		 */
@@ -163,7 +163,7 @@ public class SwitchScreen
 				SwitchScreen.switchContent( serviceScreen );
 			}
 		});
-		
+
 		/*
 		 * draws the feature screen
 		 */
@@ -181,7 +181,6 @@ public class SwitchScreen
 			}
 		});
 
-		
 		/*
 		 * draws the JCC screen
 		 */
@@ -198,8 +197,7 @@ public class SwitchScreen
 				SwitchScreen.switchContent( jccContractScreen );
 			}
 		});
-		
-		
+
 		/*
 		 * draws the login screen
 		 */
@@ -211,15 +209,23 @@ public class SwitchScreen
 			@Override
 			public void widgetSelected( SelectionEvent event )
 			{
-				Composite loginScreen = SwitchScreen.getContentContainer();
-				LoginDrawer ld = new LoginDrawer( loginScreen );
-				SwitchScreen.switchContent( loginScreen );
+				if (!User.loggedIn())
+				{
+					Composite loginScreen = SwitchScreen.getContentContainer();
+					LoginDrawer ld = new LoginDrawer( loginScreen );
+					SwitchScreen.switchContent( loginScreen );
+				}
+				else
+				{
+					Composite loggedInScreen = SwitchScreen.getContentContainer();
+					LoggedInDrawer ldd = new LoggedInDrawer( loggedInScreen );
+					SwitchScreen.switchContent( loggedInScreen );
+				}
 			}
 		});
-		
-		
+
 		backStack.clear();
-		
+
 		/*
 		 *  exits the program
 		 */
@@ -234,7 +240,7 @@ public class SwitchScreen
 				
 		shell.open();
 		shell.layout();
-		
+
 		if(EventLoop.isEnabled())
 		{
 			while (!shell.isDisposed())
@@ -243,12 +249,9 @@ public class SwitchScreen
 					display.sleep();
 			}
 		}
-		
 		// System.out.println( "END." );
 	}
-	
-	
-	
+
 	/**
 	 * provide a container for new content
 	 */
@@ -259,7 +262,7 @@ public class SwitchScreen
 		
 		return container;
 	}
-	
+
 	/**
 	 * switch content with container
 	 */
@@ -271,8 +274,7 @@ public class SwitchScreen
 		contentLayout.topControl = container;
 		content.layout();
 	}
-	
-	
+
 	/**
 	 * Back button functionality
 	 */
@@ -286,7 +288,7 @@ public class SwitchScreen
 			content.layout();
 		}
 	}
-	
+
 	/**
 	 * all your shell tweaking needs should go here
 	 */
@@ -302,7 +304,7 @@ public class SwitchScreen
 		srcShell.setMinimumSize( WIN_WIDTH, WIN_HEIGHT);
 		srcShell.setLocation(0,0);
 	}
-	
+
 	/**
 	 * all your button tweaking needs for the nav bar should go here
 	 */

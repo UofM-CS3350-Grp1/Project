@@ -8,11 +8,11 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Button;
+import objects.User;
 
 public class LoggedInDrawer 
 {
 	private Composite composite;
-	private String loggedInAs;
 	protected Button btnLogout;
 
 	/**
@@ -34,6 +34,7 @@ public class LoggedInDrawer
 
 		GridData componentTweaker = null;
 
+		String loggedInAs = User.getCurrentUser();
 		// username
 		Label lblUser = new Label( composite, SWT.None );
 		lblUser.setText( "Logged in as: " + loggedInAs );
@@ -57,19 +58,9 @@ public class LoggedInDrawer
 
 	protected void processLogoutButton()
 	{
-		loggedInAs = null;
+		User.logout();
 		Composite loginScreen = SwitchScreen.getContentContainer();
 		LoginDrawer ld = new LoginDrawer( loginScreen );
 		SwitchScreen.switchContent( loginScreen );
-	}
-
-	public String getCurrentUser()
-	{
-		return loggedInAs;
-	}
-
-	public void setUser(String user)
-	{
-		loggedInAs = user;
 	}
 }

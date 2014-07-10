@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class User implements Storable
 {
 	private static final String VALIDATION_REGEX = "^([a-zA-Z0-9@*#]){1,255}$";
+	private static String loggedInAs;
 	private String userName;
 	private String password;
 	private String tableName;
@@ -73,7 +74,7 @@ public class User implements Storable
 	/*********************************************************
 	 * 				Accessors and Mutators
 	 ********************************************************/
-	
+
 	/**
 	 * Sets the user name
 	 * @param user	The new user name
@@ -105,10 +106,30 @@ public class User implements Storable
 	}
 
 	/**
-	 * @return THe password
+	 * @return The password
 	 */
 	public String getPassword()
 	{
 		return password;
+	}
+
+	public static boolean loggedIn()
+	{
+		return loggedInAs != null;
+	}
+
+	public static String getCurrentUser()
+	{
+		return loggedInAs;
+	}
+
+	public static void setCurrentUser(String newUser)
+	{
+		loggedInAs = newUser;
+	}
+
+	public static void logout()
+	{
+		loggedInAs = null;
 	}
 }

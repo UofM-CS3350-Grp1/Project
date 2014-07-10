@@ -1,6 +1,7 @@
 package presentation;
 
 import business.ProcessUser;
+import objects.User;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -86,9 +87,9 @@ public class LoginDrawer
 				/*
 				 * draws the logged in screen
 				 */
+				User.setCurrentUser(txtUser.getText());
 				Composite loggedInScreen = SwitchScreen.getContentContainer();
 				LoggedInDrawer ldd = new LoggedInDrawer( loggedInScreen );
-				ldd.setUser(txtUser.getText());
 				SwitchScreen.switchContent( loggedInScreen );
 			}
 			else
