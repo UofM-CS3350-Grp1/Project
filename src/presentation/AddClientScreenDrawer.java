@@ -20,6 +20,7 @@ import objects.Client;
 import objects.Email;
 import objects.PhoneNumber;
 import objects.Client.ClientStatus;
+import acceptanceTests.Register;
 import business.ProcessClient;
 import business.ValidateTextbox;
 
@@ -44,12 +45,16 @@ public class AddClientScreenDrawer
 	protected ProcessClient processClient;
 	protected Button btnAction;
 	
+	//Acceptance test controls
+	@SuppressWarnings("unused")
+	private Shell shell;
+	
 	/*
 	 * Call the constructor with a shell's main component as <container>
 	 * and it will be added to that component;
 	 */
 	public AddClientScreenDrawer(Composite container)
-	{
+	{		
 		composite = new Composite(container, SWT.BORDER);
 		processClient = new ProcessClient();
 		
@@ -227,6 +232,8 @@ public class AddClientScreenDrawer
 				goBackToClientScreen();
 			}
 		});
+		
+		Register.newWindow(this);
 	}
 	
 	/**

@@ -4,9 +4,12 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
+
 import objects.Client;
 import business.ProcessClient;
+import acceptanceTests.Register;
 
 /**
  * Draws the beautiful client screen
@@ -17,6 +20,12 @@ public class ClientScreenDrawer extends BaseStorableScreenDrawer
 	private static final String[] tableColumnNames = { "ID", "Client", "Contact", "Status", "Address", "Email", "Phone Number" };
 	private static final int[] tableWidths = { 0, 150, 100, 100, 150, 150, 100 };
 	private ProcessClient processClient;
+	
+	//Acceptance test controls
+	@SuppressWarnings("unused")
+	private Table _table;	
+	@SuppressWarnings("unused")
+	private Shell shell;
 	
 	/*
 	 * Call the constructor with a shell's main component as <container>
@@ -31,8 +40,12 @@ public class ClientScreenDrawer extends BaseStorableScreenDrawer
 		btnDelete.setText("Cancel Client");
 		btnView.setText("View Client");
 		
+		_table = table;
+		
 		if(processClient == null)
-			processClient = new ProcessClient();	    
+			processClient = new ProcessClient();	  
+		
+		Register.newWindow(this);
 	}	
 	
 	/**
