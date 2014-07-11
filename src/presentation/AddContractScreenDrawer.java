@@ -1,6 +1,5 @@
 package presentation;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -15,6 +14,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
+import business.DateTimeUtil;
 import business.ProcessClient;
 import business.ProcessContract;
 import business.ProcessService;
@@ -245,11 +245,10 @@ public class AddContractScreenDrawer
 		ProcessContract processContract = new ProcessContract();
 		int newID = processContract.getUnusedContractID();
 		Contract contract = null;
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-dd-MM");
 		try 
 		{
-			Date end = formatter.parse(endData.getYear() + "-" + endData.getDay() + "-" + endData.getMonth());
-			Date start = formatter.parse(startData.getYear() + "-" + startData.getDay() + "-" + startData.getMonth());
+			Date end = DateTimeUtil.getDate(endData);
+			Date start = DateTimeUtil.getDate(startData);
 
 			System.out.println(end.toString());
 			System.out.println(start.toString());

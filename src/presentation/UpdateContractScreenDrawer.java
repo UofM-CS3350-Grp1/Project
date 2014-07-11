@@ -1,6 +1,5 @@
 package presentation;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -20,6 +19,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.TableItem;
 
+import business.DateTimeUtil;
 import business.ProcessContract;
 import business.ProcessService;
 
@@ -347,43 +347,50 @@ public class UpdateContractScreenDrawer
 	public double getValueField(int number, int bool)
 	{
 		int multiplier = 1;
-		try{
-			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-			Date dateEnd = formatter.parse(endDate.getMonth() + "-" + endDate.getDay() + "-" + endDate.getYear());
-			Date dateStart = formatter.parse(startDate.getMonth() + "-" + startDate.getDay() + "-" + startDate.getYear());
+		try
+		{
+			Date dateEnd = DateTimeUtil.getDate(endDate);
+			Date dateStart = DateTimeUtil.getDate(startDate);
+			
 			multiplier = getMultiplier(dateEnd, dateStart);
-		}catch(Exception e){
+		}
+		catch(Exception e)
+		{
 			System.out.println("Error with dates!!");
 		}
+		
 		if(contractTable.getItem(number-1).getText(1)=="Web Design")
 		{
 			multiplier = 1;
 		}
+		
 		if(bool==0)
 		{
 			multiplier = 1;
 		}
+		
 		switch(number)
 		{
-		case 1:
-			return Double.parseDouble(text.getText())*multiplier;
-		case 2:
-			return Double.parseDouble(text_2.getText())*multiplier;
-		case 3:
-			return Double.parseDouble(text_3.getText())*multiplier;
-		case 4:
-			return Double.parseDouble(text_4.getText())*multiplier;
-		case 5:
-			return Double.parseDouble(text_5.getText())*multiplier;
-		case 6:
-			return Double.parseDouble(text_6.getText())*multiplier;
-		case 7:
-			return Double.parseDouble(text_7.getText())*multiplier;
-		case 8:
-			return Double.parseDouble(text_8.getText())*multiplier;
-		case 9:
-			return Double.parseDouble(text_9.getText())*multiplier;
+			case 1:
+				return Double.parseDouble(text.getText())*multiplier;
+			case 2:
+				return Double.parseDouble(text_2.getText())*multiplier;
+			case 3:
+				return Double.parseDouble(text_3.getText())*multiplier;
+			case 4:
+				return Double.parseDouble(text_4.getText())*multiplier;
+			case 5:
+				return Double.parseDouble(text_5.getText())*multiplier;
+			case 6:
+				return Double.parseDouble(text_6.getText())*multiplier;
+			case 7:
+				return Double.parseDouble(text_7.getText())*multiplier;
+			case 8:
+				return Double.parseDouble(text_8.getText())*multiplier;
+			case 9:
+				return Double.parseDouble(text_9.getText())*multiplier;
 		}
+		
 		return 0;
 	}
 
@@ -396,17 +403,13 @@ public class UpdateContractScreenDrawer
 		double value = 0;
 		ProcessService processService = new ProcessService();
 		Service newService = null;
-		Date dateStart, dateEnd, today;
+		Date dateEnd, today;
 		ProcessContract processContract = new ProcessContract();
-		SimpleDateFormat formatter;
 		int cID, id, totalNumServices;
 		
 		try
 		{
-			System.out.println("trying to format date");
-			formatter = new SimpleDateFormat("yyyy-MM-dd");
-			dateEnd = formatter.parse(endDate.getYear() + "-" + endDate.getMonth() + "-" + endDate.getDay());
-			dateStart = formatter.parse(startDate.getYear() + "-" + startDate.getMonth() + "-" + startDate.getDay());
+			dateEnd = DateTimeUtil.getDate(endDate);
 			today = new Date();
 			totalNumServices = contractTable.getItemCount();	
 			System.out.println("formatting date done");
@@ -548,7 +551,6 @@ public class UpdateContractScreenDrawer
 	public void populateContractTable() 
 	{
 		Service service = null;
-		ArrayList<ServiceType> list = null;
 		contractTable.removeAll();
 		ProcessService processService = new ProcessService();
 		int i = 0;
