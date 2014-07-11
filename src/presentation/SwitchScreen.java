@@ -94,6 +94,8 @@ public class SwitchScreen
 		bExit = new Button( navBar, SWT.FLAT );
 		tuneNavButton( bExit, "EXIT" );
 
+		disableButtons();
+
 		/*
 		 * Back button listener
 		 */
@@ -317,6 +319,26 @@ public class SwitchScreen
 		
 		navButton.setText( label );
 		navButton.setLayoutData( navButtonData );
+	}
+
+	public static void disableButtons()
+	{
+		bBack.setEnabled(false);
+		bClients.setEnabled(false);
+		bContract.setEnabled(false);
+		bServices.setEnabled(false);
+		bFeatures.setEnabled(false);
+		bJCC.setEnabled(false);
+	}
+
+	public static void enableButtons()
+	{
+		bBack.setEnabled(true);
+		bClients.setEnabled(true);
+		bContract.setEnabled(true);
+		bServices.setEnabled(true);
+		bFeatures.setEnabled(true);
+		bJCC.setEnabled(true);
 	}
 
 	/**

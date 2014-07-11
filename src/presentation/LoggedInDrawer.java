@@ -28,7 +28,6 @@ public class LoggedInDrawer
 
 		// organizer
 		GridLayout compositeLayout = new GridLayout();
-		compositeLayout.numColumns = COMPOSITE_WIDTH;
 		compositeLayout.makeColumnsEqualWidth = true;
 		composite.setLayout( compositeLayout );
 
@@ -41,12 +40,12 @@ public class LoggedInDrawer
 		lblUser.setLayoutData( componentTweaker );
 
 		composite.setLayout( compositeLayout );
-
+		
 		// logout button
-		Button btnLogout = new Button( composite, SWT.None );
-		btnLogout.setText( "Logout" );
-
-		btnLogout.addSelectionListener(new SelectionAdapter()
+		Button btnLogout_1 = new Button( composite, SWT.None );
+		btnLogout_1.setText( "Logout" );
+		
+		btnLogout_1.addSelectionListener(new SelectionAdapter()
 		{
 			@Override
 			public void widgetSelected(SelectionEvent event)
@@ -59,6 +58,7 @@ public class LoggedInDrawer
 	protected void processLogoutButton()
 	{
 		User.logout();
+		SwitchScreen.disableButtons();
 		Composite loginScreen = SwitchScreen.getContentContainer();
 		LoginDrawer ld = new LoginDrawer( loginScreen );
 		SwitchScreen.switchContent( loginScreen );

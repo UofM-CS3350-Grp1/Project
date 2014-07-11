@@ -36,7 +36,7 @@ public class LoginDrawer
 
 		// organizer
 		GridLayout compositeLayout = new GridLayout();
-		compositeLayout.numColumns = COMPOSITE_WIDTH;
+		compositeLayout.numColumns = 2;
 		compositeLayout.makeColumnsEqualWidth = true;
 		composite.setLayout( compositeLayout );
 
@@ -70,6 +70,13 @@ public class LoginDrawer
 				processLoginButton();
 			}
 		});
+				new Label(composite, SWT.NONE);
+		
+		// List usernames and pw's for now
+		Label lblLoginInfo = new Label( composite, SWT.None );
+		lblLoginInfo.setText( "\nUsers\tPasswords\n\nAdrian\tpassword\nDell\tpassword\nDerek\tpassword\nJason\tpassword\nKarl\tpassword\nTim\tpassword\n" );
+		lblLoginInfo.setLayoutData( componentTweaker );
+		new Label(composite, SWT.NONE);
 	}
 
 	protected void processLoginButton()
@@ -88,6 +95,7 @@ public class LoginDrawer
 				 * draws the logged in screen
 				 */
 				User.setCurrentUser(txtUser.getText());
+				SwitchScreen.enableButtons();
 				Composite loggedInScreen = SwitchScreen.getContentContainer();
 				LoggedInDrawer ldd = new LoggedInDrawer( loggedInScreen );
 				SwitchScreen.switchContent( loggedInScreen );
