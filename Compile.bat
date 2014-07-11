@@ -17,12 +17,12 @@ echo Compiling src\tests\objects\*.java
 javac -d bin\ -cp %classpath% src\tests\objects\*.java
 
 echo.
-echo Compiling src\tests\persistence\*.java
-javac -d bin\ -cp %classpath% src\tests\persistence\*.java
-
-echo.
 echo Compiling src\tests\business\*.java
 javac -d bin\ -cp %classpath% src\tests\business\*.java
+
+echo.
+echo Compiling src\tests\integration\persistence\*.java
+javac -d bin\ -cp %classpath% src\tests\integration\persistence\*.java
 
 echo.
 echo Compiling src\tests\*.java
