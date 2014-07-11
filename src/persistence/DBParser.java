@@ -107,66 +107,37 @@ public class DBParser
 		return output;
 	}
 	
-	public ArrayList<FeatureHistory> parseFeatureHistories(ArrayList<ArrayList<String>> input)
-	{
-		ArrayList<FeatureHistory> output = new ArrayList<FeatureHistory>();
-		FeatureHistory item = null;
-		Date date = null;
-		Trackable contents = null;
-		
-		for(int i = 0; i < input.size(); i++)
-		{
-			try
-			{
-				date = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(input.get(i).get(4));
-			}
-			catch(Exception e)
-			{
-				e.printStackTrace();
-			}
-			
-			if(Integer.parseInt(input.get(i).get(2)) == -1)
-			{
-				contents = iFace.getServiceByID(Integer.parseInt(input.get(i).get(3)));
-			}
-			else
-			{
-				contents = iFace.getClientByID(Integer.parseInt(input.get(i).get(2)));
-			}
-			
-			item = new FeatureHistory(
-					iFace.getTrackedFeatureByID(Integer.parseInt(input.get(i).get(1))),
-					contents,
-					Double.parseDouble(input.get(i).get(6)),
-					date,
-					input.get(i).get(5),
-					Integer.parseInt(input.get(i).get(0))
-					);
-			output.add(item);
-		}
-		
-		return output;
-	}
 	
 	public ArrayList<TrackedFeature> parseFeatures(ArrayList<ArrayList<String>> input)
 	{
 		ArrayList<TrackedFeature> output = new ArrayList<TrackedFeature>();
 		TrackedFeature item = null;
 		TrackedFeatureType type = null;
+		Date date = null;
 		
 		for(int i = 0; i < input.size(); i++)
 		{
 			type = iFace.getTrackedFeatureTypeByID(Integer.parseInt(input.get(i).get(2)));
 			
-			if(type != null)
+			try
+			{
+				date = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(input.get(i).get(5));
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			//ROW_ID INTEGER NOT NULL PRIMARY KEY,CLIENT_ID INTEGER,FEATURE_TYPE_ID INTEGER,NOTES VARCHAR(500),VALUE FLOAT, DATE_RECCORDED DATE
+			//TrackedFeature(String notes, int id, int clientID, TrackedFeatureType trackedFT, double value,Date recorded)
+			if(type != null && date != null)
 			{
 				item = new TrackedFeature(
 						input.get(i).get(3),
-						input.get(i).get(4),
 						Integer.parseInt(input.get(i).get(0)),
 						Integer.parseInt(input.get(i).get(1)),
 						type,
-						input.get(i).get(5)
+						Double.parseDouble(input.get(i).get(4)),
+						date
 						);
 				output.add(item);
 			}

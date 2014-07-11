@@ -1,6 +1,8 @@
 package objects;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Manages the different types of features that can be tracked
@@ -8,13 +10,16 @@ import java.util.ArrayList;
  */
 public class TrackedFeature implements Storable
 {
-	private String featureName;				//Name of the feature to track
+	private final String DATE_FORMAT = "yyyy-MM-dd";	//The string date representation
+	
 	private String notes;					//Notes related to the feature
 	private int id;							//Id of object
 	private int clientID;					//Key of associated client
 	private String tableName;				//Name of table object belongs on
-	private String supplier;				//Supplier paid for expenses
+	private double value;					//value of feature
+	private Date recorded;					//Date reccorded
 	private TrackedFeatureType trackedFT;	//Type of feature
+	private SimpleDateFormat sdf;		 //Date formatter
 
 	/**
 	 * Creates a new feature tracker
@@ -22,16 +27,18 @@ public class TrackedFeature implements Storable
 	 * @param trackedFT		TrackedFeature Type of object
 	 * @throws IllegalArgumentException
 	 */
-	public TrackedFeature(String featureName, TrackedFeatureType trackedFT) throws IllegalArgumentException
+	public TrackedFeature(TrackedFeatureType trackedFT, Date recorded, double value) throws IllegalArgumentException
 	{
-		if(featureName != null && !featureName.isEmpty() && trackedFT != null)
+		if(trackedFT != null && recorded != null)
 		{
 			this.id = -1;
 			this.clientID = -1;
-			this.featureName = featureName;
 			this.notes = "";
 			this.tableName = "FEATURE";
+			this.sdf = new SimpleDateFormat(DATE_FORMAT);
 			this.trackedFT = trackedFT;
+			this.recorded = recorded;
+			this.value = value;
 		}
 		else
 		{
@@ -46,17 +53,19 @@ public class TrackedFeature implements Storable
 	 * @param trackedFT		TrackedFeature Type of object
 	 * @throws IllegalArgumentException
 	 */
-	public TrackedFeature(String featureName, String notes, TrackedFeatureType trackedFT) throws IllegalArgumentException
+	public TrackedFeature(String notes, int clientID, TrackedFeatureType trackedFT, Date recorded, double value) throws IllegalArgumentException
 	{
-		if(featureName != null && !featureName.isEmpty() && notes != null && trackedFT != null)
+		if(notes != null && trackedFT != null && recorded != null && clientID > 0)
 		{
-			this.clientID = -1;
+			this.clientID = clientID;
 			this.id = -1;
-			this.featureName = featureName;
 			this.notes = notes;
 			this.tableName = "FEATURE";
 			this.trackedFT = trackedFT;
-			this.supplier = "";
+			this.recorded = recorded;
+			this.value = value;
+			this.recorded = new Date();
+			this.sdf = new SimpleDateFormat(DATE_FORMAT);
 		}
 		else
 		{
@@ -73,17 +82,19 @@ public class TrackedFeature implements Storable
 	 * @param trackedFT		TrackedFeature Type of object
 	 * @throws IllegalArgumentException
 	 */
-	public TrackedFeature(String featureName, String notes, int id, int clientID, TrackedFeatureType trackedFT, String supplier) throws IllegalArgumentException
+	
+	public TrackedFeature(String notes, int id, int clientID, TrackedFeatureType trackedFT, double value,Date recorded) throws IllegalArgumentException
 	{
-		if(featureName != null && !featureName.isEmpty() && notes != null && id >= 0 && clientID >= 0 && trackedFT != null)
+		if(notes != null && id >= 0 && clientID >= 0 && trackedFT != null && recorded != null)
 		{
 			this.clientID = clientID;
 			this.id = id;
-			this.featureName = featureName;
 			this.notes = notes;
 			this.tableName = "FEATURE";
 			this.trackedFT = trackedFT;
-			this.supplier = supplier;
+			this.value = value;
+			this.recorded = recorded;
+			this.sdf = new SimpleDateFormat(DATE_FORMAT);
 		}
 		else
 		{
@@ -100,13 +111,6 @@ public class TrackedFeature implements Storable
 		return this.id;
 	}
 
-	/**
-	 * @return The name of the tracked feature
-	 */
-	public String getFeatureName() 
-	{
-		return featureName;
-	}
 
 	/**
 	 * @return Additional information on the tracked feature
@@ -114,14 +118,6 @@ public class TrackedFeature implements Storable
 	public String getNotes() 
 	{
 		return notes;
-	}
-
-	/**
-	 * @return Additional information on the supplier
-	 */
-	public String getSupplier() 
-	{
-		return supplier;
 	}
 
 	/**
@@ -139,21 +135,21 @@ public class TrackedFeature implements Storable
 	{
 		return this.trackedFT;
 	}
+	
+	public Date getDate()
+	{
+		return this.recorded;
+	}
+	
+	public double getValue()
+	{
+		return this.value;
+	}
 
 	//----------
 	// SETTERS
 	//----------
 
-	/**
-	 * Sets the name of the tracked feature
-	 * @param featureName The name of the tracked feature
-	 */
-	public void setFeatureName(String featureName) 
-	{
-		assert (featureName != null && !featureName.isEmpty());
-		if(featureName != null && !featureName.isEmpty())
-			this.featureName = featureName;
-	}
 
 	/**
 	 * Sets the additional feature information
@@ -166,16 +162,6 @@ public class TrackedFeature implements Storable
 			this.notes = notes;
 	}
 
-	/**
-	 * Sets the supplier information
-	 * @param notes
-	 */
-	public void setSupplier(String supplier) 
-	{
-		assert (supplier != null);
-		if(supplier != null)
-			this.supplier = supplier;
-	}
 
 	/**
 	 * @param key TrackedFeatureType to change this object to
@@ -195,10 +181,23 @@ public class TrackedFeature implements Storable
 		if(key >= 0)
 			this.clientID = key;
 	}
+	
+	public void setDate(Date date)
+	{
+		if(date != null)
+			this.recorded = date;
+	}
+	
+	public void setValue(double value)
+	{
+		this.value = value;
+	}
 
 	//----------
 	// OTHER
 	//----------
+	
+	//ROW_ID INTEGER NOT NULL PRIMARY KEY,CLIENT_ID INTEGER,FEATURE_TYPE_ID INTEGER,NOTES VARCHAR(500),VALUE FLOAT, DATE_RECCORDED DATE
 	public ArrayList<String> toIndex() 
 	{
 		ArrayList<String> index = new ArrayList<String>();
@@ -206,9 +205,9 @@ public class TrackedFeature implements Storable
 		index.add(""+this.id);
 		index.add(""+this.clientID);
 		index.add(""+this.trackedFT.getID());
-		index.add(this.featureName);
 		index.add(this.notes);
-		index.add(this.supplier);
+		index.add(this.value+"");
+		index.add(this.sdf.format(recorded));
 
 		return index;
 	}
@@ -238,7 +237,7 @@ public class TrackedFeature implements Storable
 	public String toString()
 	{
 		String returnVal = "";
-		returnVal = "FeatureName: " + featureName + ", Client ID: " + clientID + ", TableName: " + tableName + ", Supplier: " + supplier + ", TrackedFeatureType: " + trackedFT.toString() + ", Notes: " + notes;
+		returnVal = "Client ID: " + clientID + ", TableName: " + tableName +" TrackedFeatureType: " + trackedFT.toString() + ", Notes: " + notes;
 		return returnVal;
 	}
 }

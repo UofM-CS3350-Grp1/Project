@@ -27,6 +27,8 @@ public class FinancialQueryBuilder extends RelationalQueryBuilder
 	
 	public ArrayList<MonthReport> getLastYearReturns(Client element)
 	{
+		this.connect();
+		
 		ArrayList<MonthReport> tally = null;
 		double serviceValue = 0;
 		double expenseValue = 0;
@@ -102,6 +104,8 @@ public class FinancialQueryBuilder extends RelationalQueryBuilder
 			}
 		}
 		
+		this.disconnect();
+		
 		return tally;
 		
 	}
@@ -115,6 +119,8 @@ public class FinancialQueryBuilder extends RelationalQueryBuilder
 	
 	public double getClientCurrentRevenue(Client element)
 	{
+		this.connect();
+		
 		double output = -1;
 		String sql = "";
 		ArrayList<String> returnVal = new ArrayList<String>();
@@ -147,6 +153,8 @@ public class FinancialQueryBuilder extends RelationalQueryBuilder
 				output = 0;
 		}
 		
+		this.disconnect();
+		
 		return output;
 	}
 	
@@ -158,6 +166,8 @@ public class FinancialQueryBuilder extends RelationalQueryBuilder
 	
 	public double getClientCurrentExpenses(Client element)
 	{
+		this.connect();
+		
 		double output = -1;
 		String sql = "";
 		ArrayList<String> returnVal = new ArrayList<String>();
@@ -187,6 +197,8 @@ public class FinancialQueryBuilder extends RelationalQueryBuilder
 				output = 0;
 		}
 		
+		this.disconnect();
+		
 		return output;
 	}
 	
@@ -198,6 +210,8 @@ public class FinancialQueryBuilder extends RelationalQueryBuilder
 	
 	public ArrayList<MonthReport> getLastYearServiceExpenses(ServiceType element)
 	{
+		this.connect();
+		
 		ArrayList<MonthReport> tally = null;
 		double expenseValue = 0;
 		String sql = "";
@@ -270,6 +284,8 @@ public class FinancialQueryBuilder extends RelationalQueryBuilder
 			}
 		}
 		
+		this.disconnect();
+		
 		return tally;
 	}
 	
@@ -280,6 +296,8 @@ public class FinancialQueryBuilder extends RelationalQueryBuilder
 	
 	public ArrayList<MonthReport> getLastYearServiceRevenue(ServiceType element)
 	{
+		this.connect();
+		
 		ArrayList<MonthReport> tally = null;
 		double expenseValue = 0;
 		String sql = "";
@@ -353,6 +371,8 @@ public class FinancialQueryBuilder extends RelationalQueryBuilder
 			}
 		}
 		
+		this.disconnect();
+		
 		return tally;
 	}
 	
@@ -363,6 +383,8 @@ public class FinancialQueryBuilder extends RelationalQueryBuilder
 	
 	public double getAllClientReturns(Client element)
 	{
+		this.connect();
+		
 		double output = 0;
 		double serviceValue = 0;
 		double expenseValue = 0;
@@ -434,6 +456,8 @@ public class FinancialQueryBuilder extends RelationalQueryBuilder
 				serviceValue = 0;
 			}
 		}
+		
+		this.disconnect();
 		
 		return output;
 	}

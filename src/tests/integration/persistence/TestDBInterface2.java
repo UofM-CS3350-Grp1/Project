@@ -28,8 +28,6 @@ public class TestDBInterface2 {
 		assertNotNull("Expense table dump", mainFace.dumpExpenses());
 		assertNotNull("Expense by service", mainFace.getExpensesByService(mainFace.getServiceByID(1)));
 		
-		assertNotNull("FeatureHistoryByFeature Check", mainFace.getFeatureHistoryByFeature(mainFace.getTrackedFeatureByID(1)));
-		
 		assertNotNull("Tracked Feature Type by ID",mainFace.getTrackedFeatureTypeByID(1));
 		assertNotNull("Service Type by ID",mainFace.getServiceTypeByID(1));
 		assertNotNull("Tracked Feature Type Dump",mainFace.dumpTrackedFeatureTypes());

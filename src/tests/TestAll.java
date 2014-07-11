@@ -5,13 +5,11 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import tests.business.CalcFeatureValueTest;
-import tests.integration.persistence.TestDBController;
-import tests.integration.persistence.TestDBInterface;
+
 import tests.objects.ClientTest;
 import tests.objects.ContractTest;
 import tests.objects.EmailTest;
 import tests.objects.ExpenseTest;
-import tests.objects.FeatureHistoryTest;
 import tests.objects.MonthReportTest;
 import tests.objects.PhoneNumberTest;
 import tests.objects.ServiceTest;
@@ -28,7 +26,6 @@ import tests.objects.UserTest;
 			EmailTest.class,
 			PhoneNumberTest.class,
 			TrackedFeatureTest.class,
-			FeatureHistoryTest.class,
 			MonthReportTest.class,
 			UserTest.class,
 			TrackedFeatureTypeTest.class,

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import objects.Client;
 import objects.Contract;
 import objects.Expense;
-import objects.FeatureHistory;
 import objects.Service;
 import objects.ServiceType;
 import objects.TrackedFeature;
@@ -397,56 +396,6 @@ public class RelationalQueryBuilder extends IDQueryBuilder
 			return null;
 		}
 	}
-
-	
-	
-	/**
-	 * GETFEATUREHISTORYFROMFEATURE()
-	 * 
-	 * @param element Object with that can handle trackable features.
-	 * @return - Array list containing the tracked features history items associated with this object otherise null
-	 */
-	
-	public ArrayList<FeatureHistory> getFeatureHistoryByFeature(TrackedFeature feature)
-	{
-		ArrayList<FeatureHistory> storage = new ArrayList<FeatureHistory>();
-		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
-		ArrayList<String> conditions1 = new ArrayList<String>();
-		ArrayList<String> conditions2 = new ArrayList<String>();
-		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
-		
-		if(feature != null && feature.getID() >= 0)
-		{
-			conditions2.add(" FEATURE_ID");
-			conditions2.add("= ");
-			conditions2.add("'"+feature.getID()+"'");
-			clauses.add(conditions2);
-			returnValue = this.mainDB.query("FEATURE_HISTORY",clauses);
-			
-			storage = parser.parseFeatureHistories(returnValue);
-			
-			if(storage.size() == 0)
-			{
-				return null;
-			}
-			else
-			{
-				return storage;
-			}
-		}
-		else
-		{
-			if(feature == null && ERROR_LOGGING == 1)
-				errorMessage("FEATURE HSTORY", "A NULL TRACKED FEATURE OBJECT\n", "INSTANTIATE A TRCKED FEATURE OBJECT");	
-			
-			if(feature != null && feature.getID() < 0 && ERROR_LOGGING == 1)
-				errorMessage("FEATURE HISTORY", "A TRACKED FEATURE OBJECT THAT HAS NOT BEEN INSERTED INTO DMBS\n", "INSERT THE TRACKED FEATURE OBJECT");
-
-			
-			return null;
-		}
-		
-	}
 	
 	/**
 	 * GETFEATUREHISTORYFROMFEATURE()
@@ -487,7 +436,7 @@ public class RelationalQueryBuilder extends IDQueryBuilder
 			if(service == null && ERROR_LOGGING == 1)
 				errorMessage("EXPENSE", "A NULL SERVICE OBJECT\n", "INSTANTIATE A SERVICE OBJECT");
 			
-			if(service.getID() >= 0 && ERROR_LOGGING == 1)
+			if(service != null && service.getID() < 0 && ERROR_LOGGING == 1)
 				errorMessage("EXPENSE", "AN UNINSTANTIATED (-1) SERVICE ID\n", "INSERT THE SERVICE OBJECT");
 			
 			return null;

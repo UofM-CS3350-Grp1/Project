@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import objects.Client;
 import objects.Contract;
 import objects.Expense;
-import objects.FeatureHistory;
 import objects.Service;
 import objects.ServiceType;
 import objects.TrackedFeature;
@@ -30,6 +29,8 @@ public class IDQueryBuilder extends NewDBInterface
 	
 	public Service getServiceByID(int id)
 	{
+		this.connect();
+		
 		System.out.println("In IDQUERYBUILDER");
 		
 		ArrayList<Service> storage = new ArrayList<Service>();
@@ -49,6 +50,8 @@ public class IDQueryBuilder extends NewDBInterface
 			
 			storage = parser.parseServices(returnValue);
 			
+			this.disconnect();
+			
 			if(storage.size() != 1)
 			{
 				return null;
@@ -60,6 +63,7 @@ public class IDQueryBuilder extends NewDBInterface
 		}
 		else
 		{
+			this.disconnect();
 			return null;
 		}
 	}
@@ -147,49 +151,6 @@ public class IDQueryBuilder extends NewDBInterface
 		{
 			return null;
 		}
-	}
-	
-	/**
-	 * 	GETFEATUREHISTORYBYID()
-	 * 
-	 *  @param	int id	-	ID to search for
-	 *  
-	 *  @return	FeatureHistory	-	FeatureHistory specified by ID, null if no match
-	 */	
-	
-	public FeatureHistory getFeatureHistoryByID(int id)
-	{
-		ArrayList<FeatureHistory> storage = new ArrayList<FeatureHistory>();
-		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
-		ArrayList<String> conditions = new ArrayList<String>();
-		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
-		
-		if(id >= 0)
-		{
-			conditions.add("ROW_ID");
-			conditions.add("= ");
-			conditions.add(""+id+"");
-			
-			clauses.add(conditions);
-			
-			returnValue  = this.mainDB.query("FEATURE_HISTORY", clauses);
-			
-			storage = parser.parseFeatureHistories(returnValue);
-			
-			if(storage.size() != 1)
-			{
-				return null;
-			}
-			else
-			{
-				return storage.get(0);
-			}
-		}
-		else
-		{
-			return null;
-		}
-		
 	}
 	
 	/**

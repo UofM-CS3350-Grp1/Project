@@ -21,7 +21,6 @@ public class TestIDQueryBuilder {
 		assertNotNull("Query builder expense", iqBuilder.getTrackedFeatureByID(1));
 		assertNotNull("Query builder expense", iqBuilder.getServiceTypeByID(1));
 		assertNotNull("Query builder expense", iqBuilder.getTrackedFeatureTypeByID(1));
-		assertNotNull("Query builder expense", iqBuilder.getFeatureHistoryByID(1));
 		
 		iqBuilder.disconnect();
 	}
@@ -39,7 +38,6 @@ public class TestIDQueryBuilder {
 		assertNull("Query builder expense", iqBuilder.getTrackedFeatureByID(Integer.MAX_VALUE));
 		assertNull("Query builder expense", iqBuilder.getServiceTypeByID(Integer.MAX_VALUE));
 		assertNull("Query builder expense", iqBuilder.getTrackedFeatureTypeByID(Integer.MAX_VALUE));
-		assertNull("Query builder expense", iqBuilder.getFeatureHistoryByID(Integer.MAX_VALUE));
 		
 		iqBuilder.disconnect();
 	}

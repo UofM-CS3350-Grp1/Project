@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import objects.Client;
 import objects.Contract;
 import objects.Expense;
-import objects.FeatureHistory;
 import objects.Service;
 import objects.ServiceType;
 import objects.Storable;
@@ -132,37 +131,6 @@ public class TableDumper extends IDQueryBuilder
 		returnValue  = this.mainDB.query("FEATURE", clauses);
 		
 		storage = parser.parseFeatures(returnValue);
-		
-		if(storage.size() == 0)
-		{
-			return null;
-		}
-		else
-		{
-			return storage;
-		}
-	}
-	
-	/**DUMPFEATUREHISTORY()
-	 * 
-	 * Returns all tracked feature histries on the DBMS;
-	 * 
-	 */
-	
-	public ArrayList<FeatureHistory> dumpFeatureHistory()
-	{
-		ArrayList<FeatureHistory> storage = new ArrayList<FeatureHistory>();
-		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
-		ArrayList<String> conditions = new ArrayList<String>();
-		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
-		
-		conditions.add("ALL");
-		
-		clauses.add(conditions);
-		
-		returnValue  = this.mainDB.query("FEATURE_HISTORY", clauses);
-		
-		storage = parser.parseFeatureHistories(returnValue);
 		
 		if(storage.size() == 0)
 		{

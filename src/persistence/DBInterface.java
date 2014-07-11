@@ -13,7 +13,6 @@ import objects.Service;
 import objects.Storable;
 import objects.Contract;
 import objects.TrackedFeature;
-import objects.FeatureHistory;
 import objects.Trackable;
 import objects.TrackedFeatureType;
 import objects.ServiceType;
@@ -187,48 +186,6 @@ public class DBInterface extends AbstractDBInterface
 		}
 	}
 	
-	/**
-	 * 	GETFEATUREHISTORYBYID()
-	 * 
-	 *  @param	int id	-	ID to search for
-	 *  
-	 *  @return	FeatureHistory	-	FeatureHistory specified by ID, null if no match
-	 */	
-	
-	public FeatureHistory getFeatureHistoryByID(int id)
-	{
-		ArrayList<FeatureHistory> storage = new ArrayList<FeatureHistory>();
-		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
-		ArrayList<String> conditions = new ArrayList<String>();
-		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
-		
-		if(id >= 0)
-		{
-			conditions.add("ROW_ID");
-			conditions.add("= ");
-			conditions.add(""+id+"");
-			
-			clauses.add(conditions);
-			
-			returnValue  = this.mainDB.query("FEATURE_HISTORY", clauses);
-			
-			storage = parser.parseFeatureHistories(returnValue);
-			
-			if(storage.size() != 1)
-			{
-				return null;
-			}
-			else
-			{
-				return storage.get(0);
-			}
-		}
-		else
-		{
-			return null;
-		}
-		
-	}
 	
 	/**
 	 * 	GETTRACKEDFEATUREBYID()
@@ -780,56 +737,6 @@ public class DBInterface extends AbstractDBInterface
 
 			return null;
 		}
-	}
-
-	
-	
-	/**
-	 * GETFEATUREHISTORYFROMFEATURE()
-	 * 
-	 * @param element Object with that can handle trackable features.
-	 * @return - Array list containing the tracked features history items associated with this object otherise null
-	 */
-	
-	public ArrayList<FeatureHistory> getFeatureHistoryByFeature(TrackedFeature feature)
-	{
-		ArrayList<FeatureHistory> storage = new ArrayList<FeatureHistory>();
-		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
-		ArrayList<String> conditions1 = new ArrayList<String>();
-		ArrayList<String> conditions2 = new ArrayList<String>();
-		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
-		
-		if(feature != null && feature.getID() >= 0)
-		{
-			conditions2.add(" FEATURE_ID");
-			conditions2.add("= ");
-			conditions2.add("'"+feature.getID()+"'");
-			clauses.add(conditions2);
-			returnValue = this.mainDB.query("FEATURE_HISTORY",clauses);
-			
-			storage = parser.parseFeatureHistories(returnValue);
-			
-			if(storage.size() == 0)
-			{
-				return null;
-			}
-			else
-			{
-				return storage;
-			}
-		}
-		else
-		{
-			if(feature == null && ERROR_LOGGING == 1)
-				errorMessage("FEATURE HSTORY", "A NULL TRACKED FEATURE OBJECT\n", "INSTANTIATE A TRCKED FEATURE OBJECT");	
-			
-			if(feature != null && feature.getID() < 0 && ERROR_LOGGING == 1)
-				errorMessage("FEATURE HISTORY", "A TRACKED FEATURE OBJECT THAT HAS NOT BEEN INSERTED INTO DMBS\n", "INSERT THE TRACKED FEATURE OBJECT");
-
-			
-			return null;
-		}
-		
 	}
 	
 	/**
@@ -1495,36 +1402,6 @@ public class DBInterface extends AbstractDBInterface
 		}
 	}
 	
-	/**DUMPFEATUREHISTORY()
-	 * 
-	 * Returns all tracked feature histries on the DBMS;
-	 * 
-	 */
-	
-	public ArrayList<FeatureHistory> dumpFeatureHistory()
-	{
-		ArrayList<FeatureHistory> storage = new ArrayList<FeatureHistory>();
-		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
-		ArrayList<String> conditions = new ArrayList<String>();
-		ArrayList<ArrayList<String>> returnValue = new ArrayList<ArrayList<String>>();
-		
-		conditions.add("ALL");
-		
-		clauses.add(conditions);
-		
-		returnValue  = this.mainDB.query("FEATURE_HISTORY", clauses);
-		
-		storage = parser.parseFeatureHistories(returnValue);
-		
-		if(storage.size() == 0)
-		{
-			return null;
-		}
-		else
-		{
-			return storage;
-		}
-	}
 	
 	/**DUMPTRACKEDFEATURETYPES()
 	 * 

@@ -43,7 +43,7 @@ public class DBController
 	}
 	
 	/**
-	 * DISCONNECT()															</br></br>
+	 * CONNECT()															</br></br>
 	 * 
 	 * NOTES:	Starts new session with DB.
 	 * 
@@ -70,6 +70,28 @@ public class DBController
 	
 	}
 	
+	/**ISCLOSED()
+	 * 
+	 * Checks if dbms is closed.
+	 */
+	
+	public boolean isClosed()
+	{
+		boolean output = false;
+	
+		try
+		{
+			output = conn.isClosed();
+		}
+		catch(Exception e)
+		{
+			errorOutput(e);
+		}
+		
+		return output;
+	}
+	
+
 	/**
 	 * DISCONNECT()															</br></br>
 	 * 

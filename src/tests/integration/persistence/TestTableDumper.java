@@ -19,7 +19,6 @@ public class TestTableDumper
 		assertNotNull("Table dump, Contracts", tableDump.dumpContracts());
 		assertNotNull("Table dump, Clients", tableDump.dumpClients());
 		assertNotNull("Table dump, Features", tableDump.dumpTrackedFeatures());
-		assertNotNull("Table dump, Histories", tableDump.dumpFeatureHistory());
 		assertNotNull("Table dump, Histories", tableDump.dumpExpenses());
 		assertNotNull("Table dump, Histories", tableDump.dumpTrackedFeatureTypes());
 		assertNotNull("Table dump, Histories", tableDump.dumpServiceTypes());
