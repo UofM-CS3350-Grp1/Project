@@ -104,16 +104,14 @@ public class AddTrackableFeatureDrawer
 	 */
 	protected void processActionButton()
 	{
-		TrackedFeature feature;
 		TrackedFeatureType featureType;
 		MessageBox dialog;
 		
 		try
 		{
 			featureType = new TrackedFeatureType(txtName.getText());
-			feature = new TrackedFeature(txtName.getText(), featureType);
 			
-			if(processAddFeature.insert(feature))
+			if(processAddFeature.insert(featureType))
 				backToPreviousScreen();
 		}
 		catch(Exception e) 

@@ -1,8 +1,10 @@
 package business;
 
 import java.util.ArrayList;
+
 import objects.Client;
 import objects.TrackedFeature;
+import objects.TrackedFeatureType;
 
 /**
  * Processes the adding of new trackable features
@@ -22,7 +24,31 @@ public class ProcessAddFeature extends ProcessStorable
 		features = null;
 		featureIndex = 0;
 	}
+	
+	/*
+	 * @return The feature type by Title
+	 */
+	public ArrayList<TrackedFeatureType> getFeatureTypeByTitle(String title)
+	{
+		ArrayList<TrackedFeatureType> feature = null;
+		database.connect();
+		feature = database.getTrackedFeatureTypesByTitle(title);
+		database.disconnect();
+		return feature;
+	}
 		
+	/*
+	 * @return all available feature types
+	 */
+	public ArrayList<TrackedFeatureType> getFeatureTypes()
+	{
+		ArrayList<TrackedFeatureType> features = null;
+		database.connect();
+		features = database.dumpTrackedFeatureTypes();
+		database.disconnect();
+		return features;
+	}
+	
 	/**
 	 * Gets the next feature in the database
 	 * @return The next feature or null if we have reached the end of the list

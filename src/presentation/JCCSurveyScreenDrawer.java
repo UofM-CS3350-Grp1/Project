@@ -3,10 +3,11 @@ package presentation;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 import objects.Client;
-import objects.FeatureHistory;
 import objects.TrackedFeature;
+import objects.TrackedFeatureType;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -79,18 +80,8 @@ public class JCCSurveyScreenDrawer
 		comboFeature = new Combo(btnSurvey, SWT.READ_ONLY);
 		comboFeature.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, false, false, 1, 1));
 		comboFeature.setBounds(104, 40, 96, 23);
-
-		// Fills the drop down with tracking features when a client is selected
-		comboClient.addSelectionListener(new SelectionAdapter()
-		{
-			public void widgetSelected(SelectionEvent e)
-			{
-				Client theClient = null;
-				ProcessClient processClient = new ProcessClient();
-				theClient = processClient.getClientByBusinessName(comboClient.getText());
-				fillComboFeature(comboFeature, theClient);
-			}
-		});
+		
+		fillComboFeature(comboFeature);
 
 		// Fill the Month drop down
 		comboMonth = new Combo(btnSurvey, SWT.READ_ONLY);
@@ -184,30 +175,32 @@ public class JCCSurveyScreenDrawer
 				Client client = processClient.getClientByBusinessName(comboClient.getText());
 
 				ProcessAddFeature processFeature = new ProcessAddFeature();
-				ArrayList<TrackedFeature> featureList = new ArrayList<TrackedFeature>();
-				featureList = processFeature.getFeaturesByClient(client);
-				TrackedFeature feature = null;
-
-				for (int i = 0; i < featureList.size(); i++)
+				
+				ArrayList<TrackedFeatureType> featureList = processFeature.getFeatureTypeByTitle(comboFeature.getText());
+				TrackedFeatureType featureType = null;
+				
+				if(featureList!=null)
 				{
-					if ((featureList.get(i).getFeatureName()).equals(comboFeature.getText()))
-					{
-						feature = featureList.get(i);
-						i = featureList.size();
-					}
+					featureType = featureList.get(0);
 				}
+				TrackedFeature feature = new TrackedFeature(txtDetails.getText(), client.getID(), featureType, date, Double.parseDouble(txtValue.getText()));
 
 				// Make sure we're not passing a null string in the FeatureHistory constructor
-				String textDetails = "";
+				String details = "";
 				if (txtDetails.getText() != null)
 				{
-					textDetails = txtDetails.getText();
+					details = txtDetails.getText();
 				}
+				
+				boolean inserted = processFeature.insert(feature);
 
-				// Created the FeatureHistory object and insert it into the DB
-				FeatureHistory newFeature = new FeatureHistory(feature, client, Double.parseDouble(txtValue.getText()), date, textDetails);
-				ProcessFeatureHistory processFeatureHistory = new ProcessFeatureHistory();
-				processFeatureHistory.insertFeature(newFeature);
+				// These println's starting here can be removed once successful processing is verified
+				if (inserted)
+					System.out.println("\nSurvey Info Add: SUCCESS\n");
+				else
+					System.out.println("\nSurvey Info Add: FAIL\n");
+				System.out.println("\nTrackedFeature Object (feature):\nfeature.getClientKey(): " + feature.getClientKey() + "\nfeature.getID(): " + feature.getID() + "\nfeature.getNotes(): " + feature.getNotes() + "\nfeature.getTableName(): " + feature.getTableName() + "\nfeature.getTrackedFeatureType().toString(): " + feature.getTrackedFeatureType().toString());
+				// Up to here
 			}
 			catch(Exception e)
 			{
@@ -229,16 +222,23 @@ public class JCCSurveyScreenDrawer
 		}
 	}
 
-	public void fillComboFeature(Combo comboFeature, Client theClient)
+	public void fillComboFeature(Combo comboFeature)
 	{
 		ProcessAddFeature processFeature = new ProcessAddFeature();
-		ArrayList<TrackedFeature> featureList = new ArrayList<TrackedFeature>();
-		featureList = processFeature.getFeaturesByClient(theClient);
+		TrackedFeatureType feature = null;
+		ArrayList<TrackedFeatureType> featureList;
 		comboFeature.removeAll();
-
-		for (int i = 0; i < featureList.size(); i++)
+		featureList = processFeature.getFeatureTypes();
+		
+		if(featureList!=null)
 		{
-			comboFeature.add(featureList.get(i).getFeatureName());
+			Iterator<TrackedFeatureType> it = featureList.iterator();
+			
+			while(it.hasNext())
+			{
+				feature = it.next();
+				comboFeature.add(feature.getTitle());
+			}
 		}
 	}
 

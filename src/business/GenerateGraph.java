@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import objects.Client;
-import objects.FeatureHistory;
 import objects.MonthReport;
 import objects.ServiceType;
 import objects.TrackedFeature;
@@ -44,10 +43,10 @@ public class GenerateGraph
 		JFreeChart chart = null;
 		DefaultCategoryDataset data = new DefaultCategoryDataset();
 		Plot plot;
-		ArrayList<FeatureHistory> histories;
+		ArrayList<TrackedFeature> histories;
 		int size;
 		SimpleDateFormat sdf;
-		FeatureHistory history;
+		TrackedFeature history;
 		
 		assert (feature != null);
 		if(feature != null)
@@ -65,7 +64,7 @@ public class GenerateGraph
 						//NOTE These will need to be properly summed by month and 
 						//probably impose the same 12 month cycle property
 						history = histories.get(i);
-						data.addValue(history.getValue(), feature.getFeatureName(), sdf.format(history.getDate()));
+						data.addValue(history.getValue(), feature.getTrackedFeatureType().getTitle(), sdf.format(history.getDate()));
 					}
 				}
 				catch(Exception e)
@@ -76,7 +75,7 @@ public class GenerateGraph
 		}	
 		
 		//Setup the chart names and axes
-		chart = ChartFactory.createLineChart(feature.getFeatureName(), "Period (Months)", feature.getFeatureName(), data);
+		chart = ChartFactory.createLineChart(feature.getTrackedFeatureType().getTitle(), "Period (Months)", feature.getTrackedFeatureType().getTitle(), data);
 		chart.removeLegend();
 		
 		plot = chart.getPlot();

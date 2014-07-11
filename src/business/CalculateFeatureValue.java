@@ -1,6 +1,5 @@
 package business;
 
-import objects.FeatureHistory;
 import objects.Trackable;
 import objects.TrackedFeature;
 
@@ -18,7 +17,7 @@ public class CalculateFeatureValue
 	public static double calculateTotalValue(Trackable trackable, TrackedFeature feature)
 	{
 		ProcessFeatureHistory processHistory = new ProcessFeatureHistory();
-		FeatureHistory history;
+		TrackedFeature history;
 		double total = 0.0;
 		
 		assert (feature != null && trackable != null);

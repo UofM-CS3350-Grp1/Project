@@ -62,7 +62,7 @@ public class TrackableFeatureScreenDrawer extends BaseStorableScreenDrawer
 			item = new TableItem(table, SWT.NULL);
 			
 			item.setText(0, feature.getID() + "");
-			item.setText(1, feature.getFeatureName());
+			//item.setText(1, feature.get);
 			item.setText(2, feature.getNotes());
 		}
 	}

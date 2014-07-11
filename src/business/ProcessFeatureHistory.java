@@ -2,17 +2,17 @@ package business;
 
 import java.util.ArrayList;
 
-import objects.FeatureHistory;
 import objects.Trackable;
 import objects.TrackedFeature;
+import objects.TrackedFeatureType;
 
 /**
  * Processes the adding, editing and deletion of new feature history
  */
 public class ProcessFeatureHistory extends ProcessStorable
 {
-	private ArrayList<FeatureHistory> histories;
-	private ArrayList<FeatureHistory> featureHistories;
+	private ArrayList<TrackedFeature> histories;
+	private ArrayList<TrackedFeatureType> featureHistories;
 	private int histIndex;
 	private int featureHistIndex;
 
@@ -33,14 +33,14 @@ public class ProcessFeatureHistory extends ProcessStorable
 	 * Gets the next history in the database
 	 * @return The next history or null if we have reached the end of the list
 	 */
-	public FeatureHistory getNextHistory()
+	public TrackedFeature getNextHistory()
 	{
-		FeatureHistory history = null;
+		TrackedFeature history = null;
 
 		if(histories == null)
 		{
 			database.connect();
-			histories = database.dumpFeatureHistory();
+			histories = database.dumpTrackedFeatures();
 			database.disconnect();
 
 			if(histories != null && histories.size() > 0)
@@ -67,15 +67,15 @@ public class ProcessFeatureHistory extends ProcessStorable
 	 * @param id 	The ID of the history
 	 * @return	The history if found, null otherwise
 	 */
-	public FeatureHistory getHistoryByID(int id)
+	public TrackedFeature getHistoryByID(int id)
 	{
-		FeatureHistory history = null;
+		TrackedFeature history = null;
 
 		assert (id >= 0);
 		if(id >= 0)
 		{
 			database.connect();
-			history = database.getFeatureHistoryByID(id);
+			history = database.getTrackedFeatureByID(id);
 			database.disconnect();
 		}
 		
@@ -88,11 +88,11 @@ public class ProcessFeatureHistory extends ProcessStorable
 	 * @param feature The feature to get history for
 	 * @return The next history object or null if we have reached the end
 	 */
-	public FeatureHistory getNextHistoryForFeature(Trackable service, TrackedFeature feature)
+	public TrackedFeature getNextHistoryForFeature(Trackable service, TrackedFeature feature)
 	{
-		FeatureHistory history = null;
+		TrackedFeature history = null;
 
-		if(featureHistories == null)
+		/*if(featureHistories == null)
 		{
 			database.connect();
 			//TODO FIX THIS
@@ -113,7 +113,7 @@ public class ProcessFeatureHistory extends ProcessStorable
 		else
 		{
 			featureHistories = null;
-		}
+		}*/
 
 		return history;
 	}
@@ -123,22 +123,22 @@ public class ProcessFeatureHistory extends ProcessStorable
 	 * @param feature 	The feature to get history for
 	 * @return	The list of history
 	 */
-	public ArrayList<FeatureHistory> getHistoryListForFeature(TrackedFeature feature)
+	public ArrayList<TrackedFeature> getHistoryListForFeature(TrackedFeature feature)
 	{
-		ArrayList<FeatureHistory> list = new ArrayList<FeatureHistory>();
+		ArrayList<TrackedFeature> list = new ArrayList<TrackedFeature>();
 		
-		assert (feature != null);
+		/*assert (feature != null);
 		if(feature != null)
 		{
 			database.connect();
 			list = database.getFeatureHistoryByFeature(feature);
 			database.disconnect();
-		}
+		}*/
 		
 		return list;
 	}
 
-	public boolean insertFeature(FeatureHistory feature)
+	public boolean insertFeature(TrackedFeature feature)
 	{
 		boolean inserted = false;
 		database.connect();

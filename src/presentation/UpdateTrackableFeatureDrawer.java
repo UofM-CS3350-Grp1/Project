@@ -39,7 +39,7 @@ public class UpdateTrackableFeatureDrawer extends AddTrackableFeatureDrawer
 	{		
 		if(feature != null)
 		{
-			feature.setFeatureName(txtName.getText());
+			//feature.setFeatureName(txtName.getText());
 			feature.setNotes(txtNotes.getText());
 			
 			if(processAddFeature.update(feature))
@@ -54,7 +54,7 @@ public class UpdateTrackableFeatureDrawer extends AddTrackableFeatureDrawer
 	{
 		if(feature != null)
 		{
-			txtName.setText(feature.getFeatureName());
+			//txtName.setText(feature.getFeatureName());
 			txtNotes.setText(feature.getNotes());
 		}
 	}
