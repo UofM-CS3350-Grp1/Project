@@ -20,6 +20,7 @@ public class LoginDrawer
 	private Composite composite;
 	private ProcessUser processUser;
 	protected Button btnLogin;
+	protected Button btnForgot;
 	protected Text txtUser;
 	protected Text txtPass;
 
@@ -42,24 +43,30 @@ public class LoginDrawer
 
 		GridData componentTweaker = null;
 
+		GridData gd_lblFields = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_lblFields.widthHint = 85;
+
 		// username
 		Label lblUser = new Label( composite, SWT.None );
-		lblUser.setText( "User: ( Type admin )" );
+		lblUser.setText( "User: " );
 		lblUser.setLayoutData( componentTweaker );
 
 		txtUser = new Text( composite, SWT.BORDER );
-		txtUser.setLayoutData( componentTweaker );
+		txtUser.setLayoutData( gd_lblFields );
 
 		// password
 		Label lblPass = new Label( composite, SWT.None );
-		lblPass.setText( "Password: ( Type password )" );
+		lblPass.setText( "Password: " );
 		lblPass.setLayoutData( componentTweaker );
 
 		txtPass = new Text( composite, SWT.BORDER | SWT.PASSWORD );
-		txtPass.setLayoutData( componentTweaker );
+		txtPass.setLayoutData( gd_lblFields );
 
 		// login button
 		Button btnLogin = new Button( composite, SWT.None );
+		GridData gd_btnLogin = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_btnLogin.widthHint = 100;
+		btnLogin.setLayoutData(gd_btnLogin);
 		btnLogin.setText( "Login" );
 
 		btnLogin.addSelectionListener(new SelectionAdapter()
@@ -70,8 +77,23 @@ public class LoginDrawer
 				processLoginButton();
 			}
 		});
-				new Label(composite, SWT.NONE);
-		
+
+		// forgot pw button
+		Button btnForgot_1 = new Button( composite, SWT.None );
+		btnForgot_1.setText( "Forgot Password" );
+
+		btnForgot_1.addSelectionListener(new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected(SelectionEvent event)
+			{
+				processForgotButton();
+			}
+		});
+
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+
 		// List usernames and pw's for now
 		Label lblLoginInfo = new Label( composite, SWT.None );
 		lblLoginInfo.setText( "\nUsers\tPasswords\n\nAdrian\tpassword\nDell\tpassword\nDerek\tpassword\nJason\tpassword\nKarl\tpassword\nTim\tpassword\n" );
@@ -115,6 +137,15 @@ public class LoginDrawer
 			dialog.setMessage("User and/or Password cannot be blank");
 			dialog.open();
 		}
+	}
+
+	protected void processForgotButton()
+	{
+		MessageBox dialog;
+		dialog = new MessageBox(new Shell(), SWT.ICON_INFORMATION | SWT.OK);
+		dialog.setText("Sorry");
+		dialog.setMessage("Not implemented yet...");
+		dialog.open();
 	}
 
 	protected boolean isFormDataValid()

@@ -1,19 +1,24 @@
 package presentation;
 
+import objects.User;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Button;
-import objects.User;
 
 public class LoggedInDrawer 
 {
 	private Composite composite;
 	protected Button btnLogout;
+	protected Button btnChangePW;
 
 	/**
 	 * Call the constructor with a shell's main component as <container>
@@ -28,24 +33,46 @@ public class LoggedInDrawer
 
 		// organizer
 		GridLayout compositeLayout = new GridLayout();
+		compositeLayout.numColumns = 2;
 		compositeLayout.makeColumnsEqualWidth = true;
 		composite.setLayout( compositeLayout );
 
 		GridData componentTweaker = null;
 
 		String loggedInAs = User.getCurrentUser();
+
 		// username
 		Label lblUser = new Label( composite, SWT.None );
-		lblUser.setText( "Logged in as: " + loggedInAs );
+		lblUser.setText( "Logged in as: ");
 		lblUser.setLayoutData( componentTweaker );
+
+		Label lblActiveUser = new Label( composite, SWT.None );
+		lblActiveUser.setText(loggedInAs);
+		lblActiveUser.setLayoutData( componentTweaker );
 
 		composite.setLayout( compositeLayout );
 		
-		// logout button
-		Button btnLogout_1 = new Button( composite, SWT.None );
-		btnLogout_1.setText( "Logout" );
+		// Change PW button
+		btnChangePW = new Button( composite, SWT.None );
+		btnChangePW.setText( "Update Password" );
 		
-		btnLogout_1.addSelectionListener(new SelectionAdapter()
+		btnChangePW.addSelectionListener(new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected(SelectionEvent event)
+			{
+				processChangePWButton();
+			}
+		});
+
+		// logout button
+		btnLogout = new Button( composite, SWT.None );
+		GridData gd_btnLogout = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_btnLogout.widthHint = 102;
+		btnLogout.setLayoutData(gd_btnLogout);
+		btnLogout.setText( "Logout" );
+
+		btnLogout.addSelectionListener(new SelectionAdapter()
 		{
 			@Override
 			public void widgetSelected(SelectionEvent event)
@@ -53,6 +80,7 @@ public class LoggedInDrawer
 				processLogoutButton();
 			}
 		});
+
 	}
 
 	protected void processLogoutButton()
@@ -62,5 +90,14 @@ public class LoggedInDrawer
 		Composite loginScreen = SwitchScreen.getContentContainer();
 		LoginDrawer ld = new LoginDrawer( loginScreen );
 		SwitchScreen.switchContent( loginScreen );
+	}
+
+	protected void processChangePWButton()
+	{
+		MessageBox dialog;
+		dialog = new MessageBox(new Shell(), SWT.ICON_INFORMATION | SWT.OK);
+		dialog.setText("Sorry");
+		dialog.setMessage("Not implemented yet...");
+		dialog.open();
 	}
 }
