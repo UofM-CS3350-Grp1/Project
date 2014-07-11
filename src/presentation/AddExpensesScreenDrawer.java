@@ -25,6 +25,7 @@ import org.eclipse.swt.widgets.Label;
 import business.ProcessClient;
 import business.ProcessContract;
 import business.ProcessExpenses;
+import business.ProcessService;
 import business.ValidateTextbox;
 
 import org.eclipse.swt.widgets.Text;
@@ -135,6 +136,7 @@ public class AddExpensesScreenDrawer
 				try
 				{
 					addSurvey(Double.parseDouble(value.getText()), details.getText());
+					goBackToJCCScreen();
 				}
 				catch(NumberFormatException nfe)
 				{
@@ -263,7 +265,6 @@ public class AddExpensesScreenDrawer
 						{
 							service = it.next();
 							comboService.add(String.valueOf(service.getTitle()));
-							selectedService = service;
 			
 						}
 					}
@@ -284,6 +285,41 @@ public class AddExpensesScreenDrawer
 		ProcessExpenses processExpenses = new ProcessExpenses();
 		Date date = new Date();
 		Expense expense;
+		
+		ProcessContract processContract = new ProcessContract();
+		ArrayList<Service> serviceList = null;
+		Contract contract = processContract.getContractByID(Integer.parseInt(comboContract.getText()));
+		serviceList = processContract.getServices(contract);
+		ProcessClient processClient = new ProcessClient();
+		Client client = null;
+		client = processClient.getClientByBusinessName(comboClient.getText());
+		Iterator<Service> it;	
+		Service service;
+		
+			try
+			{
+				if(contract != null)
+				{
+					serviceList = processContract.getServices(contract);				
+					if(serviceList != null)
+					{					
+						it = serviceList.iterator();
+						while(it.hasNext())
+						{
+							service = it.next();
+							if(service.getTitle().contains(comboService.getText()))
+							{
+								selectedService = service;
+							}
+						}
+					}
+				}
+			}
+			catch(Exception e)
+			{
+				System.out.println(e);
+			}
+			
 		
 		if(details != null)
 		{

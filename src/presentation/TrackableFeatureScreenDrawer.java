@@ -1,6 +1,10 @@
 package presentation;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import objects.TrackedFeature;
+import objects.TrackedFeatureType;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -48,7 +52,8 @@ public class TrackableFeatureScreenDrawer extends BaseStorableScreenDrawer
 	 */
 	protected void populateTable()
 	{
-		TrackedFeature feature = null;
+		ArrayList<TrackedFeatureType> featureList = null;
+		TrackedFeatureType feature = null;
 		TableItem item;
 		
 		table.removeAll();
@@ -56,14 +61,23 @@ public class TrackableFeatureScreenDrawer extends BaseStorableScreenDrawer
 		if(processFeature == null)
 			processFeature = new ProcessAddFeature();
 		
-		//Populate our features
-		while((feature = processFeature.getNextFeature()) != null)
+		featureList = processFeature.getFeatureTypes();
+		
+		if(featureList!=null)
 		{
-			item = new TableItem(table, SWT.NULL);
+			Iterator<TrackedFeatureType> it = featureList.iterator();
 			
-			item.setText(0, feature.getID() + "");
-			//item.setText(1, feature.get);
-			item.setText(2, feature.getNotes());
+			
+			//Populate our features
+			while(it.hasNext())
+			{
+				feature = it.next();
+				item = new TableItem(table, SWT.NULL);
+				
+				item.setText(0, feature.getID() + "");
+				item.setText(1, feature.getID() + "");
+				item.setText(2, feature.getTitle());
+			}
 		}
 	}
 	
