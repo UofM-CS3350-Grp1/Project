@@ -7,7 +7,7 @@ cd ../
 
 call setClasspath
 
-java -cp %CLASSPATH% tests.RunAcceptanceTests %SLEEP%
+java -cp %CLASSPATH% tests.RunAcceptanceTests > AcceptanceTestResults.txt %SLEEP%
 
 set SLEEP=
 
