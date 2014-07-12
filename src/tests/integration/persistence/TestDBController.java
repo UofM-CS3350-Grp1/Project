@@ -25,7 +25,7 @@ public class TestDBController
 	@Test
 	public void testModify1()
 	{
-		DBInterface iFace = new DBInterface("CacheDB");
+		DBInterface iFace = new DBInterface("MainDB");
 		
 		iFace.connect();
 		DBController controller = iFace.getController();

@@ -18,7 +18,7 @@ public class TestDBInterface
 	@Test
 	public void testValidRetrieval() 
 	{
-		DBInterface mainFace = new DBInterface("CacheDB");
+		DBInterface mainFace = new DBInterface("MainDB");
 		mainFace.connect();
 		
 		assertNotNull("Basic ID implementation for services", mainFace.getServiceByID(1));
@@ -44,7 +44,7 @@ public class TestDBInterface
 	@Test
 	public void testInvalidRetreval()
 	{
-		DBInterface mainFace = new DBInterface("CacheDB");
+		DBInterface mainFace = new DBInterface("MainDB");
 		mainFace.connect();
 		
 		Contract badContract = new Contract("NAME", "DETAILS", 3.1, new Date(), new Date(), new Date());
@@ -73,7 +73,7 @@ public class TestDBInterface
 	@Test
 	public void testValidInsertUpdateDelete()
 	{
-		DBInterface mainFace = new DBInterface("CacheDB");
+		DBInterface mainFace = new DBInterface("MainDB");
 		mainFace.connect();
 		
 		Service newService = new Service(80, "TITLE", "DESCRIP", 5.7, -1, 1, mainFace.getServiceTypeByID(1),"ContractBody");
@@ -123,7 +123,7 @@ public class TestDBInterface
 	@Test
 	public void testInvalidInsertUpdateDelete()
 	{
-		DBInterface mainFace = new DBInterface("CacheDB");
+		DBInterface mainFace = new DBInterface("MainDB");
 		mainFace.connect();
 	
 		TrackedFeature newTracking = new TrackedFeature("Lobslawbombs",2, mainFace.getTrackedFeatureTypeByID(2), new Date(), 4.0);
@@ -143,7 +143,7 @@ public class TestDBInterface
 	@Test
 	public void testValidBulkInsert()
 	{
-		DBInterface mainFace = new DBInterface("CacheDB");
+		DBInterface mainFace = new DBInterface("MainDB");
 		mainFace.connect();
 		
 		ArrayList<Storable> conList = new ArrayList<Storable>();

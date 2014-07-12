@@ -16,8 +16,8 @@ public class RelationalQueryBuilderTest {
 		assertNotNull("Get Service by Contract", rqb.getServiceByContract(rqb.getContractByID(1)));
 		assertNotNull("Get Service by Client", rqb.getServiceByClient(rqb.getClientByID(1)));
 		assertNotNull("Get Client By Feature", rqb.getClientByFeature(rqb.getTrackedFeatureByID(2)));
-		assertNotNull("Tracked features by service", rqb.getTrackedFeaturesByClient(rqb.getClientByID(3)));
-		assertNotNull("Expense by service", rqb.getExpensesByService(rqb.getServiceByID(1)));
+		assertNotNull("Tracked features by service", rqb.getTrackedFeaturesByClient(rqb.getClientByID(2)));
+		assertNotNull("Expense by service", rqb.getExpensesByService(rqb.getServiceByID(3)));
 		assertNotNull("ServiceType by ID", rqb.getServiceTypesByType("Web Design"));
 		assertNotNull("FeatureType", rqb.getTrackedFeatureTypesByTitle("Page Hits"));
 		rqb.disconnect();

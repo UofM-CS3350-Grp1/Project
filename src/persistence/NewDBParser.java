@@ -121,7 +121,7 @@ public class NewDBParser
 			
 			try
 			{
-				date = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(input.get(i).get(6));
+				date = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(input.get(i).get(5));
 			}
 			catch(Exception e)
 			{
@@ -132,11 +132,11 @@ public class NewDBParser
 			if(type != null && date != null)
 			{
 				item = new TrackedFeature(
-						input.get(i).get(4),
+						input.get(i).get(3),
 						Integer.parseInt(input.get(i).get(0)),
 						Integer.parseInt(input.get(i).get(1)),
 						type,
-						Double.parseDouble(input.get(i).get(5)),
+						Double.parseDouble(input.get(i).get(4)),
 						date
 						);
 				output.add(item);

@@ -16,7 +16,7 @@ public class TestIDQueryBuilder {
 		
 		assertNotNull("Query builder client", iqBuilder.getClientByID(1));
 		assertNotNull("Query builder service", iqBuilder.getServiceByID(1));
-		assertNotNull("Query builder contract", iqBuilder.getContractByID(1));
+		assertNotNull("Query builder contract", iqBuilder.getContractByID(5));
 		assertNotNull("Query builder expense", iqBuilder.getExpenseByID(1));
 		assertNotNull("Query builder expense", iqBuilder.getTrackedFeatureByID(1));
 		assertNotNull("Query builder expense", iqBuilder.getServiceTypeByID(1));
