@@ -76,7 +76,7 @@ public class AccessFinancialRecords
 		if(serviceType != null)
 		{
 			database.connect();
-			reports = database.getLastYearServiceRevenue(serviceType);
+			reports = database.getLastYearServiceExpenses(serviceType);
 			database.disconnect();
 		}
 		

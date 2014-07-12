@@ -1,5 +1,6 @@
 package objects;
 
+import java.util.Comparator;
 import java.util.Date;
 
 /**
@@ -43,4 +44,22 @@ public class MonthReport
 	{
 		return value;
 	}
+	
+	/**
+	 * Compares monthly reports by date
+	 */
+	public static Comparator<MonthReport> compareByDate = new Comparator<MonthReport>() 
+    {
+        public int compare(MonthReport r1, MonthReport r2)
+        {
+            int retVal = 0;
+            
+            if(r1.period.getTime() < r2.period.getTime())
+                retVal = -1;
+            else if(r1.period.getTime() > r2.period.getTime())
+                retVal = 1;
+                
+            return retVal;
+        }
+    };
 }
