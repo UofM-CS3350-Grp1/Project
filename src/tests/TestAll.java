@@ -9,6 +9,7 @@ import tests.business.CalcFeatureValueTest;
 import tests.business.DateTimeUtilTest;
 import tests.business.GenerateGraphTest;
 import tests.business.ProcessClientTest;
+import tests.business.ProcessContractTest;
 import tests.business.ProcessFeatureTest;
 import tests.objects.ClientTest;
 import tests.objects.ContractTest;
@@ -39,7 +40,8 @@ import tests.objects.UserTest;
 			DateTimeUtilTest.class,
 			GenerateGraphTest.class,
 			ProcessFeatureTest.class,
-			ProcessClientTest.class
+			ProcessClientTest.class,
+			ProcessContractTest.class
 		})
 public class TestAll
 { }

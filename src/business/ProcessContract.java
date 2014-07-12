@@ -192,7 +192,7 @@ public class ProcessContract extends ProcessStorable
 	 */
 	public void setServices(Contract contract, ArrayList<Service> services)
 	{
-		if(contract != null)
+		if(contract != null && services != null)
 		{
 			contract.addServices(services);
 			database.connect();
