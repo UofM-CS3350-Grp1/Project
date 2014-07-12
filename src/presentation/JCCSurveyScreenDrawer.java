@@ -196,9 +196,11 @@ public class JCCSurveyScreenDrawer
 
 				// These println's starting here can be removed once successful processing is verified
 				if (inserted)
+				{
 					System.out.println("\nSurvey Info Add: SUCCESS\n");
-				else
+				}else{
 					System.out.println("\nSurvey Info Add: FAIL\n");
+				}
 				System.out.println("\nTrackedFeature Object (feature):\nfeature.getClientKey(): " + feature.getClientKey() + "\nfeature.getID(): " + feature.getID() + "\nfeature.getNotes(): " + feature.getNotes() + "\nfeature.getTableName(): " + feature.getTableName() + "\nfeature.getTrackedFeatureType().toString(): " + feature.getTrackedFeatureType().toString());
 				// Up to here
 			}

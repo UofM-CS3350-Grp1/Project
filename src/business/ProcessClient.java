@@ -159,29 +159,6 @@ public class ProcessClient extends ProcessStorable
 	}
 	
 	/**
-	 * Removes a service from a given client
-	 * @param service	The service to remove
-	 * @return	True if removed successfully
-	 */
-	public boolean removeServiceFromClient(Service service)
-	{
-		boolean removed = false;
-		
-		assert (service != null);
-		if(service != null)
-		{
-			database.connect();
-			
-			service.setClientID(0);
-			removed = database.update(service);
-			
-			database.disconnect();
-		}
-		
-		return removed;
-	}
-	
-	/**
 	 * Gets the next client service in the database
 	 * @return The next service or null if we have reached the end of the list
 	 */

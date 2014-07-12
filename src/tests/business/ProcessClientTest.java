@@ -93,13 +93,6 @@ public class ProcessClientTest
 	}
 	
 	@Test
-	public void testRemoveService()
-	{
-		ProcessClient process = new ProcessClient();
-		assertFalse("Removing client service is invalid", process.removeServiceFromClient(null));
-	}
-	
-	@Test
 	public void testGetNextService()
 	{
 		ProcessClient process = new ProcessClient();

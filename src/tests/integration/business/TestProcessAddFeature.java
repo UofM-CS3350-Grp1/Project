@@ -12,7 +12,11 @@ import objects.TrackedFeature;
 import objects.TrackedFeatureType;
 import objects.Client.ClientStatus;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 
 import business.ProcessAddFeature;
 import business.ProcessClient;
@@ -23,6 +27,21 @@ public class TestProcessAddFeature {
 	DBInterface database = new DBInterface("db");
 	TrackedFeatureType featureTypeValid = new TrackedFeatureType("Test");
 	TrackedFeatureType featureTypeValid2 = new TrackedFeatureType("Test2");
+
+	@Rule
+	public TestName testName = new TestName();
+	
+	@Before
+	public void before()
+	{
+		System.out.println("Running test: " + testName.getMethodName());
+	}
+	
+	@After
+	public void after()
+	{
+		System.out.println("Finished test.\n");
+	}
 	
 	@Test
 	public void testProcessAddFeature() {
@@ -36,17 +55,13 @@ public class TestProcessAddFeature {
 
 		ProcessAddFeature processAddFeature = new ProcessAddFeature();
 		
-		database.connect();
 		processAddFeature.insert(featureTypeValid);
-		database.disconnect();
 
 		assertEquals(featureTypeValid.getTitle(), processAddFeature.getFeatureTypeByTitle("Test").get(0).getTitle());
 		assertNotNull(processAddFeature.getFeatureTypeByTitle("Test").get(0).getTitle());
 		assertNull(processAddFeature.getFeatureTypeByTitle("Invalid title"));
 		
-		database.connect();
-		database.drop(featureTypeValid);
-		database.disconnect();
+		processAddFeature.delete(featureTypeValid);
 	}
 
 	@Test
@@ -54,12 +69,10 @@ public class TestProcessAddFeature {
 
 		ProcessAddFeature processAddFeature = new ProcessAddFeature();
 		
-		database.connect();
 		processAddFeature.insert(featureTypeValid);
-		database.disconnect();
 		
 		assertNotNull(processAddFeature.getFeatureTypes());
-		
+
 		database.connect();
 		database.drop(featureTypeValid);
 		database.disconnect();
@@ -69,10 +82,8 @@ public class TestProcessAddFeature {
 	public void testGetNextFeature() {
 		ProcessAddFeature processAddFeature = new ProcessAddFeature();
 		
-		database.connect();
 		processAddFeature.insert(featureTypeValid);
 		processAddFeature.insert(featureTypeValid2);
-		database.disconnect();
 
 		assertNotNull(processAddFeature.getNextFeature());
 		assertNotNull(processAddFeature.getNextFeature());
@@ -89,9 +100,7 @@ public class TestProcessAddFeature {
 
 		ProcessAddFeature processAddFeature = new ProcessAddFeature();
 		
-		database.connect();
 		processAddFeature.insert(featureTypeValid);
-		database.disconnect();
 
 		assertNotNull(processAddFeature.getFeatureByID(1));
 		assertNull(processAddFeature.getFeatureByID(-1));
@@ -109,26 +118,22 @@ public class TestProcessAddFeature {
 		ProcessAddFeature processAddFeature = new ProcessAddFeature();
 		ProcessClient processClient = new ProcessClient();
 
-		database.connect();
 		processClient.insert(client);
 		processAddFeature.insert(featureTypeValid);
-		database.disconnect();
 		
 		client = processClient.getClientByBusinessName(client.getBusinessName());
 		featureTypeValid = processAddFeature.getFeatureTypeByTitle(featureTypeValid.getTitle()).get(0);
 		
 		TrackedFeature featureValid = new TrackedFeature("notes", client.getID(), featureTypeValid, new Date(), 100.0);
 
-		database.connect();
 		processAddFeature.insert(featureValid);
-		database.disconnect();
 		
 		assertEquals(featureValid.getNotes(), processAddFeature.getFeaturesByClient(client).get(0).getNotes());
 		
 		database.connect();
 		database.drop(featureValid);
 		database.drop(featureTypeValid);
-		database.drop(client);
+		processClient.delete(client);
 		database.disconnect();
 	}
 
