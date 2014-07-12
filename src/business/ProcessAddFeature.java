@@ -30,7 +30,7 @@ public class ProcessAddFeature extends ProcessStorable
 	 */
 	public ArrayList<TrackedFeatureType> getFeatureTypeByTitle(String title)
 	{
-		ArrayList<TrackedFeatureType> feature = null;
+		ArrayList<TrackedFeatureType> feature = new ArrayList<TrackedFeatureType>();
 		
 		if(title != null)
 		{
