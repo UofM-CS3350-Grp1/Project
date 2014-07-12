@@ -107,23 +107,30 @@ public class ProcessService extends ProcessStorable
 	{
 		ArrayList<Service> services = null;
 		Service service = null;
+		boolean found = false;
+		Iterator<Service> it;
 		
-		assert (title!=null);
-		
-		database.connect();
-		services = database.dumpServices();
-		database.disconnect();
-		
-		Iterator<Service> it = services.iterator();
-		Service temp = null;
-		
-		while(it.hasNext())
-		{
-			temp = it.next();
-			if(temp.getTitle()==title)
+		assert (title != null && !title.isEmpty());
+		if(title != null && !title.isEmpty())
+		{		
+			database.connect();
+			services = database.dumpServices();
+			database.disconnect();
+			
+			if(services != null)
 			{
-				service = temp;
-				break;
+				it = services.iterator();
+				Service temp = null;
+				
+				while(it.hasNext() && !found)
+				{
+					temp = it.next();
+					if(temp.getTitle().equals(title))
+					{
+						service = temp;
+						found = true;
+					}
+				}
 			}
 		}
 		

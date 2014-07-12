@@ -13,6 +13,7 @@ import tests.business.ProcessContractTest;
 import tests.business.ProcessExpenseTest;
 import tests.business.ProcessFeatureTest;
 import tests.business.ProcessHistoryTest;
+import tests.business.ProcessServiceTest;
 import tests.objects.ClientTest;
 import tests.objects.ContractTest;
 import tests.objects.EmailTest;
@@ -45,7 +46,8 @@ import tests.objects.UserTest;
 			ProcessClientTest.class,
 			ProcessContractTest.class,
 			ProcessExpenseTest.class,
-			ProcessHistoryTest.class
+			ProcessHistoryTest.class,
+			ProcessServiceTest.class
 		})
 public class TestAll
 { }
