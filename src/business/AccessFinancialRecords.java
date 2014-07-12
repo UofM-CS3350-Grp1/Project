@@ -111,13 +111,13 @@ public class AccessFinancialRecords
 	public double calcClientExpensesToDate(Client client)
 	{
 		double expense = 0;
+		ProcessExpenses processExpenses;
 		
 		assert (client != null);
 		if(client != null)
 		{
-			database.connect();
-			expense = database.getClientCurrentExpenses(client);
-			database.disconnect();
+			processExpenses = new ProcessExpenses();
+			expense = processExpenses.getExpensesByClient(client);
 		}
 		
 		return expense;
