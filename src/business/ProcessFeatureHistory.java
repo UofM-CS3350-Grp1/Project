@@ -80,10 +80,10 @@ public class ProcessFeatureHistory extends ProcessStorable
 	}
 
 	/**
-	 * Retrieves the history objects for a given feature
-	 * @param client The client to find the history for
-	 * @param feature The feature to get history for
-	 * @return The next history object or null if we have reached the end
+	 * Retrieves total value of a feature given the client
+	 * @param client The client to find the value for
+	 * @param feature The feature to get value for
+	 * @return The total value of the feature
 	 */
 	public double getFeatureTotal(Client client, TrackedFeatureType feature)
 	{
@@ -101,10 +101,10 @@ public class ProcessFeatureHistory extends ProcessStorable
 	}
 
 	/**
-	 * Retrieves the history of a feature
+	 * Retrieves the past 12 month history of a feature
 	 * @param feature 	The feature to get history for
 	 * @param client 	The client to find the history for
-	 * @return	The list of history
+	 * @return	The list of history for the past 12 months
 	 */
 	public ArrayList<MonthReport> getYearHistoryForFeature(TrackedFeatureType feature, Client client)
 	{
