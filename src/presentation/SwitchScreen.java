@@ -156,8 +156,9 @@ public class SwitchScreen
 		MenuItem bFeatures = new MenuItem(menu_1, SWT.NONE);
 		bFeatures.setText("Features");
 
-		MenuItem bJCC = new MenuItem(menu_1, SWT.NONE);
-		bJCC.setText("JCC's");
+//  This menu item is redundant, JCC's already has its own top level menu
+//		MenuItem bJCC = new MenuItem(menu_1, SWT.NONE);
+//		bJCC.setText("JCC's");
 
 		new MenuItem(menu_1, SWT.SEPARATOR);
 
@@ -424,6 +425,7 @@ public class SwitchScreen
 		Composite jccContractScreen = SwitchScreen.getContentContainer();
 		JCCContractScreenDrawer jcc = new JCCContractScreenDrawer( jccContractScreen );
 		SwitchScreen.switchContent( jccContractScreen );
+		/* Not needed for now (if using menus instead of navbar)
 		bJCC.addSelectionListener( new SelectionAdapter()
 		{
 			@Override
@@ -434,6 +436,7 @@ public class SwitchScreen
 				SwitchScreen.switchContent( jccContractScreen );
 			}
 		});
+		*/
 
 		/*
 		 * draws the login screen

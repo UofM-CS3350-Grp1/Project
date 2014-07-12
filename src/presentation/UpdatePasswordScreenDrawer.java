@@ -152,7 +152,7 @@ public class UpdatePasswordScreenDrawer
 		{
 			dialog = new MessageBox(new Shell(), SWT.ERROR | SWT.OK);
 			dialog.setText("Login Error");
-			dialog.setMessage("User and/or Password cannot be blank");
+			dialog.setMessage("Password cannot be blank");
 			dialog.open();
 		}
 
