@@ -1054,9 +1054,9 @@ public class DBInterface extends AbstractDBInterface
 			sql ="SELECT SUM(EX.VALUE) "+
 					"FROM "+
 					"CLIENTS CL "+ 
-					"INNER JOIN CONTRACTS CON ON(CON.BUSINESS_NAME = CL.BUSINESS_NAME AND CON.END_DATE > '"+sdf.format(toDate.getTime())+"' AND CON.START_DATE < '"+sdf.format(toDate.getTime())+"') "+
+					"INNER JOIN CONTRACTS CON ON(CON.BUSINESS_NAME = CL.BUSINESS_NAME AND CON.END_DATE > '"+sdf.format(toDate.getTime())+"' AND CON.START_DATE <= '"+sdf.format(toDate.getTime())+"') "+
 					"INNER JOIN SERVICES SV ON (SV.CONTRACT_ID = CON.ROW_ID) "+
-					"INNER JOIN EXPENSE EX ON(EX.SERVICE_ID = SV.ROW_ID AND INCURRED_DATE > '"+sdf.format(toDate.getTime())+"' AND INCURRED_DATE < '"+sdf.format(new Date())+"') "+
+					"INNER JOIN EXPENSE EX ON(EX.SERVICE_ID = SV.ROW_ID AND INCURRED_DATE > '"+sdf.format(toDate.getTime())+"' AND INCURRED_DATE <= '"+sdf.format(new Date())+"') "+
 					"WHERE "+
 					"CL.ROW_ID = " +element.getID();
 			
@@ -1132,9 +1132,9 @@ public class DBInterface extends AbstractDBInterface
 				sql = "SELECT SUM(EX.VALUE) "+
 				"FROM "+
 				"CONTRACTS CON "+  
-				"INNER JOIN SERVICES SV ON (SV.CONTRACT_ID = CON.ROW_ID AND CON.END_DATE > '"+sdf.format(toDate.getTime())+"' AND CON.START_DATE < '"+sdf.format(toDate.getTime())+"' ) "+
+				"INNER JOIN SERVICES SV ON (SV.CONTRACT_ID = CON.ROW_ID AND CON.END_DATE > '"+sdf.format(toDate.getTime())+"' AND CON.START_DATE <= '"+sdf.format(toDate.getTime())+"' ) "+
 				"INNER JOIN SERVICES_TYPES ST ON (ST.ROW_ID = SV.SERVICE_TYPE_ID) "+
-				"INNER JOIN EXPENSE EX ON(EX.SERVICE_ID = SV.ROW_ID AND INCURRED_DATE > '"+sdf.format(toDate.getTime())+"' AND INCURRED_DATE < '"+sdf.format(fromDate.getTime())+"') "+
+				"INNER JOIN EXPENSE EX ON(EX.SERVICE_ID = SV.ROW_ID AND INCURRED_DATE > '"+sdf.format(toDate.getTime())+"' AND INCURRED_DATE <= '"+sdf.format(fromDate.getTime())+"') "+
 				"WHERE "+
 				"ST.ROW_ID = "+element.getID();
 			
@@ -1217,7 +1217,7 @@ public class DBInterface extends AbstractDBInterface
 				"(SELECT SV.RATE "+
 				"FROM "+
 				"CONTRACTS CON "+ 
-				"INNER JOIN SERVICES SV ON (SV.CONTRACT_ID = CON.ROW_ID AND CON.END_DATE > '"+sdf.format(toDate.getTime())+"' AND CON.START_DATE < '"+sdf.format(toDate.getTime())+"' ) "+
+				"INNER JOIN SERVICES SV ON (SV.CONTRACT_ID = CON.ROW_ID AND CON.END_DATE > '"+sdf.format(toDate.getTime())+"' AND CON.START_DATE <= '"+sdf.format(toDate.getTime())+"' ) "+
 				"INNER JOIN SERVICES_TYPES ST ON (ST.ROW_ID = SV.SERVICE_TYPE_ID) "+
 				"WHERE "+
 				"ST.ROW_ID = "+element.getID()+")";
@@ -1292,13 +1292,14 @@ public class DBInterface extends AbstractDBInterface
 			contractDate.setTime(endDate);
 			contractDate.add(Calendar.MONTH, -1);
 			contractDate.setTime(contractDate.getTime());
+			Date testTime = contractDate.getTime();
 			
-			while(toDate.getTime().after(contractDate.getTime()))
+			for(int i = 0; i <12 &&toDate.getTime().after(contractDate.getTime()); i++)
 			{
 				sql = "SELECT SUM(FE.VALUE) "+
 				"FROM "+
 				"CLIENTS CL "+ 
-				"INNER JOIN FEATURE FE ON (FE.CLIENT_ID = CL.ROW_ID AND FE.DATE_RECCORDED > '"+sdf.format(toDate.getTime())+"' AND FE.DATE_RECCORDED < '"+sdf.format(fromDate.getTime())+"' ) "+
+				"INNER JOIN FEATURE FE ON (FE.CLIENT_ID = CL.ROW_ID AND FE.DATE_RECCORDED > '"+sdf.format(toDate.getTime())+"' AND FE.DATE_RECCORDED <= '"+sdf.format(fromDate.getTime())+"' ) "+
 				"INNER JOIN FEATURE_TYPES FT ON (FE.FEATURE_TYPE_ID = FT.ROW_ID) "+
 				"WHERE "+
 				"CL.ROW_ID = "+client.getID()+" AND FT.ROW_ID = "+feat.getID();
@@ -1378,7 +1379,7 @@ public class DBInterface extends AbstractDBInterface
 				sql = "SELECT SUM(FE.VALUE) "+
 				"FROM "+
 				"CLIENTS CL "+ 
-				"INNER JOIN FEATURE FE ON (FE.CLIENT_ID = CL.ROW_ID AND FE.DATE_RECCORDED > '"+sdf.format(toDate.getTime())+"' AND FE.DATE_RECCORDED < '"+sdf.format(fromDate.getTime())+"' ) "+
+				"INNER JOIN FEATURE FE ON (FE.CLIENT_ID = CL.ROW_ID AND FE.DATE_RECCORDED > '"+sdf.format(toDate.getTime())+"' AND FE.DATE_RECCORDED <= '"+sdf.format(fromDate.getTime())+"' ) "+
 				"INNER JOIN FEATURE_TYPES FT ON (FE.FEATURE_TYPE_ID = FT.ROW_ID) "+
 				"WHERE "+
 				"CL.ROW_ID = "+client.getID()+" AND FT.ROW_ID = "+feat.getID();
