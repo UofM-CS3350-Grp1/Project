@@ -1196,6 +1196,86 @@ public class DBInterface extends AbstractDBInterface
 		return tally;
 	}
 	
+	/** 
+	 * @param element Service of Interest
+	 * @return Expenses + revenue for services for month
+	 */
+	
+	public ArrayList<MonthReport> getSumFeatures(Client client, TrackedFeatureType feat)
+	{
+		ArrayList<MonthReport> tally = null;
+		double expenseValue = 0;
+		String sql = "";
+		double divisor = 1;
+		ArrayList<String> returnVal = new ArrayList<String>();
+		Date startDate = new Date();
+		Date endDate = new Date();
+		Calendar fromDate = Calendar.getInstance();
+		Calendar toDate = Calendar.getInstance();
+		Calendar contractDate = Calendar.getInstance();
+		Contract clientContract = null;
+		toDate.setTime(startDate);
+		fromDate.setTime(startDate);
+		toDate.add(Calendar.MONTH, -1);
+		
+		if(client != null && client.getID() > -1 && feat != null && feat.getID() > -1)
+		{
+			
+			tally = new ArrayList<MonthReport>();
+			
+			sql = "SELECT MIN(FE.DATE_RECCORDED) "+
+				"FROM "+
+				"CLIENTS CL "+
+				"INNER JOIN FEATURE FE ON (FE.CLIENT_ID = CL.ROW_ID) "+
+				"INNER JOIN FEATURE_TYPES FT ON (FT.ROW_ID = FE.FEATURE_TYPE_ID) "+
+				"WHERE "+
+				"CL.ROW_ID = "+client.getID()+" AND FT.ROW_ID = "+feat.getID();
+				
+			returnVal = this.mainDB.blindQuery(sql);
+					
+			if(returnVal.size() == 1 && returnVal.get(0).compareTo("null") != 0)
+			{
+				try
+				{
+					endDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(returnVal.get(0));
+				}
+				catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+				
+			contractDate.setTime(endDate);
+			contractDate.add(Calendar.MONTH, -1);
+			contractDate.setTime(contractDate.getTime());
+			
+			while(toDate.getTime().after(contractDate.getTime()))
+			{
+				sql = "SELECT SUM(FE.VALUE) "+
+				"FROM "+
+				"CLIENTS CL "+ 
+				"INNER JOIN FEATURE FE ON (FE.CLIENT_ID = CL.ROW_ID AND FE.DATE_RECCORDED > '"+sdf.format(toDate.getTime())+"' AND FE.DATE_RECCORDED < '"+sdf.format(fromDate.getTime())+"' ) "+
+				"INNER JOIN FEATURE_TYPES FT ON (FE.FEATURE_TYPE_ID = FT.ROW_ID) "+
+				"WHERE "+
+				"CL.ROW_ID = "+client.getID()+" AND FT.ROW_ID = "+feat.getID();
+				
+				returnVal = this.mainDB.blindQuery(sql);
+				
+				if(returnVal.size() == 1 && returnVal.get(0).compareTo("null") != 0)
+					expenseValue = (Double.parseDouble(returnVal.get(0)));
+				else
+					expenseValue = 0;	
+			
+				toDate.add(Calendar.MONTH, -1);
+				fromDate.add(Calendar.MONTH, -1);
+				
+				tally.add(new MonthReport(fromDate.getTime(), (expenseValue)));
+				expenseValue = 0;
+			}
+		}
+		return tally;
+	}
+	
 	/** GET ALLCLIENTRETURNS()
 	 * 
 	 * Returns the sum of all possible returns on a client.
