@@ -29,9 +29,6 @@ public class IDQueryBuilder extends NewDBInterface
 	
 	public Service getServiceByID(int id)
 	{
-		this.connect();
-		
-		System.out.println("In IDQUERYBUILDER");
 		
 		ArrayList<Service> storage = new ArrayList<Service>();
 		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
@@ -50,7 +47,6 @@ public class IDQueryBuilder extends NewDBInterface
 			
 			storage = parser.parseServices(returnValue);
 			
-			this.disconnect();
 			
 			if(storage.size() != 1)
 			{
@@ -63,7 +59,6 @@ public class IDQueryBuilder extends NewDBInterface
 		}
 		else
 		{
-			this.disconnect();
 			return null;
 		}
 	}
@@ -78,6 +73,7 @@ public class IDQueryBuilder extends NewDBInterface
 	
 	public Client getClientByID(int id)
 	{
+		
 		ArrayList<Client> storage = new ArrayList<Client>();
 		ArrayList<ArrayList<String>> clauses = new ArrayList<ArrayList<String>>();
 		ArrayList<String> conditions = new ArrayList<String>();

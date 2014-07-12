@@ -25,20 +25,19 @@ public class TestTableUpdater {
 		NewDBInterface newIF;
 		
 		idB.connect();
-		TrackedFeature tracky = idB.getTrackedFeatureByID(1);
+		TrackedFeature tracky = idB.getTrackedFeatureByID(5);
 		Service servo = idB.getServiceByID(1);
 		Contract tracty = idB.getContractByID(1);
 		Expense exy = idB.getExpenseByID(1);
-		TrackedFeature newTracking = idB.getTrackedFeatureByID(1);
+		TrackedFeature newTracking = idB.getTrackedFeatureByID(4);
 		idB.disconnect();
 		
 		tUp.connect();
 		
 		
-		newTracking.setNotes("Notlobbinglawbombs");
 		tracky.setNotes("NEW NOTES");
 		servo.setDescription("NEW DESCRIPTION");
-		tracty.setDetails("NEW DEETS");
+		tracty.setDetails("NEW DETAILS");
 		
 		assertTrue("TrackedFeature update", tUp.update(newTracking));
 		assertTrue("Trackedfeature drop", tUp.drop(newTracking));

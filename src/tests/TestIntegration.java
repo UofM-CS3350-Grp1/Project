@@ -24,6 +24,8 @@ import tests.integration.persistence.TestDBInterface;
 import tests.integration.persistence.TestDBInterface2;
 import tests.integration.persistence.TestIDQueryBuilder;
 import tests.integration.persistence.TestStubDBInterface;
+import tests.integration.persistence.TestTableDumper;
+import tests.integration.persistence.TestTableUpdater;
 
 @RunWith(Suite.class)
 @SuiteClasses({
@@ -33,6 +35,8 @@ import tests.integration.persistence.TestStubDBInterface;
 	TestDBInterface2.class,
 	TestStubDBInterface.class,
 	LoginValidatorTest.class,
+	TestTableDumper.class,
+	TestTableUpdater.class,
 	TestAccessFinancialRecords.class,
 	TestCalculateFeatureValue.class,
 	TestDateTimeUtil.class,

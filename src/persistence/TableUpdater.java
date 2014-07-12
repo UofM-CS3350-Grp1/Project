@@ -10,7 +10,7 @@ public class TableUpdater extends NewDBInterface
 	
 	public TableUpdater()
 	{
-		super(DBInterface.DATABASE_NAME);
+		super(NewDBInterface.DATABASE_NAME);
 	}
 	
 	/**
