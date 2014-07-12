@@ -2,7 +2,8 @@ package business;
 
 import java.util.ArrayList;
 
-import objects.Trackable;
+import objects.Client;
+import objects.MonthReport;
 import objects.TrackedFeature;
 import objects.TrackedFeatureType;
 
@@ -12,9 +13,7 @@ import objects.TrackedFeatureType;
 public class ProcessFeatureHistory extends ProcessStorable
 {
 	private ArrayList<TrackedFeature> histories;
-	private ArrayList<TrackedFeatureType> featureHistories;
 	private int histIndex;
-	private int featureHistIndex;
 
 	/**
 	 * Create the Feature adder
@@ -24,9 +23,7 @@ public class ProcessFeatureHistory extends ProcessStorable
 		super();
 		
 		histories = null;
-		featureHistories = null;
 		histIndex = 0;
-		featureHistIndex = 0;
 	}
 
 	/**
@@ -84,56 +81,42 @@ public class ProcessFeatureHistory extends ProcessStorable
 
 	/**
 	 * Retrieves the history objects for a given feature
-	 * @param service The service to find the history for
+	 * @param client The client to find the history for
 	 * @param feature The feature to get history for
 	 * @return The next history object or null if we have reached the end
 	 */
-	public TrackedFeature getNextHistoryForFeature(Trackable service, TrackedFeature feature)
+	public double getFeatureTotal(Client client, TrackedFeatureType feature)
 	{
-		TrackedFeature history = null;
+		double sum = 0;
 
-		/*if(featureHistories == null)
+		assert (client != null && feature != null);
+		if(client != null && feature != null)
 		{
 			database.connect();
-			//TODO FIX THIS
-			//featureHistories = database.getFeatureHistoryFromParent(service, feature);
+			sum = database.getTotalAllFeatures(client, feature);
 			database.disconnect();
-			
-			if(featureHistories != null && featureHistories.size() > 0)
-			{
-				history = featureHistories.get(0);
-				featureHistIndex = 1;
-			}
 		}
-		else if(featureHistIndex < featureHistories.size())
-		{
-			history = featureHistories.get(featureHistIndex);
-			featureHistIndex++;
-		}
-		else
-		{
-			featureHistories = null;
-		}*/
 
-		return history;
+		return sum;
 	}
 
 	/**
 	 * Retrieves the history of a feature
 	 * @param feature 	The feature to get history for
+	 * @param client 	The client to find the history for
 	 * @return	The list of history
 	 */
-	public ArrayList<TrackedFeature> getHistoryListForFeature(TrackedFeature feature)
+	public ArrayList<MonthReport> getYearHistoryForFeature(TrackedFeatureType feature, Client client)
 	{
-		ArrayList<TrackedFeature> list = new ArrayList<TrackedFeature>();
+		ArrayList<MonthReport> list = new ArrayList<MonthReport>();
 		
-		/*assert (feature != null);
-		if(feature != null)
+		assert (feature != null && client != null);
+		if(feature != null && client != null)
 		{
 			database.connect();
-			list = database.getFeatureHistoryByFeature(feature);
+			list = database.getLastYearClientFeaturesByType(client, feature);
 			database.disconnect();
-		}*/
+		}
 		
 		return list;
 	}

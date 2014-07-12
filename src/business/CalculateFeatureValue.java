@@ -1,7 +1,7 @@
 package business;
 
-import objects.Trackable;
-import objects.TrackedFeature;
+import objects.Client;
+import objects.TrackedFeatureType;
 
 /**
  * Computes the total value of features
@@ -10,23 +10,19 @@ public class CalculateFeatureValue
 {
 	/**
 	 * Iterates through all of a feature's history and sums up the total amount gained
-	 * @param trackable	The trackable object
+	 * @param client	The client object
 	 * @param feature	The feature
 	 * @return	The total value
 	 */
-	public static double calculateTotalValue(Trackable trackable, TrackedFeature feature)
+	public static double calculateTotalValue(Client client, TrackedFeatureType feature)
 	{
 		ProcessFeatureHistory processHistory = new ProcessFeatureHistory();
-		TrackedFeature history;
 		double total = 0.0;
 		
-		assert (feature != null && trackable != null);
-		if(feature != null && trackable != null)
+		assert (feature != null && client != null);
+		if(feature != null && client != null)
 		{
-			while((history = processHistory.getNextHistoryForFeature(trackable, feature)) != null)
-			{
-				total += history.getValue();
-			}
+			total = processHistory.getFeatureTotal(client, feature);
 		}
 		
 		return total;

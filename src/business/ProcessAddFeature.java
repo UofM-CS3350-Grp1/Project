@@ -148,4 +148,24 @@ public class ProcessAddFeature extends ProcessStorable
 		
 		return featureList;
 	}
+	
+	/**
+	 * Obtain the features types tracked by a client
+	 * @param client	The client in question
+	 * @return	The list of features tracked by said client
+	 */
+	public ArrayList<TrackedFeatureType> getFeatureTypesByClient(Client client)
+	{
+		ArrayList<TrackedFeatureType> featureList = new ArrayList<TrackedFeatureType>();
+		
+		assert (client != null);
+		if(client != null)
+		{
+			database.connect();
+			//featureList = database.getTrackedFeatureTypesByClient(client);
+			database.disconnect();
+		}
+		
+		return featureList;
+	}
 }

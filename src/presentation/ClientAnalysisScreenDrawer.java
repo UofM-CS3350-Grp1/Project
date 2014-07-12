@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import objects.Client;
 import objects.Contract;
 import objects.Service;
-import objects.TrackedFeature;
+import objects.TrackedFeatureType;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -322,19 +322,19 @@ public class ClientAnalysisScreenDrawer
 	private void generateFeatureData()
 	{
 		GenerateGraph graphGenerator = new GenerateGraph();	
-		ArrayList<TrackedFeature> features;
+		ArrayList<TrackedFeatureType> features;
 		ChartComposite chartComp;
 		GridData gd_chartComposite;
 		int size;
 		
-		features = processFeature.getFeaturesByClient(client);
+		features = processFeature.getFeatureTypesByClient(client);
 		if(features != null)
 		{
 			size = features.size();
 			for(int i = 0; i < size; i++)
 			{
 				//Generate the composite
-				chartComp = new ChartComposite(composite, SWT.NONE, graphGenerator.generateFeatureLineChart(features.get(i)));
+				chartComp = new ChartComposite(composite, SWT.NONE, graphGenerator.generateFeatureLineChart(features.get(i), client));
 				gd_chartComposite = new GridData(SWT.FILL, SWT.LEFT, false, false, 1, 1);
 				gd_chartComposite.heightHint = CHART_HEIGHT;
 				chartComp.setLayoutData(gd_chartComposite);

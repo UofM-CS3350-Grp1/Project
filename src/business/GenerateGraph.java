@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import objects.Client;
 import objects.MonthReport;
 import objects.ServiceType;
-import objects.TrackedFeature;
+import objects.TrackedFeatureType;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -36,22 +36,23 @@ public class GenerateGraph
 	/**
 	 * Generates a line chart given a feature
 	 * @param feature	The feature to use
+	 * @param client 	The client to generate data for
 	 * @return	A line chart of the data
 	 */
-	public JFreeChart generateFeatureLineChart(TrackedFeature feature)
+	public JFreeChart generateFeatureLineChart(TrackedFeatureType feature, Client client)
 	{
 		JFreeChart chart = null;
 		DefaultCategoryDataset data = new DefaultCategoryDataset();
 		Plot plot;
-		ArrayList<TrackedFeature> histories;
+		ArrayList<MonthReport> histories;
 		int size;
 		SimpleDateFormat sdf;
-		TrackedFeature history;
+		MonthReport history;
 		
 		assert (feature != null);
 		if(feature != null)
 		{
-			histories = processHistory.getHistoryListForFeature(feature);
+			histories = processHistory.getYearHistoryForFeature(feature, client);
 			
 			if(histories != null)
 			{
@@ -64,7 +65,7 @@ public class GenerateGraph
 						//NOTE These will need to be properly summed by month and 
 						//probably impose the same 12 month cycle property
 						history = histories.get(i);
-						data.addValue(history.getValue(), feature.getTrackedFeatureType().getTitle(), sdf.format(history.getDate()));
+						data.addValue(history.getValue(), feature.getTitle(), sdf.format(history.getPeriod()));
 					}
 				}
 				catch(Exception e)
@@ -75,7 +76,7 @@ public class GenerateGraph
 		}	
 		
 		//Setup the chart names and axes
-		chart = ChartFactory.createLineChart(feature.getTrackedFeatureType().getTitle(), "Period (Months)", feature.getTrackedFeatureType().getTitle(), data);
+		chart = ChartFactory.createLineChart(feature.getTitle(), "Period (Months)", feature.getTitle(), data);
 		chart.removeLegend();
 		
 		plot = chart.getPlot();
