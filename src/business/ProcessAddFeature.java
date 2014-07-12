@@ -25,27 +25,34 @@ public class ProcessAddFeature extends ProcessStorable
 		featureIndex = 0;
 	}
 	
-	/*
+	/**
 	 * @return The feature type by Title
 	 */
 	public ArrayList<TrackedFeatureType> getFeatureTypeByTitle(String title)
 	{
 		ArrayList<TrackedFeatureType> feature = null;
-		database.connect();
-		feature = database.getTrackedFeatureTypesByTitle(title);
-		database.disconnect();
+		
+		if(title != null)
+		{
+			database.connect();
+			feature = database.getTrackedFeatureTypesByTitle(title);
+			database.disconnect();
+		}
+		
 		return feature;
 	}
 		
-	/*
+	/**
 	 * @return all available feature types
 	 */
 	public ArrayList<TrackedFeatureType> getFeatureTypes()
 	{
 		ArrayList<TrackedFeatureType> features = null;
+		
 		database.connect();
 		features = database.dumpTrackedFeatureTypes();
 		database.disconnect();
+		
 		return features;
 	}
 	
@@ -96,6 +103,26 @@ public class ProcessAddFeature extends ProcessStorable
 		{
 			database.connect();
 			feature = database.getTrackedFeatureByID(id);
+			database.disconnect();
+		}
+		
+		return feature;
+	}
+	
+	/**
+	 * Gets a feature type by the given ID
+	 * @param id 	The ID of the feature
+	 * @return	The feature if found, null otherwise
+	 */
+	public TrackedFeatureType getFeatureTypeByID(int id)
+	{
+		TrackedFeatureType feature = null;
+		
+		assert (id >= 0);
+		if(id >= 0)
+		{
+			database.connect();
+			feature = database.getTrackedFeatureTypeByID(id);
 			database.disconnect();
 		}
 		

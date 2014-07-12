@@ -1,6 +1,7 @@
 package presentation;
 
-import objects.TrackedFeature;
+import objects.TrackedFeatureType;
+
 import org.eclipse.swt.widgets.Composite;
 
 /**
@@ -8,7 +9,7 @@ import org.eclipse.swt.widgets.Composite;
  */
 public class UpdateTrackableFeatureDrawer extends AddTrackableFeatureDrawer
 {
-	private TrackedFeature feature;
+	private TrackedFeatureType feature;
 		
 	/**
 	 * Updates a given tracked feature
@@ -17,7 +18,7 @@ public class UpdateTrackableFeatureDrawer extends AddTrackableFeatureDrawer
 	 *
 	 * NOTE: You cannot edit the structure of the FeatureWindow unless editing the Base
 	 */
-	public UpdateTrackableFeatureDrawer(Composite container, TrackedFeature feature) throws IllegalArgumentException
+	public UpdateTrackableFeatureDrawer(Composite container, TrackedFeatureType feature) throws IllegalArgumentException
 	{
 		super(container);
 		
@@ -27,6 +28,8 @@ public class UpdateTrackableFeatureDrawer extends AddTrackableFeatureDrawer
 			this.feature = feature;
 			
 			populateFields();
+			
+			btnAction.setText("Update");
 		}
 		else
 			throw new IllegalArgumentException();
@@ -39,8 +42,7 @@ public class UpdateTrackableFeatureDrawer extends AddTrackableFeatureDrawer
 	{		
 		if(feature != null)
 		{
-			//feature.setFeatureName(txtName.getText());
-			feature.setNotes(txtNotes.getText());
+			feature.setTitle(txtName.getText());
 			
 			if(processAddFeature.update(feature))
 				backToPreviousScreen();
@@ -54,8 +56,7 @@ public class UpdateTrackableFeatureDrawer extends AddTrackableFeatureDrawer
 	{
 		if(feature != null)
 		{
-			//txtName.setText(feature.getFeatureName());
-			txtNotes.setText(feature.getNotes());
+			txtName.setText(feature.getTitle());
 		}
 	}
 }

@@ -20,8 +20,8 @@ import business.ProcessAddFeature;
  */
 public class TrackableFeatureScreenDrawer extends BaseStorableScreenDrawer
 {
-	private static final String[] tableColumnNames = { "ID", "Feature Name", "Notes" };
-	private static final int[] tableWidths = { 0, 150, 300 };
+	private static final String[] tableColumnNames = { "ID", "Feature Name" };
+	private static final int[] tableWidths = { 0, 300 };
 	private ProcessAddFeature processFeature;
 	
 	/**
@@ -75,8 +75,7 @@ public class TrackableFeatureScreenDrawer extends BaseStorableScreenDrawer
 				item = new TableItem(table, SWT.NULL);
 				
 				item.setText(0, feature.getID() + "");
-				item.setText(1, feature.getID() + "");
-				item.setText(2, feature.getTitle());
+				item.setText(1, feature.getTitle());
 			}
 		}
 	}
@@ -97,11 +96,11 @@ public class TrackableFeatureScreenDrawer extends BaseStorableScreenDrawer
 	protected void editSelectedItem()
 	{
 		int selectedIndex = table.getSelectionIndex();
-		TrackedFeature feature;
+		TrackedFeatureType feature;
 		
 		if(selectedIndex != -1)
 		{
-			feature = processFeature.getFeatureByID(Integer.parseInt(table.getItem(selectedIndex).getText(0)));
+			feature = processFeature.getFeatureTypeByID(Integer.parseInt(table.getItem(selectedIndex).getText(0)));
 			if(feature != null)
 			{
 				Composite editFeatureScreen = SwitchScreen.getContentContainer();

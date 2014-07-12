@@ -1,6 +1,5 @@
 package presentation;
 
-import objects.TrackedFeature;
 import objects.TrackedFeatureType;
 
 import org.eclipse.swt.SWT;
@@ -25,12 +24,10 @@ public class AddTrackableFeatureDrawer
 {
 	protected Composite composite;	
 	protected Text txtName;
-	protected Text txtNotes;
 	protected Button btnAction;
 	protected Composite buttonComposite;
 	protected Button btnCancel;
 	protected ProcessAddFeature processAddFeature;
-	protected GridData gd_txtNotes;
 	
 	/**
 	 * Adds a given tracked feature
@@ -57,16 +54,6 @@ public class AddTrackableFeatureDrawer
 		txtName = new Text( composite, SWT.BORDER );
 		componentTweaker = new GridData( GridData.FILL_HORIZONTAL );
 		txtName.setLayoutData( componentTweaker );
-		
-		// Notes
-		Label lblNotes = new Label( composite, SWT.None );
-		lblNotes.setText( "Additional Details" );
-		new Label(composite, SWT.NONE);
-		
-		txtNotes = new Text( composite, SWT.BORDER );
-		gd_txtNotes = new GridData( GridData.FILL_BOTH );
-		gd_txtNotes.horizontalSpan = 2;
-		txtNotes.setLayoutData( gd_txtNotes );		
 		
 		buttonComposite = new Composite(composite, SWT.NONE);
 		GridData gd_buttonComposite = new GridData(SWT.CENTER, SWT.CENTER, false, false, 2, 1);
