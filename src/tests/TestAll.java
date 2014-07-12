@@ -4,8 +4,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import tests.business.AccessFinancialRecordsTest;
 import tests.business.CalcFeatureValueTest;
-
 import tests.objects.ClientTest;
 import tests.objects.ContractTest;
 import tests.objects.EmailTest;
@@ -30,7 +30,8 @@ import tests.objects.UserTest;
 			UserTest.class,
 			TrackedFeatureTypeTest.class,
 			ExpenseTest.class,
-			CalcFeatureValueTest.class
+			CalcFeatureValueTest.class,
+			AccessFinancialRecordsTest.class
 		})
 public class TestAll
 { }
