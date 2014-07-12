@@ -21,11 +21,13 @@ public class TestDBInterface2 {
 		mainFace.connect();
 		
 		assertNotNull("LastYearReturns Check",mainFace.getLastYearReturns(mainFace.getClientByID(1)));
-		assertTrue(mainFace.getClientCurrentExpenses(mainFace.getClientByID(1)) <= 0);
-		assertTrue(mainFace.getClientCurrentRevenue(mainFace.getClientByID(1)) >= 0);
-		assertNotNull(mainFace.getSumFeatures(mainFace.getClientByID(1), mainFace.getTrackedFeatureTypeByID(1)));
-		assertNotNull(mainFace.getLastYearClientFeaturesByType(mainFace.getClientByID(1), mainFace.getTrackedFeatureTypeByID(1)));
-		assertTrue(mainFace.getTotalAllFeatures(mainFace.getClientByID(1), mainFace.getTrackedFeatureTypeByID(1)) > 0);
+		assertTrue("CurrentExpenses Check",mainFace.getClientCurrentExpenses(mainFace.getClientByID(1)) <= 0);
+		assertTrue("CurrentRevenue Check", mainFace.getClientCurrentRevenue(mainFace.getClientByID(1)) >= 0);
+		assertNotNull("SumFeatures Check", mainFace.getSumFeatures(mainFace.getClientByID(1), mainFace.getTrackedFeatureTypeByID(1)));
+		assertNotNull("ClientFeaturesType Check", mainFace.getLastYearClientFeaturesByType(mainFace.getClientByID(1), mainFace.getTrackedFeatureTypeByID(1)));
+		assertTrue("ToalAllFeatures Check", mainFace.getTotalAllFeatures(mainFace.getClientByID(1), mainFace.getTrackedFeatureTypeByID(1)) > 0);
+		
+		assertNotNull("FeatureTypeByCLient Check",mainFace.getFeatureTypeByClient(mainFace.getClientByID(1)));
 		
 		assertNotNull("Expense by id", mainFace.getExpenseByID(1));
 		assertNotNull("Expense table dump", mainFace.dumpExpenses());

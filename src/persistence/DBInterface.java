@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Locale;
 
 import objects.Client;
@@ -594,7 +595,7 @@ public class DBInterface extends AbstractDBInterface
 			return null;
 		}
 	}
-	
+
 	/**
 	 * 	GETSERVICEBYCONTRACT()
 	 * 
@@ -785,6 +786,49 @@ public class DBInterface extends AbstractDBInterface
 		}
 	}
 	
+	public ArrayList<TrackedFeatureType> getFeatureTypeByClient(Client client)
+	{
+		ArrayList<TrackedFeatureType> storage = new ArrayList<TrackedFeatureType>();
+		ArrayList<TrackedFeature> feats = new ArrayList<TrackedFeature>();
+		ArrayList<TrackedFeatureType> ids = new ArrayList<TrackedFeatureType>();
+		boolean insert = true;
+		
+		if(client != null && client.getID() > 0)
+		{
+			feats = this.getTrackedFeaturesByClient(client);
+			
+			for(int i = 0; i < feats.size(); i++)
+			{
+				if(ids.size() == 0)
+					ids.add(feats.get(i).getTrackedFeatureType());
+				else
+				{
+					for(int j = 0; j < ids.size() && insert; j++)
+					{
+						if(feats.get(i).getTrackedFeatureType().getID() == ids.get(j).getID())
+							insert  = false;
+					}
+					if(insert)
+							ids.add(feats.get(i).getTrackedFeatureType());
+					
+					insert = true;
+				}
+			}
+			
+			if(ids.size() < 1)
+			{
+				return null;
+			}
+			else
+			{
+				return ids;
+			}
+		}
+		else
+		{
+			return null;
+		}
+	}
 
 	/**
 	 * INSERT()
