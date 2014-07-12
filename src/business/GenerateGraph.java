@@ -3,6 +3,7 @@ package business;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import objects.Client;
 import objects.MonthReport;
@@ -57,7 +58,9 @@ public class GenerateGraph
 			if(histories != null)
 			{
 				try
-				{
+				{ 
+					Collections.sort(histories, MonthReport.compareByDate);
+					
 					sdf = new SimpleDateFormat("MMM, yyyy");
 					size = histories.size();
 					for(int i = 0; i < size; i++)
@@ -167,6 +170,8 @@ public class GenerateGraph
 			//care if the months are within the same year. 
 			try
 			{
+				Collections.sort(reports, MonthReport.compareByDate);
+				
 				sdf  = new SimpleDateFormat("MMM, yyyy");
 				size = reports.size();
 				for(int i = 0; i < size; i++)
