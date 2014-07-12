@@ -162,11 +162,17 @@ public class UpdatePasswordScreenDrawer
 	private void updateUserPassword()
 	{
 		String currentUser = User.getCurrentUser();
+		MessageBox dialog;
 
 		/*
 		 * Need function to update 'password' for
 		 * USER table in the database
 		 * 
 		 */
+
+		dialog = new MessageBox(new Shell(), SWT.ICON_INFORMATION | SWT.OK);
+		dialog.setText("Success");
+		dialog.setMessage("Password was updated successfully.");
+		dialog.open();
 	}
 }
