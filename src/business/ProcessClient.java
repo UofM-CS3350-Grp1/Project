@@ -69,14 +69,17 @@ public class ProcessClient extends ProcessStorable
 			clientList = database.dumpClients();
 			database.disconnect();
 			
-			it = clientList.iterator();					
-			while(it.hasNext() && !found)
+			if(clientList != null)
 			{
-				temp = it.next();
-				if(temp.getBusinessName().startsWith(businessName))
+				it = clientList.iterator();					
+				while(it.hasNext() && !found)
 				{
-					client = temp;
-					found = true;
+					temp = it.next();
+					if(temp.getBusinessName().startsWith(businessName))
+					{
+						client = temp;
+						found = true;
+					}
 				}
 			}
 		}
