@@ -1201,7 +1201,7 @@ public class DBInterface extends AbstractDBInterface
 	 * @return Expenses + revenue for services for month
 	 */
 	
-	public ArrayList<MonthReport> getLastYearFeaturesByType(TrackedFeatureType element)
+	public ArrayList<MonthReport> getLastYearClientFeaturesByType(Client client, TrackedFeatureType feat)
 	{
 		ArrayList<MonthReport> tally = null;
 		double expenseValue = 0;
@@ -1218,20 +1218,20 @@ public class DBInterface extends AbstractDBInterface
 		fromDate.setTime(startDate);
 		toDate.add(Calendar.MONTH, -1);
 		
-		if(element != null && element.getID() > -1)
+		if(client != null && client.getID() > -1 && feat != null && feat.getID() > -1)
 		{
 			
 			tally = new ArrayList<MonthReport>();
 			
 			sql = "SELECT MIN(FE.DATE_RECCORDED) "+
 				"FROM "+
-				"FEATURE FE "+
+				"CLIENTS CL "+
+				"INNER JOIN FEATURE FE ON (FE.CLIENT_ID = CL.ROW_ID) "+
 				"INNER JOIN FEATURE_TYPES FT ON (FT.ROW_ID = FE.FEATURE_TYPE_ID) "+
 				"WHERE "+
-				"FT.ROW_ID = "+element.getID();
+				"CL.ROW_ID = "+client.getID()+" AND FT.ROW_ID = "+feat.getID();
 				
 			returnVal = this.mainDB.blindQuery(sql);
-			
 					
 			if(returnVal.size() == 1 && returnVal.get(0).compareTo("null") != 0)
 			{
@@ -1249,19 +1249,20 @@ public class DBInterface extends AbstractDBInterface
 			contractDate.add(Calendar.MONTH, -1);
 			contractDate.setTime(contractDate.getTime());
 			
-			for(int i = 0; i < 12 && toDate.getTime().after(contractDate.getTime()); i++)
+			while(toDate.getTime().after(contractDate.getTime()))
 			{
 				sql = "SELECT SUM(FE.VALUE) "+
-					"FROM "+
-					"FEATURE FE "+
-					"INNER JOIN FEATURE_TYPES FT ON (FE.FEATURE_TYPE_ID = FT.ROW_ID AND FE.DATE_RECCORDED > '"+sdf.format(toDate.getTime())+"' AND FE.DATE_RECCORDED < '"+sdf.format(fromDate.getTime())+"' ) "+
-					"WHERE "+
-					"FT.ROW_ID = "+element.getID();
+				"FROM "+
+				"CLIENTS CL "+ 
+				"INNER JOIN FEATURE FE ON (FE.CLIENT_ID = CL.ROW_ID AND FE.DATE_RECCORDED > '"+sdf.format(toDate.getTime())+"' AND FE.DATE_RECCORDED < '"+sdf.format(fromDate.getTime())+"' ) "+
+				"INNER JOIN FEATURE_TYPES FT ON (FE.FEATURE_TYPE_ID = FT.ROW_ID) "+
+				"WHERE "+
+				"CL.ROW_ID = "+client.getID()+" AND FT.ROW_ID = "+feat.getID();
 				
 				returnVal = this.mainDB.blindQuery(sql);
 				
 				if(returnVal.size() == 1 && returnVal.get(0).compareTo("null") != 0)
-					expenseValue = (Double.parseDouble(returnVal.get(0)) / divisor);
+					expenseValue = (Double.parseDouble(returnVal.get(0)));
 				else
 					expenseValue = 0;	
 			
@@ -1272,7 +1273,6 @@ public class DBInterface extends AbstractDBInterface
 				expenseValue = 0;
 			}
 		}
-		
 		return tally;
 	}
 	
