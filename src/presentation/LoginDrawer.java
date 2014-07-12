@@ -118,6 +118,7 @@ public class LoginDrawer
 				 */
 				User.setCurrentUser(txtUser.getText());
 				SwitchScreen.enableButtons();
+				SwitchScreen.enableMenus();
 				Composite loggedInScreen = SwitchScreen.getContentContainer();
 				LoggedInDrawer ldd = new LoggedInDrawer( loggedInScreen );
 				SwitchScreen.switchContent( loggedInScreen );

@@ -87,6 +87,7 @@ public class LoggedInDrawer
 	{
 		User.logout();
 		SwitchScreen.disableButtons();
+		SwitchScreen.disableMenus();
 		Composite loginScreen = SwitchScreen.getContentContainer();
 		LoginDrawer ld = new LoginDrawer( loginScreen );
 		SwitchScreen.switchContent( loginScreen );
