@@ -8,7 +8,11 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Shell;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 
 import business.DateTimeUtil;
 
@@ -16,6 +20,21 @@ import business.DateTimeUtil;
 public class DateTimeUtilTest
 {
 	private Composite composite = new Composite(new Shell(), SWT.BORDER);
+	
+	@Rule
+	public TestName testName = new TestName();
+	
+	@Before
+	public void before()
+	{
+		System.out.println("Running test: " + testName.getMethodName());
+	}
+	
+	@After
+	public void after()
+	{
+		System.out.println("Finished test.\n");
+	}
 	
 	@Test
 	public void testDate()

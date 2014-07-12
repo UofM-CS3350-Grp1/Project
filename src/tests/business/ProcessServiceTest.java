@@ -5,7 +5,11 @@ import objects.Email;
 import objects.PhoneNumber;
 import objects.Client.ClientStatus;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 
 import business.ProcessService;
 import static org.junit.Assert.*;
@@ -13,6 +17,21 @@ import static org.junit.Assert.*;
 public class ProcessServiceTest 
 {
 	private Client client = new Client("Bob", new PhoneNumber("2044567890"), new Email("test@local.ca"), "Address", "Buiznezz", ClientStatus.Active);
+	
+	@Rule
+	public TestName testName = new TestName();
+	
+	@Before
+	public void before()
+	{
+		System.out.println("Running test: " + testName.getMethodName());
+	}
+	
+	@After
+	public void after()
+	{
+		System.out.println("Finished test.\n");
+	}
 	
 	@Test
 	public void testInsert()

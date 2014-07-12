@@ -7,7 +7,11 @@ import objects.Service;
 import objects.Client.ClientStatus;
 import objects.ServiceType;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 
 import business.ProcessClient;
 import static org.junit.Assert.*;
@@ -16,6 +20,21 @@ public class ProcessClientTest
 {
 	private Client client = new Client("Bob", new PhoneNumber("2044567890"), new Email("test@local.ca"), "Address", "Buiznezz", ClientStatus.Active);
 	private Service service = new Service("Title", "Description", 1.0, new ServiceType("Type", "Desc"));
+	
+	@Rule
+	public TestName testName = new TestName();
+	
+	@Before
+	public void before()
+	{
+		System.out.println("Running test: " + testName.getMethodName());
+	}
+	
+	@After
+	public void after()
+	{
+		System.out.println("Finished test.\n");
+	}
 	
 	@Test
 	public void testInsert()
