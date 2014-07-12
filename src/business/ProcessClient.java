@@ -50,31 +50,37 @@ public class ProcessClient extends ProcessStorable
 		return client;
 	}
 	
-	/*
+	/**
 	 * Gets the client by business name
 	 * @return The the client
 	 */
 	public Client getClientByBusinessName(String businessName)
 	{
 		ArrayList<Client> clientList = null;
-		database.connect();
-		clientList = database.dumpClients();
-		database.disconnect();
-		
-		Iterator it = clientList.iterator();
 		Client client = null;
 		Client temp = null;
+		Iterator<Client> it;
+		boolean found = false;
 		
-		while(it.hasNext())
+		assert (businessName != null && !businessName.isEmpty());
+		if(businessName != null && !businessName.isEmpty())
 		{
-			temp = (Client) it.next();
-			if(temp.getBusinessName().startsWith(businessName))
+			database.connect();
+			clientList = database.dumpClients();
+			database.disconnect();
+			
+			it = clientList.iterator();					
+			while(it.hasNext() && !found)
 			{
-				client = temp;
-				break;
+				temp = it.next();
+				if(temp.getBusinessName().startsWith(businessName))
+				{
+					client = temp;
+					found = true;
+				}
 			}
 		}
-		if(client==null) System.out.println("Client is null in ProcessClient");
+		
 		return client;
 	}
 	

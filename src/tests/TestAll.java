@@ -8,6 +8,7 @@ import tests.business.AccessFinancialRecordsTest;
 import tests.business.CalcFeatureValueTest;
 import tests.business.DateTimeUtilTest;
 import tests.business.GenerateGraphTest;
+import tests.business.ProcessClientTest;
 import tests.business.ProcessFeatureTest;
 import tests.objects.ClientTest;
 import tests.objects.ContractTest;
@@ -37,7 +38,8 @@ import tests.objects.UserTest;
 			AccessFinancialRecordsTest.class,
 			DateTimeUtilTest.class,
 			GenerateGraphTest.class,
-			ProcessFeatureTest.class
+			ProcessFeatureTest.class,
+			ProcessClientTest.class
 		})
 public class TestAll
 { }
