@@ -18,12 +18,9 @@ import tests.integration.business.TestProcessStorable;
 import tests.integration.business.TestProcessUser;
 import tests.integration.business.TestValidateTextbox;
 import tests.integration.persistence.LoginValidatorTest;
-import tests.integration.persistence.RelationalQueryBuilderTest;
 import tests.integration.persistence.TestDBController;
 import tests.integration.persistence.TestDBInterface;
 import tests.integration.persistence.TestDBInterface2;
-import tests.integration.persistence.TestIDQueryBuilder;
-import tests.integration.persistence.TestStubDBInterface;
 import tests.integration.persistence.TestTableDumper;
 import tests.integration.persistence.TestTableUpdater;
 
@@ -33,7 +30,6 @@ import tests.integration.persistence.TestTableUpdater;
 	TestDBController.class,
 	TestDBInterface.class,
 	TestDBInterface2.class,
-	TestStubDBInterface.class,
 	LoginValidatorTest.class,
 	TestTableDumper.class,
 	TestTableUpdater.class,

@@ -1,6 +1,9 @@
 package tests.business;
 
 import static org.junit.Assert.*;
+
+import java.util.Date;
+
 import objects.Service;
 import objects.ServiceType;
 import objects.TrackedFeature;
@@ -36,7 +39,7 @@ public class CalcFeatureValueTest
 	public void testCalcFeature3()
 	{
 		TrackedFeatureType featureType = new TrackedFeatureType("Feature type");
-		TrackedFeature feature = new TrackedFeature("Feature", featureType);
+		TrackedFeature feature = new TrackedFeature("Notes", 1, featureType, new Date(12345), 10);
 		double result = CalculateFeatureValue.calculateTotalValue(null, feature);
 		
 		assertTrue("Result is invalid", result == 0);

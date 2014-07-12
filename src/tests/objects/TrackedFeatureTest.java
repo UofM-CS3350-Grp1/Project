@@ -1,6 +1,9 @@
 package tests.objects;
 
 import static org.junit.Assert.*;
+
+import java.util.Date;
+
 import objects.TrackedFeature;
 import objects.TrackedFeatureType;
 
@@ -15,70 +18,70 @@ public class TrackedFeatureTest
 	@Test(expected=IllegalArgumentException.class)
 	public void testFeature1()
 	{
-		new TrackedFeature(null, null);
+		new TrackedFeature(null, null, 0);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testFeature2()
 	{
-		new TrackedFeature("", null);
+		new TrackedFeature("", 0, null, null, 0);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testFeature3()
 	{
-		new TrackedFeature(null, null);
+		new TrackedFeature(null, null, 0);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testFeature4()
 	{
-		new TrackedFeature("Some feature", null);
+		new TrackedFeature("Some feature", 0, null, null, 0);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testFeature5()
 	{
-		new TrackedFeature("Feature", "Notes", -23, 2, featureType,"Supplier");
+		new TrackedFeature("Notes", -23, 2, featureType, 0, null);
 	}
 	
 	@Test
 	public void testFeature6()
 	{
-		TrackedFeature feature = new TrackedFeature("Feature", featureType);		
-		assertTrue("Name is invalid", feature.getFeatureName().equals("Feature"));
+		TrackedFeature feature = new TrackedFeature("Notes", 1, featureType, new Date(12345), 10);		
+		assertTrue("Name is invalid", feature.getNotes().equals("Notes"));
 	}
 	
 	@Test
 	public void testFeature7()
 	{
-		TrackedFeature feature = new TrackedFeature("Feature", featureType);		
-		assertTrue("Name is invalid", feature.getFeatureName().equals("Feature"));
-		assertTrue("Notes are invalid", feature.getNotes().equals(""));
+		TrackedFeature feature = new TrackedFeature("Notes", 1, featureType, new Date(12345), 10);
+		assertTrue("Notes are invalid", feature.getNotes().equals("Notes"));
+		assertTrue("Name is invalid", feature.getTrackedFeatureType().getTitle().equals("Feature type"));
 	}
 	
 	@Test
 	public void testFeature8()
 	{
-		TrackedFeature feature = new TrackedFeature("Feature", "Notes", featureType);		
-		assertTrue("Name is invalid", feature.getFeatureName().equals("Feature"));
-		assertTrue("Notes are invalid", feature.getNotes().equals("Notes"));
+		TrackedFeature feature = new TrackedFeature("", 1, featureType, new Date(12345), 10);
+		assertTrue("Name is invalid", feature.getTrackedFeatureType().getTitle().equals("Feature type"));
+		assertTrue("Notes are invalid", feature.getNotes().equals(""));
 	}
 	
 	@Test
 	public void testFeature9()
 	{
-		TrackedFeature feature = new TrackedFeature("Feature", "", 0, 1, featureType, "Supplier");		
-		assertTrue("Name is invalid", feature.getFeatureName().equals("Feature"));
+		TrackedFeature feature = new TrackedFeature("", 1, 1, featureType, 10, new Date(12345));		
+		assertTrue("Name is invalid", feature.getTrackedFeatureType().getTitle().equals("Feature type"));
 		assertTrue("Notes are invalid", feature.getNotes().equals(""));
-		assertTrue("ID is invalid", feature.getID() == 0);
+		assertTrue("ID is invalid", feature.getID() == 1);
 	}
 	
 	@Test
 	public void testFeature10()
 	{
-		TrackedFeature feature = new TrackedFeature("Feature", "", 123, 5, featureType, "Supplier");		
-		assertTrue("Name is invalid", feature.getFeatureName().equals("Feature"));
+		TrackedFeature feature = new TrackedFeature("", 123, 1, featureType, 10, new Date(12345));		
+		assertTrue("Name is invalid", feature.getTrackedFeatureType().getTitle().equals("Feature type"));
 		assertTrue("Notes are invalid", feature.getNotes().equals(""));
 		assertTrue("ID is invalid", feature.getID() == 123);
 	}
@@ -88,56 +91,29 @@ public class TrackedFeatureTest
 	@Test
 	public void testFeature11()
 	{
-		TrackedFeature feature = new TrackedFeature("Feature", featureType);		
-		feature.setFeatureName("A new feature");
-		assertTrue("Name is invalid", feature.getFeatureName().equals("A new feature"));
+		TrackedFeature feature = new TrackedFeature("Notes", 1, featureType, new Date(12345), 10);		
+		TrackedFeatureType type = new TrackedFeatureType("Alpha");
+		assertTrue("Name is invalid", feature.getTrackedFeatureType().getTitle().equals("Feature type"));	
+		feature.setTrackedFeatureType(type);	
+		assertTrue("Name is invalid", feature.getTrackedFeatureType().getTitle().equals("Alpha"));
 	}
 	
 	@Test
 	public void testFeature12()
 	{
-		TrackedFeature feature = new TrackedFeature("Feature", featureType);		
-		feature.setFeatureName("");
-		assertTrue("Name is invalid", feature.getFeatureName().equals("Feature"));
+		TrackedFeature feature = new TrackedFeature("Notes", 1, featureType, new Date(12345), 10);		
+		TrackedFeatureType type = new TrackedFeatureType("B");
+		assertTrue("Name is invalid", feature.getTrackedFeatureType().getTitle().equals("Feature type"));	
+		feature.setTrackedFeatureType(type);	
+		assertTrue("Name is invalid", feature.getTrackedFeatureType().getTitle().equals("B"));
 	}
 	
 	@Test
 	public void testFeature13()
 	{
-		TrackedFeature feature = new TrackedFeature("Feature", featureType);		
-		feature.setFeatureName(null);
-		assertTrue("Name is invalid", feature.getFeatureName().equals("Feature"));
-	}
-	
-	@Test
-	public void testFeature14()
-	{
-		TrackedFeature feature = new TrackedFeature("Feature", featureType);		
-		feature.setNotes("Notes");
-		assertTrue("Notes are invalid", feature.getNotes().equals("Notes"));
-	}
-	
-	@Test
-	public void testFeature15()
-	{
-		TrackedFeature feature = new TrackedFeature("Feature", featureType);		
-		feature.setNotes(null);
-		assertTrue("Notes are invalid", feature.getNotes().equals(""));
-	}
-	
-	@Test
-	public void testFeature16()
-	{
-		TrackedFeature feature = new TrackedFeature("Feature", "Notes", featureType);		
-		feature.setNotes(null);
-		assertTrue("Notes are invalid", feature.getNotes().equals("Notes"));
-	}
-	
-	@Test
-	public void testFeature17()
-	{
-		TrackedFeature feature = new TrackedFeature("Feature", featureType);		
-		feature.setNotes("");
-		assertTrue("Notes are invalid", feature.getNotes().equals(""));
+		TrackedFeature feature = new TrackedFeature("Notes", 1, featureType, new Date(12345), 10);	
+		assertTrue("Name is invalid", feature.getTrackedFeatureType().getTitle().equals("Feature type"));	
+		feature.setTrackedFeatureType(null);	
+		assertTrue("Name is invalid", feature.getTrackedFeatureType().getTitle().equals("Feature type"));
 	}
 }
