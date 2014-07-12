@@ -22,12 +22,22 @@ TODO(Timothy):
 TODO(Derek):
 
 TODO(Karl):
+	Acceptance testing
 
 TODO(Jason):
 
 TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Acceptance Testing
+Date: 7/12, 3:30pm
+Assigned to: Karl
+Status: In progress.
+Duration: 
+Description:	
+
+
+
 Task: Testing, Bug fixing, Refactoring, etc.
 Date: 7/12, 12:00am
 Assigned to: Tim
@@ -116,7 +126,7 @@ Description:	Modified charts to include expenses.
 
 Date: 07/06, 8:16
 Assigned to: Karl
-Status: in progress
+Status: Completed
 Duration: 6 hours
 Description:	Add acceptance testing to project. 
 				Note: am currently experiencing some difficulty getting it set up properly due to the way our GUI is structured

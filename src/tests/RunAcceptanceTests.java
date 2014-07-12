@@ -2,6 +2,8 @@ package tests;
 
 import acceptanceTests.TestRunner;
 
+
+//see the acceptance testing README.txt
 public class RunAcceptanceTests 
 {
 	public static void main(String[] args) throws Exception

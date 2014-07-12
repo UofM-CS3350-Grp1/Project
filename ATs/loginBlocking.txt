@@ -1,0 +1,9 @@
+
+Manual test to see that by not logging in, most program features cannot be accessed.
+
+1. Open the program
+2. Verify that the top menu buttons are grey unless they cannot be used to access sections of the program to view or change data
+3. Try logging in with an incorrect user name
+4. Try logging in with an incorrect password
+5. Try logging in with a correct user name and password
+6. Verify that you now have access to program features that were inaccessible before logging in

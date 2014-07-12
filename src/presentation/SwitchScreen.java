@@ -42,13 +42,15 @@ public class SwitchScreen
 	private static Deque< Composite > backStack;
 
 	private static Button bBack;
+	/*
 	private static Button bClients;
 	private static Button bContract;
 	private static Button bServices;
 	private static Button bFeatures;
+	private static Button bExit;
+	*/
 	private static Button bJCC;
 	private static Button bLogin;
-	private static Button bExit;
 	private static Display display;
 	private static Shell shell;
 	private static MenuItem mntmMenu;
@@ -57,6 +59,26 @@ public class SwitchScreen
 	private static MenuItem mntmLogOut_1;
 	private static MenuItem mntmChangePassword;
 	private static Menu menu;
+	
+	private static Menu menu_1;
+	private static MenuItem bClients;
+	private static MenuItem bContract;
+	private static MenuItem bServices;
+	private static MenuItem bFeatures;
+	private static MenuItem bExit;
+	private static Menu menu_2;
+	private static MenuItem mntmNewClient;
+	private static MenuItem mntmNewContract;
+	private static MenuItem mntmNewService;
+	private static MenuItem mntmNewFeature;
+	private static MenuItem mntmNewSurvey;
+	private static Menu menu_3;
+	private static MenuItem mntmViewContracts;
+	private static MenuItem mntmViewServices;
+	private static MenuItem mntmViewClients ;
+	private static MenuItem mntmAddExpenses ;
+	private static MenuItem mntmSettings;
+	private static Menu menu_4;
 
 	SwitchScreen()
 	{	
@@ -141,19 +163,19 @@ public class SwitchScreen
 		mntmMenu = new MenuItem(menu, SWT.CASCADE);
 		mntmMenu.setText("Menu");
 
-		Menu menu_1 = new Menu(mntmMenu);
+		menu_1 = new Menu(mntmMenu);
 		mntmMenu.setMenu(menu_1);
 
-		MenuItem bClients = new MenuItem(menu_1, SWT.NONE);
+		bClients = new MenuItem(menu_1, SWT.NONE);
 		bClients.setText("Clients");
 
-		MenuItem bContract = new MenuItem(menu_1, SWT.NONE);
+		bContract = new MenuItem(menu_1, SWT.NONE);
 		bContract.setText("Contracts");
 
-		MenuItem bServices = new MenuItem(menu_1, SWT.NONE);
+		bServices = new MenuItem(menu_1, SWT.NONE);
 		bServices.setText("Services");
 
-		MenuItem bFeatures = new MenuItem(menu_1, SWT.NONE);
+		bFeatures = new MenuItem(menu_1, SWT.NONE);
 		bFeatures.setText("Features");
 
 //  This menu item is redundant, JCC's already has its own top level menu
@@ -162,16 +184,16 @@ public class SwitchScreen
 
 		new MenuItem(menu_1, SWT.SEPARATOR);
 
-		MenuItem bExit = new MenuItem(menu_1, SWT.NONE);
+		bExit = new MenuItem(menu_1, SWT.NONE);
 		bExit.setText("Exit");
 
 		mntmNewSubmenu = new MenuItem(menu, SWT.CASCADE);
 		mntmNewSubmenu.setText("New");
 
-		Menu menu_2 = new Menu(mntmNewSubmenu);
+		menu_2 = new Menu(mntmNewSubmenu);
 		mntmNewSubmenu.setMenu(menu_2);
 
-		MenuItem mntmNewClient = new MenuItem(menu_2, SWT.NONE);
+		mntmNewClient = new MenuItem(menu_2, SWT.NONE);
 		mntmNewClient.setText("New Client");
 
 		mntmNewClient.addSelectionListener( new SelectionAdapter()
@@ -185,7 +207,7 @@ public class SwitchScreen
 			}
 		});
 
-		MenuItem mntmNewContract = new MenuItem(menu_2, SWT.NONE);
+		mntmNewContract = new MenuItem(menu_2, SWT.NONE);
 		mntmNewContract.setText("New Contract");
 
 		mntmNewContract.addSelectionListener( new SelectionAdapter()
@@ -199,7 +221,7 @@ public class SwitchScreen
 			}
 		});
 
-		MenuItem mntmNewService = new MenuItem(menu_2, SWT.NONE);
+		mntmNewService = new MenuItem(menu_2, SWT.NONE);
 		mntmNewService.setText("New Service");
 
 		mntmNewService.addSelectionListener( new SelectionAdapter()
@@ -215,7 +237,7 @@ public class SwitchScreen
 
 		new MenuItem(menu_2, SWT.SEPARATOR);
 
-		MenuItem mntmNewFeature = new MenuItem(menu_2, SWT.NONE);
+		mntmNewFeature = new MenuItem(menu_2, SWT.NONE);
 		mntmNewFeature.setText("New Feature");
 
 		mntmNewFeature.addSelectionListener( new SelectionAdapter()
@@ -229,7 +251,7 @@ public class SwitchScreen
 			}
 		});
 
-		MenuItem mntmNewSurvey = new MenuItem(menu_2, SWT.NONE);
+		mntmNewSurvey = new MenuItem(menu_2, SWT.NONE);
 		mntmNewSurvey.setText("New Survey");
 
 		mntmNewSurvey.addSelectionListener( new SelectionAdapter()
@@ -246,10 +268,10 @@ public class SwitchScreen
 		mntmJccs_1 = new MenuItem(menu, SWT.CASCADE);
 		mntmJccs_1.setText("JCC's");
 
-		Menu menu_3 = new Menu(mntmJccs_1);
+		menu_3 = new Menu(mntmJccs_1);
 		mntmJccs_1.setMenu(menu_3);
 
-		MenuItem mntmViewContracts = new MenuItem(menu_3, SWT.NONE);
+		mntmViewContracts = new MenuItem(menu_3, SWT.NONE);
 		mntmViewContracts.setText("View Contracts");
 
 		mntmViewContracts.addSelectionListener( new SelectionAdapter()
@@ -263,7 +285,7 @@ public class SwitchScreen
 			}
 		});
 
-		MenuItem mntmViewServices = new MenuItem(menu_3, SWT.NONE);
+		mntmViewServices = new MenuItem(menu_3, SWT.NONE);
 		mntmViewServices.setText("View Services");
 
 		mntmViewServices.addSelectionListener( new SelectionAdapter()
@@ -277,7 +299,7 @@ public class SwitchScreen
 			}
 		});
 
-		MenuItem mntmViewClients = new MenuItem(menu_3, SWT.NONE);
+		mntmViewClients = new MenuItem(menu_3, SWT.NONE);
 		mntmViewClients.setText("View Clients");
 
 		mntmViewClients.addSelectionListener( new SelectionAdapter()
@@ -293,7 +315,7 @@ public class SwitchScreen
 
 		new MenuItem(menu_3, SWT.SEPARATOR);
 
-		MenuItem mntmAddExpenses = new MenuItem(menu_3, SWT.NONE);
+		mntmAddExpenses = new MenuItem(menu_3, SWT.NONE);
 		mntmAddExpenses.setText("Add Expenses");
 
 		mntmAddExpenses.addSelectionListener( new SelectionAdapter()
@@ -307,10 +329,10 @@ public class SwitchScreen
 			}
 		});
 
-		MenuItem mntmSettings = new MenuItem(menu, SWT.CASCADE);
+		mntmSettings = new MenuItem(menu, SWT.CASCADE);
 		mntmSettings.setText("Settings");
 
-		Menu menu_4 = new Menu(mntmSettings);
+		menu_4 = new Menu(mntmSettings);
 		mntmSettings.setMenu(menu_4);
 
 		mntmChangePassword = new MenuItem(menu_4, SWT.NONE);
@@ -345,6 +367,9 @@ public class SwitchScreen
 				SwitchScreen.switchContent( loginScreen );
 			}
 		});
+		
+		bExit = new MenuItem(menu_4, SWT.NONE);
+		bExit.setText("Exit");
 
 /*
  * Top menu bar code ends here

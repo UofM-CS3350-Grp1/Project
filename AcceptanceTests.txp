@@ -1,0 +1,103 @@
+
+
+Starting acceptance tests.
+
+Script C:\Users\Karl\Development\workspaceSE\BDM/ATs/createClient.act
+
+Package                 presentation
+InvokeMethod            presentation.Startup                jumpStart
+
+Click                   SwitchScreen                        bClients
+InvokeMethod            presentation.ClientScreenDrawer     addNew
+
+Set                     AddClientScreenDrawer               txtClientName        "Test"
+Set                     AddClientScreenDrawer               txtBusinessName      "Test Business Name"
+Set                     AddClientScreenDrawer               txtAddress           "123 Test St"
+Set                     AddClientScreenDrawer               txtEmail             "Test@test.com"
+Set                     AddClientScreenDrawer               txtPhoneNumberA      123
+Set                     AddClientScreenDrawer               txtPhoneNumberB      456
+Set                     AddClientScreenDrawer               txtPhoneNumberC      7890
+Click                   AddClientScreenDrawer               btnAction
+
+SelectTableByRowIndex   ClientScreenDrawer                  _table               3
+TestTableByColumnLabel  ClientScreenDrawer                  _table               "Client"        "Test Business Name"
+TestTableByColumnLabel  ClientScreenDrawer                  _table               "Contact"       "Test"
+TestTableByColumnLabel  ClientScreenDrawer                  _table               "Status"        "Potential"
+TestTableByColumnLabel  ClientScreenDrawer                  _table               "Address"       "123 Test St"
+TestTableByColumnLabel  ClientScreenDrawer                  _table               "Email"         "Test@test.com"
+TestTableByColumnLabel  ClientScreenDrawer                  _table               "Phone Number"  "(123) 456-7890"
+
+-------------------------------------------------------------------------------
+
+Script C:\Users\Karl\Development\workspaceSE\BDM/ATs/createClient.act
+
+Tests passed: 6; tests failed: 0; invalid parameters: 0; invalid commands: 0
+
+-------------------------------------------------------------------------------
+
+Script C:\Users\Karl\Development\workspaceSE\BDM/ATs/createContract.act
+
+
+-------------------------------------------------------------------------------
+
+Script C:\Users\Karl\Development\workspaceSE\BDM/ATs/createContract.act
+
+Tests passed: 0; tests failed: 0; invalid parameters: 0; invalid commands: 0
+
+-------------------------------------------------------------------------------
+
+Script C:\Users\Karl\Development\workspaceSE\BDM/ATs/createFeature.act
+
+
+-------------------------------------------------------------------------------
+
+Script C:\Users\Karl\Development\workspaceSE\BDM/ATs/createFeature.act
+
+Tests passed: 0; tests failed: 0; invalid parameters: 0; invalid commands: 0
+
+-------------------------------------------------------------------------------
+
+Script C:\Users\Karl\Development\workspaceSE\BDM/ATs/createService.act
+
+
+-------------------------------------------------------------------------------
+
+Script C:\Users\Karl\Development\workspaceSE\BDM/ATs/createService.act
+
+Tests passed: 0; tests failed: 0; invalid parameters: 0; invalid commands: 0
+
+-------------------------------------------------------------------------------
+
+Script C:\Users\Karl\Development\workspaceSE\BDM/ATs/login.act
+
+Package                 presentation
+InvokeMethod            presentation.Startup                jumpStart
+
+Set                     LoginDrawer                         txtUser              "Karl"
+Set                     LoginDrawer                         txtPass              "password"
+InvokeMethod            LoginDrawer                         processLoginButton
+
+Test                    LoggedInDrawer                      lblActiveUser        "Karl"
+
+-------------------------------------------------------------------------------
+
+Script C:\Users\Karl\Development\workspaceSE\BDM/ATs/login.act
+
+Tests passed: 1; tests failed: 0; invalid parameters: 0; invalid commands: 0
+
+-------------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+Totals for all scripts in directory C:\Users\Karl\Development\workspaceSE\BDM
+
+Tests passed: 7; tests failed: 0; invalid parameters: 0; invalid commands: 0
+
+Number of scripts without any tests: 3
+
+Elapsed time: 5.039  seconds
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------

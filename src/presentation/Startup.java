@@ -11,8 +11,7 @@ public class Startup
 	
 	public static void jumpStart()
 	{
-		//only here as a target for .act scripts
+		//here as a target for .act scripts
 		new SwitchScreen();
-		System.out.println("Done.");
 	}
 }

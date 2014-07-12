@@ -14,11 +14,18 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Button;
 
+import acceptanceTests.Register;
+
+
 public class LoggedInDrawer 
 {
 	private Composite composite;
 	protected Button btnLogout;
 	protected Button btnChangePW;
+	protected Label lblActiveUser;
+	
+	@SuppressWarnings("unused")
+	private Shell shell;
 
 	/**
 	 * Call the constructor with a shell's main component as <container>
@@ -26,6 +33,7 @@ public class LoggedInDrawer
 	 */
 	public LoggedInDrawer( Composite container ) 
 	{
+		Register.newWindow(this);
 		composite = new Composite( container, SWT.None );
 
 		// units = grid columns
@@ -46,7 +54,7 @@ public class LoggedInDrawer
 		lblUser.setText( "Logged in as: ");
 		lblUser.setLayoutData( componentTweaker );
 
-		Label lblActiveUser = new Label( composite, SWT.None );
+		lblActiveUser = new Label( composite, SWT.None );
 		lblActiveUser.setText(loggedInAs);
 		lblActiveUser.setLayoutData( componentTweaker );
 

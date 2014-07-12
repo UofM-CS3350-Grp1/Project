@@ -16,6 +16,8 @@ import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.layout.FillLayout;
 
+import acceptanceTests.Register;
+
 import objects.Client;
 import objects.Email;
 import objects.PhoneNumber;
@@ -55,6 +57,7 @@ public class AddClientScreenDrawer
 	 */
 	public AddClientScreenDrawer(Composite container)
 	{		
+		Register.newWindow(this);
 		composite = new Composite(container, SWT.BORDER);
 		processClient = new ProcessClient();
 		

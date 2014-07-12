@@ -1,0 +1,8 @@
+Package                 presentation
+InvokeMethod            presentation.Startup		jumpStart
+
+Set						LoginDrawer					txtUser				"Karl"
+Set						LoginDrawer					txtPass				"password"
+InvokeMethod			LoginDrawer					processLoginButton
+
+Test					LoggedInDrawer				lblActiveUser		"Karl"

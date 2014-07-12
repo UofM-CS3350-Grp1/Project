@@ -15,6 +15,8 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Button;
 
+import acceptanceTests.Register;
+
 public class LoginDrawer 
 {
 	private Composite composite;
@@ -23,6 +25,9 @@ public class LoginDrawer
 	protected Button btnForgot;
 	protected Text txtUser;
 	protected Text txtPass;
+	
+	@SuppressWarnings("unused")
+	private Shell shell;
 
 	/**
 	 * Call the constructor with a shell's main component as <container>
@@ -30,6 +35,7 @@ public class LoginDrawer
 	 */
 	public LoginDrawer( Composite container ) 
 	{
+		Register.newWindow(this);
 		composite = new Composite( container, SWT.None );
 
 		// units = grid columns

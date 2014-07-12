@@ -1,0 +1,22 @@
+Package                 presentation
+InvokeMethod            presentation.Startup		jumpStart
+
+Click                   SwitchScreen				bClients
+InvokeMethod 			presentation.ClientScreenDrawer 	addNew
+
+Set 					AddClientScreenDrawer		txtClientName 			"Test"
+Set 					AddClientScreenDrawer 		txtBusinessName 		"Test Business Name"
+Set 					AddClientScreenDrawer 		txtAddress				"123 Test St"
+Set 					AddClientScreenDrawer 		txtEmail				"Test@test.com"
+Set 					AddClientScreenDrawer 		txtPhoneNumberA			123
+Set 					AddClientScreenDrawer 		txtPhoneNumberB 		456
+Set 					AddClientScreenDrawer 		txtPhoneNumberC 		7890
+Click 					AddClientScreenDrawer		btnAction
+
+SelectTableByRowIndex	ClientScreenDrawer			_table 					3
+TestTableByColumnLabel 	ClientScreenDrawer 			_table 					"Client" 				"Test Business Name"
+TestTableByColumnLabel 	ClientScreenDrawer 			_table 					"Contact" 				"Test"
+TestTableByColumnLabel 	ClientScreenDrawer 			_table 					"Status" 				"Potential"
+TestTableByColumnLabel 	ClientScreenDrawer 			_table 					"Address" 				"123 Test St"
+TestTableByColumnLabel 	ClientScreenDrawer 			_table 					"Email" 				"Test@test.com"
+TestTableByColumnLabel 	ClientScreenDrawer 			_table 					"Phone Number" 			"(123) 456-7890"
