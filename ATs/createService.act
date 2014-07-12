@@ -1,0 +1,13 @@
+Package                 presentation
+InvokeMethod            presentation.Startup		jumpStart
+
+Click                   SwitchScreen				bServices
+InvokeMethod 			ServiceScreenDrawer 		addNew
+
+Set						AddServiceScreenDrawer		svcName				"Test Service"
+Set						AddServiceScreenDrawer		svcDescription		"Test Service description"
+InvokeMethod			AddServiceScreenDrawer		processActionButton
+
+SelectTableByRowIndex	ServiceScreenDrawer			_table 		2
+TestTableByColumnLabel 	ServiceScreenDrawer 		_table 		"Title" 		"Test Service"
+TestTableByColumnLabel 	ServiceScreenDrawer 		_table 		"Description" 	"Test Service description"

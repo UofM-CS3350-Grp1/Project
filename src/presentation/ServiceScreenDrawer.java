@@ -9,8 +9,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 
+import acceptanceTests.Register;
 import business.ProcessService;
 
 /**
@@ -25,6 +27,11 @@ public class ServiceScreenDrawer extends BaseStorableScreenDrawer
 	private ServiceType serviceType;
 	private TableItem item;
 	
+	@SuppressWarnings("unused")
+	private Table _table;	
+	@SuppressWarnings("unused")
+	private Shell shell;
+	
 	/**
 	 * Call the constructor with a shell's main component as <container>
 	 * and it will be added to that component;
@@ -37,6 +44,8 @@ public class ServiceScreenDrawer extends BaseStorableScreenDrawer
 		btnUpdate.setText("Edit Service");;
 		btnDelete.setText("Cancel Service");
 		btnView.setText("View Service");
+		
+		_table = table;
 		
 		if(processService == null)
 			processService = new ProcessService();	    

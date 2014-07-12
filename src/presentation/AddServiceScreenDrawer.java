@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import acceptanceTests.Register;
 import business.ProcessService;
 
 import org.eclipse.swt.layout.GridLayout;
@@ -28,6 +29,9 @@ public class AddServiceScreenDrawer
 	protected Text svcName;
 	protected Button btnAdd;
 	protected Button btnCancel;
+	
+	@SuppressWarnings("unused")
+	private Shell shell;
 
 	/*
 	 * Call the constructor with a shell's main component as <container>
@@ -35,6 +39,7 @@ public class AddServiceScreenDrawer
 	 */
 	public AddServiceScreenDrawer( Composite container ) 
 	{
+		Register.newWindow(this);
 		composite = new Composite( container, SWT.None );
 		composite.setLayout(new GridLayout(3, false));
 		

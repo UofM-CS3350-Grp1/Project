@@ -2,7 +2,7 @@ Package                 presentation
 InvokeMethod            presentation.Startup		jumpStart
 
 Click                   SwitchScreen				bClients
-InvokeMethod 			presentation.ClientScreenDrawer 	addNew
+InvokeMethod 			ClientScreenDrawer 			addNew
 
 Set 					AddClientScreenDrawer		txtClientName 			"Test"
 Set 					AddClientScreenDrawer 		txtBusinessName 		"Test Business Name"

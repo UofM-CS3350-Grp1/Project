@@ -1,0 +1,14 @@
+
+Must be done after the automated tests
+
+Manual test to see that a service can be deleted.
+
+1. Open the program.
+2. Login using a correct user name and password
+3. Click the menu button
+4. Select Services from the drop down menu
+5. Verify that a Service called "Test Service" exists
+6. Select the Service "Test Service"
+7. Click the Cancel Service button
+8. Click yes on the message box that appears
+9. Verify that the Service called "Test Service" no longer exists
