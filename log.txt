@@ -28,6 +28,27 @@ TODO(Jason):
 TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Testing, Bug fixing, Refactoring, etc.
+Date: 7/12, 12:00am
+Assigned to: Tim
+Status: In progress.
+Duration: 3 hours
+Description:	Added test suite to business layer objects.
+				Fixed bugs introduced with removing the details field from feature types.
+				Cleaned up code, added missing null/ invalid guards, etc.
+				Updated build scripts to include missing classes and output to files.
+
+
+Task: Feature History to Feature changes 
+Date: 7/11, 11:00pm
+Assigned to: Tim
+Status: In progress.
+Duration: 45 minutes
+Description:	Converted feature history to use features instead and added feature types.
+				Fixed existing compile issues.
+				Updated the graphs to use the new system.
+
+
 Task: Service to Service Type changes 
 Date: 7/07, 8:00pm
 Assigned to: Tim
