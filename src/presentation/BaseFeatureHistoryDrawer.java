@@ -1,6 +1,5 @@
 package presentation;
 
-import business.ProcessFeatureHistory;
 import business.ValidateTextbox;
 
 import org.eclipse.swt.SWT;
@@ -27,7 +26,6 @@ public abstract class BaseFeatureHistoryDrawer
 	protected Button btnAction;
 	protected Composite buttonComposite;
 	protected Button btnCancel;
-	protected ProcessFeatureHistory processFeatureHistory;
 	protected GridData gd_txtNotes;
 	protected Label lblValue;
 	protected Text txtValue;
@@ -39,9 +37,7 @@ public abstract class BaseFeatureHistoryDrawer
 	 * @param container 	The composite
 	 */
 	public BaseFeatureHistoryDrawer( Composite container )
-	{
-		processFeatureHistory = new ProcessFeatureHistory();
-		
+	{		
 		composite = new Composite( container, SWT.BORDER );
 		
 		// organizes the component
