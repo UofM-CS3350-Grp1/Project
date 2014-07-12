@@ -740,10 +740,10 @@ public class DBInterface extends AbstractDBInterface
 	}
 	
 	/**
-	 * GETFEATUREHISTORYFROMFEATURE()
+	 * GETEXPENSESBYSERVICE()
 	 * 
-	 * @param element Object with that can handle trackable features.
-	 * @return - Array list containing the tracked features history items associated with this object otherise null
+	 * @param Service service with associated expenses.
+	 * @return - Array list containing the expenses assocated with this service
 	 */
 	
 	public ArrayList<Expense> getExpensesByService(Service service)

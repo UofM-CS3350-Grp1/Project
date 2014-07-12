@@ -19,12 +19,14 @@ import tests.integration.business.TestProcessUser;
 import tests.integration.business.TestValidateTextbox;
 import tests.integration.persistence.TestDBController;
 import tests.integration.persistence.TestDBInterface;
+import tests.integration.persistence.TestStubDBInterface;
 
 @RunWith(Suite.class)
 @SuiteClasses({
 	
 	TestDBController.class,
 	TestDBInterface.class,
+	TestStubDBInterface.class,
 	TestAccessFinancialRecords.class,
 	TestCalculateFeatureValue.class,
 	TestDateTimeUtil.class,
