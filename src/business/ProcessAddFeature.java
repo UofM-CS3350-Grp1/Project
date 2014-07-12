@@ -162,7 +162,7 @@ public class ProcessAddFeature extends ProcessStorable
 		if(client != null)
 		{
 			database.connect();
-			//featureList = database.getTrackedFeatureTypesByClient(client);
+			featureList = database.getFeatureTypeByClient(client);
 			database.disconnect();
 		}
 		
