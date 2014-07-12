@@ -7,6 +7,7 @@ import org.junit.runners.Suite.SuiteClasses;
 import tests.business.AccessFinancialRecordsTest;
 import tests.business.CalcFeatureValueTest;
 import tests.business.DateTimeUtilTest;
+import tests.business.GenerateGraphTest;
 import tests.objects.ClientTest;
 import tests.objects.ContractTest;
 import tests.objects.EmailTest;
@@ -33,7 +34,8 @@ import tests.objects.UserTest;
 			ExpenseTest.class,
 			CalcFeatureValueTest.class,
 			AccessFinancialRecordsTest.class,
-			DateTimeUtilTest.class
+			DateTimeUtilTest.class,
+			GenerateGraphTest.class
 		})
 public class TestAll
 { }

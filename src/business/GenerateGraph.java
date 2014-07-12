@@ -49,8 +49,8 @@ public class GenerateGraph
 		SimpleDateFormat sdf;
 		MonthReport history;
 		
-		assert (feature != null);
-		if(feature != null)
+		assert (feature != null && client != null);
+		if(feature != null && client != null)
 		{
 			histories = processHistory.getYearHistoryForFeature(feature, client);
 			
@@ -73,10 +73,13 @@ public class GenerateGraph
 					System.out.println(e);
 				}
 			}
+			
+			chart = ChartFactory.createLineChart(feature.getTitle(), "Period (Months)", feature.getTitle(), data);
 		}	
+		else
+			chart = ChartFactory.createLineChart("Feature", "Period (Months)", "Feature", data);
 		
-		//Setup the chart names and axes
-		chart = ChartFactory.createLineChart(feature.getTitle(), "Period (Months)", feature.getTitle(), data);
+		//Setup the chart names and axes		
 		chart.removeLegend();
 		
 		plot = chart.getPlot();
@@ -157,8 +160,8 @@ public class GenerateGraph
 		int size;
 		SimpleDateFormat sdf;
 		
-		assert (reports != null);
-		if(reports != null)
+		assert (reports != null && data != null && xaxisName != null);
+		if(reports != null && data != null && xaxisName != null)
 		{
 			//Plot the last 12 months worth of data. Note that we don't 
 			//care if the months are within the same year. 
@@ -187,16 +190,16 @@ public class GenerateGraph
 	public JFreeChart generateFinancialBreakdownForClient(Client client)
 	{
 		JFreeChart chart = null;
-		double revenue, expenses;
+		double revenue = -1, expenses = -1;
 
 		assert (client != null);
 		if(client != null)
 		{
 			revenue  = financialRecords.calcClientRevenueToDate(client);
 			expenses = financialRecords.calcClientExpensesToDate(client);
-			
-			chart = generateFinancialBreakdown(revenue, expenses);
 		}	
+		
+		chart = generateFinancialBreakdown(revenue, expenses);
 		
 		return chart;
 	}
@@ -209,16 +212,16 @@ public class GenerateGraph
 	public JFreeChart generateFinancialBreakdownForService(ServiceType serviceType)
 	{
 		JFreeChart chart = null;
-		double revenue, expenses;
+		double revenue = -1, expenses = -1;
 
 		assert (serviceType != null);
 		if(serviceType != null)
 		{
 			revenue  = financialRecords.calcServiceRevenueToDate(serviceType);
 			expenses = financialRecords.calcServiceExpensesToDate(serviceType);
-
-			chart = generateFinancialBreakdown(revenue, expenses);
 		}
+		
+		chart = generateFinancialBreakdown(revenue, expenses);
 
 		return chart;
 	}
@@ -232,11 +235,14 @@ public class GenerateGraph
 	private JFreeChart generateFinancialBreakdown(double revenue, double expenses)
 	{
 		JFreeChart chart = null;
-		DefaultPieDataset data = new DefaultPieDataset();;
+		DefaultPieDataset data = new DefaultPieDataset();
 		PiePlot plot;
 
-		data.setValue("Profit", revenue - expenses);
-		data.setValue("Expenses", expenses);
+		if(revenue >= 0 && expenses >= 0)
+		{
+			data.setValue("Profit", revenue - expenses);
+			data.setValue("Expenses", expenses);
+		}
 		
 		//Setup the chart names and axes
 		chart = ChartFactory.createPieChart("Financial Breakdown", data);
