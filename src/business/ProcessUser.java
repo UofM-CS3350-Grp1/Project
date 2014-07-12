@@ -27,9 +27,14 @@ public class ProcessUser extends ProcessStorable
 	public boolean validateUser(String userName, String password)
 	{
 		boolean isValid = false;
-		database.connect();
-		isValid = database.userLogin(userName, password);
-		database.disconnect();
+
+		if(userName != null && !userName.isEmpty() && password != null && !password.isEmpty())
+		{
+			database.connect();
+			isValid = database.userLogin(userName, password);
+			database.disconnect();
+		}
+		
 		return isValid;
 	}
 }
