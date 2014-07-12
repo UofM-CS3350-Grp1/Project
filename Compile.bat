@@ -25,6 +25,10 @@ echo Compiling src\tests\integration\persistence\*.java
 javac -d bin\ -cp %classpath% src\tests\integration\persistence\*.java
 
 echo.
+echo Compiling src\tests\integration\business\*.java
+javac -d bin\ -cp %classpath% src\tests\integration\business\*.java
+
+echo.
 echo Compiling src\tests\*.java
 javac -d bin\ -cp %classpath% src\tests\*.java
 
