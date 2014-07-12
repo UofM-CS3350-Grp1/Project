@@ -1356,6 +1356,22 @@ public class DBInterface extends AbstractDBInterface
 		return tally;
 	}
 	
+	public double getTotalAllFeatures(Client client, TrackedFeatureType type)
+	{
+		double output = 0;
+		ArrayList<MonthReport> summer = new ArrayList<MonthReport>();
+		summer = getSumFeatures(client, type);
+		
+		if(summer != null)
+		{
+			for(int i = 0 ; i < summer.size(); i++)
+			{
+				output += summer.get(i).getValue();
+			}
+		}
+		return output;
+	}
+	
 	/** GET ALLCLIENTRETURNS()
 	 * 
 	 * Returns the sum of all possible returns on a client.

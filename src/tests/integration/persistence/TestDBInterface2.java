@@ -23,8 +23,9 @@ public class TestDBInterface2 {
 		assertNotNull("LastYearReturns Check",mainFace.getLastYearReturns(mainFace.getClientByID(1)));
 		assertTrue(mainFace.getClientCurrentExpenses(mainFace.getClientByID(1)) <= 0);
 		assertTrue(mainFace.getClientCurrentRevenue(mainFace.getClientByID(1)) >= 0);
-		mainFace.getSumFeatures(mainFace.getClientByID(1), mainFace.getTrackedFeatureTypeByID(1));
-		mainFace.getLastYearFeaturesByType(mainFace.getTrackedFeatureTypeByID(1));
+		assertNotNull(mainFace.getSumFeatures(mainFace.getClientByID(1), mainFace.getTrackedFeatureTypeByID(1)));
+		assertNotNull(mainFace.getLastYearFeaturesByType(mainFace.getTrackedFeatureTypeByID(1)));
+		assertTrue(mainFace.getTotalAllFeatures(mainFace.getClientByID(1), mainFace.getTrackedFeatureTypeByID(1)) > 0);
 		
 		assertNotNull("Expense by id", mainFace.getExpenseByID(1));
 		assertNotNull("Expense table dump", mainFace.dumpExpenses());
