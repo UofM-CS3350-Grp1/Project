@@ -94,10 +94,8 @@ public class LoggedInDrawer
 
 	protected void processChangePWButton()
 	{
-		MessageBox dialog;
-		dialog = new MessageBox(new Shell(), SWT.ICON_INFORMATION | SWT.OK);
-		dialog.setText("Sorry");
-		dialog.setMessage("Not implemented yet...");
-		dialog.open();
+		Composite updatePW = SwitchScreen.getContentContainer();
+		UpdatePasswordScreenDrawer pwd = new UpdatePasswordScreenDrawer( updatePW );
+		SwitchScreen.switchContent( updatePW );
 	}
 }
