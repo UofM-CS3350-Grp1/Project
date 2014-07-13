@@ -929,7 +929,8 @@ public class DBInterface extends AbstractDBInterface
 		fromDate.setTime(startDate);
 		toDate.add(Calendar.MONTH, -1);
 		
-		clientContracts = this.getContractsByBusiness(element.getBusinessName());
+		if(element!= null)
+			clientContracts = this.getContractsByBusiness(element.getBusinessName());
 		
 		if(element != null && element.getID() > -1 && clientContracts != null)
 		{
@@ -1452,7 +1453,9 @@ public class DBInterface extends AbstractDBInterface
 		toDate.setTime(startDate);
 		fromDate.setTime(startDate);
 		toDate.add(Calendar.MONTH, -1);
-		clientContracts = this.getContractsByBusiness(element.getBusinessName());
+		
+		if(element!= null)
+			clientContracts = this.getContractsByBusiness(element.getBusinessName());
 		
 		if(element != null && element.getID() > -1 && clientContracts != null)
 		{
