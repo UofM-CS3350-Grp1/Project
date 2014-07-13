@@ -41,34 +41,29 @@ public class AddServiceScreenDrawer
 	{
 		Register.newWindow(this);
 		composite = new Composite( container, SWT.None );
-		composite.setLayout(new GridLayout(3, false));
+		composite.setLayout(new GridLayout(2, false));
 		
 		processService = new ProcessService();
 		
 		Label lblServiceName = new Label(composite, SWT.NONE);
-		lblServiceName.setText("Service Name");
+		lblServiceName.setText("Service Name:");
 		
 		svcName = new Text(composite, SWT.BORDER);
-		GridData gd_svcName = new GridData(GridData.FILL_HORIZONTAL);
-		gd_svcName.horizontalSpan = 2;
-		svcName.setLayoutData(gd_svcName);
+		svcName.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		
 		Label lblServiceDescription = new Label(composite, SWT.NONE);
-		GridData gd_lblServiceDescription = new GridData(GridData.FILL_HORIZONTAL);
+		GridData gd_lblServiceDescription = new GridData();
 		gd_lblServiceDescription.verticalAlignment = SWT.TOP;
 		lblServiceDescription.setLayoutData(gd_lblServiceDescription);
-		lblServiceDescription.setText("Service Description");
+		lblServiceDescription.setText("Service Description:");
 		
 		svcDescription = new Text(composite, SWT.BORDER | SWT.MULTI);
-		GridData gd_svcDescription = new GridData(GridData.FILL_BOTH);
-		gd_svcDescription.horizontalSpan = 2;
-		svcDescription.setLayoutData(gd_svcDescription);
-		new Label(composite, SWT.NONE);
+		svcDescription.setLayoutData(new GridData(GridData.FILL_BOTH));
 		
 		Composite compositeBtn = new Composite(composite, SWT.NONE);
 		GridData gd_compositeBtn = new GridData(GridData.FILL_HORIZONTAL);
 		gd_compositeBtn.horizontalAlignment = SWT.CENTER;
-		gd_compositeBtn.horizontalSpan = 2;
+		gd_compositeBtn.horizontalSpan = 3;
 		compositeBtn.setLayoutData(gd_compositeBtn);
 		btnAdd = new Button(compositeBtn, SWT.NONE);
 		btnAdd.setBounds(0, 10, 73, 25);

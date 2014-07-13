@@ -8,11 +8,14 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+
+import acceptanceTests.Register;
 
 import business.ProcessAddFeature;
 
@@ -29,12 +32,16 @@ public class AddTrackableFeatureDrawer
 	protected Button btnCancel;
 	protected ProcessAddFeature processAddFeature;
 	
+	@SuppressWarnings("unused")
+	private Shell shell;
+	
 	/**
 	 * Adds a given tracked feature
 	 * @param container 	The composite
 	 */
 	public AddTrackableFeatureDrawer( Composite container )
 	{
+		Register.newWindow(this);
 		processAddFeature = new ProcessAddFeature();
 		
 		composite = new Composite( container, SWT.BORDER );

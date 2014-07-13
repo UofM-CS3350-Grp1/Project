@@ -1,0 +1,11 @@
+Package                 presentation
+InvokeMethod            presentation.Startup			jumpStart
+
+Click                   SwitchScreen					bFeatures
+InvokeMethod			TrackableFeatureScreenDrawer	addNew
+
+Set						AddTrackableFeatureDrawer		txtName				"Test Feature"
+InvokeMethod 			AddTrackableFeatureDrawer	 	processActionButton
+
+SelectTableByRowIndex	TrackableFeatureScreenDrawer	_table 				3
+TestTableByColumnLabel 	TrackableFeatureScreenDrawer 	_table 				"Feature Name"	"Test Feature" 	

@@ -41,7 +41,7 @@ public class SwitchScreen
 
 	private static Deque< Composite > backStack;
 
-	private static Button bBack;
+	private static MenuItem bBack;
 	/*
 	private static Button bClients;
 	private static Button bContract;
@@ -182,10 +182,6 @@ public class SwitchScreen
 //		MenuItem bJCC = new MenuItem(menu_1, SWT.NONE);
 //		bJCC.setText("JCC's");
 
-		new MenuItem(menu_1, SWT.SEPARATOR);
-
-		bExit = new MenuItem(menu_1, SWT.NONE);
-		bExit.setText("Exit");
 
 		mntmNewSubmenu = new MenuItem(menu, SWT.CASCADE);
 		mntmNewSubmenu.setText("New");
@@ -350,6 +346,18 @@ public class SwitchScreen
 		});
 
 		new MenuItem(menu_4, SWT.SEPARATOR);
+		
+		bBack = new MenuItem(menu_4, SWT.NONE);
+		bBack.setText("Back");
+		
+		bBack.addSelectionListener( new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected( SelectionEvent event )
+			{
+				switchBack();
+			}
+		});
 
 		mntmLogOut_1 = new MenuItem(menu_4, SWT.NONE);
 		mntmLogOut_1.setText("Log Out");

@@ -10,8 +10,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 
+import acceptanceTests.Register;
 import business.ProcessAddFeature;
 
 /**
@@ -24,6 +26,11 @@ public class TrackableFeatureScreenDrawer extends BaseStorableScreenDrawer
 	private static final int[] tableWidths = { 0, 300 };
 	private ProcessAddFeature processFeature;
 	
+	@SuppressWarnings("unused")
+	private Table _table;	
+	@SuppressWarnings("unused")
+	private Shell shell;
+	
 	/**
 	 * Call the constructor with a shell's main component as <container>
 	 * and it will be added to that component;
@@ -32,9 +39,12 @@ public class TrackableFeatureScreenDrawer extends BaseStorableScreenDrawer
 	{
 		super(container);
 		
+		Register.newWindow(this);
 		btnAdd.setText("New Feature");
 		btnUpdate.setText("Edit Feature");
 		btnDelete.setText("Cancel Feature");
+		
+		_table = table;
 		
 		//We do not need the view button but we will need to relocate 
 		//the edit and delete buttons

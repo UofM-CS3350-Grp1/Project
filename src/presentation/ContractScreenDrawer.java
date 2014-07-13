@@ -10,7 +10,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
+
+import acceptanceTests.Register;
 
 import business.ProcessContract;
 
@@ -24,12 +27,20 @@ public class ContractScreenDrawer extends BaseStorableScreenDrawer
 	private ProcessContract processContract;
 	private ArrayList<Contract> contracts;
 	
+	@SuppressWarnings("unused")
+	private Table _table;	
+	@SuppressWarnings("unused")
+	private Shell shell;
+	
 	/*
 	 * Call the constructor 
 	 */
 	public ContractScreenDrawer( Composite container )
 	{
 		super(container);
+		
+		Register.newWindow(this);
+		
 		btnAdd.setText("New Contract");
 		btnUpdate.setText("Edit Contract");;
 		btnDelete.setText("Cancel Contract");
@@ -67,7 +78,7 @@ public class ContractScreenDrawer extends BaseStorableScreenDrawer
 	
 				item.setText(0, contract.getID() + "");
 				item.setText(1, contract.getBusinessName() + "");
-				item.setText(2, "Not specified");
+				item.setText(2, contract.getStatus());
 				item.setText(3, String.format("$%8.2f", contract.getValue()));
 				item.setText(4, contract.getFormattedSignedDate());
 			}
