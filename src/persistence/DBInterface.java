@@ -928,15 +928,15 @@ public class DBInterface extends AbstractDBInterface
 		fromDate.setTime(startDate);
 		toDate.add(Calendar.MONTH, -1);
 		
-		if(element != null && element.getID() > -1)
+		clientContracts = this.getContractsByBusiness(element.getBusinessName());
+		
+		if(element != null && element.getID() > -1 && clientContracts != null)
 		{
 			
 			tally = new ArrayList<MonthReport>();
 			
 			//Find the oldest active contract to use for contract calendar
-			clientContracts = this.getContractsByBusiness(element.getBusinessName());
 			contractDate.setTime(clientContracts.get(0).getSignedDate());
-			
 			for(int i = 1; i <clientContracts.size(); i++)
 			{
 				if(contractDate.getTime().before(clientContracts.get(i).getSignedDate()))
@@ -1029,7 +1029,7 @@ public class DBInterface extends AbstractDBInterface
 			returnVal = this.mainDB.blindQuery(sql);
 			
 			if(returnVal.size() == 1 && returnVal.get(0).compareTo("null") != 0)
-				output = Double.parseDouble(returnVal.get(0));
+				output = output + Double.parseDouble(returnVal.get(0));
 			else
 				output = 0;
 		}
