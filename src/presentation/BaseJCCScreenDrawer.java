@@ -248,17 +248,32 @@ public abstract class BaseJCCScreenDrawer
 	/**
 	 * View a summary of the financial details of all the contracts
 	 */
-	protected abstract void viewContractList();
+	protected void viewContractList() 
+	{
+		Composite jccContractList = SwitchScreen.getContentContainer();
+		new JCCContractScreenDrawer( jccContractList );
+		SwitchScreen.switchContent( jccContractList );
+	}
 	
 	/**
 	 * View a summary of the financial details of all the services
 	 */
-	protected abstract void viewServiceList();
+	protected void viewServiceList() 
+	{
+		Composite jccServiceList = SwitchScreen.getContentContainer();
+		new JCCServiceScreenDrawer( jccServiceList );
+		SwitchScreen.switchContent( jccServiceList );
+	}
 	
 	/**
 	 * View a summary of the financial details of all the clients
 	 */
-	protected abstract void viewClientList();
+	protected void viewClientList() 
+	{
+		Composite jccClientList = SwitchScreen.getContentContainer();
+		new JCCClientScreenDrawer( jccClientList );
+		SwitchScreen.switchContent( jccClientList );
+	}	
 	
 	/**
 	 * View the financial details of the selected item through on of the analysis windows
@@ -268,10 +283,56 @@ public abstract class BaseJCCScreenDrawer
 	/**
 	 * Add information received from surveys
 	 */
-	protected abstract void addSurveyInfo();
+	protected void addSurveyInfo() 
+	{
+		Composite jccAddSurvey = SwitchScreen.getContentContainer();
+		new JCCSurveyScreenDrawer( jccAddSurvey );
+		SwitchScreen.switchContent( jccAddSurvey );
+	}
 	
 	/**
 	 * Add expenses to current services in contracts
 	 */
-	protected abstract void addExpenses();
+	protected void addExpenses()
+	{
+		Composite jccExpenses = SwitchScreen.getContentContainer();
+		new AddExpensesScreenDrawer( jccExpenses );
+		SwitchScreen.switchContent( jccExpenses );
+	}
+	
+	/**
+	 * @param profit 	The total profit
+	 * @param total 	The total revenue
+	 * @return The total profit margin (%) of this contract
+	 */
+	protected double getPM(double profit, double total) 
+	{
+		double result = 0;
+		result = (profit/total) * 100.0;
+		return result;
+	}
+
+	/**
+	 * @param expense 	The total expense
+	 * @param total 	The total revenue
+	 * @return The total expense margin (%) of this contract
+	 */
+	protected double getEM(double expense, double total) 
+	{
+		double result = 0;
+		result = (expense/total) *100.0;
+		return result;
+	}
+
+	/**
+	 * @param expense 	The total expense
+	 * @param total 	The total revenue
+	 * @return The total profit of this contract
+	 */
+	protected double getProfit(double expense, double total) 
+	{
+		double result = 0;
+		result = total - expense;
+		return result;
+	}
 }
