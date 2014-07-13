@@ -23,6 +23,7 @@ import tests.objects.ExpenseTest;
 import tests.objects.MonthReportTest;
 import tests.objects.PhoneNumberTest;
 import tests.objects.ServiceTest;
+import tests.objects.ServiceTypeTest;
 import tests.objects.TrackedFeatureTest;
 import tests.objects.TrackedFeatureTypeTest;
 import tests.objects.UserTest;
@@ -38,6 +39,7 @@ import tests.objects.UserTest;
 			TrackedFeatureTest.class,
 			MonthReportTest.class,
 			UserTest.class,
+			ServiceTypeTest.class,
 			TrackedFeatureTypeTest.class,
 			ExpenseTest.class,
 			CalcFeatureValueTest.class,
