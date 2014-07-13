@@ -29,6 +29,15 @@ TODO(Jason):
 TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Bug fixing, Refactoring, etc.
+Date: 7/13, 2:00pm
+Assigned to: Tim
+Status: In progress.
+Duration: 1 hour
+Description:	Squashed various bugs dealing with null guards and missing data.
+				Cleaned up the JCC system, added missing null/ invalid guards, removed unnecessary duplication, etc.
+				
+				
 Task: SQL Injection Patch Patch
 Date: 7/13, 2:44am
 Assigned to: Dell
