@@ -29,6 +29,13 @@ TODO(Jason):
 TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: SQL Injection Patch
+Date: 7/13 6:55 pm
+Assigned to: Dell
+Status: Complete
+Duration: 30 minutes
+Description:	- fixed new user injection via login user name form
+
 Task: Bug fixing, Refactoring, Queries, Domain Object Changes
 Date: 7/10-7/13
 Assigned to: Adrian

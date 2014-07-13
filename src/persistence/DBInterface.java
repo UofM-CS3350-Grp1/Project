@@ -1776,9 +1776,11 @@ public class DBInterface extends AbstractDBInterface
 		String sql = "";
 		ArrayList<String> returnVal = new ArrayList<String>();
 		
+		String protectedName = name;
 		if(name != null && login != null && !name.isEmpty() && !login.isEmpty())
 		{
-			sql = "SELECT COUNT(*) FROM USERS WHERE NAME = '"+name+"' AND PASSWORD = '"+login+"'";
+			protectedName = protectedName.replaceAll( "'", "''" );
+			sql = "SELECT COUNT(*) FROM USERS WHERE NAME = '"+protectedName+"' AND PASSWORD = '"+login+"'";
 			
 			returnVal = this.mainDB.blindQuery(sql);
 			
