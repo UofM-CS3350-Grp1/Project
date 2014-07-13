@@ -155,9 +155,14 @@ public class DBController
 				modify = "INSERT INTO " + table + "\nVALUES \n(" +newIndex+",\n";
 				
 				//Modify everything except for first index (ROW_ID)
+				String checkerStr = null;
 				for(int i = 1 ; i < fields.size()-1; i ++)
 				{
-					modify += "'" + objectIndexes.get(i) + "',\n";
+					checkerStr = objectIndexes.get( i );
+					if ( ! checkerStr.contains( "'" ) )
+					{
+						modify += "'" + objectIndexes.get(i) + "',\n";
+					}
 				}
 				
 				modify += "'"+objectIndexes.get(fields.size()-1)+"')";

@@ -29,6 +29,14 @@ TODO(Jason):
 TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: SQL Injection Patch
+Date: 7/13, 2:20am
+Assigned to: Dell
+Status: Complete
+Duration: 2 hrs
+Description:	Any SQL injection that attempts to use an apostrophe will fail
+				No text fields will accept apostrophes though...
+				 
 Task: Acceptance Testing
 Date: 7/12, 3:30pm
 Assigned to: Karl
