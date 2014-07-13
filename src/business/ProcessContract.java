@@ -124,7 +124,7 @@ public class ProcessContract extends ProcessStorable
 				while(it.hasNext() && result == null)
 				{
 					temp = it.next();
-					if(contract.getBusinessName() == temp.getBusinessName())
+					if(contract.getBusinessName().equals(temp.getBusinessName()))
 					{
 						result = temp;
 					}

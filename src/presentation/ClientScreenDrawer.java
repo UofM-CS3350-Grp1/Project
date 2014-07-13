@@ -35,6 +35,8 @@ public class ClientScreenDrawer extends BaseStorableScreenDrawer
 	{
 		super(container);
 		
+		Register.newWindow(this);
+		
 		btnAdd.setText("New Client");
 		btnUpdate.setText("Edit Client");;
 		btnDelete.setText("Cancel Client");
@@ -44,8 +46,6 @@ public class ClientScreenDrawer extends BaseStorableScreenDrawer
 		
 		if(processClient == null)
 			processClient = new ProcessClient();	  
-		
-		Register.newWindow(this);
 	}	
 	
 	/**

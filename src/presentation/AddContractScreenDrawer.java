@@ -31,6 +31,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.DateTime;
 
+import acceptanceTests.Register;
+
 /**
  * Handles the drawing and adding of contracts
  */
@@ -48,6 +50,7 @@ public class AddContractScreenDrawer
 	protected TableItem item;
 	private Label label;
 	private Combo combo;
+	private Combo comboStatus;
 	private Label lblStart;
 	private Label lblEnd;
 	private Text inputDetails;
@@ -65,6 +68,9 @@ public class AddContractScreenDrawer
 	private Text text_7;
 	private Text text_8;
 	private Text text_9;
+		
+	@SuppressWarnings("unused")
+	private Shell shell;
 	
 	/**
 	 * Create a new contract drawer
@@ -72,6 +78,8 @@ public class AddContractScreenDrawer
 	 */
 	public AddContractScreenDrawer(Composite container) 
 	{
+		Register.newWindow(this);
+		
 		scrollComposite = new ScrolledComposite(container, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
 		scrollComposite.getVerticalBar().setIncrement(15);
 		
@@ -151,7 +159,7 @@ public class AddContractScreenDrawer
 		lblStatus.setBounds(24, 47, 55, 15);
 		lblStatus.setText("Status");
 		
-		Combo comboStatus = new Combo(composite, SWT.READ_ONLY);
+		comboStatus = new Combo(composite, SWT.READ_ONLY);
 		comboStatus.setBounds(115, 39, 90, 23);
 		comboStatus.add("Pending");
 		comboStatus.add("Signed");
