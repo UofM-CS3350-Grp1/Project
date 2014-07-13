@@ -24,7 +24,6 @@ import org.eclipse.swt.widgets.Label;
 
 import business.ProcessAddFeature;
 import business.ProcessClient;
-import business.ProcessFeatureHistory;
 
 import org.eclipse.swt.widgets.Text;
 
@@ -46,7 +45,7 @@ public class JCCSurveyScreenDrawer
 	private Button btnSave;
 	private Button btnCancel;
 
-	/*
+	/**
 	 * Call the constructor with a shell's main component as <container>
 	 * and it will be added to that component;
 	 */
@@ -130,9 +129,11 @@ public class JCCSurveyScreenDrawer
 		lblDetails.setText("Details");
 
 		btnSave = new Button(btnSurvey, SWT.NONE);
-		btnSave.addSelectionListener(new SelectionAdapter() {
+		btnSave.addSelectionListener(new SelectionAdapter() 
+		{
 			@Override
-			public void widgetSelected(SelectionEvent arg0) {
+			public void widgetSelected(SelectionEvent arg0) 
+			{
 				addSurvey();
 			}
 		});
@@ -140,9 +141,11 @@ public class JCCSurveyScreenDrawer
 		btnSave.setText("Add");
 
 		btnCancel = new Button(btnSurvey, SWT.NONE);
-		btnCancel.addSelectionListener(new SelectionAdapter() {
+		btnCancel.addSelectionListener(new SelectionAdapter()
+		{
 			@Override
-			public void widgetSelected(SelectionEvent arg0) {
+			public void widgetSelected(SelectionEvent arg0) 
+			{
 				goBackToJCCScreen();
 			}
 		});
@@ -154,12 +157,18 @@ public class JCCSurveyScreenDrawer
 		new Label(composite, SWT.NONE);
 	}
 
-	/*
+	/**
 	 * Saves the recorded survey information
 	 */
 	private void addSurvey()
 	{
-		MessageBox dialog;
+		ProcessClient processClient;
+		Client client;
+		ProcessAddFeature processFeature;
+		ArrayList<TrackedFeatureType> featureList;
+		TrackedFeatureType featureType;
+		boolean inserted = false;
+		TrackedFeature feature;
 
 		if (isFormDataValid())
 		{
@@ -171,59 +180,76 @@ public class JCCSurveyScreenDrawer
 			{
 				date = formatter.parse(theDate);
 
-				ProcessClient processClient = new ProcessClient();
-				Client client = processClient.getClientByBusinessName(comboClient.getText());
-
-				ProcessAddFeature processFeature = new ProcessAddFeature();
+				processClient = new ProcessClient();
+				client = processClient.getClientByBusinessName(comboClient.getText());
 				
-				ArrayList<TrackedFeatureType> featureList = processFeature.getFeatureTypeByTitle(comboFeature.getText());
-				TrackedFeatureType featureType = null;
-				
-				if(featureList!=null)
+				if(client != null)
 				{
-					featureType = featureList.get(0);
+					processFeature = new ProcessAddFeature();					
+					featureList = processFeature.getFeatureTypeByTitle(comboFeature.getText());
+					featureType = null;
+					
+					if(featureList != null && featureList.size() >= 1)
+					{
+						featureType = featureList.get(0);
+												
+						feature = new TrackedFeature(txtDetails.getText(), client.getID(), featureType, date, Double.parseDouble(txtValue.getText()));						
+						inserted = processFeature.insert(feature);
+								
+						// These println's starting here can be removed once successful processing is verified
+						if (inserted)
+						{
+							System.out.println("\nSurvey Info Add: SUCCESS\n");
+						}else{
+							System.out.println("\nSurvey Info Add: FAIL\n");
+						}
+						System.out.println("\nTrackedFeature Object (feature):\nfeature.getClientKey(): " + feature.getClientKey() + "\nfeature.getID(): " + feature.getID() + "\nfeature.getNotes(): " + feature.getNotes() + "\nfeature.getTableName(): " + feature.getTableName() + "\nfeature.getTrackedFeatureType().toString(): " + feature.getTrackedFeatureType().toString());
+						// Up to here
+						
+						if(inserted)
+							goBackToJCCScreen();
+						else
+							displayMessageBox("Survey Information", "There was an error processing the survey");
+					}
 				}
-				TrackedFeature feature = new TrackedFeature(txtDetails.getText(), client.getID(), featureType, date, Double.parseDouble(txtValue.getText()));
-
-				// Make sure we're not passing a null string in the FeatureHistory constructor
-				String details = "";
-				if (txtDetails.getText() != null)
-				{
-					details = txtDetails.getText();
-				}
-				
-				boolean inserted = processFeature.insert(feature);
-
-				// These println's starting here can be removed once successful processing is verified
-				if (inserted)
-				{
-					System.out.println("\nSurvey Info Add: SUCCESS\n");
-				}else{
-					System.out.println("\nSurvey Info Add: FAIL\n");
-				}
-				System.out.println("\nTrackedFeature Object (feature):\nfeature.getClientKey(): " + feature.getClientKey() + "\nfeature.getID(): " + feature.getID() + "\nfeature.getNotes(): " + feature.getNotes() + "\nfeature.getTableName(): " + feature.getTableName() + "\nfeature.getTrackedFeatureType().toString(): " + feature.getTrackedFeatureType().toString());
-				// Up to here
 			}
 			catch(Exception e)
 			{
-				dialog = new MessageBox(new Shell(), SWT.ICON_ERROR | SWT.OK);
-				dialog.setText("Survey Info");
-				dialog.setMessage("Form validation error");
-				dialog.open();
+				displayMessageBox("Survey Info", "Form validation error");
 				System.out.println("Exception caught: " + e);
 			}
-
-			goBackToJCCScreen();
 		}
 		else
 		{
-			dialog = new MessageBox(new Shell(), SWT.ERROR | SWT.OK);
-			dialog.setText("Form validation error");
-			dialog.setMessage("Please fill out all fields");
-			dialog.open();				
+			displayMessageBox("Form validation error", "Please fill out all fields");
 		}
 	}
+	
+	/**
+	 * Displays a message box with a message
+	 * @param title		The title of the message box
+	 * @param message	The message to show
+	 */
+	private void displayMessageBox(String title, String message)
+	{
+		MessageBox dialog;
+		
+		if(title == null || (title != null && title.isEmpty()))
+			title = "Processing Error";
+		
+		if(message == null || (message != null && message.isEmpty()))
+			message = "Error processing request";
+		
+		dialog = new MessageBox(new Shell(), SWT.ERROR | SWT.OK);
+		dialog.setText(title);
+		dialog.setMessage(message);
+		dialog.open();
+	}
 
+	/**
+	 * Fills the combo box with the available features to add data to
+	 * @param comboFeature	The combo box
+	 */
 	public void fillComboFeature(Combo comboFeature)
 	{
 		ProcessAddFeature processFeature = new ProcessAddFeature();
@@ -244,7 +270,7 @@ public class JCCSurveyScreenDrawer
 		}
 	}
 
-	/*
+	/**
 	 * Go back to the main JCC page
 	 */
 	private void goBackToJCCScreen()
@@ -254,6 +280,10 @@ public class JCCSurveyScreenDrawer
 		SwitchScreen.switchContent( jccContractList );
 	}
 
+	/**
+	 * Checks if the form fields are valid
+	 * @return True if valid
+	 */
 	protected boolean isFormDataValid()
 	{
 		boolean isValid = true;
