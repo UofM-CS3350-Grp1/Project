@@ -413,14 +413,7 @@ public class ContractAnalysisScreenDrawer
         
         //Terms of the contract
         ColumnText ct = new ColumnText(over);
-        setTextPosition("terms of the contract terms of the contract terms of the "
-        		+ "contract terms of the contract terms of the contract terms of the contract terms of the "
-        		+ "contract terms of the contract terms of the contract terms of the contract"
-        		+ "contract terms of the contract terms of the contract terms of the contract"
-        		+ "contract terms of the contract terms of the contract terms of the contract"
-        		+ "contract terms of the contract terms of the contract terms of the contract"
-        		+ "contract terms of the contract terms of the contract terms of the contract"
-        		+ "contract terms of the contract terms of the contract terms of the contract", ct);
+        setTextPosition(contract.getDetails(), ct);
         
 		
 		document.close();
