@@ -23,7 +23,7 @@ public class JCCContractScreenDrawer extends BaseJCCScreenDrawer
 	private ProcessContract processContract;
 	private ArrayList<Contract> contracts;
 	
-	/*
+	/**
 	 * Call the constructor 
 	 */
 	public JCCContractScreenDrawer( Composite container )
@@ -41,6 +41,7 @@ public class JCCContractScreenDrawer extends BaseJCCScreenDrawer
 	{
 		Contract contract = null;
 		TableItem item;
+		Iterator<Contract> it;
 		
 		table.removeAll();
 		
@@ -51,11 +52,11 @@ public class JCCContractScreenDrawer extends BaseJCCScreenDrawer
 
 		if(contracts != null)
 		{
-			Iterator<Contract> it = contracts.iterator();
+			it = contracts.iterator();
 			
 			while(it.hasNext())
 			{
-				contract = (Contract) it.next();
+				contract = it.next();
 				
 				item = new TableItem(table, SWT.NULL);
 				
@@ -65,53 +66,26 @@ public class JCCContractScreenDrawer extends BaseJCCScreenDrawer
 	
 				item.setText(0, contract.getID() + "");
 				item.setText(1, contract.getBusinessName() + "");
-				item.setText(2, "$ "+total);
-				item.setText(3, "$ "+expense);
-				item.setText(4, "$ "+profit);
-				item.setText(5, getEM(expense, total)+"% ");
-				item.setText(6, getPM(profit, total)+"% ");
+				item.setText(2, String.format("$ %-10.2f", total));
+				item.setText(3, String.format("$ %-10.2f", expense));
+				item.setText(4, String.format("$ %-10.2f", profit));
+				item.setText(5, String.format("%-3.2f%%", getEM(expense, total)));
+				item.setText(6, String.format("%-3.2f%%", getEM(profit, total)));
 			}
 		}
 	}
 
-	/*
-	 * @return The total profit margin (%) of this contract
-	 */
-	protected double getPM(double profit, double total) 
-	{
-		double result = 0;
-		result = Math.round((profit/total)*100.0);
-		return result;
-	}
-
-	/*
-	 * @return The total expense margin (%) of this contract
-	 */
-	protected double getEM(double expense, double total) 
-	{
-		double result = 0;
-		result = Math.round((expense/total)*100.0);
-		return result;
-	}
-
-	/*
-	 * @return The total profit of this contract
-	 */
-	protected double getProfit(double expense, double total) 
-	{
-		double result = 0;
-		result = total - expense;
-		return result;
-	}
-
-	/*
+	/**
 	 * @return The total expenses of this contract
 	 */
 	protected double getExpenses(Contract contract) 
 	{
 		double result = 0;
 		ProcessExpenses processExpenses = new ProcessExpenses();
-		result = processExpenses.getExpensesByContract(contract);
+		
+		if(contract != null)
+			result = processExpenses.getExpensesByContract(contract);
+		
 		return result;
 	}
 
@@ -125,30 +99,6 @@ public class JCCContractScreenDrawer extends BaseJCCScreenDrawer
 	protected int[] getTableWidths() 
 	{
 		return tableWidths;
-	}
-
-	@Override
-	protected void viewContractList() 
-	{
-		Composite jccContractList = SwitchScreen.getContentContainer();
-		new JCCContractScreenDrawer( jccContractList );
-		SwitchScreen.switchContent( jccContractList );
-	}
-
-	@Override
-	protected void viewServiceList() 
-	{
-		Composite jccServiceList = SwitchScreen.getContentContainer();
-		new JCCServiceScreenDrawer( jccServiceList );
-		SwitchScreen.switchContent( jccServiceList );
-	}
-
-	@Override
-	protected void viewClientList() 
-	{
-		Composite jccClientList = SwitchScreen.getContentContainer();
-		new JCCClientScreenDrawer( jccClientList );
-		SwitchScreen.switchContent( jccClientList );
 	}
 
 	@Override
@@ -166,8 +116,10 @@ public class JCCContractScreenDrawer extends BaseJCCScreenDrawer
 			{
 				TableItem select = table.getItem(index);
 				int x = Integer.parseInt(select.getText(0));
+				
 				contract = processContract.getContractByID(x);
 				client = processContract.getContractClient(contract);		
+				
 				if(client==null) 
 					System.out.println("Client is null");
 				if(contract==null) 
@@ -190,20 +142,4 @@ public class JCCContractScreenDrawer extends BaseJCCScreenDrawer
 			}
 		}
 	}
-
-	@Override
-	protected void addSurveyInfo() 
-	{
-		Composite jccAddSurvey = SwitchScreen.getContentContainer();
-		new JCCSurveyScreenDrawer( jccAddSurvey );
-		SwitchScreen.switchContent( jccAddSurvey );
-	}
-
-	@Override
-	protected void addExpenses() {
-		Composite jccExpenses = SwitchScreen.getContentContainer();
-		new AddExpensesScreenDrawer( jccExpenses );
-		SwitchScreen.switchContent( jccExpenses );
-	}
-	
 }

@@ -62,15 +62,15 @@ public class JCCServiceScreenDrawer extends BaseJCCScreenDrawer
 
 			item.setText(0, serviceType.getID() + "");
 			item.setText(1, serviceType.getType() + "");
-			item.setText(2, "$ "+total);
-			item.setText(3, "$ "+expense);
-			item.setText(4, "$ "+profit);
-			item.setText(5, getEM(expense, total)+"% ");
-			item.setText(6, getPM(profit, total)+"% ");					
+			item.setText(2, String.format("$ %-10.2f", total));
+			item.setText(3, String.format("$ %-10.2f", expense));
+			item.setText(4, String.format("$ %-10.2f", profit));
+			item.setText(5, String.format("%-3.2f%%", getEM(expense, total)));
+			item.setText(6, String.format("%-3.2f%%", getEM(profit, total)));
 		}
 	}
 	
-	/*
+	/**
 	 * @return The total income of this service
 	 */
 	protected double getRevenue(ServiceType serviceType)
@@ -78,47 +78,22 @@ public class JCCServiceScreenDrawer extends BaseJCCScreenDrawer
 		double result = 0;
 		ProcessService processService = new ProcessService();
 		Service temp = null;
-		while((temp = processService.getNextService())!=null)
-		{
-			if(temp.getServiceType().getType()==serviceType.getType())
+		
+		if(serviceType != null)
+		{		
+			while((temp = processService.getNextService())!=null)
 			{
-				result += temp.getRate();
+				if(temp.getServiceType().getType()==serviceType.getType())
+				{
+					result += temp.getRate();
+				}
 			}
 		}
+		
 		return result;
 	}
 
-	/*
-	 * @return The total profit margin (%) of this service
-	 */
-	protected double getPM(double profit, double total) 
-	{
-		double result = 0;
-		result = Math.round((profit/total)*100.0);
-		return result;
-	}
-
-	/*
-	 * @return The total expense margin (%) of this contract
-	 */
-	protected double getEM(double expense, double total) 
-	{
-		double result = 0;
-		result = Math.round((expense/total)*100.0);
-		return result;
-	}
-
-	/*
-	 * @return The total profit of this service
-	 */
-	protected double getProfit(double expense, double total) 
-	{
-		double result = 0;
-		result = total - expense;
-		return result;
-	}
-
-	/*
+	/**
 	 * @return The total expenses of this service
 	 */
 	protected double getExpenses(ServiceType serviceType) 
@@ -126,13 +101,18 @@ public class JCCServiceScreenDrawer extends BaseJCCScreenDrawer
 		double result = 0;
 		ProcessExpenses processExpenses = new ProcessExpenses();
 		Service temp = null;
-		while((temp = processService.getNextService())!=null)
+		
+		if(serviceType != null)
 		{
-			if(temp.getServiceType().getType()==serviceType.getType())
+			while((temp = processService.getNextService())!=null)
 			{
-				result += processExpenses.getExpensesByService(temp);
+				if(temp.getServiceType().getType()==serviceType.getType())
+				{
+					result += processExpenses.getExpensesByService(temp);
+				}
 			}
 		}
+		
 		return result;
 	}
 
@@ -146,30 +126,6 @@ public class JCCServiceScreenDrawer extends BaseJCCScreenDrawer
 	protected int[] getTableWidths() 
 	{
 		return tableWidths;
-	}
-
-	@Override
-	protected void viewContractList() 
-	{
-		Composite jccContractList = SwitchScreen.getContentContainer();
-		new JCCContractScreenDrawer( jccContractList );
-		SwitchScreen.switchContent( jccContractList );
-	}
-
-	@Override
-	protected void viewServiceList() 
-	{
-		Composite jccServiceList = SwitchScreen.getContentContainer();
-		new JCCServiceScreenDrawer( jccServiceList );
-		SwitchScreen.switchContent( jccServiceList );
-	}
-
-	@Override
-	protected void viewClientList() 
-	{
-		Composite jccClientList = SwitchScreen.getContentContainer();
-		new JCCClientScreenDrawer( jccClientList );
-		SwitchScreen.switchContent( jccClientList );
 	}
 
 	@Override
@@ -200,21 +156,5 @@ public class JCCServiceScreenDrawer extends BaseJCCScreenDrawer
 				System.out.println(nfe);
 			}
 		}
-	}
-
-	@Override
-	protected void addSurveyInfo() 
-	{
-		Composite jccAddSurvey = SwitchScreen.getContentContainer();
-		new JCCSurveyScreenDrawer( jccAddSurvey );
-		SwitchScreen.switchContent( jccAddSurvey );
-	}
-
-	@Override
-	protected void addExpenses() {
-		Composite jccExpenses = SwitchScreen.getContentContainer();
-		new AddExpensesScreenDrawer( jccExpenses );
-		SwitchScreen.switchContent( jccExpenses );
-	}
-	
+	}	
 }
