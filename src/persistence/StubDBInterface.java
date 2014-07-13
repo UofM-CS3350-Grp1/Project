@@ -31,6 +31,7 @@ public class StubDBInterface extends AbstractDBInterface
 	private ArrayList<TrackedFeature> trackedFeatures;
 	private ArrayList<TrackedFeatureType> trackedFeatureTypes;
 	private ArrayList<MonthReport> monthReports;
+	private ArrayList<MonthReport> monthReports2;
 	private ArrayList<User> users;
 	
 	public StubDBInterface(String dbName)
@@ -97,6 +98,19 @@ public class StubDBInterface extends AbstractDBInterface
 		monthReports.add(new MonthReport(new Date(), 34.2));
 		monthReports.add(new MonthReport(new Date(), 86.2));
 		monthReports.add(new MonthReport(new Date(), 567.2));
+		
+		monthReports2.add(new MonthReport(new Date(), 12.2));
+		monthReports2.add(new MonthReport(new Date(), 977.2));
+		monthReports2.add(new MonthReport(new Date(), 1.2));
+		monthReports2.add(new MonthReport(new Date(), 335.2));
+		monthReports2.add(new MonthReport(new Date(), 123.2));
+		monthReports2.add(new MonthReport(new Date(), 909.2));
+		monthReports2.add(new MonthReport(new Date(), 23.2));
+		monthReports2.add(new MonthReport(new Date(), 445.2));
+		monthReports2.add(new MonthReport(new Date(), 765.2));
+		monthReports2.add(new MonthReport(new Date(), 32.2));
+		monthReports2.add(new MonthReport(new Date(), 534.2));
+		monthReports2.add(new MonthReport(new Date(), 344.2));
 	}
 	
 	public void connect()
@@ -937,5 +951,67 @@ public class StubDBInterface extends AbstractDBInterface
 	public void errorMessage(String retrieve, String invalid, String instruction)
 	{
 		System.out.println("ATTEMPTING TO RETRIEVE "+retrieve+" FROM "+invalid+" PLEASE "+instruction+" AND TRY AGAIN.\n\n");
+	}
+
+	public ArrayList<TrackedFeatureType> getFeatureTypeByClient(Client client) {
+		ArrayList<TrackedFeatureType> storage = new ArrayList<TrackedFeatureType>();
+		ArrayList<TrackedFeature> feats = new ArrayList<TrackedFeature>();
+		ArrayList<TrackedFeatureType> ids = new ArrayList<TrackedFeatureType>();
+		boolean insert = true;
+		
+		if(client != null && client.getID() > 0)
+		{
+			feats = this.getTrackedFeaturesByClient(client);
+			
+			if(feats != null)
+			{
+				for(int i = 0; i < feats.size(); i++)
+				{
+					if(ids.size() == 0)
+						ids.add(feats.get(i).getTrackedFeatureType());
+					else
+					{
+						for(int j = 0; j < ids.size() && insert; j++)
+						{
+							if(feats.get(i).getTrackedFeatureType().getID() == ids.get(j).getID())
+								insert  = false;
+						}
+						if(insert)
+								ids.add(feats.get(i).getTrackedFeatureType());
+						
+						insert = true;
+					}
+				}
+			}
+			
+			if(ids.size() < 1)
+			{
+				return null;
+			}
+			else
+			{
+				return ids;
+			}
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+	public ArrayList<MonthReport> getLastYearClientFeaturesByType(Client client, TrackedFeatureType feat) 
+	{
+		return monthReports2;
+	}
+
+	public ArrayList<MonthReport> getSumFeatures(Client client,TrackedFeatureType feat) 
+	{
+		return monthReports2;
+	}
+
+	@Override
+	public double getTotalAllFeatures(Client client, TrackedFeatureType type) 
+	{
+		return 23212.0;
 	}
 }
