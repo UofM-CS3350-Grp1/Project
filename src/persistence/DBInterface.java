@@ -797,21 +797,24 @@ public class DBInterface extends AbstractDBInterface
 		{
 			feats = this.getTrackedFeaturesByClient(client);
 			
-			for(int i = 0; i < feats.size(); i++)
+			if(feats != null)
 			{
-				if(ids.size() == 0)
-					ids.add(feats.get(i).getTrackedFeatureType());
-				else
+				for(int i = 0; i < feats.size(); i++)
 				{
-					for(int j = 0; j < ids.size() && insert; j++)
+					if(ids.size() == 0)
+						ids.add(feats.get(i).getTrackedFeatureType());
+					else
 					{
-						if(feats.get(i).getTrackedFeatureType().getID() == ids.get(j).getID())
-							insert  = false;
+						for(int j = 0; j < ids.size() && insert; j++)
+						{
+							if(feats.get(i).getTrackedFeatureType().getID() == ids.get(j).getID())
+								insert  = false;
+						}
+						if(insert)
+								ids.add(feats.get(i).getTrackedFeatureType());
+						
+						insert = true;
 					}
-					if(insert)
-							ids.add(feats.get(i).getTrackedFeatureType());
-					
-					insert = true;
 				}
 			}
 			
