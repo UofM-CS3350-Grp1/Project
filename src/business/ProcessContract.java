@@ -76,9 +76,14 @@ public class ProcessContract extends ProcessStorable
 	 */
 	public Contract getContractByID(int id)
 	{
-		database.connect();
-		Contract theContract = database.getContractByID(id);
-		database.disconnect();
+		Contract theContract = null;
+		
+		if(id >= 0)
+		{
+			database.connect();
+			theContract = database.getContractByID(id);
+			database.disconnect();
+		}
 		
 		return theContract;
 	}

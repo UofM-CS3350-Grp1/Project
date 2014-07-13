@@ -17,7 +17,7 @@ public class PhoneNumberTest
 	@Before
 	public void before()
 	{
-		System.out.println("Running test: " + testName.getMethodName());
+		System.out.println("Running test: " + this.getClass().toString() + "::" + testName.getMethodName());
 	}
 	
 	@After
