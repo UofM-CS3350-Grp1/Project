@@ -29,6 +29,13 @@ TODO(Jason):
 TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: SQL Injection Patch Patch
+Date: 7/13, 2:44am
+Assigned to: Dell
+Status: Complete
+Duration: 20 mins
+Description:	Apostrophes are now allowed in text fields, but SQL injections using apostrophes won't work
+
 Task: SQL Injection Patch
 Date: 7/13, 2:20am
 Assigned to: Dell
