@@ -21,7 +21,8 @@ import objects.Client.ClientStatus;
 
 public class DBInterface extends AbstractDBInterface
 {
-	public static final String DATABASE_NAME = "CacheDB";
+	public static final String DATABASE_NAME = "MainDB";
+	public static final String CACHE_DATABASE_NAME = "CacheDB";
 	public static final String DATE_FORMAT = "yyyy-MM-dd";
 	
 	protected DBController mainDB;

@@ -64,7 +64,7 @@ public class TrackedFeature implements Storable
 			this.trackedFT = trackedFT;
 			this.recorded = recorded;
 			this.value = value;
-			this.recorded = new Date();
+			this.recorded = recorded;
 			this.sdf = new SimpleDateFormat(DATE_FORMAT);
 		}
 		else
