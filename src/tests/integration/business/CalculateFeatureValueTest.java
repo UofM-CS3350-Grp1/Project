@@ -4,10 +4,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class TestCalculateFeatureValue {
+public class CalculateFeatureValueTest {
 
 	@Test
-	public void testCalculateTotalValue() {
+	public void calculateTotalValueTest() {
 		fail("Not yet implemented");
 	}
 

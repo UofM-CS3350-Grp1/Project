@@ -4,35 +4,35 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class TestGenerateGraph {
+public class GenerateGraphTest {
 
 	@Test
-	public void testGenerateGraph() {
+	public void generateGraphTest() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGenerateFeatureLineChart() {
+	public void generateFeatureLineChartTest() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGenerateRevenueLineChartForClient() {
+	public void generateRevenueLineChartForClientTest() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGenerateRevenueLineChartForService() {
+	public void generateRevenueLineChartForServiceTest() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGenerateFinancialBreakdownForClient() {
+	public void generateFinancialBreakdownForClientTest() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGenerateFinancialBreakdownForService() {
+	public void generateFinancialBreakdownForServiceTest() {
 		fail("Not yet implemented");
 	}
 

@@ -4,35 +4,35 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class TestProcessExpenses {
+public class ProcessExpensesTest {
 
 	@Test
-	public void testProcessExpenses() {
+	public void processExpensesTest() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testInsertExpense() {
+	public void insertExpenseTest() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetExpensesByClient() {
+	public void getExpensesByClientTest() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetExpensesByService() {
+	public void getExpensesByServiceTest() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetExpensesByServiceType() {
+	public void getExpensesByServiceTypeTest() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetExpensesByContract() {
+	public void getExpensesByContractTest() {
 		fail("Not yet implemented");
 	}
 

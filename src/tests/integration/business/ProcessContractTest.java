@@ -4,70 +4,70 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class TestProcessContract {
+public class ProcessContractTest {
 
 	@Test
-	public void testProcessContract() {
+	public void processContractTest() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetUnusedContractID() {
+	public void getUnusedContractIDTest() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetContractByID() {
+	public void getContractByIDTest() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetContractsByClient() {
+	public void getContractsByClientTest() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetContractClient() {
+	public void getContractClientTest() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetContracts() {
+	public void getContractsTest() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetServices() {
+	public void getServicesTest() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testSetServices() {
+	public void testSetServicesTest() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetNumberOfServices() {
+	public void getNumberOfServicesTest() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetTotalContractsValue() {
+	public void getTotalContractsValueTest() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetNumContractsBetween() {
+	public void getNumContractsBetweenTest() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetValueOfContractsBetween() {
+	public void getValueOfContractsBetweenTest() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetValueOfServices() {
+	public void getValueOfServicesTest() {
 		fail("Not yet implemented");
 	}
 
