@@ -2,7 +2,6 @@ package tests.integration.business;
 
 import static org.junit.Assert.*;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -184,10 +183,4 @@ public class TestProcessClient
 		processService.delete(typeNew);
 		processService.delete(serviceNew);
 	}
-
-	@Test
-	public void testGetNextClientService() {
-		fail("Not yet implemented");
-	}
-
 }

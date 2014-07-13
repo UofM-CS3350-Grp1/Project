@@ -2,7 +2,6 @@ package tests.integration.business;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import objects.Client;
