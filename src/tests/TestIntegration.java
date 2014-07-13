@@ -19,6 +19,7 @@ import tests.integration.business.ProcessUserTest;
 import tests.integration.business.ValidateTextboxTest;
 import tests.integration.persistence.FinancialQueryBuilderTest;
 import tests.integration.persistence.LoginValidatorTest;
+import tests.integration.persistence.RelationalQueryBuilderTest;
 import tests.integration.persistence.TestDBController;
 import tests.integration.persistence.TestDBInterface;
 import tests.integration.persistence.TestDBInterface2;
@@ -34,6 +35,7 @@ import tests.integration.persistence.TestTableUpdater;
 	TestDBInterface2.class,
 	LoginValidatorTest.class,
 	FinancialQueryBuilderTest.class,
+	RelationalQueryBuilderTest.class,
 	TestTableDumper.class,
 	TestTableUpdater.class,
 	TestIDQueryBuilder.class,

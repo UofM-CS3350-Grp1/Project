@@ -252,7 +252,7 @@ public class RelationalQueryBuilder extends IDQueryBuilder
 			return null;
 		}
 	}
-	
+
 	/**
 	 * 	GETSERVICEBYCONTRACT()
 	 * 
@@ -398,10 +398,10 @@ public class RelationalQueryBuilder extends IDQueryBuilder
 	}
 	
 	/**
-	 * GETFEATUREHISTORYFROMFEATURE()
+	 * GETEXPENSESBYSERVICE()
 	 * 
-	 * @param element Object with that can handle trackable features.
-	 * @return - Array list containing the tracked features history items associated with this object otherise null
+	 * @param Service service with associated expenses.
+	 * @return - Array list containing the expenses assocated with this service
 	 */
 	
 	public ArrayList<Expense> getExpensesByService(Service service)
@@ -436,9 +436,56 @@ public class RelationalQueryBuilder extends IDQueryBuilder
 			if(service == null && ERROR_LOGGING == 1)
 				errorMessage("EXPENSE", "A NULL SERVICE OBJECT\n", "INSTANTIATE A SERVICE OBJECT");
 			
-			if(service != null && service.getID() < 0 && ERROR_LOGGING == 1)
+			if(service!= null && service.getID() < 0 && ERROR_LOGGING == 1)
 				errorMessage("EXPENSE", "AN UNINSTANTIATED (-1) SERVICE ID\n", "INSERT THE SERVICE OBJECT");
 			
+			return null;
+		}
+	}
+	
+	public ArrayList<TrackedFeatureType> getFeatureTypeByClient(Client client)
+	{
+		ArrayList<TrackedFeatureType> storage = new ArrayList<TrackedFeatureType>();
+		ArrayList<TrackedFeature> feats = new ArrayList<TrackedFeature>();
+		ArrayList<TrackedFeatureType> ids = new ArrayList<TrackedFeatureType>();
+		boolean insert = true;
+		
+		if(client != null && client.getID() > 0)
+		{
+			feats = this.getTrackedFeaturesByClient(client);
+			
+			if(feats != null)
+			{
+				for(int i = 0; i < feats.size(); i++)
+				{
+					if(ids.size() == 0)
+						ids.add(feats.get(i).getTrackedFeatureType());
+					else
+					{
+						for(int j = 0; j < ids.size() && insert; j++)
+						{
+							if(feats.get(i).getTrackedFeatureType().getID() == ids.get(j).getID())
+								insert  = false;
+						}
+						if(insert)
+								ids.add(feats.get(i).getTrackedFeatureType());
+						
+						insert = true;
+					}
+				}
+			}
+			
+			if(ids.size() < 1)
+			{
+				return null;
+			}
+			else
+			{
+				return ids;
+			}
+		}
+		else
+		{
 			return null;
 		}
 	}
