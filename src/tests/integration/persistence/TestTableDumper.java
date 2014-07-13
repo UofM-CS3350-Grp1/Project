@@ -2,6 +2,8 @@ package tests.integration.persistence;
 
 import static org.junit.Assert.*;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import persistence.TableDumper;
@@ -9,6 +11,18 @@ import persistence.TableDumper;
 public class TestTableDumper 
 {
 
+	@Before
+	public void before()
+	{
+		System.out.println("Running test: " + this.getClass().toString());
+	}
+	
+	@After
+	public void after()
+	{
+		System.out.println("Exiting test: " + this.getClass().toString());
+	}
+	
 	@Test
 	public void testValid() 
 	{

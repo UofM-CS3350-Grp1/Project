@@ -9,6 +9,8 @@ import objects.Expense;
 import objects.Service;
 import objects.TrackedFeature;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import persistence.IDQueryBuilder;
@@ -17,6 +19,18 @@ import persistence.TableUpdater;
 
 public class TestTableUpdater {
 
+	@Before
+	public void before()
+	{
+		System.out.println("Running test: " + this.getClass().toString());
+	}
+	
+	@After
+	public void after()
+	{
+		System.out.println("Exiting test: " + this.getClass().toString());
+	}
+	
 	@Test
 	public void testValid() 
 	{
