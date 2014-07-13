@@ -42,15 +42,16 @@ public class FinancialQueryBuilder extends RelationalQueryBuilder
 		fromDate.setTime(startDate);
 		toDate.add(Calendar.MONTH, -1);
 		
-		if(element != null && element.getID() > -1)
+		if(element!= null)
+			clientContracts = this.getContractsByBusiness(element.getBusinessName());
+		
+		if(element != null && element.getID() > -1 && clientContracts != null)
 		{
 			
 			tally = new ArrayList<MonthReport>();
 			
 			//Find the oldest active contract to use for contract calendar
-			clientContracts = this.getContractsByBusiness(element.getBusinessName());
 			contractDate.setTime(clientContracts.get(0).getSignedDate());
-			
 			for(int i = 1; i <clientContracts.size(); i++)
 			{
 				if(contractDate.getTime().before(clientContracts.get(i).getSignedDate()))
@@ -122,16 +123,14 @@ public class FinancialQueryBuilder extends RelationalQueryBuilder
 		
 		if(element != null && element.getID() > -1)
 		{
-			sql = "SELECT SUM (RATE) "+
+			sql = "SELECT SUM (VALUE) "+
 			"FROM" + 
-			"(SELECT DISTINCT SV.RATE "+
+			"(SELECT DISTINCT CON.VALUE "+
 			"FROM "+
 			"CLIENTS CL "+ 
-			"INNER JOIN CONTRACTS CON ON(CON.BUSINESS_NAME = CL.BUSINESS_NAME AND CON.END_DATE > '"+sdf.format(new Date())+"' AND CON.START_DATE < '"+sdf.format(new Date())+"') "+
-			"INNER JOIN SERVICES SV ON (SV.CONTRACT_ID = CON.ROW_ID) "+
-			"INNER JOIN SERVICES_TYPES ST ON(SV.SERVICE_TYPE_ID = ST.ROW_ID AND ST.SERVICE_TYPE != 'Web Design') " +
+			"INNER JOIN CONTRACTS CON ON(CON.BUSINESS_NAME = CL.BUSINESS_NAME) "+
 			"WHERE "+
-			"CL.ROW_ID = "+element.getID()+") ";
+			"CL.ROW_ID = "+element.getID()+" AND CON.STATUS != 'Pending') ";
 			
 			returnVal = this.mainDB.blindQuery(sql);
 			
@@ -140,12 +139,6 @@ public class FinancialQueryBuilder extends RelationalQueryBuilder
 			else
 				output = 0;
 			
-			returnVal = this.mainDB.blindQuery(sql);
-			
-			if(returnVal.size() == 1 && returnVal.get(0).compareTo("null") != 0)
-				output = Double.parseDouble(returnVal.get(0));
-			else
-				output = 0;
 		}
 		
 		return output;
@@ -240,34 +233,38 @@ public class FinancialQueryBuilder extends RelationalQueryBuilder
 					e.printStackTrace();
 				}
 			}
+			else
+				endDate  = null;
 			
 			contractDate.setTime(endDate);
 			
-			
-			for(int i = 0; i < 12 && toDate.getTime().after(contractDate.getTime()); i++)
+			if(endDate != null)
 			{
-				sql = "SELECT SUM(EX.VALUE) "+
-				"FROM "+
-				"CONTRACTS CON "+  
-				"INNER JOIN SERVICES SV ON (SV.CONTRACT_ID = CON.ROW_ID AND CON.END_DATE > '"+sdf.format(toDate.getTime())+"' AND CON.START_DATE <= '"+sdf.format(toDate.getTime())+"' ) "+
-				"INNER JOIN SERVICES_TYPES ST ON (ST.ROW_ID = SV.SERVICE_TYPE_ID) "+
-				"INNER JOIN EXPENSE EX ON(EX.SERVICE_ID = SV.ROW_ID AND INCURRED_DATE > '"+sdf.format(toDate.getTime())+"' AND INCURRED_DATE <= '"+sdf.format(fromDate.getTime())+"') "+
-				"WHERE "+
-				"ST.ROW_ID = "+element.getID();
-			
+				for(int i = 0; i < 12 && toDate.getTime().after(contractDate.getTime()); i++)
+				{
+					sql = "SELECT SUM(EX.VALUE) "+
+					"FROM "+
+					"CONTRACTS CON "+  
+					"INNER JOIN SERVICES SV ON (SV.CONTRACT_ID = CON.ROW_ID AND CON.END_DATE > '"+sdf.format(toDate.getTime())+"' AND CON.START_DATE <= '"+sdf.format(toDate.getTime())+"' ) "+
+					"INNER JOIN SERVICES_TYPES ST ON (ST.ROW_ID = SV.SERVICE_TYPE_ID) "+
+					"INNER JOIN EXPENSE EX ON(EX.SERVICE_ID = SV.ROW_ID AND INCURRED_DATE > '"+sdf.format(toDate.getTime())+"' AND INCURRED_DATE <= '"+sdf.format(fromDate.getTime())+"') "+
+					"WHERE "+
+					"ST.ROW_ID = "+element.getID();
 				
-				returnVal = this.mainDB.blindQuery(sql);
+					
+					returnVal = this.mainDB.blindQuery(sql);
+					
+					if(returnVal.size() == 1 && returnVal.get(0).compareTo("null") != 0)
+						expenseValue = Double.parseDouble(returnVal.get(0));
+					else
+						expenseValue = 0;	
 				
-				if(returnVal.size() == 1 && returnVal.get(0).compareTo("null") != 0)
-					expenseValue = Double.parseDouble(returnVal.get(0));
-				else
-					expenseValue = 0;	
-			
-				toDate.add(Calendar.MONTH, -1);
-				fromDate.add(Calendar.MONTH, -1);
-				
-				tally.add(new MonthReport(fromDate.getTime(), (expenseValue)));
-				expenseValue = 0;
+					toDate.add(Calendar.MONTH, -1);
+					fromDate.add(Calendar.MONTH, -1);
+					
+					tally.add(new MonthReport(fromDate.getTime(), (expenseValue)));
+					expenseValue = 0;
+				}
 			}
 		}
 		
@@ -322,35 +319,41 @@ public class FinancialQueryBuilder extends RelationalQueryBuilder
 					e.printStackTrace();
 				}
 			}
+			else
+				endDate  = null;
 				
-			contractDate.setTime(endDate);
 			if(element.getID() == 2)
 				divisor = 12;
 			
-			for(int i = 0; i < 12 && toDate.getTime().after(contractDate.getTime()); i++)
-			{
-				sql = "SELECT SUM (RATE) "+
-				"FROM" + 
-				"(SELECT SV.RATE "+
-				"FROM "+
-				"CONTRACTS CON "+ 
-				"INNER JOIN SERVICES SV ON (SV.CONTRACT_ID = CON.ROW_ID AND CON.END_DATE > '"+sdf.format(toDate.getTime())+"' AND CON.START_DATE <= '"+sdf.format(toDate.getTime())+"' ) "+
-				"INNER JOIN SERVICES_TYPES ST ON (ST.ROW_ID = SV.SERVICE_TYPE_ID) "+
-				"WHERE "+
-				"ST.ROW_ID = "+element.getID()+")";
-				
-				returnVal = this.mainDB.blindQuery(sql);
-				
-				if(returnVal.size() == 1 && returnVal.get(0).compareTo("null") != 0)
-					expenseValue = (Double.parseDouble(returnVal.get(0)) / divisor);
-				else
-					expenseValue = 0;	
+			contractDate.setTime(endDate);
 			
-				toDate.add(Calendar.MONTH, -1);
-				fromDate.add(Calendar.MONTH, -1);
+			if(endDate != null)
+			{
+				for(int i = 0; i < 12 && toDate.getTime().after(contractDate.getTime()); i++)
+				{
+					sql = "SELECT SUM (RATE) "+
+					"FROM" + 
+					"(SELECT SV.RATE "+
+					"FROM "+
+					"CONTRACTS CON "+ 
+					"INNER JOIN SERVICES SV ON (SV.CONTRACT_ID = CON.ROW_ID AND CON.END_DATE > '"+sdf.format(toDate.getTime())+"' AND CON.START_DATE <= '"+sdf.format(toDate.getTime())+"' ) "+
+					"INNER JOIN SERVICES_TYPES ST ON (ST.ROW_ID = SV.SERVICE_TYPE_ID) "+
+					"WHERE "+
+					"ST.ROW_ID = "+element.getID()+")";
+					
+					returnVal = this.mainDB.blindQuery(sql);
+					
+					if(returnVal.size() == 1 && returnVal.get(0).compareTo("null") != 0)
+						expenseValue = (Double.parseDouble(returnVal.get(0)) / divisor);
+					else
+						expenseValue = 0;	
 				
-				tally.add(new MonthReport(fromDate.getTime(), (expenseValue)));
-				expenseValue = 0;
+					toDate.add(Calendar.MONTH, -1);
+					fromDate.add(Calendar.MONTH, -1);
+					
+					tally.add(new MonthReport(fromDate.getTime(), (expenseValue)));
+					expenseValue = 0;
+				}
 			}
 		}
 		
@@ -405,34 +408,39 @@ public class FinancialQueryBuilder extends RelationalQueryBuilder
 					e.printStackTrace();
 				}
 			}
+			else
+				endDate = null;
 				
 			contractDate.setTime(endDate);
 			contractDate.add(Calendar.MONTH, -1);
 			contractDate.setTime(contractDate.getTime());
 			Date testTime = contractDate.getTime();
 			
-			for(int i = 0; i <12 &&toDate.getTime().after(contractDate.getTime()); i++)
+			if(endDate!= null)
 			{
-				sql = "SELECT SUM(FE.VALUE) "+
-				"FROM "+
-				"CLIENTS CL "+ 
-				"INNER JOIN FEATURE FE ON (FE.CLIENT_ID = CL.ROW_ID AND FE.DATE_RECCORDED > '"+sdf.format(toDate.getTime())+"' AND FE.DATE_RECCORDED <= '"+sdf.format(fromDate.getTime())+"' ) "+
-				"INNER JOIN FEATURE_TYPES FT ON (FE.FEATURE_TYPE_ID = FT.ROW_ID) "+
-				"WHERE "+
-				"CL.ROW_ID = "+client.getID()+" AND FT.ROW_ID = "+feat.getID();
+				for(int i = 0; i <12 &&toDate.getTime().after(contractDate.getTime()); i++)
+				{
+					sql = "SELECT SUM(FE.VALUE) "+
+					"FROM "+
+					"CLIENTS CL "+ 
+					"INNER JOIN FEATURE FE ON (FE.CLIENT_ID = CL.ROW_ID AND FE.DATE_RECCORDED > '"+sdf.format(toDate.getTime())+"' AND FE.DATE_RECCORDED <= '"+sdf.format(fromDate.getTime())+"' ) "+
+					"INNER JOIN FEATURE_TYPES FT ON (FE.FEATURE_TYPE_ID = FT.ROW_ID) "+
+					"WHERE "+
+					"CL.ROW_ID = "+client.getID()+" AND FT.ROW_ID = "+feat.getID();
+					
+					returnVal = this.mainDB.blindQuery(sql);
+					
+					if(returnVal.size() == 1 && returnVal.get(0).compareTo("null") != 0)
+						expenseValue = (Double.parseDouble(returnVal.get(0)));
+					else
+						expenseValue = 0;	
 				
-				returnVal = this.mainDB.blindQuery(sql);
-				
-				if(returnVal.size() == 1 && returnVal.get(0).compareTo("null") != 0)
-					expenseValue = (Double.parseDouble(returnVal.get(0)));
-				else
-					expenseValue = 0;	
-			
-				toDate.add(Calendar.MONTH, -1);
-				fromDate.add(Calendar.MONTH, -1);
-				
-				tally.add(new MonthReport(fromDate.getTime(), (expenseValue)));
-				expenseValue = 0;
+					toDate.add(Calendar.MONTH, -1);
+					fromDate.add(Calendar.MONTH, -1);
+					
+					tally.add(new MonthReport(fromDate.getTime(), (expenseValue)));
+					expenseValue = 0;
+				}
 			}
 		}
 		return tally;
@@ -486,33 +494,37 @@ public class FinancialQueryBuilder extends RelationalQueryBuilder
 					e.printStackTrace();
 				}
 			}
+			else
+				endDate = null;
 				
 			contractDate.setTime(endDate);
 			contractDate.add(Calendar.MONTH, -1);
 			contractDate.setTime(contractDate.getTime());
-			
-			while(toDate.getTime().after(contractDate.getTime()))
+			if(endDate != null)
 			{
-				sql = "SELECT SUM(FE.VALUE) "+
-				"FROM "+
-				"CLIENTS CL "+ 
-				"INNER JOIN FEATURE FE ON (FE.CLIENT_ID = CL.ROW_ID AND FE.DATE_RECCORDED > '"+sdf.format(toDate.getTime())+"' AND FE.DATE_RECCORDED <= '"+sdf.format(fromDate.getTime())+"' ) "+
-				"INNER JOIN FEATURE_TYPES FT ON (FE.FEATURE_TYPE_ID = FT.ROW_ID) "+
-				"WHERE "+
-				"CL.ROW_ID = "+client.getID()+" AND FT.ROW_ID = "+feat.getID();
+				while(toDate.getTime().after(contractDate.getTime()))
+				{
+					sql = "SELECT SUM(FE.VALUE) "+
+					"FROM "+
+					"CLIENTS CL "+ 
+					"INNER JOIN FEATURE FE ON (FE.CLIENT_ID = CL.ROW_ID AND FE.DATE_RECCORDED > '"+sdf.format(toDate.getTime())+"' AND FE.DATE_RECCORDED <= '"+sdf.format(fromDate.getTime())+"' ) "+
+					"INNER JOIN FEATURE_TYPES FT ON (FE.FEATURE_TYPE_ID = FT.ROW_ID) "+
+					"WHERE "+
+					"CL.ROW_ID = "+client.getID()+" AND FT.ROW_ID = "+feat.getID();
+					
+					returnVal = this.mainDB.blindQuery(sql);
+					
+					if(returnVal.size() == 1 && returnVal.get(0).compareTo("null") != 0)
+						expenseValue = (Double.parseDouble(returnVal.get(0)));
+					else
+						expenseValue = 0;	
 				
-				returnVal = this.mainDB.blindQuery(sql);
-				
-				if(returnVal.size() == 1 && returnVal.get(0).compareTo("null") != 0)
-					expenseValue = (Double.parseDouble(returnVal.get(0)));
-				else
-					expenseValue = 0;	
-			
-				toDate.add(Calendar.MONTH, -1);
-				fromDate.add(Calendar.MONTH, -1);
-				
-				tally.add(new MonthReport(fromDate.getTime(), (expenseValue)));
-				expenseValue = 0;
+					toDate.add(Calendar.MONTH, -1);
+					fromDate.add(Calendar.MONTH, -1);
+					
+					tally.add(new MonthReport(fromDate.getTime(), (expenseValue)));
+					expenseValue = 0;
+				}
 			}
 		}
 		return tally;
@@ -555,10 +567,13 @@ public class FinancialQueryBuilder extends RelationalQueryBuilder
 		fromDate.setTime(startDate);
 		toDate.add(Calendar.MONTH, -1);
 		
-		if(element != null && element.getID() > -1)
+		if(element!= null)
+			clientContracts = this.getContractsByBusiness(element.getBusinessName());
+		
+		if(element != null && element.getID() > -1 && clientContracts != null)
 		{
 			//Find the oldest active contract to use for contract calendar
-			clientContracts = this.getContractsByBusiness(element.getBusinessName());
+			
 			contractDate.setTime(clientContracts.get(0).getSignedDate());
 			
 			for(int i = 1; i <clientContracts.size(); i++)
@@ -567,7 +582,6 @@ public class FinancialQueryBuilder extends RelationalQueryBuilder
 					contractDate.setTime(clientContracts.get(i).getSignedDate());
 			}
 					
-			
 			while(toDate.getTime().after(contractDate.getTime()))
 			{
 				sql = "SELECT SUM (RATE)" +
