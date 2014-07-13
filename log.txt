@@ -29,6 +29,18 @@ TODO(Jason):
 TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Bug fixing, Refactoring, Queries, Domain Object Changes
+Date: 7/10-7/13
+Assigned to: Adrian
+Status: In progress.
+Duration: 4-6 hours.
+Description:	- Fixed bugs. Handled edge cases.
+				- Rewrote queries.
+				- Re-populated tables.
+				- Rebuilt Domain Objects.
+				- Added AbstractDBInterface.
+				- Connected integration tests.
+
 Task: Bug fixing, Refactoring, etc.
 Date: 7/13, 2:00pm
 Assigned to: Tim
