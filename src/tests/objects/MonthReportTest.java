@@ -5,10 +5,29 @@ import java.util.Date;
 import objects.MonthReport;
 import static org.junit.Assert.*;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 
 public class MonthReportTest
 {
+	@Rule
+	public TestName testName = new TestName();
+	
+	@Before
+	public void before()
+	{
+		System.out.println("Running test: " + testName.getMethodName());
+	}
+	
+	@After
+	public void after()
+	{
+		System.out.println("Finished test.\n");
+	}
+	
 	private Date date = new Date(12345);
 	
 	/**			Testing Creation		 **/

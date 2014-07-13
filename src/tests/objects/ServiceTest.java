@@ -4,7 +4,11 @@ import static org.junit.Assert.*;
 import objects.Service;
 import objects.ServiceType;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 
 /**
  * Runs tests on the service class
@@ -14,6 +18,21 @@ public class ServiceTest
 	/** Testing Service Object Creation **/
 	ServiceType serviceType = new ServiceType("Service type", "Service description");
 	ServiceType serviceType2 = new ServiceType("Sv 2", "S Desc");
+	
+	@Rule
+	public TestName testName = new TestName();
+	
+	@Before
+	public void before()
+	{
+		System.out.println("Running test: " + testName.getMethodName());
+	}
+	
+	@After
+	public void after()
+	{
+		System.out.println("Finished test.\n");
+	}
 	
 	@Test
 	public void testService1()

@@ -3,10 +3,29 @@ package tests.objects;
 import static org.junit.Assert.*;
 import objects.Email;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 
 public class EmailTest
 {
+	@Rule
+	public TestName testName = new TestName();
+	
+	@Before
+	public void before()
+	{
+		System.out.println("Running test: " + testName.getMethodName());
+	}
+	
+	@After
+	public void after()
+	{
+		System.out.println("Finished test.\n");
+	}
+	
 	/** 	Testing Creation	**/
 	
 	@Test
