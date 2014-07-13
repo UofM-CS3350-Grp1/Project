@@ -70,7 +70,6 @@ public class Service implements Storable, Trackable
 	{		
 		if(title != null && 
 			!title.isEmpty() && 
-			id >= 0 && 
 			description != null && 
 			rate >= 0  && 
 			typeS != null) 

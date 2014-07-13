@@ -21,6 +21,7 @@ import tests.integration.persistence.LoginValidatorTest;
 import tests.integration.persistence.TestDBController;
 import tests.integration.persistence.TestDBInterface;
 import tests.integration.persistence.TestDBInterface2;
+import tests.integration.persistence.TestIDQueryBuilder;
 import tests.integration.persistence.TestTableDumper;
 import tests.integration.persistence.TestTableUpdater;
 
@@ -33,6 +34,7 @@ import tests.integration.persistence.TestTableUpdater;
 	LoginValidatorTest.class,
 	TestTableDumper.class,
 	TestTableUpdater.class,
+	TestIDQueryBuilder.class,
 	TestAccessFinancialRecords.class,
 	TestCalculateFeatureValue.class,
 	TestDateTimeUtil.class,

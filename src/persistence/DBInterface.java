@@ -797,21 +797,24 @@ public class DBInterface extends AbstractDBInterface
 		{
 			feats = this.getTrackedFeaturesByClient(client);
 			
-			for(int i = 0; i < feats.size(); i++)
+			if(feats != null)
 			{
-				if(ids.size() == 0)
-					ids.add(feats.get(i).getTrackedFeatureType());
-				else
+				for(int i = 0; i < feats.size(); i++)
 				{
-					for(int j = 0; j < ids.size() && insert; j++)
+					if(ids.size() == 0)
+						ids.add(feats.get(i).getTrackedFeatureType());
+					else
 					{
-						if(feats.get(i).getTrackedFeatureType().getID() == ids.get(j).getID())
-							insert  = false;
+						for(int j = 0; j < ids.size() && insert; j++)
+						{
+							if(feats.get(i).getTrackedFeatureType().getID() == ids.get(j).getID())
+								insert  = false;
+						}
+						if(insert)
+								ids.add(feats.get(i).getTrackedFeatureType());
+						
+						insert = true;
 					}
-					if(insert)
-							ids.add(feats.get(i).getTrackedFeatureType());
-					
-					insert = true;
 				}
 			}
 			
@@ -925,15 +928,15 @@ public class DBInterface extends AbstractDBInterface
 		fromDate.setTime(startDate);
 		toDate.add(Calendar.MONTH, -1);
 		
-		if(element != null && element.getID() > -1)
+		clientContracts = this.getContractsByBusiness(element.getBusinessName());
+		
+		if(element != null && element.getID() > -1 && clientContracts != null)
 		{
 			
 			tally = new ArrayList<MonthReport>();
 			
 			//Find the oldest active contract to use for contract calendar
-			clientContracts = this.getContractsByBusiness(element.getBusinessName());
 			contractDate.setTime(clientContracts.get(0).getSignedDate());
-			
 			for(int i = 1; i <clientContracts.size(); i++)
 			{
 				if(contractDate.getTime().before(clientContracts.get(i).getSignedDate()))
@@ -1026,7 +1029,7 @@ public class DBInterface extends AbstractDBInterface
 			returnVal = this.mainDB.blindQuery(sql);
 			
 			if(returnVal.size() == 1 && returnVal.get(0).compareTo("null") != 0)
-				output = Double.parseDouble(returnVal.get(0));
+				output = output + Double.parseDouble(returnVal.get(0));
 			else
 				output = 0;
 		}
