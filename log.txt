@@ -22,7 +22,6 @@ TODO(Timothy):
 TODO(Derek):
 
 TODO(Karl):
-	Acceptance testing
 
 TODO(Jason):
 
@@ -195,7 +194,11 @@ Date: 7/12, 3:30pm
 Assigned to: Karl
 Status: In progress.
 Duration: 
-Description:	
+Description:	Acceptance tests
+
+Planned Task: Acceptance Testing
+Planned dev duration: 6 hours
+Assigned to: Karl
 
 Task: Tweaks to Menus
 Date: 7/12
@@ -256,6 +259,25 @@ Duration: 45 minutes
 Description:	Converted feature history to use features instead and added feature types.
 				Fixed existing compile issues.
 				Updated the graphs to use the new system.
+				
+				
+--------------
+Meeting Summary
+Date: 07/10
+Discussed the plan for our presentation, including who would be talking during which times and what we were going to talk about.
+Also discussed anything left to do for the final iteration. This was mainly integration testing and acceptance tests.
+--------------
+				
+				
+
+--------------
+Meeting Summary
+Date: 07/08
+Reviewed the additional required documents needed for hand-in of the final iteration
+Discussed the refactoring done to the domain objects and how that would affect various sections of the program
+--------------
+
+
 
 
 Task: Service to Service Type changes 
@@ -341,12 +363,19 @@ Description:	Modified charts to include expenses.
 				Modified chart structure to accommodate for profit.
 
 
+Task:	Add acceptance testing to project. 
 Date: 07/06, 8:16
 Assigned to: Karl
 Status: Completed
 Duration: 6 hours
 Description:	Add acceptance testing to project. 
 				Note: am currently experiencing some difficulty getting it set up properly due to the way our GUI is structured
+				There were many problems with the functionality of ATR. Since most of the program is composites, and ATR does not recognize these composites, it was difficult to get the acceptance tests working
+				ATR also does not support Combo or MessageBox, both of which our program needs for acceptance tests
+				
+Planned Task: Add acceptance testing to project.
+Planned dev duration: 2 hours
+Assigned to: Karl				
 
 
 Task: Performance tracking analysis 
