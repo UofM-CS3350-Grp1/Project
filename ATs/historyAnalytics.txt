@@ -1,0 +1,15 @@
+Must be done after the automated tests
+
+Manual test to add a new Contract.
+
+1. Open the program.
+2. Login using a correct user name and password
+3. Click the Menu button
+4. Select View Clients from the drop down menu
+5. Select the Client "Business Small" from the table
+6. Click the "View Client" button
+7. Examine the various graphs that are created to analyze performance over time (this is a visual test)
+
+note: These graphs are generated over time as the user adds various surveys and expenses to the clients. 
+		They cannot be reproduced during acceptance testing as they need time to be populated with date. 
+		This is why a client with information already entered into the database was used. 

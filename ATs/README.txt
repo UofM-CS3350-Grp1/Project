@@ -20,5 +20,12 @@ After running the automated acceptance tests, complete the manual tests in the f
 
 1. loginBlocking.txt
 2. createContract.txt
-3. deleteService.txt
-4. deleteClient.txt
+3. addExpense.txt
+4. addFeature.txt
+5. historyAnalytics.txt
+6. deleteService.txt
+7. deleteClient.txt
+
+
+Please note that these manual tests could not be implemented using ATR. 
+Also, the historyAnalytics.txt test is a visual test that covers analytics of performance and financial tracking over time, and so a new test client could not be used.

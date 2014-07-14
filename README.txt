@@ -59,5 +59,6 @@ Major changes this iteration:
 	Refactored program start location
 	
 	
-	
+Outstanding issues:
+	Piecharts only show expenses if contract is signed, should also show when contract is cancelled or terminated
 	

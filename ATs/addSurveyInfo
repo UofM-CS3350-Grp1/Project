@@ -1,0 +1,17 @@
+Must be done after the automated tests
+
+Manual test to add a new Contract.
+
+1. Open the program.
+2. Login using a correct user name and password
+3. Click the JCC's button
+4. Select View Contracts from the drop down menu
+5. Select the Client "Test Business Name" from the chart
+6. Click the "Add Survey Info" button
+7. Select "Test Business Name" from the Select Client drop down menu
+8. Select "08/2014" from the Select Date drop down menus
+9. Add "500" to the value field
+10.Add "filler survey" to the details field
+11.Click the "Add" button
+12.Click the "Services" button
+13.Verify that the Revenue of the service for "Test Service" is $500
