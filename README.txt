@@ -1,3 +1,30 @@
+###########
+TEST STATUS
+###########
+
+CalculateFeatureValueTest	- CLEAR
+
+GenerateGraphTest		- CLEAR
+
+ProcessContractTest		- INTEGRITY ERRORS
+
+ProcessExpensesTest			- INTEGRITY ERRORS
+
+Process Feature History Test		- CLEAR
+
+ProcessServiceTest			- DELETE ERRORS ONLY, CHECK YOUR ROW VALUES
+
+TestAccessFinancialRecords		- INTEGRITY ERRORS
+
+TestDateTimeUtil			- CLEAR
+
+TestProcessAddFeature		- DELETE ERRORS ONLY, CHECK YOUR ROW VALUES
+							- CLOSED SESSION ERRORS
+
+TestProcessClient			- CLEAR
+
+##############################################
+
 
 
 Repository URL: https://github.com/UofM-CS3350-Grp1/Project
