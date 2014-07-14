@@ -13,4 +13,3 @@ del CacheDB.data
 
 echo.
 echo Database restored.
-pause

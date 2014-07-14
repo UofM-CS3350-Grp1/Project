@@ -4,6 +4,6 @@ call setClasspath
 
 echo.
 echo Running tests...
-java tests.RunTests > UnitTestResults.txt && type UnitTestResults.txt
+java tests.RunTests
 
 pause
