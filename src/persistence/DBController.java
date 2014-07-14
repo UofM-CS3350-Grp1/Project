@@ -166,7 +166,9 @@ public class DBController
 					modify += "'" + protectedStr + "',\n";
 				}
 				
-				modify += "'"+objectIndexes.get(fields.size()-1)+"')";
+				protectedStr = objectIndexes.get( fields.size() -1 );
+				protectedStr = protectedStr.replaceAll( "'", "''");
+				modify += "'" + protectedStr + "')";
 				
 				if(SQL_DEBUGGING == 1)
 					System.out.println(modify);
