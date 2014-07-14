@@ -217,6 +217,10 @@ Status: Completed.
 Duration: 5-6 hours total approx
 Description:	Grabbed a section of tests\integration\business, completed integration testing on 5 classes
 
+Planned Task: Integration testing
+Planned dev duration: 2hr
+Assigned to: Derek
+
 Task: Acceptance Testing
 Date: 7/12, 3:30pm
 Assigned to: Karl
@@ -242,6 +246,14 @@ Status: Completed.
 Duration: 45 min
 Description:	Created screen for user to update password
 
+Planned Task: Tweaks to Menus
+Planned dev duration: 45 min
+Assigned to: Derek
+
+Planned Task: Update Password Screen
+Planned dev duration: 45 min
+Assigned to: Derek
+
 Task: Testing, Bug fixing, Refactoring, etc.
 Date: 7/12, 12:00am
 Assigned to: Tim
@@ -263,6 +275,10 @@ Assigned to: Derek
 Status: Completed.
 Duration: 4-5 hours total approx
 Description:	Add functionality to JCCSurveyScreenDrawer class to allow user to input survey info
+
+Planned Task: Add Survey Info Screen
+Planned dev duration: 4 hours
+Assigned to: Derek
 
 Task: Fix bugs
 Date: 7/11 6:00 pm
@@ -459,6 +475,10 @@ Assigned to: Derek
 Status: Completed.
 Duration: 2-3 hours total approx
 Description:	Allow users login with username/pw
+
+Planned Task: Login Screen
+Planned dev duration: 3 hours
+Assigned to: Derek
 
 Task: Creating the JCC (Job Cost Card) tab (used to review financial breakdowns of contracts/services/clients and features)
 Date: 7/05, 3:00pm
