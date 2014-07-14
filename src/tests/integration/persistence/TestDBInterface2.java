@@ -31,7 +31,7 @@ public class TestDBInterface2 {
 	public void testNewTypes()
 	{
 		
-		DBInterface mainFace = new DBInterface("MainDB");
+		DBInterface mainFace = new DBInterface("CacheDB");
 		mainFace.connect();
 		
 		assertNotNull("LastYearReturns Check",mainFace.getLastYearReturns(mainFace.getClientByID(1)));

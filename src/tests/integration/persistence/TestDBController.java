@@ -39,7 +39,7 @@ public class TestDBController
 	@Test
 	public void testModify1()
 	{
-		DBInterface iFace = new DBInterface("MainDB");
+		DBInterface iFace = new DBInterface("CacheDB");
 		
 		iFace.connect();
 		DBController controller = iFace.getController();

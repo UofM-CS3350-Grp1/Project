@@ -32,7 +32,7 @@ public class TestDBInterface
 	@Test
 	public void testValidRetrieval() 
 	{
-		DBInterface mainFace = new DBInterface("MainDB");
+		DBInterface mainFace = new DBInterface("CacheDB");
 		mainFace.connect();
 		
 		assertNotNull("Basic ID implementation for services", mainFace.getServiceByID(1));
