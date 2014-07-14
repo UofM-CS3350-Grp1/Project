@@ -189,6 +189,14 @@ public class Contract implements Storable
 	}
 	
 	/**
+	 * @return The start date of the contract
+	 */
+	public Date getStartDate()
+	{
+		return startDate;
+	}
+	
+	/**
 	 * Get the number of the contract
 	 * @return The contract number
 	 */
@@ -380,10 +388,14 @@ public class Contract implements Storable
 	public void setStatus(String status)
 	{
 		boolean insert = false;
-		for(int i = 0; i< STATUS_TYPE.length;i++)
+		
+		if(status != null)
 		{
-			if(status.compareTo(STATUS_TYPE[i]) == 0)
-				insert = true;
+			for(int i = 0; i< STATUS_TYPE.length;i++)
+			{
+				if(status.compareTo(STATUS_TYPE[i]) == 0)
+					insert = true;
+			}
 		}
 		
 		if(insert)
