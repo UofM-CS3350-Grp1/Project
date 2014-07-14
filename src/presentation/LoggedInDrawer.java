@@ -99,6 +99,8 @@ public class LoggedInDrawer
 		Composite loginScreen = SwitchScreen.getContentContainer();
 		LoginDrawer ld = new LoginDrawer( loginScreen );
 		SwitchScreen.switchContent( loginScreen );
+		
+		SwitchScreen.eraseBackHistory();
 	}
 
 	protected void processChangePWButton()

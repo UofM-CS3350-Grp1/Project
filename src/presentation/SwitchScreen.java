@@ -551,6 +551,10 @@ public class SwitchScreen
 		content.layout();
 	}
 
+	/* PACKAGE */ static void eraseBackHistory() {
+		backStack.clear();
+	}
+	
 	/**
 	 * Back button functionality
 	 */

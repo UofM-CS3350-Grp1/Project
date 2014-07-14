@@ -29,6 +29,14 @@ TODO(Jason):
 TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Log Out Button Erases Back History
+Date: 7/13 10:13 pm
+Assigned to: Dell
+Status: Complete
+Duration: 13 minutes
+Description:	- fixed back button security hole
+
+
 Task: New User Injection Patch
 Date: 7/13 10 pm
 Assigned to: Dell
