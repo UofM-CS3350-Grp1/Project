@@ -44,14 +44,7 @@ Status: Completed
 Duration: 2hr
 Description: 	- added a logo, centered the options a bit
 
-Task: Integration testing
-Date: 7/13 6:30 pm
-Assigned to: Jason
-Status: Completed
-Duration: 5hr
-Description: 	- integration testing for presentation to business layer
-
-Task: Integration testing
+Task: Integration tests
 Date: 7/13 6:30 pm
 Assigned to: Jason
 Status: Completed
@@ -72,6 +65,14 @@ Status: Complete
 Duration: 18 minutes
 Description:	- fixed log out menu item security hole
 
+Planned Task: Refactoring integration tests
+Planned dev duration: 1hr
+Assigned to: Jason
+
+Planned Task: Integration testing
+Planned dev duration: 4hr
+Assigned to: Jason
+
 Task: Log Out Button Erases Back History
 Date: 7/13 10:13 pm
 Assigned to: Dell
@@ -86,6 +87,10 @@ Assigned to: Dell
 Status: Complete
 Duration: 25 minutes
 Description:	- The last field in database updates is now protected
+
+Planned Task: minor improvement on the GUI
+Planned dev duration: 2hr
+Assigned to: Jason
 
 Task: New User Injection Patch
 Date: 7/13 9:35 pm
@@ -171,12 +176,13 @@ Description:	Added test suite to business layer objects.
 				Updated build scripts to include missing classes and output to files.
 
 
-Task: Fixed bugs
+Task: Fix bugs
 Date: 7/11 6:00 pm
 Assigned to: Jason
 Status: Completed
 Duration: 3hr
 Description: fixed expenses updates, survey updates, contract updates
+
 
 Task: Refactoring
 Date: 7/11 3:30 pm
@@ -202,13 +208,16 @@ Status: In progress.
 Duration: 30 minutes
 Description:	Converted services to use service types for performance analysis.
 
+Planned Task: Fix bugs
+Planned dev duration: 2.5hr
+Assigned to: Jason
+
 Task: Dynamic contract service value fields
 Date: 7/07 1:30 am
 Assigned to: Jason
 Status: Completed
 Duration: 3hr
 Description: 	- Implemented dynamic service values input fields
-
 
 Task: Export contract to properly formatted PDF
 Date: 7/06, 8:00pm
@@ -223,6 +232,10 @@ Assigned to: Jason
 Status: Completed
 Duration: 2 hours
 Description:	Expenses are now able to be added to services
+
+Planned Task: Dynamic contract service value fields
+Planned dev duration: 4hr
+Assigned to: Jason
 
 Planned Task: Adding expenses
 Planned dev duration: 3hrs
