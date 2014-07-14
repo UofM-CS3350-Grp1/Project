@@ -81,7 +81,7 @@ public class ProcessServiceTest
 		ProcessService process = new ProcessService();
 		assertNull("Title is invalid", process.getServiceByTitle(""));
 	}
-	
+/*  Method was not being used(?).  Removed the method.  Tests not required.
 	@Test
 	public void testGetServiceByClient()
 	{
@@ -95,4 +95,5 @@ public class ProcessServiceTest
 		ProcessService process = new ProcessService();
 		assertNull("Client is invalid", process.getServiceByClient(0, null));
 	}
+*/
 }

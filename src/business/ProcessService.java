@@ -148,6 +148,8 @@ public class ProcessService extends ProcessStorable
 	 * @param client	The client that uses the service
 	 * @return	The service if found, null otherwise
 	 */
+	/* This method appears to not be used
+	 * Can it be deleted?
 	public Service getServiceByClient(int serviceID, Client client)
 	{
 		Service service = null;
@@ -174,4 +176,5 @@ public class ProcessService extends ProcessStorable
 				
 		return service;
 	}
+	*/
 }
