@@ -1122,11 +1122,11 @@ public class DBInterface extends AbstractDBInterface
 			}
 			else
 				endDate  = null;
-			
-			contractDate.setTime(endDate);
-			
+						
 			if(endDate != null)
 			{
+				contractDate.setTime(endDate);
+				
 				for(int i = 0; i < 12 && toDate.getTime().after(contractDate.getTime()); i++)
 				{
 					sql = "SELECT SUM(EX.VALUE) "+
@@ -1211,11 +1211,11 @@ public class DBInterface extends AbstractDBInterface
 				
 			if(element.getID() == 2)
 				divisor = 12;
-			
-			contractDate.setTime(endDate);
-			
+					
 			if(endDate != null)
 			{
+				contractDate.setTime(endDate);
+				
 				for(int i = 0; i < 12 && toDate.getTime().after(contractDate.getTime()); i++)
 				{
 					sql = "SELECT SUM (RATE) "+
