@@ -7,7 +7,6 @@ import org.junit.Test;
 import persistence.DBInterface;
 import business.ProcessStorable;
 
-// TO DO:  Derek
 public class ProcessStorableTest {
 
 	private DBInterface database;
@@ -20,23 +19,20 @@ public class ProcessStorableTest {
 	}
 
 	@Test
-	public void processStorableTest() {
-		fail("Not yet implemented");
+	public void deleteTest()
+	{
+		assertFalse("Storable was deleted", processStorable.delete(null));
 	}
 
 	@Test
-	public void insertTest() {
-		fail("Not yet implemented");
+	public void insertTest()
+	{
+		assertFalse("Storable was inserted", processStorable.insert(null));
 	}
 
 	@Test
-	public void updateTest() {
-		fail("Not yet implemented");
+	public void updateTest()
+	{
+		assertFalse("Storable was updated", processStorable.update(null));
 	}
-
-	@Test
-	public void deleteTest() {
-		fail("Not yet implemented");
-	}
-
 }
