@@ -4,10 +4,12 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 
 import objects.Client;
 import objects.Client.ClientStatus;
+import objects.Contract;
 import objects.Email;
 import objects.PhoneNumber;
 import objects.Service;
@@ -21,13 +23,15 @@ import org.junit.rules.TestName;
 
 import persistence.DBInterface;
 import business.ProcessClient;
+import business.ProcessContract;
 import business.ProcessService;
 
 public class TestProcessClient 
 {
 	ProcessClient processClient;
 	ProcessService processService;
-	DBInterface database = new DBInterface("db");
+	ProcessContract processContract;
+	DBInterface database = new DBInterface("mainDB");
 
 	@Rule
 	public TestName testName = new TestName();
@@ -138,13 +142,16 @@ public class TestProcessClient
 	public void testAddServiceToClient() {
 		processClient = new ProcessClient();
 		processService = new ProcessService();
+		processContract = new ProcessContract();
 		Email email = new Email("test@test3.com");
 		PhoneNumber phone = new PhoneNumber("2049601539");
 		Client client = new Client("Jason", phone, email, "123 First st", "BusinessNew7", ClientStatus.Active);
 		ServiceType serviceType = new ServiceType("Type2", "Description");
+		Contract newContract = new Contract("BusinessNew7", "Details", 1111.0, new Date(), new Date(), new Date());
 		
 		processClient.insert(client);
 		processService.insert(serviceType);
+		processContract.insert(newContract);
 
 		ServiceType typeNew = null;
 		ArrayList<ServiceType> list = processService.getServiceTypes();
@@ -154,22 +161,29 @@ public class TestProcessClient
 		while(it.hasNext())
 		{
 			temp = it.next();
-			if(temp.getType()==serviceType.getType())
+			if(temp.getType().compareTo(serviceType.getType()) == 0)
 			{
 				typeNew = temp;
 			}
 		}
-
-		Service service = new Service("Title", "Description", 150.0, serviceType);
-		processService.insert(service);
 		
 		Client clientNew = processClient.getClientByBusinessName("BusinessNew7");
+		ArrayList<Contract> clientContracts = processContract.getContractsByClient(clientNew);
+		
+		Service service = new Service("Title", "Description", 150.0, typeNew);
+		
+		if(clientContracts != null && clientContracts.size() >= 1)
+		{
+			service.setContractID(clientContracts.get(0).getID());
+		}
+		processService.insert(service);
+		
 		Service serviceNew = null;
 		Service temp2 = null;
 		processService = new ProcessService();
 		while((temp2 = processService.getNextService())!=null)
 		{
-			if(temp2.getServiceType().getType()==serviceType.getType())
+			if(temp2.getServiceType().getType().compareTo(serviceType.getType()) == 0)
 			{
 				serviceNew = temp2;
 			}
@@ -182,6 +196,5 @@ public class TestProcessClient
 
 		processClient.delete(delete1);
 		processService.delete(typeNew);
-		processService.delete(serviceNew);
 	}
 }
