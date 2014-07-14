@@ -235,10 +235,22 @@ public class UpdateContractScreenDrawer
 		
 		combo = new Combo(composite, SWT.READ_ONLY);
 		combo.setBounds(108, 41, 90, 23);
-		combo.add("Pending");
-		combo.add("Signed");
-		combo.add("Cancelled");
-		combo.add("Terminated");
+		
+		int index = -1;
+		for(int i = 0; i < Contract.STATUS_TYPE.length && index == -1; i++)
+		{
+			if(contract.getStatus().equals(Contract.STATUS_TYPE[i]))
+				index = i;
+		}
+		
+		if(index == -1)
+			index = 0;
+		
+		if(index < 2)
+		{
+			for(int i = index; i < Contract.STATUS_TYPE.length; i++)
+				combo.add(Contract.STATUS_TYPE[i]);
+		}
 
 		populateContractFields();
 		populateContractTable();
@@ -428,7 +440,8 @@ public class UpdateContractScreenDrawer
 			if(combo.getText().equals("Signed") && !contract.getStatus().equals("Signed"))
 				contract.setSignedDate(today);
 
-			contract.setStatus(combo.getText());
+			if(combo.getText() != null && !combo.getText().isEmpty())
+				contract.setStatus(combo.getText());
 			
 			if(processContract.update(contract))
 			{
@@ -614,13 +627,17 @@ public class UpdateContractScreenDrawer
 	/**
 	 * This populates all of the contract-related fields
 	 */
+	@SuppressWarnings("deprecation")
 	public void populateContractFields()
 	{
 		String[] options = combo.getItems();
 		boolean found = false;
 		
 		lblValueData.setText(String.format("$%8.2f", contract.getValue()));
-		
+
+		startDate.setDate(contract.getStartDate().getYear() + 1900, contract.getStartDate().getMonth(), contract.getStartDate().getDate());
+		endDate.setDate(contract.getPeriod().getYear() + 1900, contract.getPeriod().getMonth(), contract.getPeriod().getDate());
+				
 		for(int i = 0; i < options.length && !found; i++)
 		{
 			if(options[i].equals(contract.getStatus()))

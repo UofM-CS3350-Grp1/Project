@@ -12,7 +12,7 @@ import objects.Service;
 public class Contract implements Storable
 {
 	private final String DATE_FORMAT = "yyyy-MM-dd";	//The string date representation
-	private final String[] STATUS_TYPE = {"Pending", "Signed", "Cancelled", "Terminated"};
+	public static final String[] STATUS_TYPE = {"Pending", "Signed", "Cancelled", "Terminated"};
 	
 	private int contractNumber; 		 //Contract ID number
 	private String businessName;		 //Name of the associated business
