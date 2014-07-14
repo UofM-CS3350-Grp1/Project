@@ -49,16 +49,7 @@ public class CalculateFeatureValueTest
 		assertTrue(processFeature.insert(feature));
 		
 		history.setTrackedFeatureType(processFeature.getFeatureTypeByTitle(feature.getTitle()).get(0));
-		
 
-		System.out.println("Feature id "+feature.getID());
-		System.out.println(history.getClientKey());
-		System.out.println(history.getID());
-		System.out.println(history.getNotes());
-		System.out.println(history.getTableName());
-		System.out.println(history.getValue());
-		System.out.println(history.getDate());
-		System.out.println(history.getTrackedFeatureType().getTitle());
 		assertTrue(processFeature.insert(history));
 		
 		assertNotNull(CalculateFeatureValue.calculateTotalValue(client, feature));

@@ -172,7 +172,6 @@ public class ProcessContract extends ProcessStorable
 			
 			if(temp != null)
 			{
-				System.out.println("Searching for services");
 				it = temp.iterator();
 							
 				while(it.hasNext())
