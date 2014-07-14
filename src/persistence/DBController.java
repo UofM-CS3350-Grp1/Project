@@ -254,7 +254,9 @@ public class DBController
 					modify += fields.get(i) +" = '"+protectedString + "',\n";
 				}
 				
-				modify += fields.get(fields.size()-1) +" = '"+objectIndexes.get(fields.size()-1)+"'\n";
+				protectedString = objectIndexes.get( fields.size() -1 );
+				protectedString = protectedString.replaceAll( "'", "''" );
+				modify += fields.get(fields.size()-1) + " = '" + protectedString + "'\n";
 				
 				modify += "WHERE\nROW_ID = " + element.getID();
 				

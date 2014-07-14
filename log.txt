@@ -30,6 +30,13 @@ TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 Task: New User Injection Patch
+Date: 7/13 10 pm
+Assigned to: Dell
+Status: Complete
+Duration: 25 minutes
+Description:	- The last field in database updates is now protected
+
+Task: New User Injection Patch
 Date: 7/13 9:35 pm
 Assigned to: Dell
 Status: Complete
