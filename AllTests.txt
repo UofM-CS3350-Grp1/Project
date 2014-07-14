@@ -1,0 +1,1055 @@
+Unit Tests 
+ 
+Running test: class tests.objects.ClientTest::testClient1
+Finished test.
+
+Running test: class tests.objects.ClientTest::testClient2
+Finished test.
+
+Running test: class tests.objects.ClientTest::testClient3
+Finished test.
+
+Running test: class tests.objects.ClientTest::testClient4
+Finished test.
+
+Running test: class tests.objects.ClientTest::testClient5
+Finished test.
+
+Running test: class tests.objects.ClientTest::testClient6
+Finished test.
+
+Running test: class tests.objects.ClientTest::testClient7
+Finished test.
+
+Running test: class tests.objects.ClientTest::testClient8
+Finished test.
+
+Running test: class tests.objects.ClientTest::testClient9
+Finished test.
+
+Running test: class tests.objects.ClientTest::testClient10
+Finished test.
+
+Running test: class tests.objects.ClientTest::testClient11
+Finished test.
+
+Running test: class tests.objects.ClientTest::testClient12
+Finished test.
+
+Running test: class tests.objects.ClientTest::testClient13
+Finished test.
+
+Running test: class tests.objects.ServiceTest::testMutator1
+Finished test.
+
+Running test: class tests.objects.ServiceTest::testMutator2
+Finished test.
+
+Running test: class tests.objects.ServiceTest::testMutator3
+Finished test.
+
+Running test: class tests.objects.ServiceTest::testMutator4
+Finished test.
+
+Running test: class tests.objects.ServiceTest::testMutator5
+Finished test.
+
+Running test: class tests.objects.ServiceTest::testMutator6
+Finished test.
+
+Running test: class tests.objects.ServiceTest::testMutator7
+Finished test.
+
+Running test: class tests.objects.ServiceTest::testMutator8
+Finished test.
+
+Running test: class tests.objects.ServiceTest::testMutator9
+Finished test.
+
+Running test: class tests.objects.ServiceTest::testMutator10
+Finished test.
+
+Running test: class tests.objects.ServiceTest::testMutator11
+Finished test.
+
+Running test: class tests.objects.ServiceTest::testMutator12
+Finished test.
+
+Running test: class tests.objects.ServiceTest::testMutator13
+Finished test.
+
+Running test: class tests.objects.ServiceTest::testService1
+Finished test.
+
+Running test: class tests.objects.ServiceTest::testService2
+Finished test.
+
+Running test: class tests.objects.ServiceTest::testService3
+Finished test.
+
+Running test: class tests.objects.ServiceTest::testService4
+Finished test.
+
+Running test: class tests.objects.ServiceTest::testService5
+Finished test.
+
+Running test: class tests.objects.ServiceTest::testService6
+Finished test.
+
+Running test: class tests.objects.ServiceTest::testService7
+Finished test.
+
+Running test: class tests.objects.ServiceTest::testService8
+Finished test.
+
+Running test: class tests.objects.ServiceTest::testService9
+Finished test.
+
+Running test: class tests.objects.ContractTest::testContract10
+Finished test.
+
+Running test: class tests.objects.ContractTest::testContract11
+Finished test.
+
+Running test: class tests.objects.ContractTest::testContract12
+Finished test.
+
+Running test: class tests.objects.ContractTest::testContract13
+Finished test.
+
+Running test: class tests.objects.ContractTest::testContract1
+Finished test.
+
+Running test: class tests.objects.ContractTest::testContract2
+Finished test.
+
+Running test: class tests.objects.ContractTest::testContract3
+Finished test.
+
+Running test: class tests.objects.ContractTest::testContract4
+Finished test.
+
+Running test: class tests.objects.ContractTest::testContract5
+Finished test.
+
+Running test: class tests.objects.ContractTest::testContract6
+Finished test.
+
+Running test: class tests.objects.ContractTest::testContract7
+Finished test.
+
+Running test: class tests.objects.ContractTest::testContract8
+Finished test.
+
+Running test: class tests.objects.ContractTest::testContract9
+Finished test.
+
+Running test: class tests.objects.ContractTest::testMutator1
+Finished test.
+
+Running test: class tests.objects.ContractTest::testMutator2
+Finished test.
+
+Running test: class tests.objects.ContractTest::testMutator3
+Finished test.
+
+Running test: class tests.objects.ContractTest::testMutator4
+Finished test.
+
+Running test: class tests.objects.ContractTest::testMutator5
+Finished test.
+
+Running test: class tests.objects.ContractTest::testMutator6
+Finished test.
+
+Running test: class tests.objects.ContractTest::testMutator7
+Finished test.
+
+Running test: class tests.objects.ContractTest::testMutator8
+Finished test.
+
+Running test: class tests.objects.ContractTest::testMutator9
+Finished test.
+
+Running test: class tests.objects.ContractTest::testMutator10
+Finished test.
+
+Running test: class tests.objects.ContractTest::testMutator11
+Finished test.
+
+Running test: class tests.objects.ContractTest::testMutator12
+Finished test.
+
+Running test: class tests.objects.EmailTest::testEmail10
+Finished test.
+
+Running test: class tests.objects.EmailTest::testEmail11
+Finished test.
+
+Running test: class tests.objects.EmailTest::testEmail12
+Finished test.
+
+Running test: class tests.objects.EmailTest::testEmail1
+Finished test.
+
+Running test: class tests.objects.EmailTest::testEmail2
+Finished test.
+
+Running test: class tests.objects.EmailTest::testEmail3
+Finished test.
+
+Running test: class tests.objects.EmailTest::testEmail4
+Finished test.
+
+Running test: class tests.objects.EmailTest::testEmail5
+Finished test.
+
+Running test: class tests.objects.EmailTest::testEmail6
+Finished test.
+
+Running test: class tests.objects.EmailTest::testEmail7
+Finished test.
+
+Running test: class tests.objects.EmailTest::testEmail8
+Finished test.
+
+Running test: class tests.objects.EmailTest::testEmail9
+Finished test.
+
+Running test: class tests.objects.PhoneNumberTest::testPhoneNumber10
+Finished test.
+
+Running test: class tests.objects.PhoneNumberTest::testPhoneNumber11
+Finished test.
+
+Running test: class tests.objects.PhoneNumberTest::testPhoneNumber1
+Finished test.
+
+Running test: class tests.objects.PhoneNumberTest::testPhoneNumber2
+Finished test.
+
+Running test: class tests.objects.PhoneNumberTest::testPhoneNumber3
+Finished test.
+
+Running test: class tests.objects.PhoneNumberTest::testPhoneNumber4
+Finished test.
+
+Running test: class tests.objects.PhoneNumberTest::testPhoneNumber5
+Finished test.
+
+Running test: class tests.objects.PhoneNumberTest::testPhoneNumber6
+Finished test.
+
+Running test: class tests.objects.PhoneNumberTest::testPhoneNumber7
+Finished test.
+
+Running test: class tests.objects.PhoneNumberTest::testPhoneNumber8
+Finished test.
+
+Running test: class tests.objects.PhoneNumberTest::testPhoneNumber9
+Finished test.
+
+Running test: class tests.objects.TrackedFeatureTest::testFeature10
+Finished test.
+
+Running test: class tests.objects.TrackedFeatureTest::testFeature11
+Finished test.
+
+Running test: class tests.objects.TrackedFeatureTest::testFeature12
+Finished test.
+
+Running test: class tests.objects.TrackedFeatureTest::testFeature13
+Finished test.
+
+Running test: class tests.objects.TrackedFeatureTest::testFeature1
+Finished test.
+
+Running test: class tests.objects.TrackedFeatureTest::testFeature2
+Finished test.
+
+Running test: class tests.objects.TrackedFeatureTest::testFeature3
+Finished test.
+
+Running test: class tests.objects.TrackedFeatureTest::testFeature4
+Finished test.
+
+Running test: class tests.objects.TrackedFeatureTest::testFeature5
+Finished test.
+
+Running test: class tests.objects.TrackedFeatureTest::testFeature6
+Finished test.
+
+Running test: class tests.objects.TrackedFeatureTest::testFeature7
+Finished test.
+
+Running test: class tests.objects.TrackedFeatureTest::testFeature8
+Finished test.
+
+Running test: class tests.objects.TrackedFeatureTest::testFeature9
+Finished test.
+
+Running test: class tests.objects.MonthReportTest::testReport
+Finished test.
+
+Running test: class tests.objects.UserTest::testUser2
+Finished test.
+
+Running test: class tests.objects.UserTest::testUser3
+Finished test.
+
+Running test: class tests.objects.UserTest::testUser4
+Finished test.
+
+Running test: class tests.objects.UserTest::testUser5
+Finished test.
+
+Running test: class tests.objects.UserTest::testUser6
+Finished test.
+
+Running test: class tests.objects.UserTest::testUser7
+Finished test.
+
+Running test: class tests.objects.UserTest::testUser8
+Finished test.
+
+Running test: class tests.objects.UserTest::testUser9
+Finished test.
+
+Running test: class tests.objects.UserTest::testUser
+Finished test.
+
+Running test: class tests.objects.UserTest::testUser10
+Finished test.
+
+Running test: class tests.objects.UserTest::testUser11
+Finished test.
+
+Running test: class tests.objects.UserTest::testUser12
+Finished test.
+
+Running test: class tests.objects.UserTest::testUser13
+Finished test.
+
+Running test: class tests.objects.UserTest::testUser14
+Finished test.
+
+Running test: class tests.objects.UserTest::testUser15
+Finished test.
+
+Running test: class tests.objects.UserTest::testUser16
+Finished test.
+
+Running test: class tests.objects.UserTest::testUser17
+Finished test.
+
+Running test: class tests.objects.UserTest::testUser18
+Finished test.
+
+Running test: class tests.objects.ServiceTypeTest::testCreation
+Finished test.
+
+Running test: class tests.objects.ServiceTypeTest::testCreation2
+Finished test.
+
+Running test: class tests.objects.ServiceTypeTest::testCreation3
+Finished test.
+
+Running test: class tests.objects.ServiceTypeTest::testCreation4
+Finished test.
+
+Running test: class tests.objects.ServiceTypeTest::testCreation5
+Finished test.
+
+Running test: class tests.objects.ServiceTypeTest::testCreation6
+Finished test.
+
+Running test: class tests.objects.ServiceTypeTest::testCreation7
+Finished test.
+
+Running test: class tests.objects.ServiceTypeTest::testCreation8
+Finished test.
+
+Running test: class tests.objects.ServiceTypeTest::testMutation
+Finished test.
+
+Running test: class tests.objects.ServiceTypeTest::testMutation2
+Finished test.
+
+Running test: class tests.objects.ServiceTypeTest::testMutation3
+Finished test.
+
+Running test: class tests.objects.ServiceTypeTest::testMutation4
+Finished test.
+
+Running test: class tests.objects.ServiceTypeTest::testMutation5
+Finished test.
+
+Running test: class tests.objects.ServiceTypeTest::testMutation6
+Finished test.
+
+Running test: class tests.objects.TrackedFeatureTypeTest::testFeatureType2
+Finished test.
+
+Running test: class tests.objects.TrackedFeatureTypeTest::testFeatureType3
+Finished test.
+
+Running test: class tests.objects.TrackedFeatureTypeTest::testFeatureType4
+Finished test.
+
+Running test: class tests.objects.TrackedFeatureTypeTest::testFeatureType5
+Finished test.
+
+Running test: class tests.objects.TrackedFeatureTypeTest::testFeatureType6
+Finished test.
+
+Running test: class tests.objects.TrackedFeatureTypeTest::testFeatureType7
+Finished test.
+
+Running test: class tests.objects.TrackedFeatureTypeTest::testFeatureType
+Finished test.
+
+Running test: class tests.objects.ExpenseTest::testExpense
+Finished test.
+
+Running test: class tests.objects.ExpenseTest::testExpense2
+Finished test.
+
+Running test: class tests.objects.ExpenseTest::testExpense3
+Finished test.
+
+Running test: class tests.objects.ExpenseTest::testExpense4
+Finished test.
+
+Running test: class tests.objects.ExpenseTest::testExpense5
+Finished test.
+
+Running test: class tests.objects.ExpenseTest::testExpense6
+Finished test.
+
+Running test: class tests.objects.ExpenseTest::testExpense7
+Finished test.
+
+Running test: class tests.objects.ExpenseTest::testExpense8
+Finished test.
+
+Running test: class tests.objects.ExpenseTest::testExpense9
+Finished test.
+
+Running test: class tests.objects.ExpenseTest::testExpense10
+Finished test.
+
+Running test: class tests.objects.ExpenseTest::testExpense11
+Finished test.
+
+Running test: class tests.objects.ExpenseTest::testExpense12
+Finished test.
+
+Running test: class tests.objects.ExpenseTest::testExpense13
+Finished test.
+
+Running test: class tests.objects.ExpenseTest::testExpense14
+Finished test.
+
+Running test: class tests.objects.ExpenseTest::testExpense15
+Finished test.
+
+Running test: class tests.objects.ExpenseTest::testExpense16
+Finished test.
+
+Running test: class tests.business.CalcFeatureValueTest::testCalcFeature1
+Finished test.
+
+Running test: class tests.business.CalcFeatureValueTest::testCalcFeature2
+Finished test.
+
+Running test: class tests.business.CalcFeatureValueTest::testCalcFeature3
+Finished test.
+
+Running test: class tests.business.AccessFinancialRecordsTest::testCalcServiceRevenue
+Finished test.
+
+Running test: class tests.business.AccessFinancialRecordsTest::testClientRevenue
+Finished test.
+
+Running test: class tests.business.AccessFinancialRecordsTest::testServiceExpense
+Finished test.
+
+Running test: class tests.business.AccessFinancialRecordsTest::testCalcClientRevenue
+Finished test.
+
+Running test: class tests.business.AccessFinancialRecordsTest::testCalcServiceExpense
+Finished test.
+
+Running test: class tests.business.AccessFinancialRecordsTest::testCalcClientExpense
+Finished test.
+
+Running test: class tests.business.AccessFinancialRecordsTest::testServiceRevenue
+Finished test.
+
+Running test: class tests.business.DateTimeUtilTest::testDate2
+Finished test.
+
+Running test: class tests.business.DateTimeUtilTest::testDate3
+Finished test.
+
+Running test: class tests.business.DateTimeUtilTest::testDate4
+Finished test.
+
+Running test: class tests.business.DateTimeUtilTest::testDate5
+Finished test.
+
+Running test: class tests.business.DateTimeUtilTest::testDate6
+Finished test.
+
+Running test: class tests.business.DateTimeUtilTest::testDate
+Finished test.
+
+Running test: class tests.business.GenerateGraphTest::testFeatureChart
+Finished test.
+
+Running test: class tests.business.GenerateGraphTest::testFeatureChart2
+Finished test.
+
+Running test: class tests.business.GenerateGraphTest::testFeatureChart3
+Finished test.
+
+Running test: class tests.business.GenerateGraphTest::testRevenueChart
+Finished test.
+
+Running test: class tests.business.GenerateGraphTest::testRevenueChart2
+Finished test.
+
+Running test: class tests.business.GenerateGraphTest::testBreakdownChart
+Finished test.
+
+Running test: class tests.business.GenerateGraphTest::testBreakdownChart2
+Finished test.
+
+Running test: class tests.business.ProcessFeatureTest::testTypesByClient
+Finished test.
+
+Running test: class tests.business.ProcessFeatureTest::testGetByID
+Finished test.
+
+Running test: class tests.business.ProcessFeatureTest::testTypeByTitle
+Finished test.
+
+Running test: class tests.business.ProcessFeatureTest::testGetTypeByID
+Finished test.
+
+Running test: class tests.business.ProcessFeatureTest::testDelete
+Finished test.
+
+Running test: class tests.business.ProcessFeatureTest::testInsert
+Finished test.
+
+Running test: class tests.business.ProcessFeatureTest::testByClient
+Finished test.
+
+Running test: class tests.business.ProcessFeatureTest::testUpdate
+Finished test.
+
+Running test: class tests.business.ProcessClientTest::testGetByBusiness
+Finished test.
+
+Running test: class tests.business.ProcessClientTest::testAddService
+Finished test.
+
+Running test: class tests.business.ProcessClientTest::testGetByID
+Finished test.
+
+Running test: class tests.business.ProcessClientTest::testAddService2
+Finished test.
+
+Running test: class tests.business.ProcessClientTest::testAddService3
+Finished test.
+
+Running test: class tests.business.ProcessClientTest::testDelete
+Finished test.
+
+Running test: class tests.business.ProcessClientTest::testInsert
+Finished test.
+
+Running test: class tests.business.ProcessClientTest::testGetNextService
+Finished test.
+
+Running test: class tests.business.ProcessClientTest::testUpdate
+Finished test.
+
+Running test: class tests.business.ProcessContractTest::testGetByClient
+Finished test.
+
+Running test: class tests.business.ProcessContractTest::testGetValueServices
+Finished test.
+
+Running test: class tests.business.ProcessContractTest::testGetNumContractsInRange2
+Finished test.
+
+Running test: class tests.business.ProcessContractTest::testGetNumContractsInRange3
+Finished test.
+
+Running test: class tests.business.ProcessContractTest::testGetByID
+Finished test.
+
+Running test: class tests.business.ProcessContractTest::testGetByService
+Finished test.
+
+Running test: class tests.business.ProcessContractTest::testGetByContractClient
+Finished test.
+
+Running test: class tests.business.ProcessContractTest::testGetNumContractsInRange
+Finished test.
+
+Running test: class tests.business.ProcessContractTest::testGetValueContractsInRange2
+Finished test.
+
+Running test: class tests.business.ProcessContractTest::testGetValueContractsInRange3
+Finished test.
+
+Running test: class tests.business.ProcessContractTest::testGetValueContractsInRange
+Finished test.
+
+Running test: class tests.business.ProcessContractTest::testDelete
+Finished test.
+
+Running test: class tests.business.ProcessContractTest::testInsert
+Finished test.
+
+Running test: class tests.business.ProcessContractTest::testUpdate
+Finished test.
+
+Running test: class tests.business.ProcessExpenseTest::testGetByClient
+Finished test.
+
+Running test: class tests.business.ProcessExpenseTest::testGetByContract
+Finished test.
+
+Running test: class tests.business.ProcessExpenseTest::testGetByService
+Finished test.
+
+Running test: class tests.business.ProcessExpenseTest::testInsert
+Finished test.
+
+Running test: class tests.business.ProcessExpenseTest::testGetByServiceType
+Finished test.
+
+Running test: class tests.business.ProcessHistoryTest::testFeatureTotal
+Finished test.
+
+Running test: class tests.business.ProcessHistoryTest::testGetByID
+Finished test.
+
+Running test: class tests.business.ProcessHistoryTest::testFeatureReport
+Finished test.
+
+Running test: class tests.business.ProcessHistoryTest::testFeatureTotal2
+Finished test.
+
+Running test: class tests.business.ProcessHistoryTest::testFeatureTotal3
+Finished test.
+
+Running test: class tests.business.ProcessHistoryTest::testDelete
+Finished test.
+
+Running test: class tests.business.ProcessHistoryTest::testInsert
+Finished test.
+
+Running test: class tests.business.ProcessHistoryTest::testUpdate
+Finished test.
+
+Running test: class tests.business.ProcessHistoryTest::testFeatureReport2
+Finished test.
+
+Running test: class tests.business.ProcessHistoryTest::testFeatureReport3
+Finished test.
+
+Running test: class tests.business.ProcessServiceTest::testGetByID
+Finished test.
+
+Running test: class tests.business.ProcessServiceTest::testGetServiceByTitle
+Finished test.
+
+Running test: class tests.business.ProcessServiceTest::testGetServiceByID
+Finished test.
+
+Running test: class tests.business.ProcessServiceTest::testGetServiceByTitle2
+Finished test.
+
+Running test: class tests.business.ProcessServiceTest::testDelete
+Finished test.
+
+Running test: class tests.business.ProcessServiceTest::testInsert
+Finished test.
+
+Running test: class tests.business.ProcessServiceTest::testUpdate
+Finished test.
+
+Running test: class tests.business.ProcessStorableTest::testDelete
+Finished test.
+
+Running test: class tests.business.ProcessStorableTest::testInsert
+Finished test.
+
+Running test: class tests.business.ProcessStorableTest::testUpdate
+Finished test.
+
+Running test: class tests.business.ProcessUserTest::testValidate
+Finished test.
+
+Running test: class tests.business.ProcessUserTest::testValidate2
+Finished test.
+
+Running test: class tests.business.ProcessUserTest::testValidate3
+Finished test.
+
+Running test: class tests.business.ProcessUserTest::testValidate4
+Finished test.
+
+Running test: class tests.business.ProcessUserTest::testValidate5
+Finished test.
+
+Running test: class tests.business.ProcessUserTest::testDelete
+Finished test.
+
+Running test: class tests.business.ProcessUserTest::testInsert
+Finished test.
+
+Running test: class tests.business.ProcessUserTest::testUpdate
+Finished test.
+
+true
+  
+Integration Tests  
+ 
+Running test: class tests.integration.persistence.TestDBController
+Exiting test: class tests.integration.persistence.TestDBController
+Running test: class tests.integration.persistence.TestDBController
+Exiting test: class tests.integration.persistence.TestDBController
+Running test: class tests.integration.persistence.TestDBInterface
+Exiting test: class tests.integration.persistence.TestDBInterface
+Running test: class tests.integration.persistence.TestDBInterface
+Exiting test: class tests.integration.persistence.TestDBInterface
+Running test: class tests.integration.persistence.TestDBInterface
+Exiting test: class tests.integration.persistence.TestDBInterface
+Running test: class tests.integration.persistence.TestDBInterface
+Exiting test: class tests.integration.persistence.TestDBInterface
+Running test: class tests.integration.persistence.TestDBInterface
+Exiting test: class tests.integration.persistence.TestDBInterface
+Running test: class tests.integration.persistence.TestDBInterface2
+Exiting test: class tests.integration.persistence.TestDBInterface2
+Running test: class tests.integration.persistence.TestDBInterface2
+Exiting test: class tests.integration.persistence.TestDBInterface2
+Running test: class tests.integration.persistence.LoginValidatorTest
+Exiting test: class tests.integration.persistence.LoginValidatorTest
+Running test: class tests.integration.persistence.LoginValidatorTest
+Exiting test: class tests.integration.persistence.LoginValidatorTest
+Running test: class tests.integration.persistence.FinancialQueryBuilderTest
+Exiting test: class tests.integration.persistence.FinancialQueryBuilderTest
+Running test: class tests.integration.persistence.FinancialQueryBuilderTest
+Exiting test: class tests.integration.persistence.FinancialQueryBuilderTest
+Running test: class tests.integration.persistence.RelationalQueryBuilderTest
+Exiting test: class tests.integration.persistence.RelationalQueryBuilderTest
+Running test: class tests.integration.persistence.RelationalQueryBuilderTest
+Exiting test: class tests.integration.persistence.RelationalQueryBuilderTest
+Running test: class tests.integration.persistence.TestTableDumper
+Exiting test: class tests.integration.persistence.TestTableDumper
+Running test: class tests.integration.persistence.TestTableUpdater
+Exiting test: class tests.integration.persistence.TestTableUpdater
+Running test: class tests.integration.persistence.TestIDQueryBuilder
+Exiting test: class tests.integration.persistence.TestIDQueryBuilder
+Running test: class tests.integration.persistence.TestIDQueryBuilder
+Exiting test: class tests.integration.persistence.TestIDQueryBuilder
+Running test: class tests.integration.business.TestAccessFinancialRecords::testCalcServiceRevenueToDate
+Finished test.
+
+Running test: class tests.integration.business.TestAccessFinancialRecords::testGetYearExpenseForService
+Finished test.
+
+Running test: class tests.integration.business.TestAccessFinancialRecords::testAccessFinancialRecords
+Finished test.
+
+Running test: class tests.integration.business.TestAccessFinancialRecords::testCalcServiceExpensesToDate
+Finished test.
+
+Running test: class tests.integration.business.TestAccessFinancialRecords::testGetYearRevenueForClient
+Finished test.
+
+Running test: class tests.integration.business.TestAccessFinancialRecords::testGetYearRevenueForService
+Finished test.
+
+Running test: class tests.integration.business.TestAccessFinancialRecords::testCalcClientExpensesToDate
+Finished test.
+
+Running test: class tests.integration.business.TestAccessFinancialRecords::testCalcClientRevenueToDate
+Finished test.
+
+Running test: class tests.integration.business.CalculateFeatureValueTest::calculateTotalValueTest2
+Finished test.
+
+Running test: class tests.integration.business.CalculateFeatureValueTest::calculateTotalValueTest
+Finished test.
+
+Running test: testGetDateLong
+Finished test.
+
+Running test: class tests.integration.business.GenerateGraphTest::generateFeatureLineChartTest
+Finished test.
+
+Running test: class tests.integration.business.GenerateGraphTest::generateRevenueLineChartForServiceTest
+Finished test.
+
+Running test: class tests.integration.business.GenerateGraphTest::generateFinancialBreakdownForServiceTest
+Finished test.
+
+Running test: class tests.integration.business.GenerateGraphTest::generateFinancialBreakdownForClientTest
+Finished test.
+
+Running test: class tests.integration.business.GenerateGraphTest::generateGraphTest
+Finished test.
+
+Running test: class tests.integration.business.GenerateGraphTest::generateRevenueLineChartForClientTest
+Finished test.
+
+Running test: testGetFeatureTypeByTitle
+Finished test.
+
+Running test: testGetFeatureTypes
+Finished test.
+
+Running test: testProcessAddFeature
+Finished test.
+
+Running test: testGetNextFeature
+Finished test.
+
+Running test: testGetFeaturesByClient
+Finished test.
+
+Running test: testGetFeatureByID
+Finished test.
+
+Running test: testGetClientByID
+Finished test.
+
+Running test: testProcessClient
+Finished test.
+
+Running test: testGetClientByBusinessName
+Finished test.
+
+Running test: testGetNextClient
+Finished test.
+
+Running test: testGetNumberOfClients
+Finished test.
+
+Running test: testAddServiceToClient
+Finished test.
+
+Running test: testGetContractClient
+Finished test.
+
+Running test: testGetServices
+Service found: title
+Finished test.
+
+Running test: testGetTotalContractsValue
+Finished test.
+
+Running test: testGetContractByID
+Finished test.
+
+Running test: testGetUnusedContractID
+Finished test.
+
+Running test: testGetContracts
+Finished test.
+
+Running test: testGetContractsByClient
+Finished test.
+
+Running test: testProcessContract
+Finished test.
+
+Running test: testGetExpensesByClient
+Finished test.
+
+Running test: testProcessExpenses
+Finished test.
+
+Running test: testInsertExpense
+Finished test.
+
+Running test: class tests.integration.business.ProcessFeatureHistoryTest::getYearHistoryForFeatureTest
+Finished test.
+
+Running test: class tests.integration.business.ProcessFeatureHistoryTest::getFeatureTotalTest
+Finished test.
+
+Running test: class tests.integration.business.ProcessFeatureHistoryTest::getNextHistoryTest
+Finished test.
+
+Running test: class tests.integration.business.ProcessFeatureHistoryTest::getHistoryByIDTest
+Finished test.
+
+Running test: class tests.integration.business.ProcessServiceTest::getServiceTypesTest
+Finished test.
+
+Running test: class tests.integration.business.ProcessServiceTest::getServiceByTitleTest
+Finished test.
+
+Running test: class tests.integration.business.ProcessServiceTest::getNextServiceTest
+Finished test.
+
+Running test: class tests.integration.business.ProcessServiceTest::getServiceTypeByIDTest
+Finished test.
+
+Running test: class tests.integration.business.ProcessServiceTest::getServiceByIDTest
+Finished test.
+
+Running test: class tests.integration.business.ProcessStorableTest::updateTest
+Finished test.
+
+Running test: class tests.integration.business.ProcessStorableTest::insertTest
+Finished test.
+
+Running test: class tests.integration.business.ProcessStorableTest::deleteTest
+Finished test.
+
+Running test: class tests.integration.business.ProcessUserTest::validateUserTest
+Finished test.
+
+Running test: class tests.integration.business.ValidateTextboxTest::verifyMonetaryValueTest
+Finished test.
+
+Running test: class tests.integration.business.ValidateTextboxTest::verifyNumericTextboxTest
+Finished test.
+
+true
+ 
+Acceptance Tests 
+ 
+
+
+Starting acceptance tests.
+
+Script C:\Users\Jason\git\Project/ATs/createClient.act
+
+Package                 presentation
+InvokeMethod            presentation.Startup                jumpStart
+
+Click                   SwitchScreen                        bClients
+InvokeMethod            ClientScreenDrawer                  addNew
+
+Set                     AddClientScreenDrawer               txtClientName        "Test"
+Set                     AddClientScreenDrawer               txtBusinessName      "Test Business Name"
+Set                     AddClientScreenDrawer               txtAddress           "123 Test St"
+Set                     AddClientScreenDrawer               txtEmail             "Test@test.com"
+Set                     AddClientScreenDrawer               txtPhoneNumberA      123
+Set                     AddClientScreenDrawer               txtPhoneNumberB      456
+Set                     AddClientScreenDrawer               txtPhoneNumberC      7890
+Click                   AddClientScreenDrawer               btnAction
+
+SelectTableByRowIndex   ClientScreenDrawer                  _table               3
+TestTableByColumnLabel  ClientScreenDrawer                  _table               "Client"        "Test Business Name"
+Table values do not match: NameBiz*******************************
+TestTableByColumnLabel  ClientScreenDrawer                  _table               "Contact"       "Test"
+Table values do not match: Name*******************************
+TestTableByColumnLabel  ClientScreenDrawer                  _table               "Status"        "Potential"
+Table values do not match: Active*******************************
+TestTableByColumnLabel  ClientScreenDrawer                  _table               "Address"       "123 Test St"
+Table values do not match: 123FirstSt*******************************
+TestTableByColumnLabel  ClientScreenDrawer                  _table               "Email"         "Test@test.com"
+Table values do not match: testtest@test.com*******************************
+TestTableByColumnLabel  ClientScreenDrawer                  _table               "Phone Number"  "(123) 456-7890"
+Table values do not match: (204) 960-1538*******************************
+
+-------------------------------------------------------------------------------
+
+Script C:\Users\Jason\git\Project/ATs/createClient.act
+
+Tests passed: 0; tests failed: 6; invalid parameters: 0; invalid commands: 0
+
+-------------------------------------------------------------------------------
+
+Script C:\Users\Jason\git\Project/ATs/createFeature.act
+
+Package                 presentation
+InvokeMethod            presentation.Startup                jumpStart
+
+Click                   SwitchScreen                        bFeatures
+InvokeMethod            TrackableFeatureScreenDrawer        addNew
+
+Set                     AddTrackableFeatureDrawer           txtName              "Test Feature"
+InvokeMethod            AddTrackableFeatureDrawer           processActionButton
+
+SelectTableByRowIndex   TrackableFeatureScreenDrawer        _table               3
+TestTableByColumnLabel  TrackableFeatureScreenDrawer        _table               "Feature Name"  "Test Feature"
+Table values do not match: Test*******************************
+
+-------------------------------------------------------------------------------
+
+Script C:\Users\Jason\git\Project/ATs/createFeature.act
+
+Tests passed: 0; tests failed: 1; invalid parameters: 0; invalid commands: 0
+
+-------------------------------------------------------------------------------
+
+Script C:\Users\Jason\git\Project/ATs/createService.act
+
+Package                 presentation
+InvokeMethod            presentation.Startup                jumpStart
+
+Click                   SwitchScreen                        bServices
+InvokeMethod            ServiceScreenDrawer                 addNew
+
+Set                     AddServiceScreenDrawer              svcName              "Test Service"
+Set                     AddServiceScreenDrawer              svcDescription       "Test Service description"
+InvokeMethod            AddServiceScreenDrawer              processActionButton
+
+SelectTableByRowIndex   ServiceScreenDrawer                 _table               2
+TestTableByColumnLabel  ServiceScreenDrawer                 _table               "Title"         "Test Service"
+Table values do not match: testing*******************************
+TestTableByColumnLabel  ServiceScreenDrawer                 _table               "Description"   "Test Service description"
+Table values do not match: adsfasd*******************************
+
+-------------------------------------------------------------------------------
+
+Script C:\Users\Jason\git\Project/ATs/createService.act
+
+Tests passed: 0; tests failed: 2; invalid parameters: 0; invalid commands: 0
+
+-------------------------------------------------------------------------------
+
+Script C:\Users\Jason\git\Project/ATs/login.act
+
+Package                 presentation
+InvokeMethod            presentation.Startup                jumpStart
+
+Set                     LoginDrawer                         txtUser              "Karl"
+Set                     LoginDrawer                         txtPass              "password"
+InvokeMethod            LoginDrawer                         processLoginButton
+
+Test                    LoggedInDrawer                      lblActiveUser        "Karl"
+
+-------------------------------------------------------------------------------
+
+Script C:\Users\Jason\git\Project/ATs/login.act
+
+Tests passed: 1; tests failed: 0; invalid parameters: 0; invalid commands: 0
+
+-------------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+Totals for all scripts in directory C:\Users\Jason\git\Project
+
+Tests passed: 1; tests failed: 9; invalid parameters: 0; invalid commands: 0
+
+Elapsed time: 11.981 seconds
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+ 
