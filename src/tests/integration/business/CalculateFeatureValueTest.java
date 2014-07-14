@@ -62,6 +62,10 @@ public class CalculateFeatureValueTest
 		assertTrue(processFeature.insert(history));
 		
 		assertNotNull(CalculateFeatureValue.calculateTotalValue(client, feature));
+		
+		Client deleteClient = processClient.getClientByBusinessName("NameBiz");
+		
+		processClient.delete(deleteClient);
 	}
 
 }
