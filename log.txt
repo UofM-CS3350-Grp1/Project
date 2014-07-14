@@ -30,6 +30,13 @@ TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 Task: SQL Injection Patch
+Date: 7/13 7:03 pm
+Assigned to: Dell
+Status: Complete
+Duration: 8 minutes
+Description:	- fixed new user injection via login password form
+
+Task: SQL Injection Patch
 Date: 7/13 6:55 pm
 Assigned to: Dell
 Status: Complete
