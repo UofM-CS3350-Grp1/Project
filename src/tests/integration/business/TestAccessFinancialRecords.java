@@ -18,7 +18,9 @@ import objects.ServiceType;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 
 import business.AccessFinancialRecords;
 import business.ProcessClient;
@@ -39,10 +41,15 @@ public class TestAccessFinancialRecords
 	private Email email;
 	private PhoneNumber phone;
 	
+	@Rule
+	public TestName testName = new TestName();
+		
 	@Before
 	public void before()
 	{
 		boolean found = false;
+		
+		System.out.println("Running test: " + this.getClass().toString() + "::" + testName.getMethodName());
 		
 		financialRecords = new AccessFinancialRecords();
 		processClient = new ProcessClient();
@@ -89,6 +96,8 @@ public class TestAccessFinancialRecords
 		//Delete the client and service type and everything associated with them
 		assertTrue("Client not deleted", processClient.delete(client));
 		assertTrue("Service type not deleted", processService.delete(serviceType));
+		
+		System.out.println("Finished test.\n");
 	}
 	
 	@Test
