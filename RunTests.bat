@@ -29,10 +29,14 @@ echo Integration Tests  >> AllTests.txt
 echo. >> AllTests.txt
 java tests.RunIntegrationTests >> AllTests.txt
 
+
 echo Integration tests completed.
 echo.
 echo Running acceptance tests.
 
+call database/RestoreDB.bat > nul
+@echo off
+cd ..
 echo. >> AllTests.txt
 echo Acceptance Tests >> AllTests.txt
 echo. >> AllTests.txt

@@ -952,23 +952,17 @@ Click                   AddClientScreenDrawer               btnAction
 
 SelectTableByRowIndex   ClientScreenDrawer                  _table               3
 TestTableByColumnLabel  ClientScreenDrawer                  _table               "Client"        "Test Business Name"
-Table values do not match: NameBiz*******************************
 TestTableByColumnLabel  ClientScreenDrawer                  _table               "Contact"       "Test"
-Table values do not match: Name*******************************
 TestTableByColumnLabel  ClientScreenDrawer                  _table               "Status"        "Potential"
-Table values do not match: Active*******************************
 TestTableByColumnLabel  ClientScreenDrawer                  _table               "Address"       "123 Test St"
-Table values do not match: 123FirstSt*******************************
 TestTableByColumnLabel  ClientScreenDrawer                  _table               "Email"         "Test@test.com"
-Table values do not match: testtest@test.com*******************************
 TestTableByColumnLabel  ClientScreenDrawer                  _table               "Phone Number"  "(123) 456-7890"
-Table values do not match: (204) 960-1538*******************************
 
 -------------------------------------------------------------------------------
 
 Script C:\Users\Jason\git\Project/ATs/createClient.act
 
-Tests passed: 0; tests failed: 6; invalid parameters: 0; invalid commands: 0
+Tests passed: 6; tests failed: 0; invalid parameters: 0; invalid commands: 0
 
 -------------------------------------------------------------------------------
 
@@ -985,13 +979,12 @@ InvokeMethod            AddTrackableFeatureDrawer           processActionButton
 
 SelectTableByRowIndex   TrackableFeatureScreenDrawer        _table               3
 TestTableByColumnLabel  TrackableFeatureScreenDrawer        _table               "Feature Name"  "Test Feature"
-Table values do not match: Test*******************************
 
 -------------------------------------------------------------------------------
 
 Script C:\Users\Jason\git\Project/ATs/createFeature.act
 
-Tests passed: 0; tests failed: 1; invalid parameters: 0; invalid commands: 0
+Tests passed: 1; tests failed: 0; invalid parameters: 0; invalid commands: 0
 
 -------------------------------------------------------------------------------
 
@@ -1009,15 +1002,13 @@ InvokeMethod            AddServiceScreenDrawer              processActionButton
 
 SelectTableByRowIndex   ServiceScreenDrawer                 _table               2
 TestTableByColumnLabel  ServiceScreenDrawer                 _table               "Title"         "Test Service"
-Table values do not match: testing*******************************
 TestTableByColumnLabel  ServiceScreenDrawer                 _table               "Description"   "Test Service description"
-Table values do not match: adsfasd*******************************
 
 -------------------------------------------------------------------------------
 
 Script C:\Users\Jason\git\Project/ATs/createService.act
 
-Tests passed: 0; tests failed: 2; invalid parameters: 0; invalid commands: 0
+Tests passed: 2; tests failed: 0; invalid parameters: 0; invalid commands: 0
 
 -------------------------------------------------------------------------------
 
@@ -1046,9 +1037,9 @@ Tests passed: 1; tests failed: 0; invalid parameters: 0; invalid commands: 0
 
 Totals for all scripts in directory C:\Users\Jason\git\Project
 
-Tests passed: 1; tests failed: 9; invalid parameters: 0; invalid commands: 0
+Tests passed: 10; tests failed: 0; invalid parameters: 0; invalid commands: 0
 
-Elapsed time: 12.247 seconds
+Elapsed time: 11.641 seconds
 
 -------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
