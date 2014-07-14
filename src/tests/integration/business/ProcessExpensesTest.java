@@ -93,6 +93,7 @@ public class ProcessExpensesTest
 		assertTrue(processExpense.insertExpense(expense));
 		
 		processService.delete(tempS);
+		processService.delete(type);
 	}
 
 	@Test
@@ -102,18 +103,19 @@ public class ProcessExpensesTest
 		PhoneNumber phone = new PhoneNumber("2049601538");
 		Email email = new Email("test@test.com");
 		Client client = new Client("new", phone, email, "123 first st", "newbiz", ClientStatus.Active);
+		
 		processClient = new ProcessClient();
 		assertTrue(processClient.insert(client));
-		int id = processClient.getClientByBusinessName("newbiz").getID();
+		client = processClient.getClientByBusinessName("newbiz");
 		
-		ServiceType type = new ServiceType("type", "details");
-		
+		ServiceType type = new ServiceType("type", "details");		
 		assertTrue(processService.insert(type));
 		
 		ArrayList<ServiceType> list = processService.getServiceTypes();
 		Iterator<ServiceType> it = list.iterator();
 		ServiceType temp = null;
 		ServiceType actual = null;
+		
 		while(it.hasNext())
 		{
 			temp = it.next();
@@ -128,10 +130,9 @@ public class ProcessExpensesTest
 
 		int cID = 1;
 		service.setContractID(cID);
-		service.setClientID(id);
+		service.setClientID(client.getID());
 
-		processService = new ProcessService();
-		
+		processService = new ProcessService();		
 		assertTrue(processService.insert(service));
 		
 		Service tempS = processService.getServiceByTitle("titles");
@@ -143,5 +144,6 @@ public class ProcessExpensesTest
 
 		processService.delete(tempS);
 		processService.delete(actual);
+		processClient.delete(client);
 	}
 }

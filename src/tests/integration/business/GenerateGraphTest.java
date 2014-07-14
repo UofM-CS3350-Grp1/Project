@@ -16,9 +16,12 @@ import objects.TrackedFeatureType;
 import objects.Client.ClientStatus;
 
 import org.jfree.chart.JFreeChart;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 
-import business.CalculateFeatureValue;
 import business.GenerateGraph;
 import business.ProcessAddFeature;
 import business.ProcessClient;
@@ -26,9 +29,23 @@ import business.ProcessService;
 
 public class GenerateGraphTest 
 {
-	
 	GenerateGraph generate;
 	JFreeChart chart;
+	
+	@Rule
+	public TestName testName = new TestName();
+	
+	@Before
+	public void before()
+	{
+		System.out.println("Running test: " + this.getClass().toString() + "::" + testName.getMethodName());
+	}
+	
+	@After
+	public void after()
+	{
+		System.out.println("Finished test.\n");
+	}
 
 	@Test
 	public void generateGraphTest() 

@@ -21,7 +21,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
 
-import business.DateTimeUtil;
 import business.ProcessClient;
 import business.ProcessContract;
 import business.ProcessService;
@@ -31,7 +30,6 @@ public class ProcessContractTest
 	ProcessContract processContract;
 	ProcessClient processClient;
 	ProcessService processService;
-	DateTimeUtil date;
 	Date dateTimeStart;
 	Date dateTimeEnd;
 	
@@ -61,8 +59,8 @@ public class ProcessContractTest
 	public void testGetUnusedContractID() 
 	{
 		processContract = new ProcessContract();
-		int test = -1;
-		test = processContract.getUnusedContractID();
+		int test = processContract.getUnusedContractID();
+		
 		assertTrue(test>0);
 	}
 
@@ -75,11 +73,8 @@ public class ProcessContractTest
 		Client client = new Client("Jasonfsd", phone, email, "123 First st", "BusinessNew12", ClientStatus.Active);
 		
 		processClient.insert(client);
+		client = processClient.getClientByBusinessName("BusinessNew12");
 		
-		Client temp = processClient.getClientByBusinessName("BusinessNew12");
-		int id = temp.getID();
-		
-		date = new DateTimeUtil();
 		Calendar newCal = Calendar.getInstance();
 		newCal.set(2013, 07, 27, 10, 30, 30);
 		Calendar newCal2 = Calendar.getInstance();
@@ -88,14 +83,15 @@ public class ProcessContractTest
 		Date end = newCal2.getTime();
 		
 		processContract = new ProcessContract();
-		int test = -1;
-		test = processContract.getUnusedContractID();
+		int test = processContract.getUnusedContractID();
 		
 		Contract contract = new Contract(test, "BusinessNew12", "details", 1000.0, end, start, start);
 		contract.setStatus("Signed");
 		assertTrue(processContract.insert(contract));
 		assertNotNull(processContract.getContractByID(test));
+		
 		processContract.delete(contract);
+		processClient.delete(client);
 	}
 
 	@Test
@@ -106,24 +102,20 @@ public class ProcessContractTest
 		PhoneNumber phone = new PhoneNumber("2049601538");
 		Client client = new Client("Jasonfesd", phone, email, "123 First st", "BusinessNew126", ClientStatus.Active);
 		
-		processClient.insert(client);
-		
-		Client temp = processClient.getClientByBusinessName("BusinessNew126");
-		int id = temp.getID();
+		processClient.insert(client);		
+		client = processClient.getClientByBusinessName("BusinessNew126");
 		
 		processContract = new ProcessContract();
-		int test = -1;
-		test = processContract.getUnusedContractID();
+		int test = processContract.getUnusedContractID();
 		Contract contract = new Contract(test, "BusinessNew126", "details", 1000.0, new Date(), new Date(), new Date());
 		processContract.insert(contract);
 		assertNotNull(processContract.getContractByID(test));
 
-		ArrayList<Contract> result = null;
-		result = processContract.getContractsByClient(temp);
+		ArrayList<Contract> result = processContract.getContractsByClient(client);
 		assertNotNull(result);
 
-		processClient.delete(temp);
 		processContract.delete(result.get(0));
+		processClient.delete(client);
 	}
 
 	@Test
@@ -135,12 +127,10 @@ public class ProcessContractTest
 		Client client = new Client("Jasonfesd", phone, email, "123 First st", "BusinessNew120", ClientStatus.Active);
 		
 		processClient.insert(client);
-		
-		Client temp = processClient.getClientByBusinessName("BusinessNew120");
+		client = processClient.getClientByBusinessName("BusinessNew120");
 		
 		processContract = new ProcessContract();
-		int test = -1;
-		test = processContract.getUnusedContractID();
+		int test = processContract.getUnusedContractID();
 		Contract contract = new Contract(test, "BusinessNew120", "details", 1000.0, new Date(), new Date(), new Date());
 		assertTrue(processContract.insert(contract));
 		contract = processContract.getContractByID(test);
@@ -161,12 +151,10 @@ public class ProcessContractTest
 		Client client = new Client("Jasonfwssd", phone, email, "123 First st", "BusinessNew145", ClientStatus.Active);
 		
 		processClient.insert(client);
-		
-		Client temp = processClient.getClientByBusinessName("BusinessNew145");
-		int id = temp.getID();
+		client = processClient.getClientByBusinessName("BusinessNew145");
+
 		processContract = new ProcessContract();
-		int test = -1;
-		test = processContract.getUnusedContractID();
+		int test = processContract.getUnusedContractID();
 		Contract contract = new Contract(test, "BusinessNew145", "details", 1000.0, new Date(), new Date(), new Date());
 		assertTrue(processContract.insert(contract));
 		contract = processContract.getContractByID(test);
@@ -176,6 +164,7 @@ public class ProcessContractTest
 		assertNotNull(list);
 		
 		processContract.delete(contract);
+		processClient.delete(client);
 	}
 	
 	@Test
@@ -187,9 +176,7 @@ public class ProcessContractTest
 		Client client = new Client("Jasonfwssd", phone, email, "123 First st", "BusinessNew14", ClientStatus.Active);
 		
 		processClient.insert(client);
-		
-		Client temp = processClient.getClientByBusinessName("BusinessNew14");
-		int id = temp.getID();
+		client = processClient.getClientByBusinessName("BusinessNew14");
 		
 		processContract = new ProcessContract();
 		int test = -1;
@@ -201,34 +188,39 @@ public class ProcessContractTest
 		processService = new ProcessService();
 		ServiceType type = new ServiceType("testing", "details");
 		assertTrue(processService.insert(type));
+		
 		ArrayList<ServiceType> list = processService.getServiceTypes();
 		assertNotNull(list);
+		
 		Iterator<ServiceType> it = list.iterator();
 		ServiceType temp2 = null;
 		int id2 = -1;
 		ServiceType actualType = null;
-		while(it.hasNext())
+		
+		while(it.hasNext() && actualType == null)
 		{
 			temp2 = it.next();
-			if(temp2.getType().contains("testing"))
+			if(temp2.getType().equals("testing"))
 			{
 				id2 = temp2.getID();
 				actualType = temp2;
 			}
 		}
-		assertTrue(id2>-1);
-		Service service = new Service("title", "description", 100.0, actualType);
-		assertNotNull(processService.insert(service));
-		ArrayList<Service> serviceList = null;
-		service.setContractID(contract.getID());
-		assertNotNull(processService.update(service));
 		
-		serviceList = processContract.getServices(contract);
-		assertNotNull(serviceList);
+		assertTrue(id2>-1);
+		assertNotNull(actualType);
+		
+		Service service = new Service("title", "description", 100.0, actualType);
+		service.setContractID(contract.getID());
+		service.setClientID(client.getID());
+		assertTrue(processService.insert(service));
 		service = processService.getServiceByTitle("title");
 		
-		processContract.delete(contract);
-		processService.delete(service);
+		ArrayList<Service> serviceList = null;		
+		serviceList = processContract.getServices(contract);
+		assertNotNull(serviceList);
+		
+		processClient.delete(client);
 		processService.delete(actualType);
 	}
 
@@ -241,19 +233,18 @@ public class ProcessContractTest
 		Client client = new Client("Jasonfwssd", phone, email, "123 First st", "BusinessNew149", ClientStatus.Active);
 		
 		processClient.insert(client);
-		
-		Client temp = processClient.getClientByBusinessName("BusinessNew149");
+		client = processClient.getClientByBusinessName("BusinessNew149");
 		
 		processContract = new ProcessContract();
-		int test = -1;
-		test = processContract.getUnusedContractID();
+		int test = processContract.getUnusedContractID();
 		Contract contract = new Contract(test, "BusinessNew149", "details", 1000.0, new Date(), new Date(), new Date());
 		assertTrue(processContract.insert(contract));
 		contract = processContract.getContractByID(test);
+		assertNotNull("Contract is null", contract);
 		
 		assertTrue(processContract.getTotalContractsValue()>0);
 
 		processContract.delete(contract);
-		processClient.delete(temp);
+		processClient.delete(client);
 	}
 }
