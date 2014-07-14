@@ -66,6 +66,8 @@ public class ProcessExpensesTest
 		service.setContractID(1);
 		service.setType(null);
 
+		service.setTitle("title");
+		
 		assertTrue(processService.insert(type));
 		
 		ArrayList<ServiceType> list = processService.getServiceTypes();
@@ -75,7 +77,7 @@ public class ProcessExpensesTest
 		while(it.hasNext())
 		{
 			temp = it.next();
-			if(temp.getType()==type.getType())
+			if(temp.getType().compareTo(type.getType()) == 0)
 			{
 				actual = temp;
 			}
@@ -115,13 +117,14 @@ public class ProcessExpensesTest
 		while(it.hasNext())
 		{
 			temp = it.next();
-			if(temp.getType()==type.getType())
+			if(temp.getType().compareTo(type.getType()) == 0)
 			{
 				actual = temp;
 			}
 		}
 		
-		Service service = new Service(type.getType(), "description", 1000.0, type);
+		Service service = new Service(type.getType(), "description", 1000.0, actual);
+		service.setTitle("titles");
 
 		int cID = 1;
 		service.setContractID(cID);
