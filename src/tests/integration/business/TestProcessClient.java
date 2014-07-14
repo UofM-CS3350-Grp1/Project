@@ -2,7 +2,6 @@ package tests.integration.business;
 
 import static org.junit.Assert.*;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -49,13 +48,15 @@ public class TestProcessClient
 	}
 	
 	@Test
-	public void testProcessClient() {
+	public void testProcessClient()
+	{
 		processClient = new ProcessClient();
 		assertNotNull(processClient);
 	}
 
 	@Test
-	public void testGetClientByID() {
+	public void testGetClientByID()
+	{
 		processClient = new ProcessClient();
 		Email email = new Email("test@test.com");
 		PhoneNumber phone = new PhoneNumber("2049601538");
@@ -75,7 +76,8 @@ public class TestProcessClient
 	}
 
 	@Test
-	public void testGetClientByBusinessName() {
+	public void testGetClientByBusinessName()
+	{
 		processClient = new ProcessClient();
 		Email email = new Email("test@test.com");
 		PhoneNumber phone = new PhoneNumber("2049601538");
@@ -93,7 +95,8 @@ public class TestProcessClient
 	}
 
 	@Test
-	public void testGetNextClient() {
+	public void testGetNextClient() 
+	{
 		processClient = new ProcessClient();
 		Email email = new Email("test@test2.com");
 		PhoneNumber phone = new PhoneNumber("2049601539");
@@ -117,7 +120,8 @@ public class TestProcessClient
 	}
 
 	@Test
-	public void testGetNumberOfClients() {
+	public void testGetNumberOfClients() 
+	{
 		processClient = new ProcessClient();
 		Email email = new Email("test@test2.com");
 		PhoneNumber phone = new PhoneNumber("2049601539");
@@ -139,7 +143,8 @@ public class TestProcessClient
 	}
 
 	@Test
-	public void testAddServiceToClient() {
+	public void testAddServiceToClient()
+	{
 		processClient = new ProcessClient();
 		processService = new ProcessService();
 		processContract = new ProcessContract();
