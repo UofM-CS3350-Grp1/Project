@@ -5,7 +5,11 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 
 import business.ProcessClient;
 import business.ProcessService;
@@ -18,15 +22,23 @@ import objects.Service;
 import objects.ServiceType;
 import objects.Client.ClientStatus;
 
-public class ProcessServiceTest {
-
-	private ProcessService processService; 
-	ProcessClient processClient;
-
-	public ProcessServiceTest()
+public class ProcessServiceTest
+{
+	private ProcessService processService = new ProcessService(); 
+	
+	@Rule
+	public TestName testName = new TestName();
+	
+	@Before
+	public void before()
 	{
-		processService = new ProcessService();
-		processClient = new ProcessClient();
+		System.out.println("Running test: " + this.getClass().toString() + "::" + testName.getMethodName());
+	}
+	
+	@After
+	public void after()
+	{
+		System.out.println("Finished test.\n");
 	}
 
 	@Test
@@ -88,7 +100,6 @@ public class ProcessServiceTest {
 		
 		processClient.delete(dropClient);
 		processService.delete(deleteService);
-		//processService.delete(theService);
 	}
 
 	@Test
@@ -152,8 +163,6 @@ public class ProcessServiceTest {
 
 		processClient.delete(dropClient);
 		processService.delete(deleteService);
-		//processContract.delete(contract);
-		//processService.delete(theService);
 	}
 
 	@Test
@@ -215,8 +224,6 @@ public class ProcessServiceTest {
 		
 		processClient.delete(dropClient);
 		processService.delete(deleteService);
-		//processContract.delete(contract);
-		//processService.delete(theService);
 	}
 
 	@Test
