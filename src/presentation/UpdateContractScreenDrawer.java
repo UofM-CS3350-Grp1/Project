@@ -426,12 +426,10 @@ public class UpdateContractScreenDrawer
 			dateEnd = DateTimeUtil.getDate(endDate);
 			today = new Date();
 			totalNumServices = contractTable.getItemCount();	
-			System.out.println("formatting date done");
 
-			System.out.println("trying to add up contract value");
-			for(int i=1; i<=totalNumServices; i++)
+			for(int i=0; i<totalNumServices; i++)
 			{
-				value += getValueField(i, 1);
+				value += getValueField(i+1, 1);
 			}
 			
 			//remove all services from the contract and add the new ones
@@ -454,7 +452,7 @@ public class UpdateContractScreenDrawer
 
 			if(combo.getText() != null && !combo.getText().isEmpty())
 				contract.setStatus(combo.getText());
-			
+
 			if(processContract.update(contract))
 			{
 				for(int i = 0; i < totalNumServices; i++)
@@ -464,17 +462,14 @@ public class UpdateContractScreenDrawer
 					
 					if(serviceType != null)
 					{
-						System.out.println("creating service object");
 						newService = new Service(serviceType.getType(), serviceType.getDescription(), getValueField(i+1, 0), serviceType);
 						cID = contract.getID();
 						newService.setContractID(cID);
-						System.out.println("service type found. Trying to update service");
-						
-						if(!processService.update(newService))
-						{
-							//The service does not already exist. Add it!
-							processService.insert(newService);
-						}
+						newService.setClientID(client.getID());
+
+						processService.insert(newService);
+					}else{
+						System.out.println("ServiceType is null");
 					}
 				}
 				
@@ -580,7 +575,7 @@ public class UpdateContractScreenDrawer
 				addValueField(i);
 				setValueField(i, service.getRate());
 				item = new TableItem(contractTable, SWT.NULL);
-				item.setText(0, String.valueOf(service.getID()));
+				item.setText(0, String.valueOf(service.getServiceType().getID()));
 				item.setText(1, service.getServiceType().getType());
 				item.setText(2, service.getDescription());
 			}

@@ -174,10 +174,17 @@ public class JCCSurveyScreenDrawer
 		{
 			SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
 			Date date = new Date();
-			String theDate = comboYear.getText() + "-" + comboMonth.getText() + "-01";
 
 			try
 			{
+				int tempNum = Integer.parseInt(comboMonth.getText()) + 1;
+				String temp;
+				if(tempNum < 10)
+					temp = "0" + tempNum;
+				else
+					temp = tempNum + "";
+				
+				String theDate = comboYear.getText() + "-" + temp + "-01";
 				date = formatter.parse(theDate);
 
 				processClient = new ProcessClient();
