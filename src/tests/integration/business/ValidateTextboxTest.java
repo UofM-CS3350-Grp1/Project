@@ -1,29 +1,20 @@
 package tests.integration.business;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 import business.ValidateTextbox;
 
-public class ValidateTextboxTest {
-
-	private ValidateTextbox validateTextbox; 
-
-	public ValidateTextboxTest()
-	{
-		validateTextbox = new ValidateTextbox();
-	}
-
+public class ValidateTextboxTest
+{
 	@Test
 	public void verifyMonetaryValueTest()
 	{
-		validateTextbox.verifyMonetaryValue(null);
+		ValidateTextbox.verifyMonetaryValue(null);
 	}
 
 	@Test
 	public void verifyNumericTextboxTest()
 	{
-		validateTextbox.verifyNumericTextbox(null, -1);
+		ValidateTextbox.verifyNumericTextbox(null, -1);
 	}
 }
