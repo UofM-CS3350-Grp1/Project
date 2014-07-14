@@ -14,7 +14,7 @@ Process Feature History Test		- CLEAR
 
 ProcessServiceTest			- CLEAR
 
-TestAccessFinancialRecords		- INTEGRITY ERRORS
+TestAccessFinancialRecords		- CLEAR
 
 TestDateTimeUtil			- CLEAR
 
