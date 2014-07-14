@@ -6,8 +6,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
@@ -41,14 +43,58 @@ public class LoggedInDrawer
 
 		// organizer
 		GridLayout compositeLayout = new GridLayout();
-		compositeLayout.numColumns = 2;
-		compositeLayout.makeColumnsEqualWidth = true;
+		compositeLayout.numColumns = 8;
 		composite.setLayout( compositeLayout );
 
 		GridData componentTweaker = null;
+		
+		Label topLeft = new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
 
+		Label spareLeft = new Label(composite, SWT.NONE);
 		String loggedInAs = User.getCurrentUser();
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		Display display = Display.getCurrent();
+		Image myImage = new Image( display, "src/Presentation/logo.png" );
+		
+		Label spareTop = new Label(composite, SWT.NONE);
+		GridData gd_spareTop = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_spareTop.heightHint = 88;
+		spareTop.setLayoutData(gd_spareTop);
+		new Label(composite, SWT.NONE);
+		Label x = new Label(composite, SWT.NONE);
+		GridData gd_x = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_x.widthHint = 236;
+		x.setLayoutData(gd_x);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
 
+		Label myLabel = new Label( composite, SWT.NONE );
+		myLabel.setImage( myImage );
+		Label lblBuzzinDigitalMarketing = new Label(composite, SWT.NONE);
+		lblBuzzinDigitalMarketing.setText("BUZZIN' DIGITAL MARKETING");
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		
+		
+		Label label = new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		
+		Label spareLeft2 = new Label(composite, SWT.NONE);		
+		Label spareLeft3 = new Label(composite, SWT.NONE);
+		
+		
 		// username
 		Label lblUser = new Label( composite, SWT.None );
 		lblUser.setText( "Logged in as: ");
@@ -57,8 +103,14 @@ public class LoggedInDrawer
 		lblActiveUser = new Label( composite, SWT.None );
 		lblActiveUser.setText(loggedInAs);
 		lblActiveUser.setLayoutData( componentTweaker );
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
 
 		composite.setLayout( compositeLayout );
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
 		
 		// Change PW button
 		btnChangePW = new Button( composite, SWT.None );
@@ -79,6 +131,17 @@ public class LoggedInDrawer
 		gd_btnLogout.widthHint = 102;
 		btnLogout.setLayoutData(gd_btnLogout);
 		btnLogout.setText( "Logout" );
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
 
 		btnLogout.addSelectionListener(new SelectionAdapter()
 		{
