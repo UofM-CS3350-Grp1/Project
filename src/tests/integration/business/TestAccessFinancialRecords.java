@@ -85,8 +85,7 @@ public class TestAccessFinancialRecords
 	@After
 	public void after()
 	{
-		assertTrue("Contract not deleted", processContract.delete(contract));
-		assertTrue("Service not deleted", processService.delete(service));
+		//Delete the client and service type and everything associated with them
 		assertTrue("Client not deleted", processClient.delete(client));
 		assertTrue("Service type not deleted", processService.delete(serviceType));
 	}
@@ -100,23 +99,15 @@ public class TestAccessFinancialRecords
 	@Test
 	public void testGetYearRevenueForClient() 
 	{
-		MonthReport report = new MonthReport(new Date(), 100.0);
 		MonthReport actual = financialRecords.getYearRevenueForClient(client).get(0);
-
-		System.out.println(actual.getValue());
-		System.out.println(report.getValue());		
-		
-		assertTrue("Client revenue does not match expected", report.getValue() == actual.getValue());
+		assertTrue("Client revenue does not match expected", 100 == actual.getValue());
 	}
 
 	@Test
 	public void testGetYearRevenueForService()
-	{		
+	{
 		MonthReport report = new MonthReport(new Date(), 50.0);
 		MonthReport actual = financialRecords.getYearRevenueForService(serviceType).get(0);
-
-		System.out.println(actual.getValue());
-		System.out.println(report.getValue());
 		
 		assertTrue("Service revenue does not match expected", report.getValue() == actual.getValue());
 	}
@@ -131,9 +122,6 @@ public class TestAccessFinancialRecords
 		MonthReport report = new MonthReport(new Date(), 100.0);
 		MonthReport actual = financialRecords.getYearExpenseForService(serviceType).get(0);
 
-		System.out.println(actual.getValue());
-		System.out.println(report.getValue());
-		
 		assertTrue("Service revenue does not match expected", report.getValue() == actual.getValue());
 	}
 
@@ -152,7 +140,7 @@ public class TestAccessFinancialRecords
 		
 		assertTrue("Expense not inserted", processExpense.insertExpense(new Expense(service.getID(), "Sup", 100.0, "Some expense", new Date())));		
 		
-		expense = financialRecords.calcClientRevenueToDate(client);
+		expense = financialRecords.calcClientExpensesToDate(client);
 		assertTrue("Client expenses does not match", 100.0 == expense);
 	}
 
