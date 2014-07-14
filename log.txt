@@ -29,6 +29,35 @@ TODO(Jason):
 TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+
+Task: Refactoring integration tests
+Date: 7/14 1:30 am
+Assigned to: Jason
+Status: Completed
+Duration: 1hr
+Description: 	- removed some duplicate code, removed printing statements
+
+Task: minor improvement on the GUI
+Date: 7/13 11:30 pm
+Assigned to: Jason
+Status: Completed
+Duration: 2hr
+Description: 	- added a logo, centered the options a bit
+
+Task: Integration testing
+Date: 7/13 6:30 pm
+Assigned to: Jason
+Status: Completed
+Duration: 5hr
+Description: 	- integration testing for presentation to business layer
+
+Task: Integration testing
+Date: 7/13 6:30 pm
+Assigned to: Jason
+Status: Completed
+Duration: 5hr
+Description: 	- integration testing for presentation to business layer
+
 Task: Fixed Logo Bug
 Date: 7/13 10:42 pm
 Assigned to: Dell
@@ -142,6 +171,20 @@ Description:	Added test suite to business layer objects.
 				Updated build scripts to include missing classes and output to files.
 
 
+Task: Fixed bugs
+Date: 7/11 6:00 pm
+Assigned to: Jason
+Status: Completed
+Duration: 3hr
+Description: fixed expenses updates, survey updates, contract updates
+
+Task: Refactoring
+Date: 7/11 3:30 pm
+Assigned to: Jason
+Status: Completed
+Duration: 2hr
+Description: 	- removed some unused code
+
 Task: Feature History to Feature changes 
 Date: 7/11, 11:00pm
 Assigned to: Tim
@@ -158,6 +201,13 @@ Assigned to: Tim
 Status: In progress.
 Duration: 30 minutes
 Description:	Converted services to use service types for performance analysis.
+
+Task: Dynamic contract service value fields
+Date: 7/07 1:30 am
+Assigned to: Jason
+Status: Completed
+Duration: 3hr
+Description: 	- Implemented dynamic service values input fields
 
 
 Task: Export contract to properly formatted PDF
