@@ -133,7 +133,7 @@ public class TrackableFeatureScreenDrawer extends BaseStorableScreenDrawer
 		int selectedIndex = table.getSelectionIndex();
 		MessageBox dialog;
 		int buttonID;
-		TrackedFeature feature;
+		TrackedFeatureType feature;
 		TableItem selectedItem;
 		
 		if(selectedIndex != -1)
@@ -149,12 +149,13 @@ public class TrackableFeatureScreenDrawer extends BaseStorableScreenDrawer
 			switch(buttonID)
 			{
 				case SWT.YES:
-					feature = processFeature.getFeatureByID(Integer.parseInt(selectedItem.getText(0)));
+					feature = processFeature.getFeatureTypeByID(Integer.parseInt(selectedItem.getText(0)));
 					
 					if(feature != null)
-						processFeature.delete(feature);
-					
-					table.remove(selectedIndex);
+					{
+						if(processFeature.delete(feature))	
+							table.remove(selectedIndex);
+					}
 					
 					break;
 					
