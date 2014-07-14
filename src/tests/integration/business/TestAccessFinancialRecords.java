@@ -56,6 +56,7 @@ public class TestAccessFinancialRecords
 		phone = new PhoneNumber("2049601538");
 		email = new Email("test@hotmail.com");
 		client = new Client("Client", phone, email, "123 First st", "Biz", ClientStatus.Active);
+		contract.setStatus("Signed");
 		
 		assertTrue("Service type not inserted", processService.insert(serviceType));
 		assertTrue("Client not inserted", processClient.insert(client));
@@ -100,16 +101,14 @@ public class TestAccessFinancialRecords
 	public void testGetYearRevenueForClient() 
 	{
 		MonthReport actual = financialRecords.getYearRevenueForClient(client).get(0);
-		assertTrue("Client revenue does not match expected", 100 == actual.getValue());
+		assertTrue("Client revenue does not match expected", 50.0 == actual.getValue());
 	}
 
 	@Test
 	public void testGetYearRevenueForService()
 	{
-		MonthReport report = new MonthReport(new Date(), 50.0);
-		MonthReport actual = financialRecords.getYearRevenueForService(serviceType).get(0);
-		
-		assertTrue("Service revenue does not match expected", report.getValue() == actual.getValue());
+		MonthReport actual = financialRecords.getYearRevenueForService(serviceType).get(0);		
+		assertTrue("Service revenue does not match expected", 50 == actual.getValue());
 	}
 
 	@Test
@@ -129,7 +128,7 @@ public class TestAccessFinancialRecords
 	public void testCalcClientRevenueToDate() 
 	{
 		double revenue = financialRecords.calcClientRevenueToDate(client);
-		assertTrue("Client revenue does not match", 100.0 == revenue);
+		assertTrue("Client revenue does not match", 50.0 == revenue);
 	}
 
 	@Test
