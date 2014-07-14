@@ -78,7 +78,6 @@ public class ContractAnalysisScreenDrawer
 	private Button btnPrint;
 	private Text detailsData;
 	private Label lblDetails;
-	private Button btnSave;
 	private Label lblServicesInThis;
 	
 	private String[] months = {"null", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
@@ -557,7 +556,7 @@ public class ContractAnalysisScreenDrawer
 		lblSignedData.setText(contract.getFormattedSignedDate());
 		lblStartData.setText(contract.getFormattedSignedDate());
 		lblEndData.setText(contract.getFormattedPeriod());
-		lblStatusData.setText("Not specified");
+		lblStatusData.setText(contract.getStatus());
 		detailsData.setText(contract.getDetails());
 	}
 	

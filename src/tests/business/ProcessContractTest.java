@@ -78,13 +78,6 @@ public class ProcessContractTest
 	}
 	
 	@Test
-	public void testGetNumServices()
-	{
-		ProcessContract process = new ProcessContract();
-		assertTrue("Contract is invalid", process.getNumberOfServices(null) == 0);
-	}
-	
-	@Test
 	public void testGetNumContractsInRange()
 	{
 		ProcessContract process = new ProcessContract();

@@ -2,7 +2,6 @@ package tests.integration.business;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import objects.Client;
@@ -22,9 +21,9 @@ import business.ProcessAddFeature;
 import business.ProcessClient;
 import persistence.DBInterface;
 
-public class TestProcessAddFeature {
-	
-	DBInterface database = new DBInterface("db");
+public class TestProcessAddFeature
+{
+	DBInterface database = new DBInterface("MainDB");
 	TrackedFeatureType featureTypeValid = new TrackedFeatureType("Test");
 	TrackedFeatureType featureTypeValid2 = new TrackedFeatureType("Test2");
 
@@ -44,42 +43,46 @@ public class TestProcessAddFeature {
 	}
 	
 	@Test
-	public void testProcessAddFeature() {
-		ProcessAddFeature processAddFeature = new ProcessAddFeature();
-		
+	public void testProcessAddFeature() 
+	{
+		ProcessAddFeature processAddFeature = new ProcessAddFeature();		
 		assertNotNull(processAddFeature);
 	}
 
 	@Test
-	public void testGetFeatureTypeByTitle() {
-
-		ProcessAddFeature processAddFeature = new ProcessAddFeature();
-		
+	public void testGetFeatureTypeByTitle() 
+	{
+		ProcessAddFeature processAddFeature = new ProcessAddFeature();		
 		processAddFeature.insert(featureTypeValid);
 
 		assertEquals(featureTypeValid.getTitle(), processAddFeature.getFeatureTypeByTitle("Test").get(0).getTitle());
 		assertNotNull(processAddFeature.getFeatureTypeByTitle("Test").get(0).getTitle());
 		assertNull(processAddFeature.getFeatureTypeByTitle("Invalid title"));
 		
-		processAddFeature.delete(featureTypeValid);
+		TrackedFeatureType output = processAddFeature.getFeatureTypeByTitle("Test").get(0);
+		
+		processAddFeature.delete(output);
 	}
 
 	@Test
-	public void testGetFeatureTypes() {
-
+	public void testGetFeatureTypes() 
+	{
 		ProcessAddFeature processAddFeature = new ProcessAddFeature();
 		
 		processAddFeature.insert(featureTypeValid);
 		
 		assertNotNull(processAddFeature.getFeatureTypes());
+		
+		TrackedFeatureType output = processAddFeature.getFeatureTypeByTitle("Test").get(0);
 
 		database.connect();
-		database.drop(featureTypeValid);
+		database.drop(output);
 		database.disconnect();
 	}
 
 	@Test
-	public void testGetNextFeature() {
+	public void testGetNextFeature()
+	{
 		ProcessAddFeature processAddFeature = new ProcessAddFeature();
 		
 		processAddFeature.insert(featureTypeValid);
@@ -88,31 +91,35 @@ public class TestProcessAddFeature {
 		assertNotNull(processAddFeature.getNextFeature());
 		assertNotNull(processAddFeature.getNextFeature());
 		
+		TrackedFeatureType output = processAddFeature.getFeatureTypeByTitle("Test").get(0);
+		TrackedFeatureType output2 = processAddFeature.getFeatureTypeByTitle("Test2").get(0);
+		
 		database.connect();
-		database.drop(featureTypeValid);
-		database.drop(featureTypeValid2);
+		database.drop(output);
+		database.drop(output2);
 		database.disconnect();
 		
 	}
 
 	@Test
-	public void testGetFeatureByID() {
-
-		ProcessAddFeature processAddFeature = new ProcessAddFeature();
-		
+	public void testGetFeatureByID() 
+	{
+		ProcessAddFeature processAddFeature = new ProcessAddFeature();		
 		processAddFeature.insert(featureTypeValid);
 
 		assertNotNull(processAddFeature.getFeatureByID(1));
 		assertNull(processAddFeature.getFeatureByID(-1));
 		
+		TrackedFeatureType output = processAddFeature.getFeatureTypeByTitle("Test").get(0);
+		
 		database.connect();
-		database.drop(featureTypeValid);
+		database.drop(output);
 		database.disconnect();
 	}
 
 	@Test
-	public void testGetFeaturesByClient() {
-		
+	public void testGetFeaturesByClient() 
+	{
 		Client client = new Client("Bill", new PhoneNumber("2045551326"), new Email("bill@test.com"), "San Dimas", "Wyld Stallyns", ClientStatus.Active);
 
 		ProcessAddFeature processAddFeature = new ProcessAddFeature();
@@ -136,5 +143,4 @@ public class TestProcessAddFeature {
 		processClient.delete(client);
 		database.disconnect();
 	}
-
 }

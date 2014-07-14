@@ -29,6 +29,55 @@ TODO(Jason):
 TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Build scripts
+Date: 7/14, 3:15am
+Assigned to: Tim
+Status: Completed.
+Duration: 10 minutes
+Description:	Added RunTests script to run all the tests and output the results to a single file.
+				Cleaned up the other test scripts.
+				Ensured remaining scripts work correctly.
+				
+
+Task: Bug fixing, Refactoring, etc.
+Date: 7/14, 1:00am
+Assigned to: Tim
+Status: Completed.
+Duration: 2 hours
+Description:	Squashed various bugs dealing with null guards and missing data.
+				Fixed issues with integration tests and SQL errors.
+				Enforced common coding style.
+				
+				
+Task: Integration tests
+Date: 7/14 11:30 pm
+Assigned to: Tim
+Status: Completed
+Duration: 1 hour
+Description:	Created and tested integration tests.
+
+
+Task: Refactoring integration tests
+Date: 7/14 1:30 am
+Assigned to: Jason
+Status: Completed
+Duration: 1hr
+Description: 	- removed some duplicate code, removed printing statements
+
+Task: minor improvement on the GUI
+Date: 7/13 11:30 pm
+Assigned to: Jason
+Status: Completed
+Duration: 2hr
+Description: 	- added a logo, centered the options a bit
+
+Task: Integration tests
+Date: 7/13 6:30 pm
+Assigned to: Jason
+Status: Completed
+Duration: 5hr
+Description: 	- integration testing for presentation to business layer
+
 Task: Fixed Logo Bug
 Date: 7/13 10:42 pm
 Assigned to: Dell
@@ -42,6 +91,14 @@ Assigned to: Dell
 Status: Complete
 Duration: 18 minutes
 Description:	- fixed log out menu item security hole
+
+Planned Task: Refactoring integration tests
+Planned dev duration: 1hr
+Assigned to: Jason
+
+Planned Task: Integration testing
+Planned dev duration: 4hr
+Assigned to: Jason
 
 Task: Log Out Button Erases Back History
 Date: 7/13 10:13 pm
@@ -57,6 +114,10 @@ Assigned to: Dell
 Status: Complete
 Duration: 25 minutes
 Description:	- The last field in database updates is now protected
+
+Planned Task: minor improvement on the GUI
+Planned dev duration: 2hr
+Assigned to: Jason
 
 Task: New User Injection Patch
 Date: 7/13 9:35 pm
@@ -140,7 +201,27 @@ Description:	Added test suite to business layer objects.
 				Fixed bugs introduced with removing the details field from feature types.
 				Cleaned up code, added missing null/ invalid guards, etc.
 				Updated build scripts to include missing classes and output to files.
+				
+				
+Planned Task: Business object test suite
+Planned dev duration: 4 hours
+Assigned to: Tim
 
+
+Task: Fix bugs
+Date: 7/11 6:00 pm
+Assigned to: Jason
+Status: Completed
+Duration: 3hr
+Description: fixed expenses updates, survey updates, contract updates
+
+
+Task: Refactoring
+Date: 7/11 3:30 pm
+Assigned to: Jason
+Status: Completed
+Duration: 2hr
+Description: 	- removed some unused code
 
 Task: Feature History to Feature changes 
 Date: 7/11, 11:00pm
@@ -159,6 +240,20 @@ Status: In progress.
 Duration: 30 minutes
 Description:	Converted services to use service types for performance analysis.
 
+Planned Task: Service and Feature change conversion
+Planned dev duration: 2 hours
+Assigned to: Tim
+
+Planned Task: Fix bugs
+Planned dev duration: 2.5hr
+Assigned to: Jason
+
+Task: Dynamic contract service value fields
+Date: 7/07 1:30 am
+Assigned to: Jason
+Status: Completed
+Duration: 3hr
+Description: 	- Implemented dynamic service values input fields
 
 Task: Export contract to properly formatted PDF
 Date: 7/06, 8:00pm
@@ -173,6 +268,10 @@ Assigned to: Jason
 Status: Completed
 Duration: 2 hours
 Description:	Expenses are now able to be added to services
+
+Planned Task: Dynamic contract service value fields
+Planned dev duration: 4hr
+Assigned to: Jason
 
 Planned Task: Adding expenses
 Planned dev duration: 3hrs
@@ -272,6 +371,10 @@ Assigned to: Jason
 Status: Completed
 Duration: 6 hours
 Description:	Generic breakdown tables completed for the most part
+
+Planned Task: Performance tracking analysis
+Planned dev duration: 5 hours
+Assigned to: Tim
 
 Task: Refactoring Domain Objects / Tables, Fixing Bugs, Queries
 Date: 07/04

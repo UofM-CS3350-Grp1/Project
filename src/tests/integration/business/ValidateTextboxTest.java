@@ -1,32 +1,39 @@
 package tests.integration.business;
 
-import static org.junit.Assert.*;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 
-import persistence.DBInterface;
 import business.ValidateTextbox;
 
-// TO DO:  Derek
-public class ValidateTextboxTest {
-
-	private DBInterface database;
-	private ValidateTextbox validateTextbox; 
-
-	public ValidateTextboxTest()
+public class ValidateTextboxTest
+{
+	@Rule
+	public TestName testName = new TestName();
+	
+	@Before
+	public void before()
 	{
-		validateTextbox = new ValidateTextbox();
-		database = new DBInterface("db");
+		System.out.println("Running test: " + this.getClass().toString() + "::" + testName.getMethodName());
+	}
+	
+	@After
+	public void after()
+	{
+		System.out.println("Finished test.\n");
+	}
+	
+	@Test
+	public void verifyMonetaryValueTest()
+	{
+		ValidateTextbox.verifyMonetaryValue(null);
 	}
 
 	@Test
-	public void testVerifyNumericTextbox() {
-		fail("Not yet implemented");
+	public void verifyNumericTextboxTest()
+	{
+		ValidateTextbox.verifyNumericTextbox(null, -1);
 	}
-
-	@Test
-	public void testVerifyMonetaryValue() {
-		fail("Not yet implemented");
-	}
-
 }

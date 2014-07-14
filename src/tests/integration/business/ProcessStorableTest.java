@@ -2,41 +2,48 @@ package tests.integration.business;
 
 import static org.junit.Assert.*;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 
-import persistence.DBInterface;
 import business.ProcessStorable;
 
-// TO DO:  Derek
-public class ProcessStorableTest {
-
-	private DBInterface database;
-	private ProcessStorable processStorable; 
-
-	public ProcessStorableTest()
+public class ProcessStorableTest
+{
+	private ProcessStorable processStorable = new ProcessStorable();
+	
+	@Rule
+	public TestName testName = new TestName();
+	
+	@Before
+	public void before()
 	{
-		processStorable = new ProcessStorable();
-		database = new DBInterface("db");
+		System.out.println("Running test: " + this.getClass().toString() + "::" + testName.getMethodName());
+	}
+	
+	@After
+	public void after()
+	{
+		System.out.println("Finished test.\n");
 	}
 
 	@Test
-	public void processStorableTest() {
-		fail("Not yet implemented");
+	public void deleteTest()
+	{
+		assertFalse("Storable was deleted", processStorable.delete(null));
 	}
 
 	@Test
-	public void insertTest() {
-		fail("Not yet implemented");
+	public void insertTest()
+	{
+		assertFalse("Storable was inserted", processStorable.insert(null));
 	}
 
 	@Test
-	public void updateTest() {
-		fail("Not yet implemented");
+	public void updateTest()
+	{
+		assertFalse("Storable was updated", processStorable.update(null));
 	}
-
-	@Test
-	public void deleteTest() {
-		fail("Not yet implemented");
-	}
-
 }

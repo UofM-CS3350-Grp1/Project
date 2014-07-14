@@ -63,7 +63,16 @@ public class UpdateClientScreenDrawer extends AddClientScreenDrawer
 				client.setEmail(new Email(txtEmail.getText()));
 				client.setAddress(txtAddress.getText());
 				client.setBusinessName(txtBusinessName.getText());
-				client.setStatus(status);	
+				client.setStatus(status);
+				
+				System.out.println(client.getAddress());
+				System.out.println(client.getBusinessName());
+				System.out.println(client.getID());
+				System.out.println(client.getName());
+				System.out.println(client.getTableName());
+				System.out.println(client.getEmail());
+				System.out.println(client.getPhoneNumber());
+				System.out.println(client.getStatus());
 	
 				if(processClient.update(client))
 				{	

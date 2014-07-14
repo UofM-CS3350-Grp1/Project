@@ -172,7 +172,6 @@ public class ProcessContract extends ProcessStorable
 			
 			if(temp != null)
 			{
-				System.out.println("Searching for services");
 				it = temp.iterator();
 							
 				while(it.hasNext())
@@ -204,25 +203,6 @@ public class ProcessContract extends ProcessStorable
 			database.update(contract);
 			database.disconnect();
 		}
-	}
-	
-	/**
-	 * @return contract The number of services in this contract
-	 */
-	public int getNumberOfServices(Contract contract)
-	{
-		int result = 0;
-		ArrayList<Service> services;
-		
-		if(contract != null)
-		{
-			services = contract.getServices();
-			
-			if(services != null)
-				result = services.size();
-		}
-		
-		return result;
 	}
 	
 	/**
