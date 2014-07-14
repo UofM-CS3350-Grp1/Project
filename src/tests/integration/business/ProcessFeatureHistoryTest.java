@@ -61,8 +61,8 @@ public class ProcessFeatureHistoryTest
 
 		assertNotEquals(-14,value);
 
-		processAddFeature.delete(newFeature);
-		processClient.delete(newClient);		
+		processAddFeature.delete(theFeature);
+		processClient.delete(theClient);		
 	}
 
 	@Test
@@ -99,9 +99,9 @@ public class ProcessFeatureHistoryTest
 		TrackedFeature feature = processFeatureHistory.getHistoryByID(aFeature.getID());
 		assertNotNull(feature);
 
-		processClient.delete(newClient);
-		processAddFeature.delete(newFeatureType);
-		processAddFeature.delete(theFeature);
+		processClient.delete(theClient);
+		processAddFeature.delete(myFeatureType);
+		//processAddFeature.delete(theFeature);
 	}
 
 	@Test
@@ -135,9 +135,9 @@ public class ProcessFeatureHistoryTest
 		TrackedFeature aFeature = processFeatureHistory.getNextHistory();
 		assertNotNull(aFeature);
 
-		processClient.delete(newClient);
-		processAddFeature.delete(newFeatureType);
-		processAddFeature.delete(theFeature);
+		processClient.delete(theClient);
+		processAddFeature.delete(myFeatureType);
+		//processAddFeature.delete(theFeature);
 	}
 
 	@Test
@@ -155,6 +155,8 @@ public class ProcessFeatureHistoryTest
 
 		ArrayList<TrackedFeatureType> featureTypes = processAddFeature.getFeatureTypes();
 		assertNotNull(featureTypes);
+		
+		Client theClient = processClient.getClientByBusinessName("BusinessMotel");
 
 		TrackedFeatureType myFeatureType = null;
 		for (int i = 0; i < featureTypes.size() && myFeatureType == null; i++)
@@ -165,7 +167,7 @@ public class ProcessFeatureHistoryTest
 
 		reports = processFeatureHistory.getYearHistoryForFeature(myFeatureType, newClient);
 
-		processClient.delete(newClient);
-		processAddFeature.delete(newFeatureType);
+		processClient.delete(theClient);
+		processAddFeature.delete(myFeatureType);
 	}
 }
