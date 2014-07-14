@@ -1,6 +1,14 @@
 Repository URL: https://github.com/UofM-CS3350-Grp1/Project
 
 
+IMPORTANT: To log into the program, you must use one of the following username : password combinations
+Karl	password
+Adrian	password
+Dell	password
+Derek	password
+Tim		password
+Jason	password
+
 To run this program:
 
 Compile:
@@ -16,7 +24,7 @@ Run:
 			- re-run Run.bat
 
 Run tests:
-	run RunUnitTests.bat
+	run RunTests.bat
 		- Once tests are completed run RestoreDB.bat in /databases to restore
 		  tables, as rows may be inserted/updated/deleted that would invalidate 
 		  future tests.
@@ -40,13 +48,16 @@ Directory:
 
 
 Major changes this iteration:
-	Added service creation
-	Added service feature creation
-	Added Contract creation
-	Added History tracking to clients and services
-	Added performance tracking based on the history of clients and services
-	Switched from stub database to a real database
-	Refactored user interface by beraking it up into serveral smaller partitions
+	Added login functionality
+	Added Job Cost Cards (JCC)
+	Added Contract Editing
+	Added integration tests
+	Added acceptance tests
+	Refactored GUI menu
+	Refactored Domain objects
+	Refactored Database interface
+	Refactored program start location
+	
 	
 	
 	

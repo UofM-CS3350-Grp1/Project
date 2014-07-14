@@ -1,6 +1,14 @@
 
 Acceptance test README.
 
+IMPORTANT: To log into the program, you must use one of the following username : password combinations
+Karl	password
+Adrian	password
+Dell	password
+Derek	password
+Tim		password
+Jason	password
+
 The purpose of this file is to instruct users on the ordering of the automated and manual acceptance tests.
 
 Running RunAcceptanceTests.bat will restore the database to it's original state.

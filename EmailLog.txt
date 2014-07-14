@@ -1,3 +1,94 @@
+
+----------
+Karl, July 14:
+
+Reminder that I will be handing the project in at 2:00. All commits must be pushed to the repository before this time.
+
+----------
+Karl, July 14:
+
+Do not change the sample data in the DB, this will destroy various tests, and the sample data is fine anyways. All of the documents have already been created, you don't need to worry about them.
+
+----------
+Jason, July 14:
+
+Theres one more thing that needs to be done for the log.txt file (for those who havent done this yet). 
+Add development plans for all of your tasks. This only takes 2min (maybe 3 if you have a lot). 
+You could just copy one of mine and use that format. Also, we need proper sample data in our DB for the handin as well as the presentation; realistic data with real sounding business names, $$$, etc. 
+For refactoring (design level), one of the largest ones weve done this iterations is implement intermediate and generic tables for services and features. Another one would be removing duplicate code.
+We need a document outlining the planned time for detailed user stories, and the approximate actual time (same as last iteration).
+Success criteria for this iteration would be the implementation of the 2 main features of the system, which would be to track business financials (JCCs) 
+and client analytics (charts), which have been implemented successfully.
+
+----------
+Derek, July 14:
+
+Sorry for the late reply. The customer was out of town this weekend. We'll be meeting him tomorrow afternoon.
+
+----------
+Adrian, July 13:
+
+Here's the new architecture diagram, with the seam test classes outlined as requested.
+
+----------
+Karl, July 13:
+
+I am going to begin the hand-in of the project tomorrow at 2:00, everything you are finishing up must be done beforehand and any changes made must not break anything including the testing.
+
+I still need the Revised Architecture Diagram from Adrian.
+
+Tim, I am pretty busy tonight so I'll probably finish the demo outline tomorrow.
+
+Also how did the meeting with the client go? If you could send out a download link, that would be great, as I believe we are going to use Adrian's laptop for the presentation.
+
+----------
+Adrian, July 11:
+
+Also, if everyone could just email any design concerns or code smells they're encountered whenever they have a moment that would be greatly appreciated. I'll be putting up a new ER/Architecture diagram at some point today and bringing the Stub / Stub Testing back up to speed for the final handin.
+
+Thanks,
+Adrian
+
+----------
+Adrian, July 11:
+
+This change has been pushed through into features. TrackedFeatures now contains:
+
+ROW_ID, CLIENT_ID, FEATURE_TYPE_ID, NOTES, VALUE, DATE
+
+The domain objects have been changed and currently pass all integration tests. FeatureHistory objects have been removed, subsequently come code is now broken. 
+Keep me updated in terms of bugs and I'll see what I can do. I will be at work somewhat later today so I may not be able to implement changes immediately.
+
+----------
+Adrian, July 8:
+
+An integrity constraint violation indicates that the constraint for passing feature histories to the table:
+
+CONSTRAINT FEATURE_HISTORY_TO_FEATURE FOREIGN KEY(FEATURE_ID) REFERENCES FEATURE(ROW_ID) ON DELETE CASCADE
+
+Is failing. No parent indicates that the FEATURE_ID field is invalid an does not have a matching parent id.
+
+To enable the printing of SQL output and error messages in the controller you can set the lines at 23 and 24.
+
+23        private final int SQL_DEBUGGING = 0;     //1 for full SQL output, 0 to disable.
+24        private final int ERROR_LOG = 0;             //1 for error log, 0 to disable.
+
+To 1 and it should give you the FEATURE_ID you are attempting to put in.
+
+----------
+Derek, July 8:
+
+Jason/Adrian,
+
+I tracked down where the JCC's -> Add Survey Info was failing. It's actually failing to insert into the database 
+(the try/catch statement wasn't printing the error to the cmd prompt, so I added a print in the DBController). This is what it's spitting out:
+
+java.sql.SQLException: Integrity constraint violation - no parent FEATURE_HISTORY_TO_FEATURE table: FEATURE
+
+Adrian, would you mind helping me troubleshoot from here? I added a bit of output to the cmd prompt to get a picture of where things were failing. 
+Basically just go to the JCC screen and try to input new data into the Add Survey Info screen and take a look at the output. 
+This is all being done in the try statement in JCCSurveyScreenDrawer -> addSurvey() method. Thanks.
+
 ----------
 Karl, July 6:
 
