@@ -29,6 +29,13 @@ TODO(Jason):
 TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Log Out Menu Item Erases Back History
+Date: 7/13 10:31 pm
+Assigned to: Dell
+Status: Complete
+Duration: 18 minutes
+Description:	- fixed log out menu item security hole
+
 Task: Log Out Button Erases Back History
 Date: 7/13 10:13 pm
 Assigned to: Dell
