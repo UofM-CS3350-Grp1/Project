@@ -18,8 +18,7 @@ TestAccessFinancialRecords		- INTEGRITY ERRORS
 
 TestDateTimeUtil			- CLEAR
 
-TestProcessAddFeature		- DELETE ERRORS ONLY, CHECK YOUR ROW VALUES
-							- CLOSED SESSION ERRORS
+TestProcessAddFeature		- CLEAR
 
 TestProcessClient			- CLEAR
 

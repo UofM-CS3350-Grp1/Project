@@ -24,7 +24,7 @@ import persistence.DBInterface;
 
 public class TestProcessAddFeature {
 	
-	DBInterface database = new DBInterface("db");
+	DBInterface database = new DBInterface("MainDB");
 	TrackedFeatureType featureTypeValid = new TrackedFeatureType("Test");
 	TrackedFeatureType featureTypeValid2 = new TrackedFeatureType("Test2");
 
@@ -61,7 +61,9 @@ public class TestProcessAddFeature {
 		assertNotNull(processAddFeature.getFeatureTypeByTitle("Test").get(0).getTitle());
 		assertNull(processAddFeature.getFeatureTypeByTitle("Invalid title"));
 		
-		processAddFeature.delete(featureTypeValid);
+		TrackedFeatureType output = processAddFeature.getFeatureTypeByTitle("Test").get(0);
+		
+		processAddFeature.delete(output);
 	}
 
 	@Test
@@ -72,9 +74,11 @@ public class TestProcessAddFeature {
 		processAddFeature.insert(featureTypeValid);
 		
 		assertNotNull(processAddFeature.getFeatureTypes());
+		
+		TrackedFeatureType output = processAddFeature.getFeatureTypeByTitle("Test").get(0);
 
 		database.connect();
-		database.drop(featureTypeValid);
+		database.drop(output);
 		database.disconnect();
 	}
 
@@ -88,9 +92,12 @@ public class TestProcessAddFeature {
 		assertNotNull(processAddFeature.getNextFeature());
 		assertNotNull(processAddFeature.getNextFeature());
 		
+		TrackedFeatureType output = processAddFeature.getFeatureTypeByTitle("Test").get(0);
+		TrackedFeatureType output2 = processAddFeature.getFeatureTypeByTitle("Test2").get(0);
+		
 		database.connect();
-		database.drop(featureTypeValid);
-		database.drop(featureTypeValid2);
+		database.drop(output);
+		database.drop(output2);
 		database.disconnect();
 		
 	}
@@ -105,8 +112,10 @@ public class TestProcessAddFeature {
 		assertNotNull(processAddFeature.getFeatureByID(1));
 		assertNull(processAddFeature.getFeatureByID(-1));
 		
+		TrackedFeatureType output = processAddFeature.getFeatureTypeByTitle("Test").get(0);
+		
 		database.connect();
-		database.drop(featureTypeValid);
+		database.drop(output);
 		database.disconnect();
 	}
 
