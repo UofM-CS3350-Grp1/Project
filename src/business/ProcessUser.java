@@ -15,15 +15,6 @@ public class ProcessUser extends ProcessStorable
 		super();
 	}
 
-	/*
-	 * Stub method - No method in db interface for retrieving a user
-	 */
-	public User getUser()
-	{
-		User theUser = new User(0,"username","password");
-		return theUser;
-	}
-
 	public boolean validateUser(String userName, String password)
 	{
 		boolean isValid = false;
@@ -34,7 +25,6 @@ public class ProcessUser extends ProcessStorable
 			isValid = database.userLogin(userName, password);
 			database.disconnect();
 		}
-		
 		return isValid;
 	}
 }
