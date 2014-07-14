@@ -434,6 +434,16 @@ public class UpdateContractScreenDrawer
 				value += getValueField(i, 1);
 			}
 			
+			//remove all services from the contract and add the new ones
+			Service temp = null;
+			while((temp = processService.getNextService())!=null)
+			{
+				if(temp.getContractID()==contract.getID())
+				{
+					processService.delete(temp);
+				}
+			}
+			
 			//Update the contract's actual data
 			contract.setDetails(inputDetails.getText());
 			contract.setValue(value);

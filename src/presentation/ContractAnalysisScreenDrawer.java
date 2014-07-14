@@ -80,6 +80,8 @@ public class ContractAnalysisScreenDrawer
 	private Label lblDetails;
 	private Label lblServicesInThis;
 	
+	private Button btnBack;
+	
 	private String[] months = {"null", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 	private String[] years = {"2013", "2014", "2015", "2016", "2017", "2018"};
 	
@@ -352,6 +354,20 @@ public class ContractAnalysisScreenDrawer
 		populateServiceData();
 		populateContractData();
 		
+		btnBack = new Button(composite, SWT.NONE);
+		btnBack.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent arg0) 
+			{
+				goBackToPreviousScreen();
+			}
+		});
+		GridData gd_btnBack = new GridData(SWT.LEFT, SWT.LEFT, false, false, 1, 1);
+		gd_btnBack.widthHint = 79;
+		btnBack.setLayoutData(gd_btnBack);
+		btnBack.setText("Back");
+		
 		scrollComposite.setMinSize(contractDataComposite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		scrollComposite.setExpandHorizontal(true);
 		scrollComposite.setExpandVertical(true);
@@ -594,5 +610,15 @@ public class ContractAnalysisScreenDrawer
 				item.setText(3, service.getDescription());
 			}
 		}
+	}
+	
+	/**
+	 * Go back to the previous screen
+	 */
+	protected void goBackToPreviousScreen()
+	{
+		Composite contractScreen = SwitchScreen.getContentContainer();
+		new ContractScreenDrawer( contractScreen );
+		SwitchScreen.switchContent( contractScreen );
 	}
 }
