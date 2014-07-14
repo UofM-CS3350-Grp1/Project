@@ -7,8 +7,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
@@ -28,6 +30,7 @@ public class LoginDrawer
 	
 	@SuppressWarnings("unused")
 	private Shell shell;
+	private Label lblBuzzinDigitalMarketing;
 
 	/**
 	 * Call the constructor with a shell's main component as <container>
@@ -43,68 +46,106 @@ public class LoginDrawer
 
 		// organizer
 		GridLayout compositeLayout = new GridLayout();
-		compositeLayout.numColumns = 2;
-		compositeLayout.makeColumnsEqualWidth = true;
+		compositeLayout.numColumns = 4;
 		composite.setLayout( compositeLayout );
 
 		GridData componentTweaker = null;
 
-		GridData gd_lblFields = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_lblFields.widthHint = 85;
-
+		
+		//Image
+		Display display = Display.getCurrent();
+		Image myImage = new Image( display, "C:/Users/"+System.getProperty("user.name")+"/git/Project/src/Presentation/logo.png" );
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		
+		Label spareTop = new Label(composite, SWT.NONE);
+		GridData gd_spareTop = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_spareTop.heightHint = 88;
+		spareTop.setLayoutData(gd_spareTop);
+		new Label(composite, SWT.NONE);
+		Label x = new Label(composite, SWT.NONE);
+		GridData gd_x = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_x.widthHint = 328;
+		x.setLayoutData(gd_x);
+		
+		new Label(composite, SWT.NONE);
+		Label myLabel = new Label( composite, SWT.NONE );
+		myLabel.setImage( myImage );
+		
+		lblBuzzinDigitalMarketing = new Label(composite, SWT.NONE);
+		lblBuzzinDigitalMarketing.setText("BUZZIN' DIGITAL MARKETING");
+		
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		
+		
+		
+		
 		// username
 		Label lblUser = new Label( composite, SWT.None );
 		lblUser.setText( "User: " );
 		lblUser.setLayoutData( componentTweaker );
-
-		txtUser = new Text( composite, SWT.BORDER );
-		txtUser.setLayoutData( gd_lblFields );
-
-		// password
-		Label lblPass = new Label( composite, SWT.None );
-		lblPass.setText( "Password: " );
-		lblPass.setLayoutData( componentTweaker );
-
-		txtPass = new Text( composite, SWT.BORDER | SWT.PASSWORD );
-		txtPass.setLayoutData( gd_lblFields );
-
-		// login button
-		Button btnLogin = new Button( composite, SWT.None );
-		GridData gd_btnLogin = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_btnLogin.widthHint = 100;
-		btnLogin.setLayoutData(gd_btnLogin);
-		btnLogin.setText( "Login" );
-
-		btnLogin.addSelectionListener(new SelectionAdapter()
-		{
-			@Override
-			public void widgetSelected(SelectionEvent event)
-			{
-				processLoginButton();
-			}
-		});
-
-		// forgot pw button
-		Button btnForgot_1 = new Button( composite, SWT.None );
-		btnForgot_1.setText( "Forgot Password" );
-
-		btnForgot_1.addSelectionListener(new SelectionAdapter()
-		{
-			@Override
-			public void widgetSelected(SelectionEvent event)
-			{
-				processForgotButton();
-			}
-		});
-
+				
+						GridData gd_lblFields = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+						gd_lblFields.widthHint = 85;
+						
+								txtUser = new Text( composite, SWT.BORDER );
+								txtUser.setLayoutData( gd_lblFields );
 		new Label(composite, SWT.NONE);
 		new Label(composite, SWT.NONE);
-
-		// List usernames and pw's for now
-		Label lblLoginInfo = new Label( composite, SWT.None );
-		lblLoginInfo.setText( "\nUsers\tPasswords\n\nAdrian\tpassword\nDell\tpassword\nDerek\tpassword\nJason\tpassword\nKarl\tpassword\nTim\tpassword\n" );
-		lblLoginInfo.setLayoutData( componentTweaker );
+		
+				// password
+				Label lblPass = new Label( composite, SWT.None );
+				lblPass.setText( "Password: " );
+				lblPass.setLayoutData( componentTweaker );
+		GridData gd_lblFields2 = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_lblFields2.widthHint = 85;
+		
+				txtPass = new Text( composite, SWT.BORDER | SWT.PASSWORD );
+				txtPass.setLayoutData( gd_lblFields2 );
 		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		
+				// login button
+				Button btnLogin_1 = new Button( composite, SWT.None );
+				GridData gd_btnLogin_1 = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+				gd_btnLogin_1.widthHint = 60;
+				btnLogin_1.setLayoutData(gd_btnLogin_1);
+				btnLogin_1.setText( "Login" );
+				
+						btnLogin_1.addSelectionListener(new SelectionAdapter()
+						{
+							@Override
+							public void widgetSelected(SelectionEvent event)
+							{
+								processLoginButton();
+							}
+						});
+				
+						// forgot pw button
+						Button btnForgot_1 = new Button( composite, SWT.None );
+						btnForgot_1.setText( "Forgot Password" );
+						
+								btnForgot_1.addSelectionListener(new SelectionAdapter()
+								{
+									@Override
+									public void widgetSelected(SelectionEvent event)
+									{
+										processForgotButton();
+									}
+								});
 	}
 
 	protected void processLoginButton()
