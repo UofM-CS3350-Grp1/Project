@@ -212,8 +212,8 @@ Description:	Grabbed a section of tests\integration\business, completed integrat
 Task: Acceptance Testing
 Date: 7/12, 3:30pm
 Assigned to: Karl
-Status: In progress.
-Duration: 
+Status: Completed
+Duration: 8 hours
 Description:	Acceptance tests
 
 Planned Task: Acceptance Testing
