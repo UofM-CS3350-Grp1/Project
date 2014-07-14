@@ -14,7 +14,6 @@ import objects.PhoneNumber;
 import objects.TrackedFeature;
 import objects.TrackedFeatureType;
 import objects.Client.ClientStatus;
-import persistence.DBInterface;
 
 public class ProcessFeatureHistoryTest
 {
