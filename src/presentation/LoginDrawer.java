@@ -54,7 +54,7 @@ public class LoginDrawer
 		
 		//Image
 		Display display = Display.getCurrent();
-		Image myImage = new Image( display, "C:/Users/"+System.getProperty("user.name")+"/git/Project/src/Presentation/logo.png" );
+		Image myImage = new Image( display, "src/Presentation/logo.png" );
 		new Label(composite, SWT.NONE);
 		new Label(composite, SWT.NONE);
 		
