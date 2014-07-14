@@ -184,10 +184,4 @@ public class TestProcessClient
 		processService.delete(typeNew);
 		processService.delete(serviceNew);
 	}
-
-	@Test
-	public void testGetNextClientService() {
-		fail("Not yet implemented");
-	}
-
 }
