@@ -50,7 +50,7 @@ public class TestAccessFinancialRecords
 		processContract = new ProcessContract();
 		
 		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.MONTH, -1);
+		cal.add(Calendar.MONTH, -2);
 		serviceType = new ServiceType("Type", "Description");
 		contract = new Contract(processContract.getUnusedContractID(), "Biz", "details", 50.0, new Date(), cal.getTime(), cal.getTime());
 		phone = new PhoneNumber("2049601538");
