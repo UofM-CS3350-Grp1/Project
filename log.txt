@@ -29,6 +29,33 @@ TODO(Jason):
 TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: Build scripts
+Date: 7/14, 3:15am
+Assigned to: Tim
+Status: Completed.
+Duration: 10 minutes
+Description:	Added RunTests script to run all the tests and output the results to a single file.
+				Cleaned up the other test scripts.
+				Ensured remaining scripts work correctly.
+				
+
+Task: Bug fixing, Refactoring, etc.
+Date: 7/14, 1:00am
+Assigned to: Tim
+Status: Completed.
+Duration: 2 hours
+Description:	Squashed various bugs dealing with null guards and missing data.
+				Fixed issues with integration tests and SQL errors.
+				Enforced common coding style.
+				
+				
+Task: Integration tests
+Date: 7/14 11:30 pm
+Assigned to: Tim
+Status: Completed
+Duration: 1 hour
+Description:	Created and tested integration tests.
+
 
 Task: Refactoring integration tests
 Date: 7/14 1:30 am
@@ -174,6 +201,11 @@ Description:	Added test suite to business layer objects.
 				Fixed bugs introduced with removing the details field from feature types.
 				Cleaned up code, added missing null/ invalid guards, etc.
 				Updated build scripts to include missing classes and output to files.
+				
+				
+Planned Task: Business object test suite
+Planned dev duration: 4 hours
+Assigned to: Tim
 
 
 Task: Fix bugs
@@ -207,6 +239,10 @@ Assigned to: Tim
 Status: In progress.
 Duration: 30 minutes
 Description:	Converted services to use service types for performance analysis.
+
+Planned Task: Service and Feature change conversion
+Planned dev duration: 2 hours
+Assigned to: Tim
 
 Planned Task: Fix bugs
 Planned dev duration: 2.5hr
@@ -335,6 +371,10 @@ Assigned to: Jason
 Status: Completed
 Duration: 6 hours
 Description:	Generic breakdown tables completed for the most part
+
+Planned Task: Performance tracking analysis
+Planned dev duration: 5 hours
+Assigned to: Tim
 
 Task: Refactoring Domain Objects / Tables, Fixing Bugs, Queries
 Date: 07/04
