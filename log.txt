@@ -29,6 +29,12 @@ TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
 
+Task: Contrat editting bug fixed
+Date: 7/14, 11:45am
+Assigned to: Jason
+Status: Completed
+Duration: 5 minutes
+Description: removing and adding services to contracts bug is fixed. Working properly now.
 
 
 Task: Build scripts
