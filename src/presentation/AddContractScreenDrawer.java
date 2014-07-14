@@ -284,6 +284,7 @@ public class AddContractScreenDrawer
 				multiplier = getMultiplier(end, start);
 			}
 			contract = new Contract(newID, combo.getText(), inputDetails.getText(), value, end, start, start);
+			contract.setStatus(comboStatus.getText());
 			processContract.insert(contract);
 			
 			value = 0;

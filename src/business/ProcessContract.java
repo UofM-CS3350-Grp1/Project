@@ -207,25 +207,6 @@ public class ProcessContract extends ProcessStorable
 	}
 	
 	/**
-	 * @return contract The number of services in this contract
-	 */
-	public int getNumberOfServices(Contract contract)
-	{
-		int result = 0;
-		ArrayList<Service> services;
-		
-		if(contract != null)
-		{
-			services = contract.getServices();
-			
-			if(services != null)
-				result = services.size();
-		}
-		
-		return result;
-	}
-	
-	/**
 	 * @return the dollar amount of all contracts collectively
 	 */
 	public double getTotalContractsValue()
