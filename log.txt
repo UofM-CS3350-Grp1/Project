@@ -29,6 +29,9 @@ TODO(Jason):
 TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+
+
+
 Task: Build scripts
 Date: 7/14, 3:15am
 Assigned to: Tim
@@ -70,6 +73,16 @@ Assigned to: Jason
 Status: Completed
 Duration: 2hr
 Description: 	- added a logo, centered the options a bit
+
+Task: Integration Class Cleanup
+Date: 7/13
+Assigned to: Adrian
+Status COmpleted
+Duration: 4 hours
+Expected: 4 Hours
+Description:	- Fixing errors in Inetgration tests.
+				- Ensuring tests run scessfully together
+				- Tracking down problem tests.
 
 Task: Integration tests
 Date: 7/13 6:30 pm
@@ -152,6 +165,7 @@ Date: 7/10-7/13
 Assigned to: Adrian
 Status: In progress.
 Duration: 4-6 hours.
+Estimated Time: 4 Hours
 Description:	- Fixed bugs. Handled edge cases.
 				- Rewrote queries.
 				- Re-populated tables.
@@ -307,10 +321,15 @@ Date: 07/06
 Assigned to: Adrian
 Status: In Progress
 Duration: 3 hours
+Estimated Time: 3 Hours
 Description:	- Split persistence interface into appropriate modules.
 				- Wrote queries.
 				- Populated tables.
 				- Wrote persistence tests.
+				
+Planned Task: Refactor DBInterface
+Planned dev duration: 5hrs
+Assigned to: Adrian
 
 Task: Testing 
 Date: 7/06, 9:30pm
@@ -363,6 +382,7 @@ Date: 07/06
 Assigned To: Derek/Adrian
 Status: Competed
 Duration: 1 Hour
+Estimated Time: 10 mins
 Description:	- Basic queries for expenses.
 				- Added Derek's user table.
 				- Simple untested login.
@@ -413,6 +433,7 @@ Date: 07/04
 Assigned To: Adrian
 Status: Completed
 Dration: 12 Hours.
+Estimated Time: 8 Hours
 Description:	- Completed request to move expenses into its own table/do
 				- Expenses is now its own table with relationship to services
 				- Basic queries INC
@@ -426,6 +447,7 @@ Date: 07/04
 Assigned To: Adrian
 Status: Completed
 Dration: 2 Hours
+Estimated Time: 1 Hour
 Description:	-Added start date to contracts
 				-Added supplier to features for Expense type objects.
 				-Removed unused foreign keys on FeatureHistory
@@ -446,6 +468,7 @@ Task: Cleanup of Domain Objects & Persistence Testing
 Date: 7/4/2014
 Status: Completed
 Duration: 2 Hours
+Estimated Time: 1 Hour
 Description: - Domain objects now passing all persistence tests.
 			 - Will move onto object/business tests once potential bugs in
 			 new code are resolved.
@@ -464,6 +487,7 @@ Date: 7/3/2014
 Assigned to: Adrian
 Status: Completed
 Duration: 5 1/2 Hours
+Estimated Time: 4 Hours
 Description: - Completed the refactoring of Feature/Service/Contract domain objects.
 			 - Added ServiceType anf TrackedFeatureType objects.
 			 - The domain objects are UGLY and will need to be cleaned up/refactored.
@@ -481,6 +505,12 @@ Description: - Completed the refactoring of Feature/Service/Contract domain obje
 			 WHEN WILL THIS TAKE EFFECT:
 			 	- I will push the new domain objects at 5pm tomorrow evening.
 #############IMPORTANT#############
+
+
+Planned Task: Refactor Domain Objects
+Planned dev duration: 10hrs
+Assigned to: Adrian
+
 
 
 
