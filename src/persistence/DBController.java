@@ -158,21 +158,15 @@ public class DBController
 				String protectedStr = null;
 				for(int i = 1 ; i < fields.size()-1; i ++)
 				{
-					protectedStr = objectIndexes.get( i );
-					if(protectedStr != null)
+					if(objectIndexes.get(i) != null)
 					{
+						protectedStr = objectIndexes.get( i );
 						protectedStr = protectedStr.replaceAll( "'", "''" );
 					}
 					modify += "'" + protectedStr + "',\n";
 				}
 				
-				protectedStr = objectIndexes.get( fields.size() -1 );
-				if(protectedStr != null)
-				{
-					protectedStr = protectedStr.replaceAll( "'", "''");
-				}
-				
-				modify += "'" + protectedStr + "')";
+				modify += "'"+objectIndexes.get(fields.size()-1)+"')";
 				
 				if(SQL_DEBUGGING == 1)
 					System.out.println(modify);
@@ -250,17 +244,12 @@ public class DBController
 				modify = "UPDATE " + table + "\nSET \n";
 				
 				//Modify everything except for first index (ROW_ID)
-				String protectedString = null;
 				for(int i = 1 ; i < fields.size()-1; i ++)
 				{
-					protectedString = objectIndexes.get( i );
-					protectedString = protectedString.replaceAll( "'", "''" );
-					modify += fields.get(i) +" = '"+protectedString + "',\n";
+					modify += fields.get(i) +" = '"+objectIndexes.get(i) + "',\n";
 				}
 				
-				protectedString = objectIndexes.get( fields.size() -1 );
-				protectedString = protectedString.replaceAll( "'", "''" );
-				modify += fields.get(fields.size()-1) + " = '" + protectedString + "'\n";
+				modify += fields.get(fields.size()-1) +" = '"+objectIndexes.get(fields.size()-1)+"'\n";
 				
 				modify += "WHERE\nROW_ID = " + element.getID();
 				
@@ -699,7 +688,6 @@ public class DBController
 			}
 			catch(Exception e)
 			{
-				output = false;
 				errorOutput(e);
 			}
 		}
