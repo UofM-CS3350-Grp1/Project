@@ -158,16 +158,20 @@ public class DBController
 				String protectedStr = null;
 				for(int i = 1 ; i < fields.size()-1; i ++)
 				{
-					if(objectIndexes.get(i) != null)
+					protectedStr = objectIndexes.get( i );
+					if(protectedStr != null)
 					{
-						protectedStr = objectIndexes.get( i );
 						protectedStr = protectedStr.replaceAll( "'", "''" );
 					}
 					modify += "'" + protectedStr + "',\n";
 				}
 				
 				protectedStr = objectIndexes.get( fields.size() -1 );
-				protectedStr = protectedStr.replaceAll( "'", "''");
+				if(protectedStr != null)
+				{
+					protectedStr = protectedStr.replaceAll( "'", "''");
+				}
+				
 				modify += "'" + protectedStr + "')";
 				
 				if(SQL_DEBUGGING == 1)
@@ -695,6 +699,7 @@ public class DBController
 			}
 			catch(Exception e)
 			{
+				output = false;
 				errorOutput(e);
 			}
 		}
