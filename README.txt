@@ -8,7 +8,7 @@ GenerateGraphTest		- CLEAR
 
 ProcessContractTest		- INTEGRITY ERRORS
 
-ProcessExpensesTest			- INTEGRITY ERRORS
+ProcessExpensesTest			- CLEAR
 
 Process Feature History Test		- CLEAR
 

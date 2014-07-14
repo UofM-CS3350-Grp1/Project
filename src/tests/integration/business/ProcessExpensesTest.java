@@ -141,7 +141,7 @@ public class ProcessExpensesTest
 		assertTrue(processExpense.insertExpense(expense));
 		assertTrue(processExpense.getExpensesByClient(client)>=0);
 
-		processService.delete(actual);
 		processService.delete(tempS);
+		processService.delete(actual);
 	}
 }
