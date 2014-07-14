@@ -39,7 +39,9 @@ public class ProcessServiceTest {
 		Client client = new Client("Nickelback", phone, email, "1221BlirstSt", "Nickelback", ClientStatus.Active);
 		assertTrue(processClient.insert(client));
 		int clientID = processClient.getClientByBusinessName("Nickelback").getID();
-
+		Client dropClient = processClient.getClientByBusinessName("Nickelback");
+		ServiceType deleteService = null;
+		
 		Contract contract = new Contract("Nickelback", "A band", 1000000.01, new Date(1402194845), new Date(1402194845),new Date(1402194845));
 		ProcessContract processContract = new ProcessContract();
 		assertTrue(processContract.insert(contract));
@@ -66,7 +68,10 @@ public class ProcessServiceTest {
 		for (int i = 0; i < serviceTypes.size() && theType == null; i++)
 		{
 			if (serviceTypes.get(i).getDescription().equals("myDescription"))
+			{
 				theType = serviceTypes.get(i);
+				deleteService = serviceTypes.get(i);
+			}
 		}
 		assertNotNull(theType);
 
@@ -80,10 +85,10 @@ public class ProcessServiceTest {
 		Service theService = processService.getNextService();
 		assertNotNull(theService);
 
-		processService.delete(serviceType);
-		processClient.delete(client);
-		processContract.delete(contract);
-		processService.delete(theService);
+		
+		processClient.delete(dropClient);
+		processService.delete(deleteService);
+		//processService.delete(theService);
 	}
 
 	@Test
@@ -96,6 +101,8 @@ public class ProcessServiceTest {
 		Client client = new Client("Creed", phone, email, "1221BlirstSt", "Creed", ClientStatus.Active);
 		assertTrue(processClient.insert(client));
 		int clientID = processClient.getClientByBusinessName("Creed").getID();
+		Client dropClient = processClient.getClientByBusinessName("Creed");
+		ServiceType deleteService = null;
 
 		Contract contract = new Contract("Creed", "A band", 1000000.01, new Date(1402194845), new Date(1402194845),new Date(1402194845));
 		ProcessContract processContract = new ProcessContract();
@@ -123,7 +130,10 @@ public class ProcessServiceTest {
 		for (int i = 0; i < serviceTypes.size() && theType == null; i++)
 		{
 			if (serviceTypes.get(i).getDescription().equals("myDescription"))
+			{
 				theType = serviceTypes.get(i);
+				deleteService = serviceTypes.get(i);
+			}
 		}
 		assertNotNull(theType);
 
@@ -140,10 +150,10 @@ public class ProcessServiceTest {
 		Service myService2 = processService.getServiceByID(myService1.getID());
 		assertNotNull(myService2);
 
-		processService.delete(serviceType);
-		processClient.delete(client);
-		processContract.delete(contract);
-		processService.delete(theService);
+		processClient.delete(dropClient);
+		processService.delete(deleteService);
+		//processContract.delete(contract);
+		//processService.delete(theService);
 	}
 
 	@Test
@@ -156,6 +166,8 @@ public class ProcessServiceTest {
 		Client client = new Client("Rush", phone, email, "1221BlirstSt", "Rush", ClientStatus.Active);
 		assertTrue(processClient.insert(client));
 		int clientID = processClient.getClientByBusinessName("Rush").getID();
+		Client dropClient = processClient.getClientByBusinessName("Rush");
+		ServiceType deleteService = null;
 
 		Contract contract = new Contract("Rush", "A band", 1000000.01, new Date(1402194845), new Date(1402194845),new Date(1402194845));
 		ProcessContract processContract = new ProcessContract();
@@ -183,7 +195,10 @@ public class ProcessServiceTest {
 		for (int i = 0; i < serviceTypes.size() && theType == null; i++)
 		{
 			if (serviceTypes.get(i).getDescription().equals("myDescription"))
+			{
 				theType = serviceTypes.get(i);
+				deleteService = serviceTypes.get(i);
+			}
 		}
 		assertNotNull(theType);
 
@@ -197,10 +212,11 @@ public class ProcessServiceTest {
 		Service myService = processService.getServiceByTitle(title);
 		assertNotNull(myService);
 
-		processService.delete(serviceType);
-		processClient.delete(client);
-		processContract.delete(contract);
-		processService.delete(theService);
+		
+		processClient.delete(dropClient);
+		processService.delete(deleteService);
+		//processContract.delete(contract);
+		//processService.delete(theService);
 	}
 
 	@Test
@@ -211,31 +227,30 @@ public class ProcessServiceTest {
 
 		ArrayList<ServiceType> serviceTypes = processService.getServiceTypes();
 		assertNotNull(serviceTypes);
+		ServiceType deleteService = null;
 
 		ServiceType theType = null;
 		for (int i = 0; i < serviceTypes.size() && theType == null; i++)
 		{
 			if (serviceTypes.get(i).getDescription().equals("myDescription"))
+			{
 				theType = serviceTypes.get(i);
+				deleteService = serviceTypes.get(i);
+			}
 		}
 		assertNotNull(theType);
 
 		ServiceType myType = processService.getServiceTypeByID(theType.getID());
 		assertNotNull(myType);
 
-		processService.delete(serviceType);
+		processService.delete(deleteService);
 	}
 
 	@Test
 	public void getServiceTypesTest()
 	{
-		ServiceType serviceType = new ServiceType("myType", "myDescription");
-		assertTrue(processService.insert(serviceType));
-
 		ArrayList<ServiceType> serviceTypes = processService.getServiceTypes();
 		assertNotNull(serviceTypes);
-
-		processService.delete(serviceType);
 	}
 }
 

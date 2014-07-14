@@ -12,7 +12,7 @@ ProcessExpensesTest			- INTEGRITY ERRORS
 
 Process Feature History Test		- CLEAR
 
-ProcessServiceTest			- DELETE ERRORS ONLY, CHECK YOUR ROW VALUES
+ProcessServiceTest			- CLEAR
 
 TestAccessFinancialRecords		- INTEGRITY ERRORS
 
