@@ -419,30 +419,30 @@ public class UpdateContractScreenDrawer
 			{
 				value += getValueField(i, 1);
 			}
+			
 			System.out.println("Contract value calculated");
-
 			System.out.println("trying to update contract");
+			
 			//Update the contract's actual data
 			contract.setDetails(inputDetails.getText());
 			contract.setValue(value);
 			contract.setPeriod(dateEnd);
 			System.out.println("contract updated");
 			
-			if(combo.getText()=="Signed")
-			{
+			if(combo.getText().equals("Signed") && !contract.getStatus().equals("Signed"))
 				contract.setSignedDate(today);
-			}
+
+			contract.setStatus(combo.getText());
+			
 			System.out.println("before inserting contract");
 			if(processContract.update(contract))
-			{				
-
+			{
 				System.out.println("after updating contract");
 				//Add/ update the services in the services list
 				for(int i = 0; i < totalNumServices; i++)
 				{
 					id = Integer.parseInt(contractTable.getItem(i).getText(0));
 					ServiceType serviceType = processService.getServiceTypeByID(id);
-					
 					
 					if(serviceType != null)
 					{
@@ -569,6 +569,7 @@ public class UpdateContractScreenDrawer
 		}
 		
 		inputDetails.setText(contract.getDetails());
+		
 	}
 	
 	/**
@@ -622,8 +623,22 @@ public class UpdateContractScreenDrawer
 	 */
 	public void populateContractFields()
 	{
-		//lblClientNameData.setText(client.getBusinessName());
+		String[] options = combo.getItems();
+		boolean found = false;
+		
 		lblValueData.setText(String.format("$%8.2f", contract.getValue()));
+		
+		for(int i = 0; i < options.length && !found; i++)
+		{
+			if(options[i].equals(contract.getStatus()))
+			{
+				found = true;
+				combo.select(i);
+			}
+		}
+		
+		if(!found)
+			combo.select(0);
 	}
 	
 	/**
