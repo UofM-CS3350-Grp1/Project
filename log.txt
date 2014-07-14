@@ -201,7 +201,15 @@ Status: Complete
 Duration: 2 hrs
 Description:	Any SQL injection that attempts to use an apostrophe will fail
 				No text fields will accept apostrophes though...
-				 
+
+Planned Task: Secure Log In
+Planned dev duration: 1 - 2 hours
+Assigned to: Dell
+
+Planned Task: Penetration Testing
+Planned dev duration: 2 - 3 hours
+Assigned to: Dell
+
 Task: Integration Testing
 Date: 7/12 - 7/13
 Assigned to: Derek
