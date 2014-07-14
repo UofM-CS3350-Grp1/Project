@@ -166,7 +166,9 @@ public class DBController
 					modify += "'" + protectedStr + "',\n";
 				}
 				
-				modify += "'"+objectIndexes.get(fields.size()-1)+"')";
+				protectedStr = objectIndexes.get( fields.size() -1 );
+				protectedStr = protectedStr.replaceAll( "'", "''");
+				modify += "'" + protectedStr + "')";
 				
 				if(SQL_DEBUGGING == 1)
 					System.out.println(modify);
@@ -252,7 +254,9 @@ public class DBController
 					modify += fields.get(i) +" = '"+protectedString + "',\n";
 				}
 				
-				modify += fields.get(fields.size()-1) +" = '"+objectIndexes.get(fields.size()-1)+"'\n";
+				protectedString = objectIndexes.get( fields.size() -1 );
+				protectedString = protectedString.replaceAll( "'", "''" );
+				modify += fields.get(fields.size()-1) + " = '" + protectedString + "'\n";
 				
 				modify += "WHERE\nROW_ID = " + element.getID();
 				
