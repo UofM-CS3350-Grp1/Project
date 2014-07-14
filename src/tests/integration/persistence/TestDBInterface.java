@@ -169,9 +169,6 @@ public class TestDBInterface
 		//updateList
 		for(int i = 0; i < 5; i++)
 		{
-			Contract conCon = mainFace.getContractByID(3);
-			conCon.setBusinessName("UPDATEDBUSINESS");
-			conList.add(conCon);
 			Service serSer = mainFace.getServiceByID(3);
 			serSer.setDescription("UPDATEDESRIPTION");
 			serList.add(serSer);
@@ -186,17 +183,14 @@ public class TestDBInterface
 		//insertList
 		for(int i = 0; i < 5; i++)
 		{
-			conList.add(new Contract(500+i, "TESTBUSINESS", "NODETAILS", 4.1, new Date(),"Head","Foot", new Date(), new Date(),"Pending"));
 			serList.add(new Service(500+i,"shhad", "dasdsh", 4.33, 4, 2, mainFace.getServiceTypeByID(1),"ContractBody"));
 			traList.add(new TrackedFeature("Lobslawbombs",2 ,mainFace.getTrackedFeatureTypeByID(2), new Date(), 4.0));
 			cliList.add(new Client(500+i, "NAME", new PhoneNumber("2222222222"), new Email("cat@catcat.com"), "ADDR", "NAME", 1));
 		}
 		
-		assertNotNull(mainFace.batchMerge(conList));
 		assertNotNull(mainFace.batchMerge(serList));
 		assertNotNull(mainFace.batchMerge(traList));
 		assertNotNull(mainFace.batchMerge(feaList));
-		assertNotNull(mainFace.batchMerge(cliList));
 		
 		mainFace.disconnect();
 	}
