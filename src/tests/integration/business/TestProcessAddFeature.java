@@ -2,7 +2,6 @@ package tests.integration.business;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import objects.Client;
@@ -22,8 +21,8 @@ import business.ProcessAddFeature;
 import business.ProcessClient;
 import persistence.DBInterface;
 
-public class TestProcessAddFeature {
-	
+public class TestProcessAddFeature
+{
 	DBInterface database = new DBInterface("MainDB");
 	TrackedFeatureType featureTypeValid = new TrackedFeatureType("Test");
 	TrackedFeatureType featureTypeValid2 = new TrackedFeatureType("Test2");
@@ -44,17 +43,16 @@ public class TestProcessAddFeature {
 	}
 	
 	@Test
-	public void testProcessAddFeature() {
-		ProcessAddFeature processAddFeature = new ProcessAddFeature();
-		
+	public void testProcessAddFeature() 
+	{
+		ProcessAddFeature processAddFeature = new ProcessAddFeature();		
 		assertNotNull(processAddFeature);
 	}
 
 	@Test
-	public void testGetFeatureTypeByTitle() {
-
-		ProcessAddFeature processAddFeature = new ProcessAddFeature();
-		
+	public void testGetFeatureTypeByTitle() 
+	{
+		ProcessAddFeature processAddFeature = new ProcessAddFeature();		
 		processAddFeature.insert(featureTypeValid);
 
 		assertEquals(featureTypeValid.getTitle(), processAddFeature.getFeatureTypeByTitle("Test").get(0).getTitle());
@@ -67,8 +65,8 @@ public class TestProcessAddFeature {
 	}
 
 	@Test
-	public void testGetFeatureTypes() {
-
+	public void testGetFeatureTypes() 
+	{
 		ProcessAddFeature processAddFeature = new ProcessAddFeature();
 		
 		processAddFeature.insert(featureTypeValid);
@@ -83,7 +81,8 @@ public class TestProcessAddFeature {
 	}
 
 	@Test
-	public void testGetNextFeature() {
+	public void testGetNextFeature()
+	{
 		ProcessAddFeature processAddFeature = new ProcessAddFeature();
 		
 		processAddFeature.insert(featureTypeValid);
@@ -103,10 +102,9 @@ public class TestProcessAddFeature {
 	}
 
 	@Test
-	public void testGetFeatureByID() {
-
-		ProcessAddFeature processAddFeature = new ProcessAddFeature();
-		
+	public void testGetFeatureByID() 
+	{
+		ProcessAddFeature processAddFeature = new ProcessAddFeature();		
 		processAddFeature.insert(featureTypeValid);
 
 		assertNotNull(processAddFeature.getFeatureByID(1));
@@ -120,8 +118,8 @@ public class TestProcessAddFeature {
 	}
 
 	@Test
-	public void testGetFeaturesByClient() {
-		
+	public void testGetFeaturesByClient() 
+	{
 		Client client = new Client("Bill", new PhoneNumber("2045551326"), new Email("bill@test.com"), "San Dimas", "Wyld Stallyns", ClientStatus.Active);
 
 		ProcessAddFeature processAddFeature = new ProcessAddFeature();
@@ -145,5 +143,4 @@ public class TestProcessAddFeature {
 		processClient.delete(client);
 		database.disconnect();
 	}
-
 }
