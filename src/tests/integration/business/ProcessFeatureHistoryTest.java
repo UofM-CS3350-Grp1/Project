@@ -5,7 +5,11 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 
 import business.ProcessFeatureHistory;
 import business.ProcessClient;
@@ -23,6 +27,21 @@ public class ProcessFeatureHistoryTest
 	private ProcessFeatureHistory processFeatureHistory; 
 	private ProcessClient processClient;
 	private ProcessAddFeature processAddFeature;
+	
+	@Rule
+	public TestName testName = new TestName();
+	
+	@Before
+	public void before()
+	{
+		System.out.println("Running test: " + this.getClass().toString() + "::" + testName.getMethodName());
+	}
+	
+	@After
+	public void after()
+	{
+		System.out.println("Finished test.\n");
+	}
 
 	public ProcessFeatureHistoryTest()
 	{
@@ -101,7 +120,6 @@ public class ProcessFeatureHistoryTest
 
 		processClient.delete(theClient);
 		processAddFeature.delete(myFeatureType);
-		//processAddFeature.delete(theFeature);
 	}
 
 	@Test
@@ -137,7 +155,6 @@ public class ProcessFeatureHistoryTest
 
 		processClient.delete(theClient);
 		processAddFeature.delete(myFeatureType);
-		//processAddFeature.delete(theFeature);
 	}
 
 	@Test
