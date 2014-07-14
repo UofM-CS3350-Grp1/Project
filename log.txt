@@ -29,6 +29,13 @@ TODO(Jason):
 TODO(Adrian):
 
 -------------------------ADD NEW TASKS HERE------------------------------------------------------
+Task: New User Injection Patch
+Date: 7/13 7:30 pm
+Assigned to: Dell
+Status: Complete
+Duration: 20 minutes
+Description:	- update screens should now be protected from user injections
+
 Task: SQL Injection Patch
 Date: 7/13 7:03 pm
 Assigned to: Dell

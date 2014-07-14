@@ -244,9 +244,12 @@ public class DBController
 				modify = "UPDATE " + table + "\nSET \n";
 				
 				//Modify everything except for first index (ROW_ID)
+				String protectedString = null;
 				for(int i = 1 ; i < fields.size()-1; i ++)
 				{
-					modify += fields.get(i) +" = '"+objectIndexes.get(i) + "',\n";
+					protectedString = objectIndexes.get( i );
+					protectedString = protectedString.replaceAll( "'", "''" );
+					modify += fields.get(i) +" = '"+protectedString + "',\n";
 				}
 				
 				modify += fields.get(fields.size()-1) +" = '"+objectIndexes.get(fields.size()-1)+"'\n";
