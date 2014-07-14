@@ -2,6 +2,7 @@ package tests.integration.business;
 
 import static org.junit.Assert.*;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import org.eclipse.swt.widgets.DateTime;
@@ -37,7 +38,9 @@ public class TestDateTimeUtil {
 	public void testGetDateLong() {
 		date = new DateTimeUtil();
 		dateTime = date.getDate(2014, 07, 27, 10, 30, 30);
-		Date newDate = new Date(2014, 07, 27, 10, 30, 30);
+		Calendar newCal = Calendar.getInstance();
+		newCal.set(2014, 07, 27, 10, 30, 30);
+		Date newDate = newCal.getTime();
 		assertEquals(newDate, dateTime);
 	}
 

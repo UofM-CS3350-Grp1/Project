@@ -7,7 +7,7 @@ import objects.Storable;
 
 public class NewDBInterface
 {
-	public static final String DATABASE_NAME = "MainDB";
+	public static final String DATABASE_NAME = "CacheDB";
 	public static final String DATE_FORMAT = "yyyy-MM-dd";
 	
 	protected DBController mainDB;

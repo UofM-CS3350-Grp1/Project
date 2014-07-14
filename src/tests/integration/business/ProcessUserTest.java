@@ -4,34 +4,28 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import persistence.DBInterface;
 import business.ProcessUser;
+import objects.User;
 
-// TO DO:  Derek
 public class ProcessUserTest {
 
-	private DBInterface database;
 	private ProcessUser processUser; 
 
 	public ProcessUserTest()
 	{
 		processUser = new ProcessUser();
-		database = new DBInterface("db");
 	}
 
 	@Test
-	public void processUserTest() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void getUserTest() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void validateUserTest() {
-		fail("Not yet implemented");
+	public void validateUserTest()
+	{
+		int id = 0;
+		String name = "George";
+		String password = "foreman";
+		User newUser = new User(id, name, password);
+		assertTrue(processUser.insert(newUser));
+		assertTrue(processUser.validateUser(name, password));
+		processUser.delete(newUser);
 	}
 
 }

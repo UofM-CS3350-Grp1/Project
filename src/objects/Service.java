@@ -77,7 +77,7 @@ public class Service implements Storable, Trackable
 			this.title = title;
 			this.description = description;
 			this.rate = rate;
-			this.id = 0;;
+			this.id = 0;
 			this.tableName = "SERVICES";
 			this.clientID = -1;
 			this.contractID = -1;

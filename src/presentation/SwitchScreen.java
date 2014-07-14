@@ -373,6 +373,8 @@ public class SwitchScreen
 				Composite loginScreen = SwitchScreen.getContentContainer();
 				new LoginDrawer( loginScreen );
 				SwitchScreen.switchContent( loginScreen );
+				
+				eraseBackHistory();
 			}
 		});
 		
@@ -551,6 +553,10 @@ public class SwitchScreen
 		content.layout();
 	}
 
+	/* PACKAGE */ static void eraseBackHistory() {
+		backStack.clear();
+	}
+	
 	/**
 	 * Back button functionality
 	 */
