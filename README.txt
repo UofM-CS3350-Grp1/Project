@@ -61,4 +61,4 @@ Major changes this iteration:
 	
 Outstanding issues:
 	Piecharts only show expenses if contract is signed, should also show when contract is cancelled or terminated
-	
+	Deleting a FeatureType should delete all Features referencing the FeatureType
