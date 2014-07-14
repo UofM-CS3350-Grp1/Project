@@ -195,17 +195,7 @@ public class JCCSurveyScreenDrawer
 												
 						feature = new TrackedFeature(txtDetails.getText(), client.getID(), featureType, date, Double.parseDouble(txtValue.getText()));						
 						inserted = processFeature.insert(feature);
-								
-						// These println's starting here can be removed once successful processing is verified
-						if (inserted)
-						{
-							System.out.println("\nSurvey Info Add: SUCCESS\n");
-						}else{
-							System.out.println("\nSurvey Info Add: FAIL\n");
-						}
-						System.out.println("\nTrackedFeature Object (feature):\nfeature.getClientKey(): " + feature.getClientKey() + "\nfeature.getID(): " + feature.getID() + "\nfeature.getNotes(): " + feature.getNotes() + "\nfeature.getTableName(): " + feature.getTableName() + "\nfeature.getTrackedFeatureType().toString(): " + feature.getTrackedFeatureType().toString());
-						// Up to here
-						
+
 						if(inserted)
 							goBackToJCCScreen();
 						else
