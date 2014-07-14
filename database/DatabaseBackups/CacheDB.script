@@ -63,4 +63,3 @@ INSERT INTO USERS VALUES(3,'Derek','password')
 INSERT INTO USERS VALUES(4,'Jason','password')
 INSERT INTO USERS VALUES(5,'Karl','password')
 INSERT INTO USERS VALUES(6,'Tim','password')
-
