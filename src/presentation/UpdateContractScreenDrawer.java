@@ -251,6 +251,8 @@ public class UpdateContractScreenDrawer
 			for(int i = index; i < Contract.STATUS_TYPE.length; i++)
 				combo.add(Contract.STATUS_TYPE[i]);
 		}
+		else if(index >= 2 && index < Contract.STATUS_TYPE.length)
+			combo.add(Contract.STATUS_TYPE[index]);
 
 		populateContractFields();
 		populateContractTable();
