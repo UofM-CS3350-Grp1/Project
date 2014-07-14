@@ -8,10 +8,13 @@ import objects.Service;
 import objects.TrackedFeatureType;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.layout.GridData;
@@ -53,6 +56,8 @@ public class ClientAnalysisScreenDrawer
 	private Label lblRevenue;
 	private Label lblExpensesToDate;
 	private Label lblExpenses;
+	
+	private Button btnBack;
 		
 	/**
 	 * Creates a new client analysis screen
@@ -205,6 +210,20 @@ public class ClientAnalysisScreenDrawer
 		populateServiceData();
 		generateAnalytics();
 		
+		btnBack = new Button(composite, SWT.NONE);
+		btnBack.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent arg0) 
+			{
+				goBackToPreviousScreen();
+			}
+		});
+		GridData gd_btnBack = new GridData(SWT.LEFT, SWT.LEFT, false, false, 1, 1);
+		gd_btnBack.widthHint = 79;
+		btnBack.setLayoutData(gd_btnBack);
+		btnBack.setText("Back");
+		
 		scrollComposite.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		scrollComposite.setExpandHorizontal(true);
 		scrollComposite.setExpandVertical(true);
@@ -340,5 +359,15 @@ public class ClientAnalysisScreenDrawer
 				chartComp.setLayoutData(gd_chartComposite);
 			}
 		}
+	}
+	
+	/**
+	 * Go back to the previous screen
+	 */
+	protected void goBackToPreviousScreen()
+	{
+		Composite clientScreen = SwitchScreen.getContentContainer();
+		new ClientScreenDrawer( clientScreen );
+		SwitchScreen.switchContent( clientScreen );
 	}
 }
